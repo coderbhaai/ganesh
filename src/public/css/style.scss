@@ -1,6 +1,8 @@
 @import '_bootstrap';
 @import '_swiper';
-
+.logout:hover, .dropdown-item:hover, .closeModal:hover, .editIcon:hover{
+   cursor: pointer;
+}
 .amitBtn{
    color: #fff;
    background: $action;
@@ -14,7 +16,13 @@
    font-size: 1rem;
    line-height: 2;
    border-radius: 0.25rem;
+   min-width: 150px;
    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.heading{
+   text-align: center;
+   margin: 2em 0 1em 0;
+   font-size: 2em;
 }
 .header-social{
    display: inline-flex;
@@ -32,9 +40,6 @@
    a{
       color: #fff;
    }
-}
-.navbar-collapse{
-   display: flex;
 }
 footer{
    h3{
@@ -256,4 +261,8 @@ footer{
       justify-content: space-evenly;
       align-items: center;
    }
+}
+.my-div{
+   text-align: center;
+   padding: 1em 0;
 }

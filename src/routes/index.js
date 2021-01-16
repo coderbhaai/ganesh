@@ -2,7 +2,7 @@ import express from "express";
 import React from "react";
 import { renderToString } from "react-dom/server"
 import "regenerator-runtime/runtime.js"
-import Index from "../pages/index/Index"
+
 
 import { decode } from "jsonwebtoken"
 
@@ -10,21 +10,30 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
 
-// var bodyParser = require('body-parser')
-
-// router.use(bodyParser.json())
-
-// var cookieParser = require('cookie-parser')
-// router.use(cookieParser())
-
-// router.use(bodyParser.urlencoded({ extended: true }))
 const nodemailer = require("nodemailer");
 var pool = require('./mysqlConnector');
 
-// router.use('/auth', require('./auth'))
-// router.use('/admin', require('./admin'))
+router.use('/auth', require('./auth'))
+router.use('/admin', require('./admin'))
 
 const asyncMiddleware = require('./asyncMiddleware');
+const func = require('./functions')
+import Index from "../pages/index/Index"
+
+import Register from "../pages/auth/Register"
+import Login from "../pages/auth/Login"
+import ForgotPassword from "../pages/auth/ForgotPassword"
+import ResetPassword from "../pages/auth/ResetPassword"
+
+import AdminUser from "../pages/admin/User"
+import AdminContacts from "../pages/admin/AdminContacts"
+import AdminBlogMeta from "../pages/admin/AdminBlogMeta"
+import AdminBlogs from "../pages/admin/AdminBlogs"
+import AddBlog from "../pages/admin/AddBlog"
+import UpdateBlog from "../pages/admin/UpdateBlog"
+import AdminMeta from "../pages/admin/Meta"
+import AdminComments from "../pages/admin/AdminComments"
+import AdminBasics from "../pages/admin/Basic"
 
 router.get('/', asyncMiddleware( async(req, res, next) => {
   // const meta = await getMeta('/')
@@ -33,9 +42,12 @@ router.get('/', asyncMiddleware( async(req, res, next) => {
   res.status(200).render('pages/Index', { reactApp: reactComp, meta: [] })
 }))
 
-router.get('/register', asyncMiddleware( async(req, res, next) => { const blogs = await suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: [] }) }))
-
-// router.get('/register', asyncMiddleware( async (req, res, next) => { res.status(200).render('auth/Register', { reactApp: renderToString(<Register/>), meta: [] }) }))
+// // Auth Pages
+  router.get('/register', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Register', { reactApp: renderToString(<Register />), meta: meta }) }))
+  router.get('/login', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Login', { reactApp: renderToString(<Login />), meta: meta }) }))
+  router.get('/forgot-password', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/ForgotPassword', { reactApp: renderToString(<ForgotPassword />), meta: meta }) }))
+  router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('auth/ResetPassword', { reactApp: renderToString(<ResetPassword/>), meta: [] }) }))
+// // Auth Pages
 
 router.get('/category/:url', asyncMiddleware( async(req, res, next) => {
   const meta = await getMeta(`/category/${req.params.url}`)
@@ -295,39 +307,25 @@ router.get('/blog/single/:url', asyncMiddleware( async(req, res, next) => {
   });
 }))
 
-router.get('/login', asyncMiddleware( async (req, res, next) => { res.status(200).render('auth/Login', { reactApp: renderToString(<Login/>), meta: [] }) }))
-router.get('/forgotPassword', asyncMiddleware( async (req, res, next) => { res.status(200).render('auth/ForgotPassword', { reactApp: renderToString(<ForgotPassword/>), meta: [] }) }))
-router.get('/resetPassword/:id', asyncMiddleware( async (req, res, next) => { res.status(200).render('auth/ResetPassword', { reactApp: renderToString(<ResetPassword/>), meta: [] }) }))
-router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await getMeta('/404','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
-router.get('/clients', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/clients','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/Clients', { reactApp: renderToString( <Clients blogs={blogs}/> ), meta: meta}) }))
-router.get('/contact', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/contact','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/Contact', { reactApp: renderToString( <Contact blogs={blogs}/> ), meta: meta}) }))
-router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/thank-you','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
-router.get('/career-in-digital-marketing', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/career-in-digital-marketing','page'); res.status(200).render('pages/Career', { reactApp: renderToString( <Career/> ), meta: meta}) }))
-router.get('/laravel-development-company', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/laravel-development-company','page'); res.status(200).render('pages/LaravelDeveloper', { reactApp: renderToString(  <LaravelDeveloper/> ), meta: meta}) }))
-router.get('/react-development-company', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/react-development-company','page'); res.status(200).render('pages/ReactDeveloper', { reactApp: renderToString( <ReactDeveloper/> ), meta: meta}) }))
-router.get('/content-writing-services', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/content-writing-services','page'); res.status(200).render('pages/ContentWriting', { reactApp: renderToString( <ContentWriting/> ), meta: meta}) }))
-router.get('/seo-services', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/seo-services','page');res.status(200).render('pages/SEO', { reactApp: renderToString( <SEO/> ), meta: meta}) }))
-router.get('/social-media-marketing-services', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/social-media-marketing-services','page'); res.status(200).render('pages/SMM', { reactApp: renderToString( <SMM/> ), meta: meta}) }))
-router.get('/offline-marketing-agency', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/offline-marketing-agency','page'); res.status(200).render('pages/OfflineMarketing', { reactApp: renderToString( <OfflineMarketing/> ), meta: meta}) }))
-router.get('/sitemap', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/sitemap','page'); res.status(200).render('pages/Sitemap', { reactApp: renderToString( <Sitemap/> ), meta: meta}) }))
-router.get('/website-development', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/website-development','page'); res.status(200).render('pages/WebsiteDevelopment', { reactApp: renderToString( <WebsiteDevelopment/> ), meta: meta}) }))
-router.get('/wordpress-website-development', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/wordpress-website-development','page'); res.status(200).render('pages/WordpressDeveloper', { reactApp: renderToString( <WordpressDeveloper/> ), meta: meta}) }))
-router.get('/graphics-designing', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/graphics-designing','page'); res.status(200).render('pages/GraphicsDesign', { reactApp: renderToString( <GraphicsDesign/> ), meta: meta}) }))
-router.get('/web-portfolio', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/web-portfolio','page'); res.status(200).render('pages/WebPortfolio', { reactApp: renderToString( <WebPortfolio/> ), meta: meta}) }))
-router.get('/graphics-portfolio', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/graphics-portfolio','page'); res.status(200).render('pages/GraphicsPortfolio', { reactApp: renderToString( <GraphicsPortfolio/> ), meta: meta}) }))
-router.get('/submit-a-guest-post', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/submit-a-guest-post','page'); res.status(200).render('pages/GuestBlogging', { reactApp: renderToString( <GuestBlogging/> ), meta: meta}) }))
-router.get('/digital-marketing', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/digital-marketing', 'page'); res.status(200).render('pages/DigitalMarketing', { reactApp: renderToString( <DigitalMarketing/> ), meta: meta}) }))
-router.get('/about-us', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/about-us','page'); res.status(200).render('pages/AboutUs', { reactApp: renderToString( <AboutUs/> ), meta: meta}) }))
-router.get('/mobile-app-development', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/mobile-app-development','page'); res.status(200).render('pages/AppDev', { reactApp: renderToString( <AppDev/> ), meta: meta}) }))
-router.get('/lead-generation-services', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/lead-generation-services','page'); res.status(200).render('pages/LeadGeneration', { reactApp: renderToString( <LeadGeneration/> ), meta: meta}) }))
+// // Regular Pages 
+// router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await getMeta('/404','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
+// router.get('/clients', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/clients','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/Clients', { reactApp: renderToString( <Clients blogs={blogs}/> ), meta: meta}) }))
+// router.get('/contact', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/contact','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/Contact', { reactApp: renderToString( <Contact blogs={blogs}/> ), meta: meta}) }))
+// router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/thank-you','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
+// // Regular Pages 
 
-// router.get('/adminUsers', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminUsers', { reactApp: renderToString(<AdminUsers/>), meta: [] }) }))
-// router.get('/adminLead', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminLead', { reactApp: renderToString(<AdminLead/>), meta: [] }) }))
-// router.get('/adminBlogMeta', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminBlogMeta', { reactApp: renderToString(<AdminBlogMeta/>), meta: [] }) }))
-// router.get('/adminBlogs', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminBlogs', { reactApp: renderToString(<AdminBlogs/>), meta: [] }) }))
-// router.get('/adminComments', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminComments', { reactApp: renderToString(<AdminComments/>), meta: [] }) }))
-// router.get('/adminMeta', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminMeta', { reactApp: renderToString(<AdminMeta/>), meta: [] }) }))
-// router.get('/refSchema', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/RefSchema', { reactApp: renderToString(<RefSchema/>), meta: [] }) }))
+// // Admin Pages 
+router.get('/admin',[func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/User', { reactApp: renderToString(<AdminUser/>), meta: [] }) }))
+router.get('/admin/users',[func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/User', { reactApp: renderToString(<AdminUser/>), meta: [] }) }))
+router.get('/admin/meta', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/Meta', { reactApp: renderToString(<AdminMeta/>), meta: [] }) }))
+router.get('/admin/blogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminBlogMeta', { reactApp: renderToString(<AdminBlogMeta/>), meta: [] }) }))
+router.get('/admin/blogs', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminBlogs', { reactApp: renderToString(<AdminBlogs/>), meta: [] }) }))
+router.get('/admin/addBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AddBlog', { reactApp: renderToString(<AddBlog/>), meta: [] }) }))
+router.get('/admin/updateBlog/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/UpdateBlog', { reactApp: renderToString(<UpdateBlog/>), meta: [] }) }))
+router.get('/admin/contacts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminContacts', { reactApp: renderToString(<AdminContacts/>), meta: [] }) }))
+router.get('/admin/comments', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminComments', { reactApp: renderToString(<AdminComments/>), meta: [] }) }))
+router.get('/admin/basics', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminBasics', { reactApp: renderToString(<AdminBasics/>), meta: [] }) }))
+// // Admin Pages
 
 router.get('/:url', asyncMiddleware( async(req, res, next) => {
   let sql = `SELECT * FROM blogs WHERE url = '${req.params.url}'`;

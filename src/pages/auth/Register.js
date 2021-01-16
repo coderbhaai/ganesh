@@ -3,6 +3,7 @@ import Header from '../parts/Header'
 import Footer from '../parts/Footer'
 import window from 'global'
 import axios from 'axios'
+import api from '../parts/api'
 const func = require('../parts/functions')
 
 class Register extends Component {
@@ -11,13 +12,11 @@ class Register extends Component {
         this.state = {
             // name:                       '',
             // email:                      '',
-            // phone:                      '',
             // role:                       'User',
             // password:                   '',
             // password_confirmation:      '',
             name:                       'Test',
             email:                      'test@test.com',
-            phone:                      '123456789',
             role:                       'User',
             password:                   '123456789',
             password_confirmation:      '123456789',
@@ -43,11 +42,10 @@ class Register extends Component {
             name:                       this.state.name, 
             email:                      this.state.email,
             role:                       this.state.role,
-            phone:                      this.state.phone,
             password:                   this.state.password,
             password_confirmation:      this.state.password_confirmation
         }               
-        axios.post('/auth/register', data)
+        axios.post(api.register, data)
         .then( res=>{
             if(res.data.success){
                 localStorage.setItem('user', JSON.stringify(res.data.user))
@@ -69,7 +67,7 @@ class Register extends Component {
                         <h1 className="heading">Register</h1>
                         <div className="row">
                             <div className="col-sm-6 flex-h">
-                                <img src="images/icons/family-5.svg" alt=""/>
+                                <img src="images/static/family-5.svg" alt=""/>
                             </div>
                             <div className="col-sm-6">
                                 <form onSubmit={this.submitHandler}>
@@ -77,19 +75,16 @@ class Register extends Component {
                                     <input type="text" className="form-control" name="name" value={this.state.name} required placeholder="Name Please" onChange={this.onChange}/>
                                     <label>E-Mail Address</label>
                                     <input type="email" className="form-control" name="email" value={this.state.email} required placeholder="Email Please" onChange={this.onChange}/>
-                                    <label>Phone</label>
-                                    <input type="tel" className="form-control" name="phone" value={this.state.phone} required placeholder="Contact Number" onChange={this.onChange}/>
                                     <label>Password</label>
                                     <input type="password" className="form-control" name="password" value={this.state.password} required placeholder="Password Please" onChange={this.onChange}/>
                                     <label>Confirm Password</label>
                                     <input type="password" className="form-control" name="password_confirmation" value={this.state.password_confirmation} required placeholder="Confirm Password" onChange={this.onChange}/>
-                                    <div className="my-div"><button className="casleyBtn" type="submit">Register</button></div>
+                                    <div className="my-div"><button className="amitBtn" type="submit">Register</button></div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </section>
-                
                 <Footer/>
             </>
         )

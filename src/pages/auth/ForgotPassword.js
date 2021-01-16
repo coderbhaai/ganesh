@@ -59,7 +59,7 @@ export class ForgotPassword extends Component {
                                         <label>E-Mail Address</label>
                                         <input id="emailRegister" type="email" className="form-control" name="email" required placeholder="Email Please" onChange={this.onChange}/>
                                     </div>
-                                    <button className="casleyBtn" type="submit">Reset Password</button>
+                                    <button className="amitBtn" type="submit">Reset Password</button>
                                 </div>
                             </form>
                         </div>

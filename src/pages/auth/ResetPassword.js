@@ -65,7 +65,7 @@ class ResetPassword extends Component {
                                     <input id="password-confirm" type="password" className="form-control" name="confirm_password" required autoComplete="new-password" value={this.state.confirm_password} onChange={this.onChange} placeholder="Confirm Password"/>
                                 </div>
                                 <div className="my-div">
-                                    <button type="submit" className="casleyBtn">Reset Password</button>
+                                    <button type="submit" className="amitBtn">Reset Password</button>
                                 </div>
                             </form>
                         </div>
