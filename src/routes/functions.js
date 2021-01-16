@@ -28,18 +28,37 @@ export function getMeta(url) {
     })
 }
 
-export function blogMetaName(type, data) {
+export function catName(data) {
     var list = []
     return new Promise((resolve, reject) => {
         if(data.length>0){
             for(var i = 0; i < data.length; i++){
-                let sql = `SELECT name, id, url FROM blog_metas WHERE type = '${type}' AND id = '${data[i]}';`
+                let sql = `SELECT name, id, url FROM blog_metas WHERE type = 'category' AND id = '${data[i]}';`
                 pool.query(sql, (err, results) => {
                     try{ if(err) throw err;
                         list.push(results[0])
                         if(i == data.length){
                             resolve(list)
                         }
+                    }catch(e){ logError(e); return; }
+                });
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
+export function tagName(data) {
+    var list = []
+    return new Promise((resolve, reject) => {
+        if(data.length>0){
+            for(var i = 0; i < data.length; i++){
+                let sql = `SELECT name, id, url FROM blog_metas WHERE type = 'tag' AND id = '${data[i]}';`
+                pool.query(sql, async (err, results) => {
+                    try{ if(err) throw err;
+                        await list.push(results[0])
+                        if(i == list.length){ resolve(list) }
                     }catch(e){ logError(e); return; }
                 });
             }

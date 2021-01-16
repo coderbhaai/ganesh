@@ -62,77 +62,9 @@ class AdminBlogs extends Component{
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value }) }
     categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
     tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
-    // blogUpdateImage = (e) =>{ this.setState({ blogUpdateImage: e.target.files[0] })}
     handleClick= (e)=> { this.setState({ currentPage: Number(e.target.id) }) }
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
-
-    // resetData = ()=>{
-    //     this.setState({
-    //         blogImage:                      null,
-    //         title:                          '',
-    //         blogURL:                        '',
-    //         content:                        '',
-    //         selectedCategory:               [],
-    //         selectedTag:                    [],
-    //         editBlogModalIsOpen:            false,
-    //         blogUpdateImage:                null,
-    //         title:                          '',
-    //         blogURL:                        '',
-    //         content:                        '',
-    //         category:                       [],
-    //         tag:                            [],
-    //         previewImg:                     null
-    //     })
-    //     window.scrollTo(0, 0)
-    // }
-
-    // editBlogOn = (i)=>{        
-    //     this.setState({
-    //         editBlogModalIsOpen:            true,
-    //         blogId:                         i.id,
-    //         blogUpdateImage:                null,
-    //         title:                          i.title,
-    //         blogURL:                        i.url,
-    //         content:                        i.content,
-    //         previewImg:                     i.cover_img,
-    //         // category:                       JSON.parse(i.category),
-    //         // tag:                            JSON.parse(i.tag)
-    //     })             
-    // }
-
-    // arrayCategoryRemove(index){
-    //     this.state.category.splice(index, 1)
-    //     this.setState({category: this.state.category})
-    // }
-
-    // arrayTagRemove(index){
-    //     this.state.tag.splice(index, 1)
-    //     this.setState({tag: this.state.tag})
-    // }
-
-    // updateBlogData= (e)=>{
-    //     e.preventDefault()
-    //     if(this.state.category){ var finalCategory = Array.from(new Set( [...this.state.category, ...this.state.selectedCategory])); }else{ var finalCategory = this.state.selectedCategory }
-    //     if(this.state.tag){ var finalTag = Array.from(new Set( [...this.state.tag, ...this.state.selectedTag])); }else{ var finalTag = this.state.selectedTag }
-    //     const data = new FormData()
-    //     data.append('id', this.state.blogId)
-    //     data.append('file', this.state.blogUpdateImage)
-    //     data.append('title', this.state.title)
-    //     data.append('url', this.state.blogURL)
-    //     data.append('content', this.state.content)
-    //     data.append('category', JSON.stringify(finalCategory) )
-    //     data.append('tag', JSON.stringify(finalTag) )
-    //     axios.post('/admin/updateBlog', data)
-    //         .catch(err=>console.log('err', err))
-    //         .then(res=>{
-    //             if(res.data.success){
-    //                 this.setState({ blogList: this.state.blogList.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) 
-    //             }
-    //             func.callSwal(res.data.message)
-    //         })
-    //     this. resetData()
-    // }    
 
     render() {
         const imgPath = "/images/blog/"
@@ -143,7 +75,7 @@ class AdminBlogs extends Component{
             return (
                 <tr key={index}>
                     <td>{index+1}</td>                                              
-                    <td><a href={"/blog/" + i.url} target="_blank">{i.title}</a></td>
+                    <td><a href={"/" + i.url} target="_blank">{i.title}</a></td>
                     <td className="text-center"><img src={'/images/blog/'+i.coverImg } className="img-fluid tableImg"/></td>                    
                     <td className="editIcon text-center"><a href={"/admin/updateBlog/"+i.id}><img src="/images/icons/edit.svg"/></a></td>
                     {/* <td className="editIcon text-center"><img src="/images/icons/edit.svg" onClick={()=>this.editBlogOn(i)}/></td> */}
@@ -164,8 +96,8 @@ class AdminBlogs extends Component{
                                 <div className="perPage">
                                     <div>
                                         <label>Add Blog here</label>
-                                        {/* <button className="casleyBtn" onClick={this.addBlogModalOn}>Add Blogs</button> */}
-                                        <a href="/admin/addBlog" className="casleyBtn">Add Blogs</a>
+                                        {/* <button className="amitBtn" onClick={this.addBlogModalOn}>Add Blogs</button> */}
+                                        <a href="/admin/addBlog" className="amitBtn">Add Blogs</a>
                                     </div>
                                     <div>
                                         <label>Blogs per page</label>

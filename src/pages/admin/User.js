@@ -44,7 +44,6 @@ export class User extends Component {
                     <td>{index+1}</td>
                     <td>{i.name}</td>
                     <td>{i.email}</td>
-                    <td>{i.phone}</td>
                     <td>{i.role}</td>
                 </tr>
         )})
@@ -87,7 +86,6 @@ export class User extends Component {
                                         <td>Sl No.</td>
                                         <td>Name</td>
                                         <td>Email</td>
-                                        <td>Phone</td>
                                         <td>Role</td>
                                     </tr>
                                 </thead>

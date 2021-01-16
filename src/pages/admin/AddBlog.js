@@ -112,7 +112,7 @@ export class AddBlog extends Component {
                                     </div>
                                 </div>
                                 <div className="my-div">
-                                    <button className="casleyBtn" type="submit">Submit<span></span></button> 
+                                    <button className="amitBtn" type="submit">Submit<span></span></button> 
                                 </div>
                             </form>
                         </div>

@@ -146,7 +146,7 @@ export class Basic extends Component {
                                 <div className="perPage">
                                     <div>
                                         <label>Add Basic here</label>
-                                        <button className="casleyBtn" onClick={this.addModalOn}>Add Basic</button>
+                                        <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
                                     </div>
                                     <div>
                                         <label>Items per page</label>
@@ -224,7 +224,7 @@ export class Basic extends Component {
                                 : null }
                             </div>
                             <div className="my-div">
-                                <button className="casleyBtn" type="submit">Submit<span></span></button> 
+                                <button className="amitBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>
@@ -264,7 +264,7 @@ export class Basic extends Component {
                                 : null }
                             </div>
                             <div className="my-div">
-                                <button className="casleyBtn" type="submit">Submit<span></span></button> 
+                                <button className="amitBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>

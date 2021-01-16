@@ -183,7 +183,7 @@ export class AdminComments extends Component {
                             </div>
                         </div>
                         <div className="my-div">
-                            <button className="casleyBtn" type="submit">Submit</button> 
+                            <button className="amitBtn" type="submit">Submit</button> 
                         </div>
                     </form>
                 </Modal>

@@ -25,6 +25,9 @@ import Login from "../pages/auth/Login"
 import ForgotPassword from "../pages/auth/ForgotPassword"
 import ResetPassword from "../pages/auth/ResetPassword"
 
+import Blog from "../pages/blog/Blog"
+import Single from "../pages/blog/Single"
+
 import AdminUser from "../pages/admin/User"
 import AdminContacts from "../pages/admin/AdminContacts"
 import AdminBlogMeta from "../pages/admin/AdminBlogMeta"
@@ -36,10 +39,10 @@ import AdminComments from "../pages/admin/AdminComments"
 import AdminBasics from "../pages/admin/Basic"
 
 router.get('/', asyncMiddleware( async(req, res, next) => {
-  // const meta = await getMeta('/')
-  // const blogs = await suggestBlogs()
-  const reactComp = renderToString( <Index/> )
-  res.status(200).render('pages/Index', { reactApp: reactComp, meta: [] })
+  const meta = await func.getMeta('/')
+  const blogs = await func.suggestBlogs()
+  const reactComp = renderToString( <Index blog={blogs} meta={meta}/> )
+  res.status(200).render('pages/Index', { reactApp: reactComp, meta: meta })
 }))
 
 // // Auth Pages
@@ -50,65 +53,54 @@ router.get('/', asyncMiddleware( async(req, res, next) => {
 // // Auth Pages
 
 router.get('/category/:url', asyncMiddleware( async(req, res, next) => {
-  const meta = await getMeta(`/category/${req.params.url}`)
-  var sql = `SELECT name FROM blog_metas WHERE url= '${req.params.url}'`;
+  const meta = await func.getMeta(`/category/${req.params.url}`)
+  var sql = `SELECT id FROM blog_metas WHERE url= '${req.params.url}' AND type='category'`;
   pool.query(sql, (err, results) => {
     try{
-      if(results){ 
+      if(err) throw err;
+      if(results){
         if(results[0]){
-          var sql2 = `SELECT id, title, url, cover_img, updated_at FROM blogs  WHERE category LIKE '%${results[0].name}%' ORDER BY id DESC`;
+          var sql2 = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE category LIKE '%${results[0].id}%' ORDER BY id DESC`;
           pool.query(sql2, (err2, results2) => {
-              if(err) throw err;
+              if(err2) throw err2;
               var title = `<h1 class="heading"><span>Blogs of Category:</span>${results[0].name}</h1>`
               const reactComp = renderToString(  <Blog blogs={results2} title={title}/>  )
-              res.status(200).render('pages/Blog', { reactApp: reactComp, meta: meta, blogs: results2 })
+              res.status(200).render('blog/Blog', { reactApp: reactComp, meta: meta, blogs: results2 })
           });        
-        }else{ res.redirect('/404'); } }
-    }catch(e){
-      logError(e, req.url)
-      res.status(403);
-      return;
-    }
+        }else{ res.redirect('/blog'); } }
+    }catch(e){ func.logError(e); res.status(403); return; }
   });
 }))
 
 router.get('/tag/:url', asyncMiddleware( async(req, res, next) => {
-  const meta = await getMeta(`/tag/${req.params.url}`)
+  const meta = await func.getMeta(`/tag/${req.params.url}`)
   var sql1 = `SELECT name FROM blog_metas WHERE url= '${req.params.url}'`;
   pool.query(sql1, (err, results) => {
     try{
       if(err) throw err;
       if(results[0]){
-        var sql2 = `SELECT id, title, url, cover_img, updated_at FROM blogs  WHERE tag LIKE '%${results[0].name}%' ORDER BY id DESC`;
+        var sql2 = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE tag LIKE '%${results[0].name}%' ORDER BY id DESC`;
         pool.query(sql2, (err, results2) => {
           if(err) throw err;
           var title = `<h1 class="heading"><span>Blogs of Tag:</span>${results[0].name}</h1>`
           const reactComp = renderToString(  <Blog blogs={results2} title={title}/> )
-          res.status(200).render('pages/Blog', { reactApp: reactComp, meta: meta, blogs: results2 })
+          res.status(200).render('blog/Blog', { reactApp: reactComp, meta: meta, blogs: results2 })
         });
       }else{
         res.redirect('/404');
       }
-    }catch(e){
-      logError(e, req.url)
-      res.status(403);
-      return;
-    }
+    }catch(e){ func.logError(e, req.url); res.status(403); return; }
   });
 }))
 
 router.get('/search/:url', asyncMiddleware( async(req, res, next) => {
-  var sql = `SELECT id, title, url, cover_img, updated_at FROM blogs  WHERE title LIKE '%${req.params.url}%' OR content LIKE '%${req.params.url}%' ORDER BY id DESC`;
+  var sql = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE title LIKE '%${req.params.url}%' OR content LIKE '%${req.params.url}%' ORDER BY id DESC`;
   pool.query(sql, (err, results) => {
     try{
       if(err) throw err;
       const reactComp = renderToString(  <Blog blogs={results}/>  )
-      res.status(200).render('pages/Blog', { reactApp: reactComp, meta: [] })
-    }catch(e){
-      logError(e, req.url)
-      res.status(403);
-      return;
-    }
+      res.status(200).render('blog/Blog', { reactApp: reactComp, meta: [] })
+    }catch(e){ func.logError(e, req.url); res.status(403); return; }
   });
 }))
 
@@ -185,25 +177,21 @@ router.post('/contactForm', (req, res, next) => {
 })
 
 router.get('/blog', asyncMiddleware( async(req, res, next) => {
-  const meta = await getMeta('/blog')
-  let sql = 'SELECT `id`, `title`, `url`, `cover_img`, `updated_at` FROM blogs ORDER BY id DESC';
+  const meta = await func.getMeta('/blog')
+  let sql = `SELECT id, title, url, coverImg, updated_at FROM blogs ORDER BY id DESC`;
   pool.query(sql, (err, rows) => {
     try{
-      if(err) reject(err);
+      if(err) throw(err);
       var title = `<h1 class="heading"><span>Interesting Reads </span> For you</h1>`
       const reactComp = renderToString( <Blog blogs={rows} title={title}/> )
-      res.status(200).render('pages/Blog', { reactApp: reactComp, meta: meta })
-    }catch(e){
-      logError(e, req.url)
-      res.status(403);
-      return;
-    }
+      res.status(200).render('blog/Blog', { reactApp: reactComp, meta: meta })
+    }catch(e){ func.logError(e); res.status(403); return; }
   })
 }))
 
 router.get('/blog/list/:type/:url', asyncMiddleware( async(req, res, next) => {
   if(req.params.type == "All"){ 
-    var sql = 'SELECT `id`, `title`, `url`, `cover_img`, `updated_at` FROM blogs ORDER BY id DESC';
+    var sql = `SELECT id, title, url, coverImg, updated_at FROM blogs ORDER BY id DESC`;
     var title = `<h1 class="heading"><span>Interesting Reads </span> For you</h1>`
     pool.query(sql, (err, results) => {
       try{
@@ -218,11 +206,11 @@ router.get('/blog/list/:type/:url', asyncMiddleware( async(req, res, next) => {
   }
 
   if(req.params.type == "category" ){
-      var sql1 = `SELECT name FROM blog_metas WHERE url= '${req.params.url}'`;
+      var sql1 = `SELECT id, name FROM blog_metas WHERE url= '${req.params.url}'`;
       pool.query(sql1, (err, results) => {
         try{
           if(err) throw err;
-          var sql2 = `SELECT id, title, url, cover_img, updated_at FROM blogs  WHERE category LIKE '%${results[0].name}%' ORDER BY id DESC`;
+          var sql2 = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE category LIKE '%${results[0].id}%' ORDER BY id DESC`;
           pool.query(sql2, (err, results2) => {
             try{
               if(err) throw err;
@@ -243,11 +231,11 @@ router.get('/blog/list/:type/:url', asyncMiddleware( async(req, res, next) => {
   }
 
   if(req.params.type == "tag"  ){
-      var sql1 = `SELECT name FROM blog_metas WHERE url= '${req.params.url}'`;
+      var sql1 = `SELECT id, name FROM blog_metas WHERE url= '${req.params.url}'`;
       pool.query(sql1, (err, results) => {
         try{
           if(err) throw err;
-          var sql2 = `SELECT id, title, url, cover_img, updated_at FROM blogs  WHERE tag LIKE '%${results[0].name}%' ORDER BY id DESC`;
+          var sql2 = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE tag LIKE '%${results[0].id}%' ORDER BY id DESC`;
           pool.query(sql2, (err, results2) => {
             try{
               if(err) throw err;
@@ -268,7 +256,7 @@ router.get('/blog/list/:type/:url', asyncMiddleware( async(req, res, next) => {
   }
 
   if(req.params.type == "search"  ){
-    var sql = `SELECT id, title, url, cover_img, updated_at FROM blogs  WHERE title LIKE '%${req.params.url}%' OR content LIKE '%${req.params.url}%' ORDER BY id DESC`;
+    var sql = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE title LIKE '%${req.params.url}%' OR content LIKE '%${req.params.url}%' ORDER BY id DESC`;
     pool.query(sql, (err, results) => {
       try{
         if(err) throw err;
@@ -284,12 +272,12 @@ router.get('/blog/list/:type/:url', asyncMiddleware( async(req, res, next) => {
 }))
 
 router.get('/blog/single/:url', asyncMiddleware( async(req, res, next) => {
-  const blogs = await suggestBlogs()
-  let sql = `SELECT id, title, url, cover_img, content, category, tag FROM blogs WHERE url = '${req.params.url}'`;
+  const blogs = await func.suggestBlogs()
+  let sql = `SELECT id, title, url, coverImg, content, category, tag FROM blogs WHERE url = '${req.params.url}'`;
   pool.query(sql, async(err, results) => {
     try{
       if(err) throw err;
-      const sidebar = await blogMetaData(results[0].id)
+      const sidebar = await func.blogMetaData(results[0].id)
       res.send({ 
         data:         results[0],
         blogs:        blogs,
@@ -299,19 +287,15 @@ router.get('/blog/single/:url', asyncMiddleware( async(req, res, next) => {
         comments:     sidebar[3],
         response:     sidebar[4],
       });
-    }catch(e){
-      logError(e, req.url)
-      res.status(403);
-      return;
-    }
+    }catch(e){ func.logError(e, req.url); res.status(403); return; }
   });
 }))
 
 // // Regular Pages 
-// router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await getMeta('/404','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
-// router.get('/clients', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/clients','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/Clients', { reactApp: renderToString( <Clients blogs={blogs}/> ), meta: meta}) }))
-// router.get('/contact', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/contact','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/Contact', { reactApp: renderToString( <Contact blogs={blogs}/> ), meta: meta}) }))
-// router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/thank-you','page'); const blogs = await suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
+// router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta('/404','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
+// router.get('/clients', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/clients','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/Clients', { reactApp: renderToString( <Clients blogs={blogs}/> ), meta: meta}) }))
+// router.get('/contact', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/contact','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/Contact', { reactApp: renderToString( <Contact blogs={blogs}/> ), meta: meta}) }))
+// router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/thank-you','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
 // // Regular Pages 
 
 // // Admin Pages 
@@ -329,13 +313,13 @@ router.get('/admin/basics', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
 
 router.get('/:url', asyncMiddleware( async(req, res, next) => {
   let sql = `SELECT * FROM blogs WHERE url = '${req.params.url}'`;
-  const meta = await getMeta(`/${req.params.url}`, 'single')
-  const blogs = await suggestBlogs()
+  const meta = await func.getMeta(`/${req.params.url}`, 'single')
+  const blogs = await func.suggestBlogs()
   pool.query(sql, async(err, results) => {
     try{
       if(err) throw err;
       if(results[0]){
-          const sidebar = await blogMetaData(results[0].id)
+          const sidebar = await func.blogMetaData(results[0].id)
           const reactComp = renderToString(<Single 
             data=         {results[0]} 
             blogs=        {blogs}
@@ -345,15 +329,11 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
             comments=     {sidebar[3]}
             response=     {sidebar[4]}
           />)
-          res.status(200).render('pages/Single', { reactApp: reactComp, meta: meta })
+          res.status(200).render('blog/Single', { reactApp: reactComp, meta: meta })
         }else{
           res.redirect('/404');
         }
-    }catch(e){
-      logError(e, req.url)
-      res.status(403);
-      return;
-    }
+    }catch(e){ func.logError(e, req.url); res.status(403); return; }
   });
 }))
 

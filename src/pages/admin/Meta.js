@@ -142,7 +142,7 @@ export class Meta extends Component {
                                 <div className="perPage">
                                     <div>
                                         <label>Add Meta here</label>
-                                        <button className="casleyBtn" onClick={this.addModalOn}>Add Meta</button>
+                                        <button className="amitBtn" onClick={this.addModalOn}>Add Meta</button>
                                     </div>
                                     <div>
                                         <label>Videos per page</label>
@@ -205,7 +205,7 @@ export class Meta extends Component {
                                 </div>
                             </div>
                             <div className="my-div">
-                                <button className="casleyBtn" type="submit">Submit<span></span></button> 
+                                <button className="amitBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>
@@ -235,7 +235,7 @@ export class Meta extends Component {
                                 </div>
                             </div>
                             <div className="my-div">
-                                <button className="casleyBtn" type="submit">Submit<span></span></button> 
+                                <button className="amitBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>

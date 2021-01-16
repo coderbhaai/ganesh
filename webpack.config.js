@@ -6,10 +6,21 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const config = [{
     entry: {
         Index: [path.resolve('src', 'components', 'pages', 'Index.js')],
+        Cart: [path.resolve('src', 'components', 'pages', 'Cart.js')],
+        Contact: [path.resolve('src', 'components', 'pages', 'Contact.js')],
+        Order: [path.resolve('src', 'components', 'pages', 'Order.js')],
+        Product: [path.resolve('src', 'components', 'pages', 'Product.js')],
+        Shop: [path.resolve('src', 'components', 'pages', 'Shop.js')],
+
         Register: [path.resolve('src', 'components', 'auth', 'Register.js')],
         Login: [path.resolve('src', 'components', 'auth', 'Login.js')],
         ForgotPassword: [path.resolve('src', 'components', 'auth', 'ForgotPassword.js')],
         ResetPassword: [path.resolve('src', 'components', 'auth', 'ResetPassword.js')],
+
+        Blog: [path.resolve('src', 'components', 'blog', 'Blog.js')],
+        Category: [path.resolve('src', 'components', 'blog', 'Blog.js')],
+        Search: [path.resolve('src', 'components', 'blog', 'Blog.js')],
+        Single: [path.resolve('src', 'components', 'blog', 'Single.js')],
 
         AdminUser: [path.resolve('src', 'components', 'admin', 'User.js')],
         AdminContacts: [path.resolve('src', 'components', 'admin', 'AdminContacts.js')],
@@ -20,6 +31,9 @@ const config = [{
         AdminMeta: [path.resolve('src', 'components', 'admin', 'Meta.js')],
         AdminComments: [path.resolve('src', 'components', 'admin', 'AdminComments.js')],
         AdminBasics: [path.resolve('src', 'components', 'admin', 'Basic.js')],
+
+        Products: [path.resolve('src', 'components', 'admin', 'Products.js')],
+        AdminOrders: [path.resolve('src', 'components', 'admin', 'AdminOrders.js')],
     },
     output: {
         path: path.resolve(__dirname, 'src', 'static', 'public'),
@@ -71,11 +85,19 @@ const config = [{
         // new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({ chunkFilename: 'css/[hash].css' }),
         new HtmlWebpackPlugin({ chunks: ['Index'], filename: '../views/pages/Index.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['Cart'], filename: '../views/pages/Cart.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['Contact'], filename: '../views/pages/Contact.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['Order'], filename: '../views/pages/Order.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['Product'], filename: '../views/pages/Product.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['Shop'], filename: '../views/pages/Shop.ejs', template: path.join('src', 'views', 'index.ejs') }),
 
         new HtmlWebpackPlugin({ chunks: ['Register'], filename: '../views/auth/Register.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['Login'], filename: '../views/auth/Login.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['ForgotPassword'], filename: '../views/auth/ForgotPassword.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['ResetPassword'], filename: '../views/auth/ResetPassword.ejs', template: path.join('src', 'views', 'index.ejs') }),
+
+        new HtmlWebpackPlugin({ chunks: ['Blog'], filename: '../views/blog/Blog.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['Single'], filename: '../views/blog/Single.ejs', template: path.join('src', 'views', 'index.ejs') }),
 
         new HtmlWebpackPlugin({ chunks: ['AdminUser'], filename: '../views/admin/User.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminContacts'], filename: '../views/admin/AdminContacts.ejs', template: path.join('src', 'views', 'index.ejs') }),
@@ -86,6 +108,9 @@ const config = [{
         new HtmlWebpackPlugin({ chunks: ['AdminMeta'], filename: '../views/admin/Meta.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminComments'], filename: '../views/admin/AdminComments.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminBasics'], filename: '../views/admin/AdminBasics.ejs', template: path.join('src', 'views', 'index.ejs') }),
+
+        new HtmlWebpackPlugin({ chunks: ['Products'], filename: '../views/admin/Products.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['AdminOrders'], filename: '../views/admin/AdminOrders.ejs', template: path.join('src', 'views', 'index.ejs') }),
     ]
 }]
 

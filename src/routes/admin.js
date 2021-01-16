@@ -13,7 +13,7 @@ router.use(upload())
 const storage = './src/public/images/'
 
 router.get('/AdminUsers', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql =   `SELECT name, email, role, phone, created_at FROM users`
+    let sql =   `SELECT name, email, role, created_at FROM users`
     pool.query(sql, (err, results) => {
         try{
             if(results){ res.send({ data: results }) }else if(err){ throw err }
@@ -254,15 +254,11 @@ router.get('/getBlog/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware
     pool.query(sql, async(err, results) => {
         try{
             if(results){ 
-                const catList = await func.blogMetaName('category', JSON.parse(results[0].category))
-                const tagList = await func.blogMetaName('tag', JSON.parse(results[0].tag))
+                const catList = await func.catName(JSON.parse(results[0].category))
+                const tagList = await func.tagName(JSON.parse(results[0].tag))
                 res.send({ data: results[0], catList, tagList });
             }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+        }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
 

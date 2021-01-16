@@ -141,7 +141,7 @@ class AdminBlogMeta extends Component {
                         <div className="col-sm-10">
                             <h1 className="heading"><span>Admin Panel</span>(Blog Meta)</h1>
                             <div className="btn-pag">
-                                <button className="casleyBtn" onClick={this.addMetaModalOn}>Add Blog Meta</button>
+                                <button className="amitBtn" onClick={this.addMetaModalOn}>Add Blog Meta</button>
                                 <div>
                                     <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
                                         <option>{itemsPerPage}</option>
@@ -203,7 +203,7 @@ class AdminBlogMeta extends Component {
                                 </div>
                             </div>
                             <div className="my-btn">
-                                <button className="casleyBtn" type="submit">Submit</button> 
+                                <button className="amitBtn" type="submit">Submit</button> 
                             </div>
                         </form>
                     </ModalBody>
@@ -236,7 +236,7 @@ class AdminBlogMeta extends Component {
                                 </div>
                             </div>
                             <div className="my-btn">
-                                <button className="casleyBtn" type="submit">Submit</button> 
+                                <button className="amitBtn" type="submit">Submit</button> 
                             </div>
                         </form>
                     </ModalBody>

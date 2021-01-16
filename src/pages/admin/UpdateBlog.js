@@ -42,7 +42,8 @@ export class UpdateBlog extends Component {
         await this.timeout(2000);
         if(this.state.loading && this.state.id){
             this.setState({ loading: false })
-            axios.get('/admin/getBlog/'+this.state.id).then(res =>{
+            axios.get('/admin/getBlog/'+this.state.id)
+            .then(res =>{
                 this.setState({ 
                     title:                          res.data.data.title,
                     content:                        res.data.data.content,
@@ -161,7 +162,7 @@ export class UpdateBlog extends Component {
                                     </div>
                                 </div>
                                 <div className="my-div">
-                                    <button className="casleyBtn" type="submit">Submit<span></span></button> 
+                                    <button className="amitBtn" type="submit">Submit<span></span></button> 
                                 </div>
                             </form>
                         </div>

@@ -1,0 +1,80 @@
+.blogBanner{
+    position: relative;
+    h1{
+        position: absolute;
+        bottom: 0;
+        left: 4em;
+        color: #fff;
+        text-shadow: 2px 3px black;
+    }
+}
+.card {
+    box-shadow: 1px 1px 5px #aaa;
+    display: block;
+    padding: 10px;
+    transition: .5s all;
+    margin-bottom: 1.5em;
+    &:hover {
+        box-shadow: 0 14px 28px rgba(191,191,191,.25), 0 10px 10px rgba(132,132,132,.22);
+    }
+}
+.blogs{
+    .name{
+        h2, h4 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            margin: 10px 0 5px;
+            text-align: center;
+            font-size: 1em;
+            font-weight: 600;
+            color: $text;
+        }
+    }
+}
+.single{
+    position: relative;
+    .single-caption{
+        position: absolute;
+        top: 40%;
+        width: 100%;
+        text-align: center;
+        h1{
+            color: #fff;
+            text-shadow: 2px 3px black;
+        }
+    }
+}
+.sidebar{
+    .search{
+        .amitBtn{
+            width: 100%;
+            margin: 1em 0;
+        }
+    }
+    .list{
+        h3{
+            margin: 1em 0;
+        }
+        ul li a{
+            color: $text;
+            text-align: left;
+            display: block;
+            padding: 10px 0;
+        }
+    }
+}
+.coments{
+    .forAdmin{
+        text-align: right;
+    }
+    .card .originalComment:before, blockquote:before {
+        color: $primary;
+        content: open-quote;
+        font-size: 3em;
+        line-height: .1em;
+        vertical-align: -.4em;
+    }
+}
