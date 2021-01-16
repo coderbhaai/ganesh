@@ -34,6 +34,8 @@ const config = [{
 
         Products: [path.resolve('src', 'components', 'admin', 'Products.js')],
         AdminOrders: [path.resolve('src', 'components', 'admin', 'AdminOrders.js')],
+        AddProduct: [path.resolve('src', 'components', 'admin', 'AddProduct.js')],
+        EditProduct: [path.resolve('src', 'components', 'admin', 'EditProduct.js')],
     },
     output: {
         path: path.resolve(__dirname, 'src', 'static', 'public'),
@@ -111,6 +113,8 @@ const config = [{
 
         new HtmlWebpackPlugin({ chunks: ['Products'], filename: '../views/admin/Products.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminOrders'], filename: '../views/admin/AdminOrders.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['AddProduct'], filename: '../views/admin/AddProduct.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['EditProduct'], filename: '../views/admin/EditProduct.ejs', template: path.join('src', 'views', 'index.ejs') }),
     ]
 }]
 

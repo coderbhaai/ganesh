@@ -30,7 +30,7 @@ img {
   width: 100%;
   height: auto; }
 
-button, button:focus, input, input:focus {
+button, button:focus, input, input:focus, .form-control:focus, .form-control {
   outline: none; }
 
 p {
@@ -203,7 +203,8 @@ p {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding-left: 2em;
-  background: #fff; }
+  background: #fff;
+  box-shadow: 1px 1px 1px #e1672e; }
 
 .navbar-nav {
   display: -ms-flexbox;
@@ -803,10 +804,10 @@ button.swiper-pagination-bullet {
   transition-timing-function: linear !important; }
 
 /* Swiper CSS */
-.adminSidebar {
+.AdminBar {
   background: #e1672e; }
 
-.adminSidebar a {
+.AdminBar a {
   display: block;
   padding: 1em 0;
   color: #fff; }

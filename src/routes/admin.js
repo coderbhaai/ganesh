@@ -393,11 +393,7 @@ router.get('/adminBasic', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
     pool.query(sql, (err, results) => {
         try{
             if(results){ res.send({ data: results }); }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+        }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -480,5 +476,94 @@ router.post('/updateBasic', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
         }
     })
 }))
+
+router.get('/addProductOptions', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let sql = `SELECT name as text, id as value FROM basic Where type='Category';
+                SELECT name as text, id as value FROM basic Where type='Tag';
+                SELECT name as text, id as value FROM basic Where type='Vendor';`
+    pool.query(sql, [1,2,3], (err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){ 
+                res.send({ 
+                    catOptions: results[0],
+                    tagOptions: results[1],
+                    vendorOptions: results[2]
+                });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let post= {
+        'vendor':               req.body.vendor,
+        'name':                 req.body.name,
+        'url':                  req.body.url,
+        'display':              req.body.display,
+        'category':             req.body.category,
+        'tags':                 req.body.tags,
+        'shortDesc':            req.body.shortDesc,
+        'longDesc':             req.body.longDesc,
+        'price':                req.body.price,
+        'rating':               0,
+        "updated_at":           time,
+    }
+    if(req.files.images){
+        var images = []
+        for(var i = 0; i < req.files.images.length; i++){
+            var file = req.files.images[i]
+            var filename = Date.now() + '-' + file.name;
+            images.push(filename)
+            file.mv(storage+'product/'+filename, function(err){ if(err){ func.logError(err) } })
+        }
+        post.images = JSON.stringify(images)
+    }
+    let sql = `INSERT INTO products SET ?`
+    pool.query(sql, post, (err, results) => {
+        try{    
+            if(results){ res.send({ success: true, message: "Product added succesfully" }) }else if(err){ throw err }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.get('/adminProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.display, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor FROM products as a
+                left join basic as b on b.id = a.vendor ORDER BY a.id DESC`
+    pool.query(sql, (err, results) => {
+        try{    
+            if(err){ throw err }
+            if(results){ res.send({ data: results }) }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.post('/changeProductStatus', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let post= {
+        "id":                       req.body.id,
+        "status":                   req.body.status,
+        "updated_at":               time,
+    }
+    let sql = `UPDATE products SET ? WHERE id = ${req.body.id}`;
+    pool.query(sql, post, (err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){
+                let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.display, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor FROM products as a
+                left join basic as b on b.id = a.vendor WHERE a.id = '${req.body.id}';`
+                pool.query(sql, (err2, results2) => {
+                    try{
+                        if(err2){ throw err2 }
+                        if(results2){
+                            res.send({ success: true, data: results2[0], message: 'Product updated successfuly' });
+                        }
+                    }catch(e){ func.logError(e); res.status(500); return; }
+                })
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+
 
 module.exports = router;

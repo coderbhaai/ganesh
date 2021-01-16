@@ -80,7 +80,7 @@ export class Basic extends Component {
                 }
                 func.callSwal(res.data.message)
             })
-        this.resetData()
+        // this.resetData()
     }
 
     editModalOn = (i)=>{
@@ -197,31 +197,14 @@ export class Basic extends Component {
                                     <label>Type of Basic</label>
                                     <select className="form-control" required name="type" onChange={this.onChange} value={this.state.type}>
                                         <option value=''>Select Type</option>
-                                        <option value="Publisher">Publisher</option>
-                                        <option value="CouponType">Type of Coupon</option>
-                                        {/* <option value="Category">Category</option> */}
-                                        <option value="Carousel">Carousel</option>
+                                        <option value="Category">Product Category</option>
+                                        <option value="Tag">Product Tag</option>
+                                        <option value="Vendor">Add Vendor</option>
                                     </select>
                                 </div>
-                                {this.state.type==='Publisher'? <div className="col-sm-8"><label>Publisher Name</label><input name="name" type="text" className="form-control" placeholder="Publisher Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
-                                {this.state.type==='CouponType'? <div className="col-sm-8"><label>Coupon Type</label><input name="name" type="text" className="form-control" placeholder="Coupon Type" value={this.state.name} required onChange={this.onChange}/></div> : null }
-                                {/* {this.state.type==='Category'? <div className="col-sm-8"><label>Category</label><input name="name" type="text" className="form-control" placeholder="Category" value={this.state.name} required onChange={this.onChange}/></div> : null } */}
-                                {this.state.type==='Carousel'? 
-                                    <>
-                                        <div className="col-sm-8">
-                                            <label>Image</label>
-                                            <input name="name" type="file" className="form-control" required onChange={this.uploadImage}/>
-                                        </div>
-                                        {/* <div className="col-sm-4">
-                                            <label>Heading</label>
-                                            <input name="tab1" type="text" className="form-control" placeholder="Heading" value={this.state.tab1} required onChange={this.onChange}/>
-                                        </div>
-                                        <div className="col-sm-12">
-                                            <label>Text</label>
-                                            <input name="tab2" type="text" className="form-control" placeholder="Text" value={this.state.tab2} required onChange={this.onChange}/>
-                                        </div> */}
-                                    </>
-                                : null }
+                                {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
+                                {this.state.type==='Tag'? <div className="col-sm-8"><label>Product Tag</label><input name="name" type="text" className="form-control" placeholder="Product Tag" value={this.state.name} required onChange={this.onChange}/></div> : null }
+                                {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
                             </div>
                             <div className="my-div">
                                 <button className="amitBtn" type="submit">Submit<span></span></button> 
@@ -242,26 +225,9 @@ export class Basic extends Component {
                                         <option>{this.state.type}</option>
                                     </select>
                                 </div>
-                                {this.state.type==='Publisher'? <div className="col-sm-8"><label>Publisher name</label><input name="name" type="text" className="form-control" placeholder="Publisher Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
-                                {this.state.type==='CouponType'? <div className="col-sm-8"><label>Coupon Type</label><input name="name" type="text" className="form-control" placeholder="Coupon Type" value={this.state.name} required onChange={this.onChange}/></div> : null }
-                                {/* {this.state.type==='Category'? <div className="col-sm-8"><label>Category</label><input name="name" type="text" className="form-control" placeholder="Category" value={this.state.name} required onChange={this.onChange}/></div> : null } */}
-                                {this.state.type==='Carousel'? 
-                                    <>
-                                        <div className="col-sm-8">
-                                            <label>Image</label>
-                                            <input name="name" type="file" className="form-control" required onChange={this.uploadImage}/>
-                                            {this.state.oldImage? <img src={"/images/basic/"+this.state.oldImage } className="img-fluid tableImg"/> : null }
-                                        </div>
-                                        {/* <div className="col-sm-4">
-                                            <label>Heading</label>
-                                            <input name="tab1" type="text" className="form-control" placeholder="Heading" value={this.state.tab1} required onChange={this.onChange}/>
-                                        </div>
-                                        <div className="col-sm-12">
-                                            <label>Text</label>
-                                            <input name="tab2" type="text" className="form-control" placeholder="Text" value={this.state.tab2} required onChange={this.onChange}/>
-                                        </div> */}
-                                    </>
-                                : null }
+                                {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
+                                {this.state.type==='Tag'? <div className="col-sm-8"><label>Product Tag</label><input name="name" type="text" className="form-control" placeholder="Product Tag" value={this.state.name} required onChange={this.onChange}/></div> : null }
+                                {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
                             </div>
                             <div className="my-div">
                                 <button className="amitBtn" type="submit">Submit<span></span></button> 

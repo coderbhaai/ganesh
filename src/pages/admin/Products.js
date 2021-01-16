@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import {Modal, ModalHeader, ModalBody } from 'reactstrap';
-import Sidebar from '../parts/AdminSidebar'
+import AdminBar from '../parts/AdminBar'
 import Header from '../parts/Header'
 import Footer from '../parts/Footer'
 import axios from 'axios'
-import swal from 'sweetalert'
 import moment from "moment"
+const func = require('../parts/functions')
 
 export class Products extends Component {
     constructor(props) {
@@ -30,36 +29,49 @@ export class Products extends Component {
     callApi = async () => {
         const response = await fetch('/admin/adminProducts'); 
         const body = await response.json()
+        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             products:          body.data
         })
     }
 
+    changeStatus=(id, value)=>{
+        if(value == 1){ var status = 0 }else{ var status = 1}
+        const data={
+            id:                         id,
+            status:                     status
+        }
+        axios.post('/admin/changeProductStatus', data)
+        .then( res=>{
+            console.log('res.data', res.data)
+            if(res.data.success){ this.setState({ products: this.state.products.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) }
+            func.callSwal(res.data.message)
+        })
+        .catch(err=>console.log('err', err))
+    }
+
     render() {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const renderItems =  this.state.products.filter((i)=>{ if(this.state.search == null) return i; else if(i.product.toLowerCase().includes(this.state.search.toLowerCase()) || i.category.toLowerCase().includes(this.state.search.toLowerCase()) || i.subcategory.toLowerCase().includes(this.state.search.toLowerCase())){ return i }}).slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
+        const renderItems =  this.state.products.filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }}).slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
             return (
                 <tr key={index}>
                     <td>{index +1}</td>
-                    <td style={{textAlign:'center'}}><img src={"images/products/" + JSON.parse(i.images)[0]} className="tableImg" style={{maxHeight:'80px', width: 'auto'}}/>{i.product}</td>
-                    <td>{i.categoryName}</td>
-                    <td>{i.subcategoryName}</td>
-                    <td>{JSON.parse(i.sku).map((j, index)=>(
-                        <p key={index}>
-                            {'SKU:'} <strong>{j[4]}</strong>
-                            {'=>Qty:'} <strong>{j[0]}</strong>
-                            {'=>Price:'} <strong> &#8377;{j[1]}</strong>
-                            {'=>In Stock:'} <strong>{j[2] ='1'? <span>Yes</span> : <span>No</span> }</strong>
-                            {'=>Discount:'}  <strong>&#8377;{j[3]}</strong>
-                        </p>
-                        ))}
-                    </td>
                     <td>{i.name}</td>
+                    <td>{i.vendor}</td>
+                    <td style={{textAlign:'center'}}><img src={"images/product/" + JSON.parse(i.images)[0]} className="tableImg" style={{maxHeight:'80px', width: 'auto'}}/>{i.product}</td>
+                    <td>{i.price}</td>
+                    <td>{i.rating}</td>
+                    <td>
+                        <div className="onoffswitch">
+                            <input type="checkbox" name="category" className="onoffswitch-checkbox" id={'Switch-'+i.id} onChange={(e)=>this.changeStatus(i.id, e.target.value)} value={i.status} checked={i.status==1? true : false}/>
+                            <label className="onoffswitch-label" htmlFor={'Switch-'+i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
+                        </div>
+                    </td>
                     <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
-                    {/* <td>{i.updated_at}</td> */}
+                    <td className="editIcon text-center"><a href={"/admin/updateProduct/"+i.id}><img src="/images/icons/edit.svg"/></a></td>
                 </tr>
         )})
         const pageNumbers = []
@@ -68,11 +80,11 @@ export class Products extends Component {
         return (
             <>
                 <Header/>
-                <div className="container-fluid my-5">
-                    <h1 className="heading"><span>Admin Panel </span>(Users)</h1>
+                <div className="container-fluid">
                     <div className="row admin">
-                        <Sidebar/>
+                        <AdminBar/>
                         <div className="col-sm-10">
+                            <h1 className="heading"><span>Admin Panel </span>(Products)</h1>
                             <div className="btn-pag">
                                 <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px', marginRight:"1em"}}/>
                                 <div>
@@ -91,11 +103,13 @@ export class Products extends Component {
                                     <tr>
                                         <td>Sl no.</td>
                                         <td>Product</td>
-                                        <td>Category</td>
-                                        <td>SubCategory</td>
-                                        <td>SKU</td>
                                         <td>Vendor</td>
+                                        <td>Image</td>
+                                        <td>Price</td>
+                                        <td>Rating</td>
+                                        <td>Display</td>
                                         <td>Date</td>
+                                        <td>Action</td>
                                     </tr>
                                 </thead>
                                 <tbody>{renderItems}</tbody>

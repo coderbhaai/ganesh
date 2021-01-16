@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import AdminSidebar from '../parts/AdminSidebar'
+import AdminBar from '../parts/AdminBar'
 import Header from '../parts/Header'
 import Footer from '../parts/Footer'
 import swal from 'sweetalert'
@@ -63,7 +63,7 @@ class AdminOrders extends Component {
                 <div className="container-fluid my-5">
                     <h1 className="heading"><span>Admin Panel </span>(Orders)</h1>
                     <div className="row admin">
-                        <AdminSidebar/>
+                        <AdminBar/>
                         <div className="col-sm-10">
                             <div className="btn-pag">
                                 <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px', marginRight:"1em"}}/>
