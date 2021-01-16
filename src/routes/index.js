@@ -3,44 +3,6 @@ import React from "react";
 import { renderToString } from "react-dom/server"
 import "regenerator-runtime/runtime.js"
 import Index from "../pages/index/Index"
-import Career from "../pages/index/Career"
-import Clients from "../pages/index/Clients"
-import Contact from "../pages/index/Contact"
-import GraphicsDesign from "../pages/index/GraphicsDesign"
-import GraphicsPortfolio from "../pages/index/GraphicsPortfolio"
-import LaravelDeveloper from "../pages/index/LaravelDeveloper"
-import ReactDeveloper from "../pages/index/ReactDeveloper"
-import Sitemap from "../pages/index/Sitemap"
-import WebPortfolio from "../pages/index/WebPortfolio"
-import WebsiteDevelopment from "../pages/index/WebsiteDevelopment"
-import WordpressDeveloper from "../pages/index/WordpressDeveloper"
-import ThankYou from "../pages/index/ThankYou"
-import FourOFour from "../pages/index/FourOFour"
-import ContentWriting from "../pages/index/ContentWriting"
-import SEO from "../pages/index/SEO"
-import SMM from "../pages/index/SMM"
-import OfflineMarketing from "../pages/index/OfflineMarketing"
-import GuestBlogging from "../pages/index/GuestBlogging"
-import DigitalMarketing from "../pages/index/DigitalMarketing"
-import AboutUs from "../pages/index/AboutUs"
-import AppDev from "../pages/index/AppDev"
-import LeadGeneration from "../pages/index/LeadGeneration"
-
-import Blog from "../pages/blog/Blog"
-import Single from "../pages/blog/Single"
-
-// import Register from "../pages/auth/Register"
-import Login from "../pages/auth/Login"
-import ForgotPassword from "../pages/auth/ForgotPassword"
-import ResetPassword from "../pages/auth/ResetPassword"
-
-import AdminUsers from "../pages/admin/AdminUsers"
-import AdminBlogMeta from "../pages/admin/AdminBlogMeta"
-import AdminBlogs from "../pages/admin/AdminBlogs"
-import AdminComments from "../pages/admin/AdminComments"
-import AdminLead from "../pages/admin/AdminLead"
-import AdminMeta from "../pages/admin/AdminMeta"
-import RefSchema from "../pages/admin/RefSchema"
 
 import { decode } from "jsonwebtoken"
 
@@ -48,27 +10,27 @@ const jwt = require('jsonwebtoken')
 const router = express.Router()
 const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
 
-var bodyParser = require('body-parser')
+// var bodyParser = require('body-parser')
 
-router.use(bodyParser.json())
+// router.use(bodyParser.json())
 
-var cookieParser = require('cookie-parser')
-router.use(cookieParser())
+// var cookieParser = require('cookie-parser')
+// router.use(cookieParser())
 
-router.use(bodyParser.urlencoded({ extended: true }))
+// router.use(bodyParser.urlencoded({ extended: true }))
 const nodemailer = require("nodemailer");
 var pool = require('./mysqlConnector');
 
-router.use('/auth', require('./auth'))
-router.use('/admin', require('./admin'))
+// router.use('/auth', require('./auth'))
+// router.use('/admin', require('./admin'))
 
 const asyncMiddleware = require('./asyncMiddleware');
 
 router.get('/', asyncMiddleware( async(req, res, next) => {
-  const meta = await getMeta('/')
-  const blogs = await suggestBlogs()
-  const reactComp = renderToString( <Index blogs={blogs} /> )
-  res.status(200).render('pages/Index', { reactApp: reactComp, meta: meta})
+  // const meta = await getMeta('/')
+  // const blogs = await suggestBlogs()
+  const reactComp = renderToString( <Index/> )
+  res.status(200).render('pages/Index', { reactApp: reactComp, meta: [] })
 }))
 
 router.get('/register', asyncMiddleware( async(req, res, next) => { const blogs = await suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: [] }) }))
@@ -359,13 +321,13 @@ router.get('/about-us', asyncMiddleware( async(req, res, next) => { const meta =
 router.get('/mobile-app-development', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/mobile-app-development','page'); res.status(200).render('pages/AppDev', { reactApp: renderToString( <AppDev/> ), meta: meta}) }))
 router.get('/lead-generation-services', asyncMiddleware( async(req, res, next) => { const meta = await getMeta('/lead-generation-services','page'); res.status(200).render('pages/LeadGeneration', { reactApp: renderToString( <LeadGeneration/> ), meta: meta}) }))
 
-router.get('/adminUsers', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminUsers', { reactApp: renderToString(<AdminUsers/>), meta: [] }) }))
-router.get('/adminLead', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminLead', { reactApp: renderToString(<AdminLead/>), meta: [] }) }))
-router.get('/adminBlogMeta', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminBlogMeta', { reactApp: renderToString(<AdminBlogMeta/>), meta: [] }) }))
-router.get('/adminBlogs', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminBlogs', { reactApp: renderToString(<AdminBlogs/>), meta: [] }) }))
-router.get('/adminComments', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminComments', { reactApp: renderToString(<AdminComments/>), meta: [] }) }))
-router.get('/adminMeta', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminMeta', { reactApp: renderToString(<AdminMeta/>), meta: [] }) }))
-router.get('/refSchema', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/RefSchema', { reactApp: renderToString(<RefSchema/>), meta: [] }) }))
+// router.get('/adminUsers', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminUsers', { reactApp: renderToString(<AdminUsers/>), meta: [] }) }))
+// router.get('/adminLead', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminLead', { reactApp: renderToString(<AdminLead/>), meta: [] }) }))
+// router.get('/adminBlogMeta', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminBlogMeta', { reactApp: renderToString(<AdminBlogMeta/>), meta: [] }) }))
+// router.get('/adminBlogs', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminBlogs', { reactApp: renderToString(<AdminBlogs/>), meta: [] }) }))
+// router.get('/adminComments', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminComments', { reactApp: renderToString(<AdminComments/>), meta: [] }) }))
+// router.get('/adminMeta', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminMeta', { reactApp: renderToString(<AdminMeta/>), meta: [] }) }))
+// router.get('/refSchema', [verifyToken, verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/RefSchema', { reactApp: renderToString(<RefSchema/>), meta: [] }) }))
 
 router.get('/:url', asyncMiddleware( async(req, res, next) => {
   let sql = `SELECT * FROM blogs WHERE url = '${req.params.url}'`;
@@ -396,130 +358,5 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
     }
   });
 }))
-
-function getMeta(url, type) {
-  return new Promise((resolve, reject) => {
-    let sql =   `SELECT title, description, keyword FROM metas WHERE url='${url}';
-                SELECT title, description, keyword FROM metas WHERE url='default';
-                SELECT cover_img FROM blogs WHERE url='${url.replace('/', "")}';
-                SELECT name FROM blog_metas WHERE type='page' AND url='${url}'`
-    pool.query(sql, [1,2,3,4], (err, rows) => {
-      try{
-        if(rows){
-          if(rows[0].length){
-            rows[0][0].url = url
-            if(type =='single' && rows[2].length){ rows[0][0].image = '/images/blog/'+rows[2][0].cover_img }
-            if(type =='page' && rows[3].length){ rows[0][0].image = '/images/static/'+rows[3][0].name }
-            resolve(rows[0])
-          }else if(rows[1].length){ 
-            rows[1][0].url = url
-            if(type =='single' && rows[2].length){ rows[1][0].image = '/images/blog/'+rows[2][0].cover_img }
-            if(type =='page' && rows[3].length){ rows[1][0].image = '/images/static/'+rows[3][0].name }
-            resolve(rows[1])
-          }
-        }
-      }catch(e){
-        logError(e, 'Function get Meta in Index')
-        return;
-      }
-    });
-  })
-}
-
-function suggestBlogs() {
-  return new Promise((resolve, reject) => {
-    let sql = 'SELECT `title`, `url`, `cover_img`, `created_at` FROM blogs ORDER BY id DESC LIMIT 6'
-    pool.query(sql, (err, rows) => {
-      try{
-        if(err) throw err;
-        resolve(rows)
-      }catch(e){
-        logError(e, 'Function suggestBlogs in Index')
-        return;
-      }
-    });
-  });
-}
-
-function verifyToken(req, res, next){
-  if(req.cookies.jwt){
-    const bearerHeader = req.cookies.jwt
-    if(typeof bearerHeader !== 'undefined'){
-      req.token = bearerHeader
-      const { exp }  = decode(bearerHeader)
-      if (Date.now() >= exp * 1000) { 
-        res.redirect('/login?e=' + encodeURIComponent('LoggedOut'));
-        return;
-      }
-      next()
-    }else{
-      res.sendStatus(403)
-      return
-    }
-  }else{
-    res.redirect('/login?e=' + encodeURIComponent('LoggedOut'));
-  }
-}
-
-function verifyAdmin(req, res, next){
-  if(req.cookies.jwt){
-    const bearerHeader = req.cookies.jwt
-    try{
-      const user = jwt.verify(bearerHeader,'secretkey')
-        if (user.user.role!=='Admin'){
-          res.redirect('/blog')
-          res.end()
-          return;
-        }
-        next();
-      } catch(e){
-        logError(e, 'Function verifyAdmin in Index')
-        res.status(403);
-        return;
-      }
-    }else{
-      res.redirect('/login?e=' + encodeURIComponent('LoggedOut'));
-    }
-}
-
-function blogMetaData(id) {
-  return new Promise((resolve, reject) => {
-      let sql =   `SELECT title, url FROM blogs ORDER BY id DESC;
-                  SELECT name, url FROM blog_metas WHERE type = 'category';
-                  SELECT name, url FROM blog_metas WHERE type = 'tag';
-                  SELECT id, blogId, c_order, commentId, user, email, comment, updated_at FROM comments WHERE blogId = '${id}' AND status='1' AND c_order= '0' ORDER BY id DESC;
-                  SELECT id, blogId, c_order, commentId, user, email, comment, updated_at FROM comments WHERE blogId = '${id}' AND status='1' AND c_order= '1' ORDER BY id ASC`
-      pool.query(sql, [1, 2, 3, 4, 5], (err, results) => {
-          try{
-              if(results){ resolve(results ) }else if(err){ throw err }
-          }catch(e){
-              logError(e, 'Function blogMetaData in Index')
-              res.status(500);
-              return;
-          }
-      });
-  });
-}
-
-function sendMailOnError(e, func) {
-  const mailBody =`
-      <h2><strong>Hi</h2>
-      <p>There has been error in AmitKK. Please check if website is running or not.</p>
-      <p>Then check the log</p>
-      ${e}<br/>
-      ${func}
-      <p>Warm Regards</p>
-      <p>Team AmitKK</p>
-  `
-  let transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'amit@amitkk.com', pass: 'coderBhai@2203',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
-  let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', subject: "Error on ✔ www.amitkk.com", html: mailBody }
-  transporter.sendMail( mailOptions, (error, info)=>{
-      res.send({ success: true, message: "Please check your mail" })
-  })
-}
-
-function logError(e, func){
-  // sendMailOnError(e, func)
-}
 
 export default router;
