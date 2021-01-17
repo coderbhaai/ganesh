@@ -9,9 +9,9 @@ function AdminBar(props) {
         { url: "/admin/blogmeta", text: "Blog Meta" },
         { url: "/admin/comments", text: "Comments" },
         { url: "/admin/contacts", text: "Contact" },
-        {url: "/adminProducts", text: "Products"},
-        {url: "/addProduct", text: "Add Product"},
-        {url: "/adminOrders", text: "Orders"},
+        {url: "/admin/addProduct", text: "Add Product"},
+        {url: "/admin/adminProducts", text: "Products"},
+        {url: "/admin/adminOrders", text: "Orders"},
     ]
     return (
         <div className="col-sm-2 AdminBar">

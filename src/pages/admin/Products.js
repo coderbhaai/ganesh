@@ -27,7 +27,7 @@ export class Products extends Component {
     }
 
     callApi = async () => {
-        const response = await fetch('/admin/adminProducts'); 
+        const response = await fetch('/admin/getProducts'); 
         const body = await response.json()
         console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
@@ -61,7 +61,7 @@ export class Products extends Component {
                     <td>{index +1}</td>
                     <td>{i.name}</td>
                     <td>{i.vendor}</td>
-                    <td style={{textAlign:'center'}}><img src={"images/product/" + JSON.parse(i.images)[0]} className="tableImg" style={{maxHeight:'80px', width: 'auto'}}/>{i.product}</td>
+                    <td style={{textAlign:'center'}}><img src={"/images/product/" + JSON.parse(i.images)[0]} className="tableImg" style={{maxHeight:'80px', width: 'auto'}}/>{i.product}</td>
                     <td>{i.price}</td>
                     <td>{i.rating}</td>
                     <td>
@@ -71,7 +71,7 @@ export class Products extends Component {
                         </div>
                     </td>
                     <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
-                    <td className="editIcon text-center"><a href={"/admin/updateProduct/"+i.id}><img src="/images/icons/edit.svg"/></a></td>
+                    <td className="editIcon text-center"><a href={"/admin/editProduct/"+i.id}><img src="/images/icons/edit.svg"/></a></td>
                 </tr>
         )})
         const pageNumbers = []

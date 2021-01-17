@@ -68,6 +68,46 @@ export function tagName(data) {
     });
 }
 
+export function productCatName(data) {
+    var list = []
+    return new Promise((resolve, reject) => {
+        if(data.length>0){
+            for(var i = 0; i < data.length; i++){
+                let sql = `SELECT name as text, id as value FROM basic Where type='Category' AND id = '${data[i]}';`
+                pool.query(sql, (err, results) => {
+                    try{ if(err) throw err;
+                        list.push(results[0])
+                        if(i == data.length){
+                            resolve(list)
+                        }
+                    }catch(e){ logError(e); return; }
+                });
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
+export function productTagName(data) {
+    var list = []
+    return new Promise((resolve, reject) => {
+        if(data.length>0){
+            for(var i = 0; i < data.length; i++){
+                let sql = `SELECT name as text, id as value FROM basic Where type='Tag' AND id = '${data[i]}';`
+                pool.query(sql, async (err, results) => {
+                    try{ if(err) throw err;
+                        await list.push(results[0])
+                        if(i == list.length){ resolve(list) }
+                    }catch(e){ logError(e); return; }
+                });
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
 export function blogMetaData(id) {
     return new Promise((resolve, reject) => {
         let sql = `SELECT title, url FROM blogs ORDER BY id DESC;

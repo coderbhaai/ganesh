@@ -320,10 +320,10 @@ router.get('/', asyncMiddleware( async(req, res, next) => {
   router.get('/admin/contacts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminContacts', { reactApp: renderToString(<AdminContacts/>), meta: [] }) }))
   router.get('/admin/comments', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminComments', { reactApp: renderToString(<AdminComments/>), meta: [] }) }))
   router.get('/admin/basics', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminBasics', { reactApp: renderToString(<AdminBasics/>), meta: [] }) }))
-  router.get('/adminOrders', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminOrders', { reactApp: renderToString(<AdminOrders/>), meta: [] }) }))
-  router.get('/adminProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/Products', { reactApp: renderToString(<Products/>), meta: [] }) }))
-  router.get('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AddProduct', { reactApp: renderToString(<AddProduct/>), meta: [] }) }))
-  router.get('/editProduct/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/EditProduct', { reactApp: renderToString(<EditProduct/>), meta: [] }) }))
+  router.get('/admin/adminOrders', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async (req, res, next) => { res.status(200).render('admin/AdminOrders', { reactApp: renderToString(<AdminOrders/>), meta: [] }) }))
+  router.get('/admin/adminProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/Products', { reactApp: renderToString(<Products/>), meta: [] }) }))
+  router.get('/admin/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AddProduct', { reactApp: renderToString(<AddProduct/>), meta: [] }) }))
+  router.get('/admin/editProduct/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/EditProduct', { reactApp: renderToString(<EditProduct/>), meta: [] }) }))
 // // Admin Pages
 
 // Shopping

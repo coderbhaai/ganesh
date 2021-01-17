@@ -527,7 +527,7 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
     })
 }))
 
-router.get('/adminProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+router.get('/getProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.display, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor FROM products as a
                 left join basic as b on b.id = a.vendor ORDER BY a.id DESC`
     pool.query(sql, (err, results) => {
@@ -564,6 +564,68 @@ router.post('/changeProductStatus', [func.verifyToken, func.verifyAdmin], asyncM
     })
 }))
 
+router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.display,  a.price, a.status, b.name as vendor 
+                FROM products as a
+                left join basic as b on b.id = a.vendor WHERE a.id = '${req.params.id}';
+                SELECT name as text, id as value FROM basic Where type='Category';
+                SELECT name as text, id as value FROM basic Where type='Tag';
+                SELECT name as text, id as value FROM basic Where type='Vendor';`
+    pool.query(sql, [1,2,3,4], async(err, results) => {
+        try{ 
+            if(err){ throw err }   
+            if(results){ 
+                const catList = await func.productCatName(JSON.parse(results[0][0].category))
+                const tagList = await func.productTagName(JSON.parse(results[0][0].tags))
+                res.send({ 
+                    data:               results[0][0],
+                    catOptions:         results[1],
+                    tagOptions:         results[2],
+                    vendorOptions:      results[3],
+                    catList:            catList,
+                    tagList:            tagList
+                });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
 
+router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let post= {
+        'vendor':               req.body.vendor,
+        'name':                 req.body.name,
+        'url':                  req.body.url,
+        'display':              req.body.display,
+        'category':             req.body.category,
+        'tags':                 req.body.tags,
+        'shortDesc':            req.body.shortDesc,
+        'longDesc':             req.body.longDesc,
+        'price':                req.body.price,
+        "updated_at":           time,
+    }
+    if(req.files){
+        if(req.files.images){
+            var images = []
+            for(var i = 0; i < req.files.images.length; i++){
+                var file = req.files.images[i]
+                var filename = Date.now() + '-' + file.name;
+                images.push(filename)
+                file.mv(storage+'product/'+filename, function(err){ if(err){ func.logError(err) } })
+            }
+            var oldImages = JSON.parse( req.body.oldImages )
+            for(var i = 0; i < oldImages.length; i++){
+                if (fs.existsSync(storage+'product/'+oldImages[i])) { fs.unlinkSync(storage+'product/'+oldImages[i]) }
+            }
+            post.images = JSON.stringify(images)
+        }
+    }
+    let sql = `UPDATE products SET ? WHERE id = ${req.body.id}`
+    pool.query(sql, post, (err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){ res.send({ success: true, message: "Product updated succesfully" }) }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
 
 module.exports = router;
