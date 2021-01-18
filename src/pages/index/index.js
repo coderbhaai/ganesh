@@ -23,7 +23,6 @@ export class index extends Component {
     callApi = async () => {
         const response = await fetch( '/getHomeData' ); 
         const body = await response.json();
-        console.log('body', body.blogs)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             blogs:                  body.blogs,
@@ -32,9 +31,9 @@ export class index extends Component {
     }
 
     addToCart=(i)=>{
+        console.log('i', i)
         var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
-            console.log("1")
             this.state.cart.forEach((o)=>{
                 if( o[1] === parseInt(i.id) ){ 
                     o[0]++
@@ -43,7 +42,6 @@ export class index extends Component {
             })
             this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
         }else{
-            console.log("2")
             this.setState({ cart: [...this.state.cart, item] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
             func.callSwal(i.name + " added to cart ")
         }
@@ -54,11 +52,9 @@ export class index extends Component {
             this.state.cart.forEach((o, index)=>{
                 if( o[1] === parseInt(i.id) ){
                     if(o[0]>1){ 
-                        console.log("1")
                         o[0]--
                         func.callSwal(i.name + " in cart reduced to "+ o[0])
                     }else{ 
-                        console.log("2")
                         this.state.cart.splice(index, 1)
                         func.callSwal(i.name + " removed from cart ")
                     }
@@ -69,7 +65,6 @@ export class index extends Component {
     }
     
     render() {
-        // console.log('this.state', this.state)
         const params = {
             slidesPerView: 6,
             spaceBetween: 10,
@@ -157,7 +152,7 @@ export class index extends Component {
                                                     <h3>{i.name}</h3>
                                                     <p>Price: Rs {i.price}</p>
                                                     <ul>
-                                                        <li><a href="#">View Detail</a></li>
+                                                        <li><a href={"/product/"+i.url}>View Detail</a></li>
                                                         <li onClick={()=>this.addToCart(i)}>Add To cart</li>
                                                     </ul>
                                                 </div>

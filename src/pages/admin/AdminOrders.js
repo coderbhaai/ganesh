@@ -2,31 +2,36 @@ import React, { Component } from 'react'
 import AdminBar from '../parts/AdminBar'
 import Header from '../parts/Header'
 import Footer from '../parts/Footer'
-import swal from 'sweetalert'
 import moment from "moment"
+import {Modal, ModalHeader, ModalBody } from 'reactstrap'
+const func = require('../parts/functions')
+import axios from 'axios'
 
 class AdminOrders extends Component {
     constructor(props) {
         super(props)    
         this.state = {
-            orders:                [],            
-            currentPage:           1,
-            itemsPerPage:          100,
-            search:                ''
+            orders:                     [],   
+            editmodalIsOpen:            false,  
+            id:                         '',
+            remarks:                    '',
+            status:                     '',       
+            currentPage:                1,
+            itemsPerPage:               100,
+            search:                     ''
         }
     }
 
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value }) }
     handleClick= (e)=> { this.setState({ currentPage: Number(e.target.id) }) }
     changeitemsPerPage = (e)=>{ this.setState({ itemsPerPage: e.target.value }) }
-    callSwal=(mesg)=>{ swal({ title: mesg, timer: 4000 }) }
     searchSpace=(e)=>{ this.setState({search:e.target.value}) }
     componentDidMount(){
         this.callApi()
     }
 
     callApi = async () => {
-        const response = await fetch('/admin/adminOrders'); 
+        const response = await fetch('/admin/getOrders'); 
         const body = await response.json()
         if (response.status !== 200) throw Error(body.message);
         this.setState({
@@ -34,24 +39,58 @@ class AdminOrders extends Component {
         })
     }
 
+    editModalOn = (i)=>{
+        this.setState({
+            editmodalIsOpen:            true,     
+            id:                         i.id,
+            remarks:                    i.remarks,
+            status:                     i.status
+        })        
+    }
+
+    resetData = ()=>{ 
+        this.setState({ 
+            editmodalIsOpen:            false,
+            id:                         '',
+            remarks:                    '',
+            status:                     ''
+        })
+        window.scrollTo(0, 0)
+    }
+
+    updateOrderStatus = (e) => {
+        e.preventDefault()
+        const data={
+            id:                     this.state.id,
+            status:                 this.state.status,
+            remarks:                this.state.remarks,
+        }
+        axios.post('/admin/updateOrderStatus', data)
+            .catch(err=>console.log('err', err))
+            .then(res=>{
+                this.setState({ orders: this.state.orders.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })
+                func.callSwal(res.data.message)
+                this.resetData()
+            })
+    }
+
     render() {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const renderItems =  this.state.orders.filter((i)=>{ if(this.state.search == null) return i; else if(i.buyer.toLowerCase().includes(this.state.search.toLowerCase()) || i.cart.toLowerCase().includes(this.state.search.toLowerCase()) || i.address.toLowerCase().includes(this.state.search.toLowerCase())){ return i }}).slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
+        const renderItems =  this.state.orders.filter((i)=>{ if(this.state.search == null) return i; else if(i.status.toLowerCase().includes(this.state.search.toLowerCase()) || JSON.parse(i.address)[0].toLowerCase().includes(this.state.search.toLowerCase()) || JSON.parse(i.cart)[3].toLowerCase().includes(this.state.search.toLowerCase())){ return i }}).slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
             return (
-                <tr key={index}>
+                <tr key={index} className="cart">
                     <td>{index +1}</td>
-                    <td>{JSON.parse(i.buyer)[0]}<br/>{JSON.parse(i.buyer)[1]}<br/>{JSON.parse(i.buyer)[2]}</td>                                              
-                    <td>{JSON.parse(i.address)[3]}, {JSON.parse(i.address)[2]}, {JSON.parse(i.address)[1]}, {JSON.parse(i.address)[0]} - {JSON.parse(i.address)[4]}</td>                                              
-                    <td>{JSON.parse(i.cart).map((j, index2)=>( <span key={index2}>{j[4]}- {j[1]}@{j[3]}, </span> )) }</td>
-                    <td>{JSON.parse(i.seller).map((j, index2)=>( <span key={index2}>{j}, </span> )) }</td>
-                    <td>{i.status}</td>
-                    <td>Cost: &#8377;{JSON.parse(i.invoice)[0]}, Shipping: &#8377;{JSON.parse(i.invoice)[1]}, Discount: &#8377;{JSON.parse(i.invoice)[2]},<strong> Total: &#8377;{JSON.parse(i.invoice)[3]}</strong></td>
-                    {/* 
-                    
-                <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editModalOn(i)}/></td> */}
-                <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
+                    <td>{i.order_number}</td>
+                    <td>{JSON.parse(i.address)[0]}, {JSON.parse(i.address)[1]}, {JSON.parse(i.address)[2]}<br/> {JSON.parse(i.address)[3]}</td> 
+                    <td>{JSON.parse(i.address)[7]},  {JSON.parse(i.address)[6]} {JSON.parse(i.address)[5]} {JSON.parse(i.address)[4]} - {JSON.parse(i.address)[8]}</td>
+                    <td className="cartImg"><a href={"/product/"+JSON.parse(i.cart)[5]}><img src={"/images/product/"+JSON.parse(i.cart)[2]} className="previewImg"/>{JSON.parse(i.cart)[3]}</a></td>                          
+                    <td>{JSON.parse(i.cart)[0]}</td>                                        
+                    <td>&#8377;{i.invoice}</td>
+                    <td>{i.status}</td>                    
+                    <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
+                    <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editModalOn(i)}/></td>
                 </tr>
         )})
         const pageNumbers = []
@@ -60,44 +99,76 @@ class AdminOrders extends Component {
         return (
             <>
                 <Header/>
-                <div className="container-fluid my-5">
-                    <h1 className="heading"><span>Admin Panel </span>(Orders)</h1>
+                <div className="container-fluid">
                     <div className="row admin">
                         <AdminBar/>
                         <div className="col-sm-10">
+                            <h1 className="heading"><span>Admin Panel </span>(Orders)</h1>
                             <div className="btn-pag">
-                                <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px', marginRight:"1em"}}/>
-                                <div>
-                                    <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
-                                        <option>{itemsPerPage}</option>
-                                        <option value="10">10</option> 
-                                        <option value="25">25</option> 
-                                        <option value="50">50</option> 
-                                        <option value="100">100</option> 
-                                    </select>
-                                    <div><ul className="page-numbers">{renderPagination}</ul></div>
+                                <div className="btn-pag">
+                                    <div>
+                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
+                                        <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
+                                            <option>{itemsPerPage}</option>
+                                            <option value="10">10</option> 
+                                            <option value="25">25</option> 
+                                            <option value="50">50</option> 
+                                            <option value="100">100</option> 
+                                        </select>
+                                        <div><ul className="page-numbers">{renderPagination}</ul></div>
+                                    </div>
                                 </div>
                             </div>
                             <table className="table table-hover table-responsive">
                                 <thead>
                                     <tr>
                                         <td>Sl no.</td>
+                                        <td>Order Number</td>
                                         <td>Buyer</td>
                                         <td>Address</td>
-                                        <td>Cart</td>
-                                        <td>Seller</td>
-                                        <td>Status</td>
+                                        <td>SKU</td>
+                                        <td>Quantity</td>
                                         <td>Amount</td>
+                                        <td>Status</td>
                                         <td>Date</td>
+                                        <td>Update</td>
                                     </tr>
                                 </thead>
                                 <tbody>{renderItems}</tbody>
                             </table>
-                            <ul className="page-numbers">{renderPagination}</ul>
+                            <ul className="page-numbers mb-5">{renderPagination}</ul>
                         </div>
                     </div>
                 </div>
                 <Footer/>
+
+                <Modal isOpen={this.state.editmodalIsOpen} className="adminModal"> 
+                    <ModalHeader> Update Order Status here </ModalHeader>
+                    <div className="closeModal" onClick={this.resetData}>X</div>
+                    <ModalBody>
+                        <form className="modal-form" encType="multipart/form-data" onSubmit={this.updateOrderStatus}>
+                            <div className="row">
+                                <div className="col-sm-12 mb-3">
+                                    <label>Order Status</label>
+                                    <select className="form-control" required name="status" onChange={this.onChange} value={this.state.status}>
+                                        <option value={this.state.status}>{this.state.status}</option>
+                                        <option value=''>Select Order Status</option>
+                                        <option value='In Process'>In Process</option>
+                                        <option value='Being Delivered'>Being Delivered</option>
+                                        <option value='Closed'>Closed</option>
+                                    </select>
+                                </div>
+                                <div className="col-sm-12">
+                                    <label>Remarks</label>
+                                    <textarea name="remarks" type="text" className="form-control" placeholder="Remarks" value={this.state.remarks || ''} onChange={this.onChange}/>
+                                </div>
+                            </div>
+                            <div className="my-div">
+                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                            </div>
+                        </form>
+                    </ModalBody>
+                </Modal>
             </>
         )
     }

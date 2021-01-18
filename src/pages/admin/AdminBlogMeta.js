@@ -143,6 +143,7 @@ class AdminBlogMeta extends Component {
                             <div className="btn-pag">
                                 <button className="amitBtn" onClick={this.addMetaModalOn}>Add Blog Meta</button>
                                 <div>
+                                    <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                     <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
                                         <option>{itemsPerPage}</option>
                                         <option value="10">10</option> 
@@ -150,7 +151,6 @@ class AdminBlogMeta extends Component {
                                         <option value="50">50</option> 
                                         <option value="100">100</option> 
                                     </select>
-                                    <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px', marginRight:"1em"}}/>
                                     <div><ul className="page-numbers">{renderPagination}</ul></div>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@ class AdminBlogMeta extends Component {
                                 </thead>
                                 <tbody>{this.state.loading? <tr className="loading"><td colSpan="5" className="text-center"><img src="/images/icons/loading.gif"/></td></tr> : renderItems}</tbody>
                             </table>
-                            <ul className="page-numbers">{renderPagination}</ul>
+                            <ul className="page-numbers mb-5">{renderPagination}</ul>
                         </div>
                     </div>
                 </div>

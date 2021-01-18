@@ -29,7 +29,6 @@ export class Products extends Component {
     callApi = async () => {
         const response = await fetch('/admin/getProducts'); 
         const body = await response.json()
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message);
         this.setState({
             products:          body.data
@@ -44,7 +43,6 @@ export class Products extends Component {
         }
         axios.post('/admin/changeProductStatus', data)
         .then( res=>{
-            console.log('res.data', res.data)
             if(res.data.success){ this.setState({ products: this.state.products.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) }
             func.callSwal(res.data.message)
         })
@@ -86,16 +84,18 @@ export class Products extends Component {
                         <div className="col-sm-10">
                             <h1 className="heading"><span>Admin Panel </span>(Products)</h1>
                             <div className="btn-pag">
-                                <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)} style={{width:'400px', marginRight:"1em"}}/>
-                                <div>
-                                    <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
-                                        <option>{itemsPerPage}</option>
-                                        <option value="10">10</option> 
-                                        <option value="25">25</option> 
-                                        <option value="50">50</option> 
-                                        <option value="100">100</option> 
-                                    </select>
-                                    <div><ul className="page-numbers">{renderPagination}</ul></div>
+                                <div className="btn-pag">
+                                    <div>
+                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
+                                        <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
+                                            <option>{itemsPerPage}</option>
+                                            <option value="10">10</option> 
+                                            <option value="25">25</option> 
+                                            <option value="50">50</option> 
+                                            <option value="100">100</option> 
+                                        </select>
+                                        <div><ul className="page-numbers">{renderPagination}</ul></div>
+                                    </div>
                                 </div>
                             </div>
                             <table className="table table-hover table-responsive">
@@ -114,7 +114,7 @@ export class Products extends Component {
                                 </thead>
                                 <tbody>{renderItems}</tbody>
                             </table>
-                            <ul className="page-numbers">{renderPagination}</ul>
+                            <ul className="page-numbers mb-5">{renderPagination}</ul>
                         </div>
                     </div>
                 </div>

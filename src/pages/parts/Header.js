@@ -43,6 +43,7 @@ export class Header extends Component {
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item"><a className="nav-link active" href="#">Home</a></li>
+                        <li className="nav-item"><a className="nav-link" href="/shop">Shop</a></li>
                         <li className="nav-item"><a className="nav-link" href="/blog">Blog</a></li>
                         {this.state.user.role?
                             <>

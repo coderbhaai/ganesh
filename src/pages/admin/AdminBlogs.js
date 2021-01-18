@@ -93,14 +93,10 @@ class AdminBlogs extends Component{
                         <div className="col-sm-10">
                             <h1 className="heading"><span>Admin Panel</span>(Blogs)</h1>
                             <div className="btn-pag">
-                                <div className="perPage">
+                                <div className="btn-pag">
+                                    <a href="/admin/addBlog" className="amitBtn">Add Blogs</a>
                                     <div>
-                                        <label>Add Blog here</label>
-                                        {/* <button className="amitBtn" onClick={this.addBlogModalOn}>Add Blogs</button> */}
-                                        <a href="/admin/addBlog" className="amitBtn">Add Blogs</a>
-                                    </div>
-                                    <div>
-                                        <label>Blogs per page</label>
+                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
                                             <option>{itemsPerPage}</option>
                                             <option value="10">10</option> 
@@ -108,16 +104,7 @@ class AdminBlogs extends Component{
                                             <option value="50">50</option> 
                                             <option value="100">100</option> 
                                         </select>
-                                    </div>
-                                </div>
-                                <div className="search">
-                                    <div className="noFlex searchInput">
-                                        <label>Search Here</label>
-                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
-                                    </div>
-                                    <div className="noFlex">
-                                        <label>Page Numbers</label>
-                                        <ul className="page-numbers">{renderPagination} </ul>
+                                        <div><ul className="page-numbers">{renderPagination}</ul></div>
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +119,7 @@ class AdminBlogs extends Component{
                                 </thead>
                                 <tbody>{this.state.loading? <tr className="loading"><td colSpan="4" className="text-center"><img src="/images/icons/loading.gif"/></td></tr> : renderItems}</tbody>
                             </table>
-                            <ul className="page-numbers">{renderPagination}</ul>
+                            <ul className="page-numbers mb-5">{renderPagination}</ul>
                         </div>
                     </div>
                 </div>

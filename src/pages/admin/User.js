@@ -91,6 +91,7 @@ export class User extends Component {
                                 </thead>
                                 <tbody>{this.state.loading? <tr className="loading"><td colSpan="5" className="text-center"><img src="/images/icons/loading.gif"/></td></tr> : renderItems}</tbody>
                             </table>
+                            <ul className="page-numbers mb-5">{renderPagination}</ul>
                         </div>
                     </div>
                 </div>

@@ -8,27 +8,28 @@ export class Cart extends Component {
     constructor(props) {
         super(props)    
         this.state = {
+            paymentInProcess:       false,
             cart:                   [],
             cost:                   0,
             coupon:                 '',
-            // name:                   '',
-            // email:                  '',
-            // phone:                  '',
-            // country:                '',
-            // state:                  '',
-            // city:                   '',
-            // address:                '',
-            // pin:                    '',
-            // message:                '',
-            name:                   'Amit',
-            email:                  'test@test.com',
-            phone:                  '123456789',
-            country:                'India',
-            state:                  'Haryana',
-            city:                   'Faridabad',
-            address:                '1172',
-            pin:                    '122002',
-            message:                'Hi',
+            name:                   '',
+            email:                  '',
+            phone:                  '',
+            country:                '',
+            state:                  '',
+            city:                   '',
+            address:                '',
+            pin:                    '',
+            message:                '',
+            // name:                   'Amit',
+            // email:                  'test@test.com',
+            // phone:                  '123456789',
+            // country:                'India',
+            // state:                  'Haryana',
+            // city:                   'Faridabad',
+            // address:                '1172',
+            // pin:                    '122002',
+            // message:                'Hi',
         }
     }
     
@@ -50,6 +51,7 @@ export class Cart extends Component {
 
     payment=(e)=>{
         e.preventDefault()
+        this.setState({ paymentInProcess: true })
         const cost = this.reduceCart();
         const data={
             address:                JSON.stringify( [this.state.name, this.state.email, this.state.phone, this.state.message, this.state.country, this.state.state, this.state.city, this.state.address, this.state.pin] ),
@@ -61,10 +63,10 @@ export class Cart extends Component {
         axios.post('/admin/placeOrder', data)
             .catch(err=>console.log('err', err))
             .then(res=>{
-                console.log('res', res)
                 if(res.data.success){ 
-                    // this.setState({ cart: [] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
+                    this.setState({ cart: [] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
                     localStorage.setItem('message', res.data.message)
+                    this.setState({ paymentInProcess: false })
                     window.location.href = '/thank-you'
                 }
             })
@@ -74,11 +76,8 @@ export class Cart extends Component {
         this.state.cart.splice(index, 1)
         this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
     }
-
-    
         
     render() {
-        console.log('this.state', this.state)
         return (
             <>
                 <Header cart={this.state.cart.length}/>
@@ -165,9 +164,13 @@ export class Cart extends Component {
                                     <div className="w-100 mt-5">
                                         <h3>Final Invoice : </h3>
                                             <span>Cost <strong>&#8377;{this.reduceCart()}</strong> </span>
-                                        <div className="my-btn my-5">
-                                            <button className="amitBtn">Pay now</button>
-                                        </div>
+                                            {this.state.paymentInProcess ?
+                                                <div className="loading"><img src="/images/icons/loading.gif"/></div>
+                                            :
+                                                <div className="my-btn my-5">
+                                                    <button className="amitBtn">Pay now</button>
+                                                </div>
+                                            }
                                     </div>
                                 </div>
                             </form>

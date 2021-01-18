@@ -45,10 +45,7 @@ export class AddBlog extends Component {
 	onEditorChange1( evt1 ) { this.setState( { content: evt1.editor.getData() } ) }
 	handleChange1( changeEvent1 ) { this.setState( { content: changeEvent1.target.value } ) }
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value }) }
-    categorySelected = (e, {value}) => { 
-        console.log('value', value)
-        
-        this.setState({ selectedCategory: value }) }
+    categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
     tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
     blogImage = (e) =>{ this.setState({ blogImage: e.target.files[0], previewImg: URL.createObjectURL(e.target.files[0]) })}
     

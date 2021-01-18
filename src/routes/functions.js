@@ -79,7 +79,7 @@ export function productCatName(data) {
                 pool.query(sql, (err, results) => {
                     try{ if(err) throw err;
                         list.push(results[0])
-                        if(i == data.length){
+                        if(i == list.length){
                             resolve(list)
                         }
                     }catch(e){ logError(e); return; }
@@ -101,6 +101,27 @@ export function productTagName(data) {
                     try{ if(err) throw err;
                         await list.push(results[0])
                         if(i == list.length){ resolve(list) }
+                    }catch(e){ logError(e); return; }
+                });
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
+export function productIncName(data) {
+    var list = []
+    return new Promise((resolve, reject) => {
+        if(data.length>0){
+            for(var i = 0; i < data.length; i++){
+                let sql = `SELECT name as text, id as value, tab1 FROM basic Where type='Puja' AND id = '${data[i]}';`
+                pool.query(sql, (err, results) => {
+                    try{ if(err) throw err;
+                        list.push(results[0])
+                        if(i == list.length){
+                            resolve(list)
+                        }
                     }catch(e){ logError(e); return; }
                 });
             }
@@ -147,6 +168,93 @@ export function suggestProducts() {
             if(rows){ resolve(rows ) }
         }catch(e){ logError(e); return; }
       });
+    });
+}
+
+export function similarCatProducts(array, id){
+    console.log('array', array)
+    return new Promise((resolve, reject) => {
+        var list = []
+        const idList = [id]
+        const lim = 3
+        if(array.length>0){
+            for(var i = 0; i < array.length || i<2; i++){
+                if( i === 2 || list.length === lim ){
+                    console.log('i, list.length, lim', i, list.length, lim)
+                    resolve(list)
+                }else{
+                    let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1' AND category LIKE '%${array[i]}%';`
+                    pool.query(sql, async (err, results) => {
+                        try{ 
+                            if(err) throw err;
+                            // await console.log('array[i]', array[i])
+                            // await console.log('i', i)
+                            // await console.log( 'results[0].id', results[0].id )
+                            for(var j = 0; j < results.length; j++){
+                                if(idList.indexOf(results[j].id) !== -1){
+                                } else{
+                                    await list.push(results[j])
+                                    await idList.push(results[j].id)
+                                }
+                                // console.log('idList', idList)
+                                if( i === array.length || i === 2 || list.length === lim ){ 
+                                    console.log('i,j', i,j, array.length, list.length)
+                                    resolve(list) }
+                                    // break
+                            }
+                        }catch(e){ logError(e); return; }
+                    });
+                }
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
+export function similarTagProducts(array, id) {
+    return new Promise((resolve, reject) => {
+        var list = []
+        const idList = [id]
+        const lim = 3
+        if(array.length>0){
+            for(var i = 0; i < array.length || i<2; i++){
+                if( i === 2 || list.length === lim ){
+                    console.log('i, list.length, lim', i, list.length, lim)
+                    resolve(list)
+                }else{
+                    let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1' AND tags LIKE '%${array[i]}%';`
+                    pool.query(sql, async (err, results) => {
+                        try{ 
+                            if(err) throw err;
+                            for(var j = 0; j < results.length; j++){
+                                if(idList.indexOf(results[j].id) !== -1){
+                                } else{
+                                    await list.push(results[j])
+                                    await idList.push(results[j].id)
+                                }
+                                if( i === array.length || i === 2 || list.length === lim ){ 
+                                    resolve(list) }
+                            }
+                        }catch(e){ logError(e); return; }
+                    });
+                }
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
+export function productReview(id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT id, productId, userId, review, rating, updated_at FROM rating WHERE id = '${id}';`
+        pool.query(sql, (err, rows) => {
+            try{
+                if(err){ throw err }
+                if(rows){ resolve(rows ) }
+            }catch(e){ logError(e); return; }
+        });
     });
 }
 

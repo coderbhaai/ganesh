@@ -18,15 +18,18 @@ export class EditProduct extends Component {
             status:                '',
             selectedCategory:       [],
             selectedTag:            [],
+            selectedInc:            [],
             shortDesc:              '',
             longDesc:               '',
             catOptions:             [],
             tagOptions:             [],
             vendorOptions:          [],
+            incOptions:             [],
             price:                  '',
             oldImages:              [],
             oldCategory:            [],
-            oldTags:                 [],
+            oldTags:                [],
+            oldInc:                 [],
             oldVendor:              '',
             loading:                true
         }
@@ -44,11 +47,13 @@ export class EditProduct extends Component {
     imagesAdd = (e) =>{ this.setState({ images: e.target.files }) }
     categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
     tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
+    incSelected = (e, {value}) => { this.setState({ selectedInc: value }) }
     vendorSelected = (e, {value}) => { this.setState({ selectedVendor: value }) }
     removeTag =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
     removeCategory =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
     arrayCategoryRemove(index){ this.state.oldCategory.splice(index, 1); this.setState({oldCategory: this.state.oldCategory}) }
     arrayTagRemove(index){ this.state.oldTags.splice(index, 1); this.setState({oldTags: this.state.oldTags}); }
+    arrayIncRemove(index){ this.state.oldInc.splice(index, 1); this.setState({oldInc: this.state.oldInc}); }
     componentDidMount(){ 
         window.scrollTo(0, 0)
         const id = window.location.href.split("/").pop();
@@ -63,6 +68,7 @@ export class EditProduct extends Component {
             this.setState({ loading: false })
             const response = await fetch('/admin/editProductData/'+this.state.id)
             const body = await response.json()
+            console.log('body', body)
             if (response.status !== 200) throw Error(body.message)
             this.setState({
                 selectedVendor:                 body.data.vendorId,
@@ -78,8 +84,12 @@ export class EditProduct extends Component {
                 vendorOptions:                  body.vendorOptions,
                 oldCategory:                    body.catList,
                 oldTags:                        body.tagList,
+                oldInc:                         body.incList,
                 oldImages:                      JSON.parse(body.data.images),
             })
+            const options = []
+            body.incOptions.map(i => { options.push({'text': i.text+'-'+i.tab1, 'value': i.value}) })
+            this.setState({ incOptions:  options })
         }
     }
 
@@ -89,8 +99,10 @@ export class EditProduct extends Component {
         const data = new FormData()
         const catList = []; this.state.oldCategory.forEach(i => { catList.push(i.value) });
         const tagList = []; this.state.oldTags.forEach(i => { tagList.push(i.value) });
+        const incList = []; this.state.oldInc.forEach(i => { incList.push(i.value) });
         var finalCategory = Array.from(new Set( [...catList, ...this.state.selectedCategory]));
         var finalTag = Array.from(new Set( [...tagList, ...this.state.selectedTag]));
+        var finalInc = Array.from(new Set( [...incList, ...this.state.selectedInc]));
 
         if(this.state.images){ for(const f of this.state.images){ data.append('images', f) } }
         data.append('id', this.state.id)
@@ -100,6 +112,7 @@ export class EditProduct extends Component {
         data.append('status', this.state.status)
         data.append('category', JSON.stringify(finalCategory) )
         data.append('tags', JSON.stringify(finalTag) )
+        data.append('inclusion', JSON.stringify(finalInc) )
         data.append('shortDesc', this.state.shortDesc)
         data.append('longDesc', this.state.longDesc)
         data.append('price', this.state.price)
@@ -115,7 +128,7 @@ export class EditProduct extends Component {
     }
 
     render() {
-        console.log('this.state', this.state)
+        ('this.state', this.state)
         return (
             <>
                 <Header/>
@@ -197,6 +210,17 @@ export class EditProduct extends Component {
                                         </div>
                                         <label>Add Tags</label>
                                         <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.tagSelected} options={this.state.tagOptions}/>
+                                    </div>
+                                    <div className="col-sm-12 compare label-down mb-5">
+                                        <div className="update-treat">
+                                            { this.state.oldInc.length ? 
+                                                <>
+                                                    { this.state.oldInc.map(( i, index)=><span className="ui label mr-3" key={index}>{i.text}<i aria-hidden="true" className="delete icon"  onClick={()=>this.arrayIncRemove(index)}></i></span>, ) }
+                                                </>
+                                            : null}
+                                        </div>
+                                        <label>Puja Inclusion</label>
+                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.incSelected} options={this.state.incOptions}/>
                                     </div>
                                     <div className="my-div col-sm-12">
                                         <button className="amitBtn" type="submit">Submit</button>

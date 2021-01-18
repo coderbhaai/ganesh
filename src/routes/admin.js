@@ -480,15 +480,17 @@ router.post('/updateBasic', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
 router.get('/addProductOptions', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql = `SELECT name as text, id as value FROM basic Where type='Category';
                 SELECT name as text, id as value FROM basic Where type='Tag';
-                SELECT name as text, id as value FROM basic Where type='Vendor';`
-    pool.query(sql, [1,2,3], (err, results) => {
+                SELECT name as text, id as value FROM basic Where type='Vendor';
+                SELECT name as text, id as value, tab1 FROM basic Where type='Puja';`
+    pool.query(sql, [1,2,3,4], (err, results) => {
         try{
             if(err){ throw err }
             if(results){ 
                 res.send({ 
                     catOptions: results[0],
                     tagOptions: results[1],
-                    vendorOptions: results[2]
+                    vendorOptions: results[2],
+                    incOptions: results[3]
                 });
             }
         }catch(e){ func.logError(e); res.status(500); return; }
@@ -503,6 +505,7 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         'status':               req.body.status,
         'category':             req.body.category,
         'tags':                 req.body.tags,
+        'inclusion':            req.body.inclusion,
         'shortDesc':            req.body.shortDesc,
         'longDesc':             req.body.longDesc,
         'price':                req.body.price,
@@ -528,7 +531,7 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
 }))
 
 router.get('/getProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor FROM products as a
+    let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor, a.inclusion FROM products as a
                 left join basic as b on b.id = a.vendor ORDER BY a.id DESC`
     pool.query(sql, (err, results) => {
         try{    
@@ -565,25 +568,29 @@ router.post('/changeProductStatus', [func.verifyToken, func.verifyAdmin], asyncM
 }))
 
 router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, b.name as vendor 
+    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, a.inclusion, b.name, b.tab1 as vendor 
                 FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.id = '${req.params.id}';
                 SELECT name as text, id as value FROM basic Where type='Category';
                 SELECT name as text, id as value FROM basic Where type='Tag';
-                SELECT name as text, id as value FROM basic Where type='Vendor';`
-    pool.query(sql, [1,2,3,4], async(err, results) => {
+                SELECT name as text, id as value FROM basic Where type='Vendor';
+                SELECT name as text, id as value, tab1 FROM basic Where type='Puja';`
+    pool.query(sql, [1,2,3,4,5], async(err, results) => {
         try{ 
             if(err){ throw err }   
             if(results){ 
                 const catList = await func.productCatName(JSON.parse(results[0][0].category))
                 const tagList = await func.productTagName(JSON.parse(results[0][0].tags))
+                const incList = await func.productIncName(JSON.parse(results[0][0].inclusion))
                 res.send({ 
                     data:               results[0][0],
                     catOptions:         results[1],
                     tagOptions:         results[2],
                     vendorOptions:      results[3],
+                    incOptions:         results[4],
                     catList:            catList,
-                    tagList:            tagList
+                    tagList:            tagList,
+                    incList:            incList,
                 });
             }
         }catch(e){ func.logError(e); res.status(500); return; }
@@ -598,6 +605,8 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
         'status':               req.body.status,
         'category':             req.body.category,
         'tags':                 req.body.tags,
+        'inclusion':            req.body.inclusion,
+        'inclusion':            req.body.inclusion,
         'shortDesc':            req.body.shortDesc,
         'longDesc':             req.body.longDesc,
         'price':                req.body.price,
@@ -667,5 +676,86 @@ router.post('/placeOrder', asyncMiddleware( async(req, res) => {
 
     
 }))
+
+router.get('/getOrders', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let sql = `SELECT a.id, a.order_number, a.buyer, a.address, a.cart, a.invoice, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a
+    left join users as b on b.id = a.buyer `
+    pool.query(sql, async(err, results) => {
+        try{    
+            if(results){ res.send({ orders: results }) }else if(err){ throw err }
+        }catch(e){
+            logError(e)
+            res.status(500);
+            return;
+        }
+    })
+}))
+
+router.post('/updateOrderStatus', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let post= {
+        'status':               req.body.status,
+        'remarks':              req.body.remarks,
+        "updated_at":           time,
+    }
+    let sql = `UPDATE orders SET ? WHERE id = '${req.body.id}'`
+    pool.query(sql, post, (err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){
+                let sql2 = `SELECT a.id, a.order_number, a.buyer, a.address, a.cart, a.invoice, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a
+                        left join users as b on b.id = a.buyer WHERE a.id = '${req.body.id}'`
+                pool.query(sql2, (err2, results2) => {
+                    try{
+                        if(err2){ throw err2 }
+                        if(results2){
+                            res.send({ success: true, data: results2[0], message: 'Order updated successfuly' });
+                        }
+                    }catch(e){ func.logError(e); res.status(500); return; }
+                })
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
+    console.log('req.params.url', req.params.url)
+    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, a.rating, a.inclusion, b.name as VendorName, b.tab1 as vendor
+                FROM products as a
+                left join basic as b on b.id = a.vendor WHERE a.url = '${req.params.url}';`
+    pool.query(sql, async(err, results) => { 
+        console.log('results', results)
+        try{    
+            if(err){ throw err }
+            if(results){
+                const catProducts   = await func.similarCatProducts(JSON.parse(results[0].category), results[0].id )
+                // console.log('catProducts', catProducts)
+                const tagProducts   = await func.similarTagProducts(JSON.parse(results[0].tags, results[0].id ))
+                const incList       = await func.productIncName(JSON.parse(results[0].inclusion))
+                const reviewList    = await func.productReview(JSON.parse( results[0].id ))
+                res.send({ 
+                    product:            results[0],
+                    incList:            incList,
+                    catProducts:        catProducts,
+                    tagProducts:        tagProducts,
+                    reviewList:         reviewList
+                });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.get('/fetchReview/:product/:user', asyncMiddleware( async(req, res) => {
+    let sql = `SELECT id, review, rating, created_at FROM rating WHERE productId= '${req.params.product}' AND userId = '${req.params.user}'`
+    pool.query(sql, async(err, results) => {
+        try{    
+            if(results){ res.send({ review: results[0] }) }else if(err){ throw err }
+        }catch(e){
+            logError(e)
+            res.status(500);
+            return;
+        }
+    })
+}))
+
 
 module.exports = router;

@@ -36,7 +36,7 @@ export class Shop extends Component {
     handleMaxChange=(e)=>{ this.setState({ max: parseInt( e.target.value ) }) }
     componentDidMount(){
         window.scrollTo(0, 0)
-        if(typeof(Storage) !== "undefined"){ this.setState({ cart: JSON.parse(localStorage.getItem('ECcart')) || [] }) }
+        if(typeof(Storage) !== "undefined"){ this.setState({ cart: JSON.parse(localStorage.getItem('cart')) || [] }) }
         this.setState({firstValue: this.state.minValue, secondValue: this.state.maxValue})
         const url = window.location.href.split("/")
         if(url[3]=='shop'){ this.callApi()
@@ -71,9 +71,9 @@ export class Shop extends Component {
                     this.callSwal(o[4]+" in cart increased to "+o[2])
                 }
             })
-            this.setState({cart: this.state.cart},()=>localStorage.setItem('ECcart', JSON.stringify(this.state.cart)))
+            this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
         }else{
-            this.setState({ cart: [...this.state.cart, item] },()=>localStorage.setItem('ECcart', JSON.stringify(this.state.cart)))
+            this.setState({ cart: [...this.state.cart, item] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
             this.callSwal(i.product + " added to cart ")
         }
     }
@@ -92,7 +92,7 @@ export class Shop extends Component {
                 }
             })
         }
-        this.setState({cart: this.state.cart},()=>localStorage.setItem('ECcart', JSON.stringify(this.state.cart)))
+        this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
     }
 
     qtyChanged=(i, e)=>{

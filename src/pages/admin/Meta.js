@@ -139,13 +139,10 @@ export class Meta extends Component {
                         <div className="col-sm-10">
                             <h2 className="heading">Admin ( Metas )</h2>
                             <div className="btn-pag">
-                                <div className="perPage">
+                                <div className="btn-pag">
+                                    <button className="amitBtn" onClick={this.addModalOn}>Add Meta</button>
                                     <div>
-                                        <label>Add Meta here</label>
-                                        <button className="amitBtn" onClick={this.addModalOn}>Add Meta</button>
-                                    </div>
-                                    <div>
-                                        <label>Videos per page</label>
+                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
                                             <option>{itemsPerPage}</option>
                                             <option value="10">10</option> 
@@ -153,16 +150,7 @@ export class Meta extends Component {
                                             <option value="50">50</option> 
                                             <option value="100">100</option> 
                                         </select>
-                                    </div>
-                                </div>
-                                <div className="search">
-                                    <div className="noFlex searchInput">
-                                        <label>Search Here</label>
-                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
-                                    </div>
-                                    <div className="noFlex">
-                                        <label>Page Numbers</label>
-                                        <ul className="page-numbers">{renderPagination} </ul>
+                                        <div><ul className="page-numbers">{renderPagination}</ul></div>
                                     </div>
                                 </div>
                             </div>
@@ -177,6 +165,7 @@ export class Meta extends Component {
                                 </thead>
                                 <tbody>{this.state.loading? <tr className="loading"><td colSpan="4" className="text-center"><img src="/images/icons/loading.gif"/></td></tr> : renderItems}</tbody>
                             </table>
+                            <ul className="page-numbers mb-5">{renderPagination}</ul>
                         </div>
                     </div>
                 </div>

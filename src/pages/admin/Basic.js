@@ -80,7 +80,7 @@ export class Basic extends Component {
                 }
                 func.callSwal(res.data.message)
             })
-        // this.resetData()
+        this.resetData()
     }
 
     editModalOn = (i)=>{
@@ -143,13 +143,10 @@ export class Basic extends Component {
                         <div className="col-sm-10">
                             <h2 className="heading">Admin ( Basic )</h2>
                             <div className="btn-pag">
-                                <div className="perPage">
+                                <div className="btn-pag">
+                                    <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
                                     <div>
-                                        <label>Add Basic here</label>
-                                        <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
-                                    </div>
-                                    <div>
-                                        <label>Items per page</label>
+                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
                                             <option>{itemsPerPage}</option>
                                             <option value="10">10</option> 
@@ -157,16 +154,7 @@ export class Basic extends Component {
                                             <option value="50">50</option> 
                                             <option value="100">100</option> 
                                         </select>
-                                    </div>
-                                </div>
-                                <div className="search">
-                                    <div className="noFlex searchInput">
-                                        <label>Search Here</label>
-                                        <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
-                                    </div>
-                                    <div className="noFlex">
-                                        <label>Page Numbers</label>
-                                        <ul className="page-numbers">{renderPagination} </ul>
+                                        <div><ul className="page-numbers">{renderPagination}</ul></div>
                                     </div>
                                 </div>
                             </div>
@@ -183,6 +171,7 @@ export class Basic extends Component {
                                 </thead>
                                 <tbody>{this.state.loading? <tr className="loading"><td colSpan="4" className="text-center"><img src="/images/icons/loading.gif"/></td></tr> : renderItems}</tbody>
                             </table>
+                            <ul className="page-numbers mb-5">{renderPagination}</ul>
                         </div>
                     </div>
                 </div>
@@ -200,11 +189,24 @@ export class Basic extends Component {
                                         <option value="Category">Product Category</option>
                                         <option value="Tag">Product Tag</option>
                                         <option value="Vendor">Add Vendor</option>
+                                        <option value="Puja">Puja Items</option>
                                     </select>
                                 </div>
                                 {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Tag'? <div className="col-sm-8"><label>Product Tag</label><input name="name" type="text" className="form-control" placeholder="Product Tag" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
+                                {this.state.type==='Puja'? 
+                                <>
+                                    <div className="col-sm-4">
+                                        <label>Puja Items</label>
+                                        <input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Quantity</label>
+                                        <input name="tab1" type="text" className="form-control" placeholder="Quantity" value={this.state.tab1} required onChange={this.onChange}/>
+                                    </div>
+                                </>
+                                : null }
                             </div>
                             <div className="my-div">
                                 <button className="amitBtn" type="submit">Submit<span></span></button> 
@@ -228,6 +230,18 @@ export class Basic extends Component {
                                 {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Tag'? <div className="col-sm-8"><label>Product Tag</label><input name="name" type="text" className="form-control" placeholder="Product Tag" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
+                                {this.state.type==='Puja'? 
+                                <>
+                                    <div className="col-sm-4">
+                                        <label>Puja Items</label>
+                                        <input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Quantity</label>
+                                        <input name="tab1" type="text" className="form-control" placeholder="Quantity" value={this.state.tab1} required onChange={this.onChange}/>
+                                    </div>
+                                </>
+                                : null }
                             </div>
                             <div className="my-div">
                                 <button className="amitBtn" type="submit">Submit<span></span></button> 

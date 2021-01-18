@@ -114,24 +114,17 @@ export class AdminComments extends Component {
                         <div className="col-sm-10">
                             <h1 className="heading"><span>Admin Panel </span>(Comments)</h1>
                             <div className="btn-pag">
-                                <div className="noFlex perPage">
-                                    <label>Rows per page</label>
-                                    <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
-                                        <option>{itemsPerPage}</option>
-                                        <option value="10">10</option> 
-                                        <option value="25">25</option> 
-                                        <option value="50">50</option> 
-                                        <option value="100">100</option> 
-                                    </select>
-                                </div>
-                                <div className="search">
-                                    <div className="noFlex searchInput">
-                                        <label>Search Here</label>
+                                <div className="btn-pag">
+                                    <div>
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
-                                    </div>
-                                    <div className="noFlex">
-                                        <label>Page Numbers</label>
-                                        <ul className="page-numbers">{renderPagination} </ul>
+                                        <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
+                                            <option>{itemsPerPage}</option>
+                                            <option value="10">10</option> 
+                                            <option value="25">25</option> 
+                                            <option value="50">50</option> 
+                                            <option value="100">100</option> 
+                                        </select>
+                                        <div><ul className="page-numbers">{renderPagination}</ul></div>
                                     </div>
                                 </div>
                             </div>

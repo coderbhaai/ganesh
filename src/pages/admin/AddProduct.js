@@ -17,11 +17,13 @@ export class AddProduct extends Component {
             status:                 '',
             selectedCategory:       [],
             selectedTag:            [],
+            selectedInc:            [],
             shortDesc:              '',
             longDesc:               '',
             catOptions:             [],
             tagOptions:             [],
             vendorOptions:          [],
+            incOptions:             [],
             price:                  '',
         }
         this.handleChange1 = this.handleChange1.bind( this )
@@ -38,6 +40,7 @@ export class AddProduct extends Component {
     imagesAdd = (e) =>{ this.setState({ images: e.target.files }) }
     categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
     tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
+    incSelected = (e, {value}) => { this.setState({ selectedInc: value }) }
     vendorSelected = (e, {value}) => { this.setState({ selectedVendor: value }) }
     removeTag =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
     removeCategory =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
@@ -48,12 +51,16 @@ export class AddProduct extends Component {
     callApi = async () => {
         const response = await fetch('/admin/addProductOptions')
         const body = await response.json()
+        console.log('body', body)
         if (response.status !== 200) throw Error(body.message)
         this.setState({
             catOptions:               body.catOptions,
             tagOptions:               body.tagOptions,
             vendorOptions:            body.vendorOptions,
         })
+        const options = []
+        body.incOptions.map(i => { options.push({'text': i.text+'-'+i.tab1, 'value': i.value}) })
+        this.setState({ incOptions:  options })
     } 
 
     submitHandler = (e) =>{
@@ -66,6 +73,7 @@ export class AddProduct extends Component {
         data.append('status', this.state.status)
         data.append('category', JSON.stringify(this.state.selectedCategory) )
         data.append('tags', JSON.stringify(this.state.selectedTag) )
+        data.append('inclusion', JSON.stringify(this.state.selectedInc) )
         data.append('shortDesc', this.state.shortDesc) 
         data.append('longDesc', this.state.longDesc)
         data.append('price', this.state.price)
@@ -74,12 +82,13 @@ export class AddProduct extends Component {
             .then(res=>{
                 if(res.data.success){
                     localStorage.setItem( 'message', res.data.message )
-                    window.location.href = '/adminProducts'
+                    window.location.href = '/admin/adminProducts'
                 }
             })
     }
 
     render() {
+        console.log('this.state', this.state)
         return (
             <>
                 <Header/>
@@ -143,6 +152,10 @@ export class AddProduct extends Component {
                                     <div className="col-sm-12 compare label-down mb-5">
                                         <label>Add Tags</label>
                                         <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.tagSelected} options={this.state.tagOptions}/>
+                                    </div>
+                                    <div className="col-sm-12 compare label-down mb-5">
+                                        <label>Puja Inclusion</label>
+                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.incSelected} options={this.state.incOptions}/>
                                     </div>
                                     <div className="my-div col-sm-12">
                                         <button className="amitBtn" type="submit">Submit</button>
