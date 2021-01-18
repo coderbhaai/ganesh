@@ -39,7 +39,17 @@ img{
   width: 100%;
   height: auto;
 }
-button, button:focus, input, input:focus, .form-control:focus, .form-control{
+button{
+  outline: none;
+  &:focus{
+    outline: none;
+  }
+  &:hover{
+    cursor: pointer;
+  }
+  
+}
+input, input:focus, .form-control:focus, .form-control{
   outline: none;
 }
 p{
@@ -69,6 +79,8 @@ p{
 .text-right { text-align: right !important; }
 .w-100 { width: 100% !important; }
 .ml-auto,.mx-auto { margin-left: auto !important; }
+.order-1 { order: 1; }
+.order-2 { order: 2; }
 .container, .container-fluid{
   width: 100%;
   padding-right: 15px;

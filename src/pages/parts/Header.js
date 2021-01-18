@@ -74,7 +74,10 @@ export class Header extends Component {
                             <img src="/images/icons/twitter-white.svg"/>
                             <img src="/images/icons/instagram-white.svg"/>
                             {!this.state.user.role? <span><a href="/login">Login | </a><a href="/register">Signup</a></span> : null}
-                            <img src="/images/icons/instagram-white.svg"/>
+                            <a href="/cart">
+                                <img src="/images/icons/cart.svg"/>
+                                <span className='value'>{this.props.cart ? this.props.cart : 0 }</span>
+                            </a>
                         </div>
                     </div>
                 </div>

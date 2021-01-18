@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken')
 const nodemailer = require("nodemailer");
 var pool = require('./mysqlConnector')
 const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
+import bcrypt from 'bcryptjs';
+const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
 
 export function getMeta(url) {
     return new Promise((resolve, reject) => {
@@ -126,16 +128,136 @@ export function blogMetaData(id) {
 
 export function suggestBlogs() {
     return new Promise((resolve, reject) => {
-      let sql = `SELECT id, title as heading, url, coverImg FROM blogs ORDER by RAND() LIMIT 10`
+      let sql = `SELECT id, title as heading, url, coverImg FROM blogs;`
       pool.query(sql, (err, rows) => {
         try{
-            if(rows){ resolve(rows ) }else if(err){ throw err }
-        }catch(e){
-            logError(e)
-            return;
-        }
+            if(err){ throw err }
+            if(rows){ resolve(rows ) }
+        }catch(e){ logError(e); return; }
       });
     });
+}
+
+export function suggestProducts() {
+    return new Promise((resolve, reject) => {
+      let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1';`
+      pool.query(sql, (err, rows) => {
+        try{
+            if(err){ throw err }
+            if(rows){ resolve(rows ) }
+        }catch(e){ logError(e); return; }
+      });
+    });
+}
+
+export function checkUser(name, email){
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT id FROM users WHERE email = '${email}'`
+        pool.query(sql, async(err, results) => {
+            try{    
+                if(results){ 
+                    if(results.length){
+                        resolve(['Exists', results[0].id, {}, '', 'Order placed succesfully'])
+                    }else{
+                        let post= {
+                            'name':                       name, 
+                            'email':                      email,
+                            'role':                       'User',
+                            "created_at":                 time
+                        }
+                        const user={
+                            name:                       name, 
+                            email:                      email,
+                            role:                       'User'
+                        }
+                        jwt.sign({ user }, 'secretkey', { expiresIn: '24h'}, (err, token)=>{
+                            if(token){
+                                post.token  = token
+                                bcrypt.genSalt(10, (err, salt)=>{
+                                    if(err) logError(err);
+                                    const password = Math.random().toString(36).substr(2)
+                                    bcrypt.hash( password, salt, (err, hash)=>{
+                                        if(err) logError(err)
+                                        post.password = hash
+                                        let sql2 = `INSERT INTO users SET ?`
+                                        pool.query(sql2, post, (err2, results2) => {
+                                            if(err2) logError(err2)
+                                            if(results2){
+                                                user.token = token
+                                                user.auth = true
+                                                user.id = results2.insertId
+                                                resolve(['Created', results2.insertId, user, password, 'Order placed & Account created succesfully' ])
+                                            }
+                                        })
+                                    })
+                                })
+                            }
+                        })
+                    }
+                }else if(err){ throw err }
+            }catch(e){ logError(e); res.status(500); return; }
+            
+        })
+    })
+}
+
+export function latestOrderNumber(){
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT order_number FROM orders ORDER BY id DESC LIMIT 1`
+        pool.query(sql, async(err, results) => {
+            try{
+                if(err){ throw err }   
+                if(results){ 
+                    if(results.length){
+                        resolve(results[0].order_number+1)
+                    }else{
+                        resolve(1)
+                    }
+                }
+            }catch(e){ logError(e); res.status(500); return; }
+            
+        })
+    })
+}
+
+export function mailOrderToBuyer(name, email, password){
+    return new Promise((resolve, reject) => {
+        if(password){
+            var content = `<p>Your Account has also been created and the password is - <strong>${password}</strong>.</p><p>We are happy to serve you</p><br/>`
+        }else{
+            var content = `<p>We are happy to serve you</p><br/>`
+        }
+        const mailBody =`
+            <h2><strong>Dear ${name}</strong></h2>
+            <p>Your Order has been created and will be delivered soon.</p><br/>
+            <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="http://localhost:3030/blog" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Your Order</a></button><br/>
+            ${content}
+            <p>Warm Regards</p>
+            <p>Team Ecom</p>
+            `
+        let mailOptions = { to: email, from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Submitted ✔ www.bazaradda.com", html: mailBody }
+        transporter.sendMail( mailOptions, (error, info)=>{ 
+            resolve( info )
+            if(error){ logError(error) }
+        })
+    })
+}
+
+export function mailOrderToSeller(){
+    return new Promise((resolve, reject) => {
+        const mailBody =`
+            <h2><strong>Dear Team,</strong></h2>
+            <p>Your have received an order on ECOM</p><br/>
+            <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="http://localhost:3030/blog" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Order Received</a></button><br/>
+            <p>Warm Regards</p>
+            <p>Team Ecom</p>
+            `
+        let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Received ✔ www.bazaradda.com", html: mailBody }
+        transporter.sendMail( mailOptions, (error, info)=>{ 
+            resolve( info )
+            if(error){ logError(error) }
+        })
+    })
 }
 
 export function verifyToken(req,res,next){

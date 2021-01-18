@@ -14,7 +14,7 @@ export class AddProduct extends Component {
             selectedVendor:         '',
             name:                   '',
             url:                    '',
-            display:                '',
+            status:                 '',
             selectedCategory:       [],
             selectedTag:            [],
             shortDesc:              '',
@@ -63,7 +63,7 @@ export class AddProduct extends Component {
         data.append('vendor', this.state.selectedVendor)
         data.append('name', this.state.name)
         data.append('url', this.state.url.replace(/ /g,"-"))
-        data.append('display', this.state.display)
+        data.append('status', this.state.status)
         data.append('category', JSON.stringify(this.state.selectedCategory) )
         data.append('tags', JSON.stringify(this.state.selectedTag) )
         data.append('shortDesc', this.state.shortDesc) 
@@ -100,7 +100,7 @@ export class AddProduct extends Component {
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Display Status</label>
-                                        <select className="form-control" required value={this.state.display} onChange={this.onChange} name="display">
+                                        <select className="form-control" required value={this.state.status} onChange={this.onChange} name="status">
                                             <option>Select Display</option>
                                             <option value="1">Show Product</option> 
                                             <option value="0">Hide Product</option>

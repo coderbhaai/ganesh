@@ -30,7 +30,14 @@ img {
   width: 100%;
   height: auto; }
 
-button, button:focus, input, input:focus, .form-control:focus, .form-control {
+button {
+  outline: none; }
+  button:focus {
+    outline: none; }
+  button:hover {
+    cursor: pointer; }
+
+input, input:focus, .form-control:focus, .form-control {
   outline: none; }
 
 p {
@@ -102,6 +109,12 @@ p {
 
 .ml-auto, .mx-auto {
   margin-left: auto !important; }
+
+.order-1 {
+  order: 1; }
+
+.order-2 {
+  order: 2; }
 
 .container, .container-fluid {
   width: 100%;
@@ -1712,14 +1725,17 @@ footer .akk {
           color: #000;
           display: block;
           padding: 10px 5px; }
+        .product .productDetail ul li:hover {
+          cursor: pointer; }
       .product .productDetail ul li:first-child {
         background-color: #ebebeb; }
         .product .productDetail ul li:first-child a {
           color: #e1672e; }
       .product .productDetail ul li:last-child {
-        background-color: #e1672e; }
-        .product .productDetail ul li:last-child a {
-          color: #fff; }
+        background-color: #e1672e;
+        display: block;
+        padding: 10px 5px;
+        color: #fff; }
 
 .testis {
   background-color: #e1672e;
@@ -1781,3 +1797,49 @@ footer .akk {
 .my-div {
   text-align: center;
   padding: 1em 0; }
+
+.imgBox {
+  position: relative; }
+  .imgBox .cartBtnGroup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(#000000a8, #ffffff0d); }
+  .imgBox .plusMinus {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly; }
+    .imgBox .plusMinus img {
+      max-width: 30px; }
+      .imgBox .plusMinus img:hover {
+        cursor: pointer; }
+  .imgBox .itemAdded {
+    position: absolute;
+    bottom: 10%;
+    width: 100%; }
+    .imgBox .itemAdded p {
+      color: #fff;
+      text-shadow: 1px 1px black; }
+
+.products > div:hover .cartBtnGroup, .box .swiper-slide:hover .cartBtnGroup {
+  opacity: 1;
+  bottom: 0; }
+
+.cart tbody td {
+  vertical-align: middle; }
+
+.cart .cartImg {
+  text-align: center; }
+  .cart .cartImg img {
+    display: block;
+    margin: 0 auto 10px auto; }
+
+.cart .remove {
+  max-width: 25px; }
+  .cart .remove:hover {
+    cursor: pointer; }

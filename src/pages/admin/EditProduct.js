@@ -15,7 +15,7 @@ export class EditProduct extends Component {
             name:                   '',
             vendor:                 '',
             url:                    '',
-            display:                '',
+            status:                '',
             selectedCategory:       [],
             selectedTag:            [],
             shortDesc:              '',
@@ -72,7 +72,7 @@ export class EditProduct extends Component {
                 oldVendor:                      body.data.vendor,
                 shortDesc:                      body.data.shortDesc,
                 longDesc:                       body.data.longDesc,
-                display:                        body.data.display,
+                status:                         body.data.status,
                 catOptions:                     body.catOptions,
                 tagOptions:                     body.tagOptions,
                 vendorOptions:                  body.vendorOptions,
@@ -97,7 +97,7 @@ export class EditProduct extends Component {
         data.append('vendor', this.state.selectedVendor)
         data.append('name', this.state.name)
         data.append('url', this.state.url.replace(/ /g,"-"))
-        data.append('display', this.state.display)
+        data.append('status', this.state.status)
         data.append('category', JSON.stringify(finalCategory) )
         data.append('tags', JSON.stringify(finalTag) )
         data.append('shortDesc', this.state.shortDesc)
@@ -137,7 +137,7 @@ export class EditProduct extends Component {
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Display Status</label>
-                                        <select className="form-control" required value={this.state.display} onChange={this.onChange} name="display">
+                                        <select className="form-control" required value={this.state.status} onChange={this.onChange} name="status">
                                             <option>Select Display</option>
                                             <option value="1">Show Product</option> 
                                             <option value="0">Hide Product</option>

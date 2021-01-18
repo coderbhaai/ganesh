@@ -11,6 +11,8 @@ const config = [{
         Order: [path.resolve('src', 'components', 'pages', 'Order.js')],
         Product: [path.resolve('src', 'components', 'pages', 'Product.js')],
         Shop: [path.resolve('src', 'components', 'pages', 'Shop.js')],
+        FourOFour: [path.resolve('src', 'components', 'pages', 'FourOFour.js')],
+        ThankYou: [path.resolve('src', 'components', 'pages', 'ThankYou.js')],
 
         Register: [path.resolve('src', 'components', 'auth', 'Register.js')],
         Login: [path.resolve('src', 'components', 'auth', 'Login.js')],
@@ -92,6 +94,8 @@ const config = [{
         new HtmlWebpackPlugin({ chunks: ['Order'], filename: '../views/pages/Order.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['Product'], filename: '../views/pages/Product.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['Shop'], filename: '../views/pages/Shop.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['FourOFour'], filename: '../views/pages/FourOFour.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['ThankYou'], filename: '../views/pages/ThankYou.ejs', template: path.join('src', 'views', 'index.ejs') }),
 
         new HtmlWebpackPlugin({ chunks: ['Register'], filename: '../views/auth/Register.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['Login'], filename: '../views/auth/Login.ejs', template: path.join('src', 'views', 'index.ejs') }),

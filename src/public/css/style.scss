@@ -201,6 +201,9 @@ footer{
                display: block;
                padding: 10px 5px;
             }
+            &:hover{
+               cursor: pointer;
+            }
          }
          li:first-child{
             background-color: $greyBg;
@@ -210,9 +213,9 @@ footer{
          }
          li:last-child{
             background-color: $primary;
-            a{
-               color: #fff;
-            }
+            display: block;
+            padding: 10px 5px;
+            color: #fff;
          }
       }
    }
@@ -292,4 +295,62 @@ footer{
 .my-div{
    text-align: center;
    padding: 1em 0;
+}
+.imgBox{
+   position: relative;
+   .cartBtnGroup{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(#000000a8, #ffffff0d);
+   }
+   .plusMinus{
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-evenly;
+      img{
+         max-width: 30px;
+         &:hover{
+            cursor: pointer;
+         }
+      }
+   }
+   .itemAdded{
+      position: absolute;
+      bottom: 10%;
+      width: 100%;
+      p{
+         color: #fff;
+         text-shadow: 1px 1px black;
+      }
+   }
+ }
+ .products>div:hover .cartBtnGroup, .box .swiper-slide:hover .cartBtnGroup{
+   opacity: 1;
+   bottom: 0;
+}
+.cart{
+   tbody{
+      td{
+         vertical-align: middle;
+      }
+   }
+   .cartImg{
+      text-align: center;
+      img{
+         display: block;
+         margin: 0 auto 10px auto;
+      }
+   }
+   .remove{
+      max-width: 25px;
+      &:hover{
+         cursor: pointer;
+      }
+   }
 }

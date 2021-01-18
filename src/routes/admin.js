@@ -500,7 +500,7 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         'vendor':               req.body.vendor,
         'name':                 req.body.name,
         'url':                  req.body.url,
-        'display':              req.body.display,
+        'status':               req.body.status,
         'category':             req.body.category,
         'tags':                 req.body.tags,
         'shortDesc':            req.body.shortDesc,
@@ -528,7 +528,7 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
 }))
 
 router.get('/getProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.display, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor FROM products as a
+    let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor FROM products as a
                 left join basic as b on b.id = a.vendor ORDER BY a.id DESC`
     pool.query(sql, (err, results) => {
         try{    
@@ -549,7 +549,7 @@ router.post('/changeProductStatus', [func.verifyToken, func.verifyAdmin], asyncM
         try{
             if(err){ throw err }
             if(results){
-                let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.display, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor FROM products as a
+                let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.id = '${req.body.id}';`
                 pool.query(sql, (err2, results2) => {
                     try{
@@ -565,7 +565,7 @@ router.post('/changeProductStatus', [func.verifyToken, func.verifyAdmin], asyncM
 }))
 
 router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.display,  a.price, a.status, b.name as vendor 
+    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, b.name as vendor 
                 FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.id = '${req.params.id}';
                 SELECT name as text, id as value FROM basic Where type='Category';
@@ -595,7 +595,7 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
         'vendor':               req.body.vendor,
         'name':                 req.body.name,
         'url':                  req.body.url,
-        'display':              req.body.display,
+        'status':               req.body.status,
         'category':             req.body.category,
         'tags':                 req.body.tags,
         'shortDesc':            req.body.shortDesc,
@@ -626,6 +626,46 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
             if(results){ res.send({ success: true, message: "Product updated succesfully" }) }
         }catch(e){ func.logError(e); res.status(500); return; }
     })
+}))
+
+router.post('/placeOrder', asyncMiddleware( async(req, res) => {
+    const id                = await func.checkUser(req.body.name, req.body.email)
+    const order_number      = await func.latestOrderNumber()
+    const buyer = id[1]
+    const message = id[4]
+    var count = 0
+    JSON.parse(req.body.cart).forEach( i => {
+        let post= {
+            'order_number':         order_number,
+            'buyer':                buyer,
+            'address':              req.body.address,
+            'cart':                 JSON.stringify(i),
+            'invoice':              req.body.invoice,
+            'status':               'Ordered',
+            "created_at":           time,
+            "updated_at":           time
+        }
+        let sql =   `INSERT INTO orders SET ?`
+        pool.query(sql, post, async(err, results) => {
+            try{    
+                if(results){
+                    count++
+                    if(count == JSON.parse(req.body.cart).length){
+                        await func.mailOrderToSeller() 
+                        await func.mailOrderToBuyer( req.body.name, req.body.email, id[3] )
+                        res.send({ 
+                            success:    true,
+                            account:    id[0],
+                            user:       id[2],
+                            message:    message
+                        })
+                    }
+                }else if(err){ throw err }
+            }catch(e){ func.logError(e); res.status(500); return; }
+        })
+    })
+
+    
 }))
 
 module.exports = router;
