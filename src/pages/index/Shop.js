@@ -9,22 +9,21 @@ export class Shop extends Component {
         super(props)
         this.state = {
             categories:                 [],
-            subCategories:              [],
             tags:                       [],
             filter:                     [],
             products:                   [],
+            data:                       [],
             cart:                       [],
-            catSelected:                '',
-            subCatSelected:             '',
-            tagSelected:                '',
+            catSelected:                [],
+            tagSelected:                [],
+            minValue:                   0,
+            maxValue:                   20000,
+            step:                       50,
+            firstValue:                 0,
+            secondValue:                20000,
             currentPage:                1,
             itemsPerPage:               100,
             search:                     '',
-            minValue:                   0,
-            maxValue:                   20000,
-            step:                       1000,
-            firstValue:                 0,
-            secondValue:                20000
         }
     }
 
@@ -40,22 +39,25 @@ export class Shop extends Component {
         this.setState({firstValue: this.state.minValue, secondValue: this.state.maxValue})
         const url = window.location.href.split("/")
         if(url[3]=='shop'){ this.callApi()
-        }else if(url[3]=='category'){
-            this.fetchCategories(url[4], true)
-        }else if(url[3]=='subcategory'){
-            this.fetchCatSubcat(url[4], true)
-        }else if(url[3]=='product-tag'){
-            this.fetchTags(url[4], true)
-        }        
+        }
+        // else if(url[3]=='category'){
+        //     this.fetchCategories(url[4], true)
+        // }else if(url[3]=='subcategory'){
+        //     this.fetchCatSubcat(url[4], true)
+        // }else if(url[3]=='product-tag'){
+        //     this.fetchTags(url[4], true)
+        // }        
     }
 
     callApi = async () => {
         const response = await fetch( '/admin/fetchShop' ); 
         const body = await response.json()
+        console.log('body', body)
         if (response.status !== 200) throw Error(body.message)
         this.setState({
             categories:             body.categories,
             products:               body.products,
+            data:                   body.products,
             tags:                   body.tags,
             min:                    0,
             max:                    3000
@@ -63,141 +65,67 @@ export class Shop extends Component {
     }
 
     addToCart=(i)=>{
-        var item = [i.id, i.qtySelected, 1, i.priceSelected, i.product, i.sku, i.url, JSON.parse(i.images)[0], parseInt( i.vendor ), i.shipping ]
-        if( this.state.cart.some( j => j[0] === parseInt(i.id) && j[1] === i.qtySelected )){
+        console.log('i', i)
+        var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url ]
+        if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
-                if( o[0] === parseInt(i.id) && o[1] === i.qtySelected ){ 
-                    o[2]++
-                    this.callSwal(o[4]+" in cart increased to "+o[2])
+                if( o[1] === parseInt(i.id) ){ 
+                    o[0]++
+                    func.callSwal(o[3]+" in cart increased to "+o[0])
                 }
             })
             this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
         }else{
             this.setState({ cart: [...this.state.cart, item] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
-            this.callSwal(i.product + " added to cart ")
+            func.callSwal(i.name + " added to cart ")
         }
     }
 
     removeFromCart=(i)=>{
-        if( this.state.cart.some( j => j[0] === parseInt(i.id) && j[1] === i.qtySelected )){
+        if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o, index)=>{
-                if( o[0] === parseInt(i.id) && o[1] === i.qtySelected ){
-                    if(o[2]>1){ 
-                        o[2]--
-                        this.callSwal(i.product + " in cart reduced to "+ o[2])
+                if( o[1] === parseInt(i.id) ){
+                    if(o[0]>1){ 
+                        o[0]--
+                        func.callSwal(i.name + " in cart reduced to "+ o[0])
                     }else{ 
                         this.state.cart.splice(index, 1)
-                        this.callSwal(i.product + " removed from cart ")
+                        func.callSwal(i.name + " removed from cart ")
                     }
                 }
             })
         }
         this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
     }
-
-    qtyChanged=(i, e)=>{
-        this.state.products.forEach((o)=>{
-            if( o.id === parseInt(i.id) ){
-                o.qtySelected = e.target.value
-                JSON.parse( o.sku ).forEach((x)=>{
-                    if( x[0] === e.target.value){
-                        o.priceSelected = parseInt( x[1] )
-                    }
-                })
-            }
-        })
-        this.setState({products: this.state.products})
-    }
     
     filterCategory = (cat, check) => { 
-        if(cat!== this.state.catSelected){ this.setState({ subCatSelected: '' }) }
-        this.state.categories.forEach((o)=>{ if( o.tab1 == cat ){ o.isChecked = check }else{ o.isChecked = false } })
-        this.setState({ categories: this.state.categories })
+        this.state.categories.forEach((o)=>{ if( o.id == parseInt( cat ) ){ o.isChecked = check } })
         if(check){ 
-            this.setState({ catSelected: cat },()=>this.catSelected(cat)) 
+            console.log(true)
+            this.setState({ catSelected: [ ...this.state.catSelected, parseInt( cat ) ] }
+            // ,()=>this.finalFilter()
+            )
         }else{ 
-            this.setState({ 
-                catSelected:        '',
-                subCategories:      [],
-                subCatSelected:     ''
-            },()=>this.finalFilter())
+            console.log(false)
+            this.state.catSelected.map((x, index) => x == cat ? this.state.catSelected.splice(index, 1) : null)
+            this.setState({ catSelected: this.state.catSelected }
+                // ,()=>this.finalFilter()
+                )
         }
     }
 
-    catSelected = async (cat) => {
-        const response = await fetch( '/admin/catFilter/'+cat)
-        const body = await response.json()
-        if (response.status !== 200) throw Error(body.message)
-        this.setState({ subCategories: body.subCategories },()=>this.finalFilter()) 
-    }
-
-    fetchCategories = async (cat, check) => {
-        const response = await fetch( '/admin/fetchCategories')
-        const body = await response.json()
-        if (response.status !== 200) throw Error(body.message)
-        this.setState({ 
-            tags:                   body.tags,
-            categories:             body.categories,
-            catSelected:            cat,
-            subCatSelected:         ''
-        },()=>{
-            this.catSelected(cat),
-            this.setCatFromOut(cat, check)
+    filterTag = (tag, check) => { 
+        this.state.tags.forEach((o)=>{ if( o.id == parseInt( tag ) ){ o.isChecked = check } })
+        if(check){ 
+            this.setState({ tagSelected: [ ...this.state.tagSelected, parseInt( tag ) ] }
+            // ,()=>this.finalFilter()
+            )
+        }else{
+            this.state.tagSelected.map((x, index) => x == tag ? this.state.tagSelected.splice(index, 1) : null)
+            this.setState({ tagSelected: this.state.tagSelected }
+                // ,()=>this.finalFilter()
+                )
         }
-        )
-    }
-
-    setCatFromOut=(cat, check)=>{
-        this.state.categories.forEach((o)=>{ if( o.tab1 == cat ){ o.isChecked = check }else{ o.isChecked = false } })
-        this.setState({ categories: this.state.categories })
-    }
-
-    filterSubCategory = async (subcat, check) => {
-        this.state.subCategories.forEach((o)=>{
-            if( o.tab1 == subcat ){ o.isChecked = check }else{ o.isChecked = false }
-        })
-        this.setState({ subCategories: this.state.subCategories })
-        if(check){ this.setState({ subCatSelected: subcat },()=>this.finalFilter()) }else{ this.setState({ subCatSelected: ''},()=>this.finalFilter()) }
-    }
-
-    fetchCatSubcat = async (subcat, check) => {
-        const response = await fetch( '/admin/fetchCatSubcat/'+subcat)
-        const body = await response.json()
-        if (response.status !== 200) throw Error(body.message)
-        this.setState({ 
-            categories:             body.categories,
-            subCategories:          body.subCategories,
-            tags:                   body.tags
-        }
-            ,()=>this.filterSubCategory(subcat, check)
-        )
-    }
-
-    fetchTags = async (tag, check) => {
-        const response = await fetch( '/admin/fetchCategories')
-        const body = await response.json()
-        if (response.status !== 200) throw Error(body.message)
-        this.setState({ 
-            tags:                   body.tags,
-            categories:             body.categories,
-            tagSelected:            tag
-        }
-            ,()=>this.tagSelected(tag, check)
-        )
-    }
-
-    tagSelected = async (tag, check) => {
-        this.state.tags.forEach((o)=>{
-            if( o.tab1 == tag ){ o.isChecked = check }else{ o.isChecked = false }
-        })
-        if(check){ this.setState({ tagSelected: tag },()=>this.finalFilter()) }else{ this.setState({ tagSelected: ''},()=>this.finalFilter()) }
-    }
-
-    filterTag = async (tag, check) => {
-        this.state.tags.forEach((o)=>{
-            if( o.tab1 == tag ){ o.isChecked = check }else{ o.isChecked = false }
-        })
-        if(check){ this.setState({ tagSelected: tag },()=>this.finalFilter()) }else{ this.setState({ tagSelected: ''},()=>this.finalFilter()) }
     }
 
     handleChange(name, e){
@@ -214,57 +142,65 @@ export class Shop extends Component {
         }
     }
 
-    finalFilter = async ()=>{
-        const data={
-            min:                parseInt(this.state.firstValue),
-            max:                parseInt(this.state.secondValue),
-            cat:                this.state.catSelected,
-            subCat:             this.state.subCatSelected,
-            tag:                this.state.tagSelected
-        }
-        axios.post('/admin/finalFilter', data)
-            .catch(err=>console.log('err', err))
-            .then(res=>{
-                this.setState({ products: res.data.products })
-            })
-    }
+    // finalFilter = async ()=>{
+    //     console.log('Final filter called')
+    //     var xx = []
+    //     this.state.data.map((i)=> { i.price>parseInt( this.state.firstValue ) && i.price<parseInt( this.state.secondValue ) ? xx.push(i) : null })
+    //     if(this.state.catSelected.length){
+    //         for (var i = xx.length - 1; i >= 0; --i) {
+    //             this.state.catSelected.map( j => JSON.parse( xx[i].category ).includes(j) ? null : xx.splice(i,1) )
+    //         }
+    //     }
+
+    //     if(this.state.tagSelected.length){
+    //         console.log('xx', xx)
+    //         for (var i = xx.length - 1; i >= 0; --i) {
+    //             this.state.tagSelected.map( j => JSON.parse( xx[i].tags ).includes(j) ? null : xx.splice(i,1) )
+    //         }
+    //     }
+
+    //     this.setState({ products : xx })
+    // }
 
     render() {
+        console.log('this.state', this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const renderItems =  this.state.products.filter((i)=>{ if(this.state.search == null) return i; else if(i.product.toLowerCase().includes(this.state.search.toLowerCase()) || i.category.toLowerCase().includes(this.state.search.toLowerCase()) || i.subcategory.toLowerCase().includes(this.state.search.toLowerCase())){ return i }}).slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
+        const renderItems =  this.state.products.filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i } })
+        .filter((i)=>{ if(i.price>parseInt( this.state.firstValue ) && i.price<parseInt( this.state.secondValue ) ) return i; })
+        .filter((i)=>{ if(this.state.catSelected.length){ for (var j = this.state.catSelected.length - 1; j >= 0; --j) { if( JSON.parse( i.category ).includes(this.state.catSelected[j]) ) { return i } } } else { return i } })
+        .filter((i)=>{ if(this.state.tagSelected.length){ for (var j = this.state.tagSelected.length - 1; j >= 0; --j) { if( JSON.parse( i.tags ).includes(this.state.tagSelected[j]) ) { return i } } }else { return i } })
+        .slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
             return (
-                <div className="col-sm-3" key={index}>
-                    <div className="card">
-                        <div className="position-relative">
-                            <a href={"/product/"+i.url}>
-                                <img src={"/images/products/"+JSON.parse(i.images)[0]} className="position-relative"/>
-                                { this.state.cart.some(x => x[0] === i.id) ?
-                                    <div className="itemAdded">
-                                        { this.state.cart.filter(o => o[0] === i.id).map(( o, index) => { return ( 
-                                            <p key={index}>{o[1]} X &#8377;{o[3]} X {o[2]} Unit = &#8377;{o[2]*o[3]}</p> 
-                                        )})}
+                <div className="col-sm-3 mb-3" key={index}>
+                    <div style={{'overflow':'hidden'}}>
+                        <div className="imgBox">
+                            <img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/>
+                            { this.state.cart.some(x => x[1] === i.id) ? 
+                                <div className="cartBtnGroup flex-sb">
+                                    <div className="plusMinus">
+                                        <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
+                                        <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
                                     </div>
-                                : null}
-                            </a>
+                                </div>
+                            : null }
+                            { this.state.cart.some(x => x[1] === i.id) ?
+                                <div className="itemAdded">
+                                    { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
+                                        <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
+                                    )})}
+                                </div>
+                            : null}
                         </div>
-                        <div className="cartBtnGroup flex-sb">
-                            <select onChange={(e)=>this.qtyChanged(i,e)}>
-                                { JSON.parse( i.sku ).map((j, index)=>(
-                                    <option key={index} value={j[0]}>{j[0]} @ &#8377; {j[1]}</option>
-                                ))}
-                            </select>
-                            <div className="plusMinus">
-                                <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
-                                { this.state.cart.some(x => x[0] === i.id) ? <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/> : null }
-                            </div>
-                        </div>
-                        <div>
-                            <a href={"/product/"+i.url}>
-                                <StarRating rating={i.rating}/>
-                                <p style={{textAlign:'center', fontWeight:'700'}}>{i.product}</p>
-                            </a>
+                        <p className="usage">Ideal for all Puja like</p>
+                        <div className="productDetail">
+                            <h3>{i.name}</h3>
+                            <p>Price: Rs {i.price}</p>
+                            <ul>
+                                <li><a href={"/product/"+i.url}>View Detail</a></li>
+                                <li onClick={()=>this.addToCart(i)}>Add To cart</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -282,8 +218,8 @@ export class Shop extends Component {
                             <div className="filter">
                                 <h3>Filter by <span>Price</span></h3>
                                 <div className="range-slider">
-                                    <input type="range" value={this.state.firstValue} min={this.state.minValue} max={this.state.maxValue} step={this.state.step} onChange={this.handleChange.bind(this, "first")} onMouseUp={this.finalFilter}/>
-                                    <input type="range" value={this.state.secondValue} min={this.state.minValue} max={this.state.maxValue} step={this.state.step} onChange={this.handleChange.bind(this, "second")} onMouseUp={this.finalFilter}/>
+                                    <input type="range" value={this.state.firstValue} min={this.state.minValue} max={this.state.maxValue} step={this.state.step} onChange={this.handleChange.bind(this, "first")}/>
+                                    <input type="range" value={this.state.secondValue} min={this.state.minValue} max={this.state.maxValue} step={this.state.step} onChange={this.handleChange.bind(this, "second")}/>
                                     <span>&#8377;{this.state.firstValue} - &#8377;{this.state.secondValue}</span>
                                 </div>
                             </div>
@@ -292,34 +228,20 @@ export class Shop extends Component {
                                 {this.state.categories.map((i, index)=>(
                                     <div className="filterCover" key={index}>
                                         <div className="onoffswitch">
-                                            <input type="checkbox" name="category" className="onoffswitch-checkbox" id={i.tab1} onChange={(e)=>this.filterCategory(e.target.value, e.target.checked)} value={i.tab1} checked={i.isChecked}/>
-                                            <label className="onoffswitch-label" htmlFor={i.tab1}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
+                                            <input type="checkbox" name="category" className="onoffswitch-checkbox" id={i.id} onChange={(e)=>this.filterCategory(e.target.value, e.target.checked)} value={i.id} checked={i.isChecked}/>
+                                            <label className="onoffswitch-label" htmlFor={i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
                                         </div>
                                         <span style={{marginLeft:'10px'}}>{i.name}</span>
                                     </div>
                                 ))}
                             </div>
-                            {this.state.subCategories.length>0?
-                                <div className="filter">
-                                    <h3>Filter by <span>Sub Categories</span></h3>
-                                    {this.state.subCategories.map((j,index2)=>(
-                                        <div className="filterCover" key={index2}>
-                                            <div className="onoffswitch">
-                                                <input type="checkbox" name={j.tab2} className="onoffswitch-checkbox" id={j.tab1} onChange={(e)=>this.filterSubCategory(e.target.value , e.target.checked)} value={j.tab1} checked={j.isChecked}/>
-                                                <label className="onoffswitch-label" htmlFor={j.tab1}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
-                                            </div>
-                                            <span style={{marginLeft:'10px'}}>{j.name}</span>
-                                        </div>
-                                    ))}
-                                </div>
-                            : null}
                             <div className="filter">
                                 <h3>Filter by <span>Tags</span></h3>
                                 {this.state.tags.map((i, index)=>(
                                     <div className="filterCover" key={index}>
                                         <div className="onoffswitch">
-                                            <input type="checkbox" name="tag" className="onoffswitch-checkbox" id={i.tab1} onChange={(e)=>this.filterTag(e.target.value , e.target.checked)} value={i.tab1} checked={i.isChecked}/>
-                                            <label className="onoffswitch-label" htmlFor={i.tab1}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
+                                            <input type="checkbox" name="tag" className="onoffswitch-checkbox" id={i.id} onChange={(e)=>this.filterTag(e.target.value , e.target.checked)} value={i.id} checked={i.isChecked}/>
+                                            <label className="onoffswitch-label" htmlFor={i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
                                         </div>
                                         <span style={{marginLeft:'10px'}}>{i.name}</span>
                                     </div>
@@ -339,7 +261,7 @@ export class Shop extends Component {
                                     </select>
                                 </div>
                             </div>
-                            <div className="row products">
+                            <div className="row product">
                                 {this.state.products.length>0 ? renderItems :  <div className="w-100 text-center mt-5"><h2>Sorry we couldn't find anything for these parameters</h2></div> }
                             </div>
                             <div><ul className="page-numbers">{renderPagination}</ul></div>

@@ -509,7 +509,7 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         'shortDesc':            req.body.shortDesc,
         'longDesc':             req.body.longDesc,
         'price':                req.body.price,
-        'rating':               0,
+        'rating':               JSON.stringify( [0,0] ),
         "updated_at":           time,
     }
     if(req.files.images){
@@ -728,10 +728,10 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
             if(err){ throw err }
             if(results){
                 const catProducts   = await func.similarCatProducts(JSON.parse(results[0].category), results[0].id )
-                // console.log('catProducts', catProducts)
                 const tagProducts   = await func.similarTagProducts(JSON.parse(results[0].tags, results[0].id ))
                 const incList       = await func.productIncName(JSON.parse(results[0].inclusion))
                 const reviewList    = await func.productReview(JSON.parse( results[0].id ))
+                console.log('reviewList', reviewList)
                 res.send({ 
                     product:            results[0],
                     incList:            incList,
@@ -747,15 +747,112 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
 router.get('/fetchReview/:product/:user', asyncMiddleware( async(req, res) => {
     let sql = `SELECT id, review, rating, created_at FROM rating WHERE productId= '${req.params.product}' AND userId = '${req.params.user}'`
     pool.query(sql, async(err, results) => {
-        try{    
-            if(results){ res.send({ review: results[0] }) }else if(err){ throw err }
-        }catch(e){
-            logError(e)
-            res.status(500);
-            return;
-        }
+        try{
+            if(err){ throw err }
+            if(results){ 
+                const reviewList    = await func.productReview(JSON.parse( req.params.product ))
+                res.send({ 
+                    review:         results[0],
+                    data:           reviewList
+                }) 
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
+
+router.post('/addReview', [func.verifyToken], asyncMiddleware( async(req, res) => {
+    let post= {
+        "productId":                    req.body.id,
+        "userId":                       req.body.userId,
+        "rating":                       req.body.rating,
+        "review":                       req.body.review,
+        "created_at":                   time,
+        "updated_at":                   time
+    }
+    let sql = 'INSERT INTO rating SET ?'
+    pool.query(sql, post, (err, results) => {
+        try{    
+            if(err){ throw err }
+            if(results){
+                let post2= {
+                    "rating": req.body.finalRating
+                }
+                let sql2 = `UPDATE products SET ? WHERE id = '${req.body.id}'`
+                pool.query(sql2, post2, (err2, results2) => {
+                    try{    
+                        if(err2){ throw err2 }
+                        if(results2){ 
+                            let sql3 = `SELECT review, rating, updated_at FROM rating ORDER BY id DESC LIMIT 1`
+                            pool.query(sql3, (err3, results3) => {
+                                try{
+                                    if(err3){ throw err3 }
+                                    if(results3){ res.send({ success: true, data: results3[0], message: 'Review submitted successfuly' }) }
+                                }catch(e){ func.logError(e); res.status(500); return; }
+                            })
+                        }
+                    }catch(e){ func.logError(e); res.status(500); return; }
+                })
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.post('/updateReview', [func.verifyToken], asyncMiddleware( async(req, res) => {
+    let post= {
+        "rating":                       req.body.rating,
+        "review":                       req.body.review,
+        "updated_at":                   time
+    }
+    let sql = `UPDATE rating SET ? WHERE id = '${req.body.reviewId}'`;
+    pool.query(sql, post, (err, results) => {
+        try{    
+            if(err){ throw err }
+            if(results){
+                let post2= {
+                    "rating":                       req.body.finalRating
+                }
+                let sql2 = `UPDATE products SET ? WHERE id = '${req.body.id}'`
+                pool.query(sql2, post2, (err2, results2) => {
+                    try{
+                        if(err2){ throw err2 }
+                        if(results2){ 
+                            let sql3 = `SELECT review, rating, updated_at FROM rating WHERE id = '${req.body.reviewId}'`
+                            pool.query(sql3, (err3, results3) => {
+                                try{  
+                                    if(err3){ throw err3 }  
+                                    if(results3){ res.send({ success: true, data:results3[0], message: 'Review updated successfuly' }) }
+                                }catch(e){ func.logError(e); res.status(500); return; }
+                            })
+                        }
+                    }catch(e){ func.logError(e); res.status(500); return; }
+                })
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.get('/fetchShop', asyncMiddleware( async(req, res) => {
+    let sql =   `SELECT id, type, name, tab1 FROM basic where type = 'Category';
+                SELECT id, type, name, tab1 FROM basic where type = 'Tag';
+                SELECT id, name, url, images, price, rating, category, tags FROM products WHERE status = '1';`
+    pool.query(sql, [1,2,3], async(err, results) => {
+        try{
+            if(err){ throw err }    
+            if(results){
+                const categories    = await func.addCatChecks(results[0])
+                const tags          = await func.addTagChecks(results[1])
+                const products      = results[2]
+                res.send({ categories, tags, products });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+
+
+
+
+
 
 
 module.exports = router;

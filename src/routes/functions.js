@@ -159,6 +159,48 @@ export function suggestBlogs() {
     });
 }
 
+export function addCatChecks(products){
+    return new Promise((resolve, reject) => {
+        if(products){
+            for(var i = 0; i < products.length; i++){ products[i]["isChecked"] = false }
+            resolve(products)
+        }
+    })
+}
+
+export function addTagChecks(products){
+    return new Promise((resolve, reject) => {
+        if(products){
+            for(var i = 0; i < products.length; i++){ products[i]["isChecked"] = false }
+            resolve(products)
+        }
+    })
+}
+
+
+export function getCatFilterProducts(data){
+    var list = []
+    return new Promise((resolve, reject) => {
+        if(data.length>0){
+            for(var i = 0; i < data.length; i++){
+                let sql = `SELECT name as text, id as value, tab1 FROM basic Where type='Puja' AND id = '${data[i]}';`
+                pool.query(sql, (err, results) => {
+                    try{ if(err) throw err;
+                        list.push(results[0])
+                        if(i == list.length){
+                            resolve(list)
+                        }
+                    }catch(e){ logError(e); return; }
+                });
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
+
+
 export function suggestProducts() {
     return new Promise((resolve, reject) => {
       let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1';`
@@ -247,8 +289,10 @@ export function similarTagProducts(array, id) {
 }
 
 export function productReview(id) {
+    console.log('id', id)
     return new Promise((resolve, reject) => {
-        let sql = `SELECT id, productId, userId, review, rating, updated_at FROM rating WHERE id = '${id}';`
+        let sql = `SELECT a.id, a.productId, a.userId, a.review, a.rating, a.updated_at, b.name FROM rating as a 
+                    left join users as b on b.id = a.userId WHERE productId = '${id}';`
         pool.query(sql, (err, rows) => {
             try{
                 if(err){ throw err }

@@ -23,7 +23,7 @@ export class Product extends Component {
             relatedProducts:        [],
             finalRating:            [],
             reviews:                [],
-            rating:                 '',
+            rating:                 0,
             review:                 '',
             reviewId:               '',
             oldRating:              '',
@@ -36,10 +36,7 @@ export class Product extends Component {
 		this.onEditorChange1 = this.onEditorChange1.bind( this )
     }
 
-    onChange= (e) => { 
-        console.log("Clicked")
-        this.setState({ [e.target.name]: e.target.value }) }
-    callSwal=(mesg)=>{ swal({ title: mesg, timer: 4000 }) }
+    onChange= (e) => { this.setState({ [e.target.name]: e.target.value }) }
     onEditorChange1( evt1 ) { this.setState( { review: evt1.editor.getData() } ) }
     handleChange1( changeEvent1 ) { this.setState( { review: changeEvent1.target.value } ) }
     changeImg=(i)=>{ this.setState({ currentImg: i }) }
@@ -62,11 +59,17 @@ export class Product extends Component {
             this.setState({
                 id:                     body.product.id,
                 product:                body.product,
+                finalRating:            JSON.parse( body.product.rating ),
                 incList:                body.incList,
                 catProducts:            body.catProducts,
                 currentImg:             JSON.parse( body.product.images )[0],
                 reviews:                body.reviewList
             },()=> this.checkForReview( body.product.id ))
+
+            
+                            
+
+
         // const response2 = await fetch('/suggest'); 
         // const body2 = await response2.json();
         // if (response2.status !== 200) throw Error(body2.message)
@@ -79,7 +82,6 @@ export class Product extends Component {
         if(this.state.user.id){
             const response = await fetch( '/admin/fetchReview/'+id+'/'+this.state.user.id ); 
             const body = await response.json()
-            console.log('body review', body)
             if (response.status !== 200) throw Error(body.message)
             if (body.review){
                 this.setState({ 
@@ -88,7 +90,8 @@ export class Product extends Component {
                     oldRating:              body.review.rating,
                     rating:                 body.review.rating,
                     review:                 body.review.review,
-                    reviews:                body.data
+                    reviews:                body.data,
+                    allowReview:            false,
                 })
             }else{
                 this.setState({ allowReview: true })
@@ -147,25 +150,26 @@ export class Product extends Component {
     }
 
     addReview=(e)=>{
-        console.log("Clicked")
         var xx =  parseFloat( ((this.state.finalRating[0]*this.state.finalRating[1]) + parseInt(this.state.rating) )/(this.state.finalRating[1]+1) ).toFixed(2)
         var productRating = JSON.stringify( [xx, parseInt( this.state.finalRating[1]+1 )] )
+        
         e.preventDefault()
         if(!this.state.rating){
-            this.callSwal("Rating can not be left blank")
+            func.callSwal("Rating can not be left blank")
         } else if(!this.state.review){
-            this.callSwal("Review can not be left blank")
+            func.callSwal("Review can not be left blank")
         }else{
             const data={
                 id:                     this.state.id,
+                userId:                 this.state.user.id,
                 rating:                 this.state.rating,
                 review:                 this.state.review,
-                userId:                 this.state.user.id,
                 finalRating:            productRating
             } 
             axios.post('/admin/addReview', data)
                 .catch(err=>console.log('err', err))
                 .then(res=>{
+                    console.log('res', res)
                     if(res.data.success){
                         this.setState({ 
                             finalRating:                JSON.parse( productRating ),
@@ -174,7 +178,7 @@ export class Product extends Component {
                             reviews:                    [...this.state.reviews, res.data.data ],
                             oldRating:                  this.state.rating
                         })
-                        this.callSwal(res.data.message)
+                        func.callSwal(res.data.message)
                     }
                 })
         }
@@ -185,7 +189,7 @@ export class Product extends Component {
         var productRating = JSON.stringify( [xx, parseInt( this.state.finalRating[1] )] )
         e.preventDefault()
         if(!this.state.rating || !this.state.review){
-            this.callSwal("Rating and Review can not be left blank")
+            func.callSwal("Rating and Review can not be left blank")
         }else{
             const data={
                 id:                     this.state.id,
@@ -206,10 +210,15 @@ export class Product extends Component {
                             oldRating:                  this.state.rating,
                             reviews:                      this.state.reviews.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x )
                         })
-                        this.callSwal(res.data.message)
+                        func.callSwal(res.data.message)
                     }
                 })
         }
+    }
+
+    productRating=(value)=>{
+        console.log('value', value)
+        this.setState({ rating: value})
     }
 
     render() {
@@ -243,7 +252,7 @@ export class Product extends Component {
                                 : null}
                             </div>
                             <div className="col-sm-6">
-                                <StarRating rating={this.state.product.rating}/>
+                                {this.state.product.rating? <StarRating rating={JSON.parse( this.state.product.rating)[0]}/> : null }
                                 <h1 style={{textAlign:'left', marginBottom:'0'}}><span>{this.state.product.name}</span></h1>
                                 <section className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.product.shortDesc }} />
                                 <p className="text-left">Add to cart</p>
@@ -270,7 +279,7 @@ export class Product extends Component {
                                                 <img key={index} src={"/images/product/"+JSON.parse(i.images)[0]}/>
                                                 <div className=" w-100" style={{paddingLeft:'5px'}}>
                                                     <div className="text-center">
-                                                        <StarRating rating={i.rating}/>
+                                                        {i.rating? <StarRating rating={JSON.parse( i.rating)[0]}/> : null }
                                                     </div>
                                                     <p style={{fontWeight:'600'}}>{i.name}</p>
                                                     <p>&#8377;{i.price}</p>
@@ -322,13 +331,21 @@ export class Product extends Component {
                                                             <div className="col-sm-12">
                                                                 <label>Rating</label>
                                                                 <div className="star-rating m-0">
-                                                                    <span className="rating">
-                                                                        <input type="radio" className="rating-input" id="rating-input-1-1" name="rating" value="5" onChange={(e)=>this.onChange(e)} checked={this.state.rating== 5 ? true : false}/><label htmlFor="rating-input-1-1" className="rating-star"></label>
-                                                                        <input type="radio" className="rating-input" id="rating-input-1-2" name="rating" value="4" onChange={(e)=>this.onChange(e)} checked={this.state.rating== 4 ? true : false}/><label htmlFor="rating-input-1-2" className="rating-star"></label>
-                                                                        <input type="radio" className="rating-input" id="rating-input-1-3" name="rating" value="3" onChange={(e)=>this.onChange(e)} checked={this.state.rating== 3 ? true : false}/><label htmlFor="rating-input-1-3" className="rating-star"></label>
-                                                                        <input type="radio" className="rating-input" id="rating-input-1-4" name="rating" value="2" onChange={(e)=>this.onChange(e)} checked={this.state.rating== 2 ? true : false}/><label htmlFor="rating-input-1-4" className="rating-star"></label>
-                                                                        <input type="radio" className="rating-input" id="rating-input-1-5" name="rating" value="1" onChange={(e)=>this.onChange(e)} checked={this.state.rating== 1 ? true : false}/><label htmlFor="rating-input-1-5" className="rating-star"></label>
-                                                                    </span>
+                                                                    {/* <span className="rating">
+                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-1" name="rating" value="5" onChange={(e)=>this.onChange(e)} checked={this.state.rating>= 1 ? true : false}/><label htmlFor="rating-input-1-1" className="rating-star"></label></div>
+                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-2" name="rating" value="4" onChange={(e)=>this.onChange(e)} checked={this.state.rating>= 2 ? true : false}/><label htmlFor="rating-input-1-2" className="rating-star"></label></div>
+                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-3" name="rating" value="3" onChange={(e)=>this.onChange(e)} checked={this.state.rating>= 3 ? true : false}/><label htmlFor="rating-input-1-3" className="rating-star"></label></div>
+                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-4" name="rating" value="2" onChange={(e)=>this.onChange(e)} checked={this.state.rating>= 4 ? true : false}/><label htmlFor="rating-input-1-4" className="rating-star"></label></div>
+                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-5" name="rating" value="1" onChange={(e)=>this.onChange(e)} checked={this.state.rating= 5 ? true : false}/><label htmlFor="rating-input-1-5" className="rating-star"></label></div>
+                                                                    </span> */}
+                                                                    <select className="form-control mb-3" name="rating" onChange={this.onChange} value={this.state.rating}>
+                                                                        <option value=''>Give rating</option>
+                                                                        <option value='1'>1 Star</option>
+                                                                        <option value='2'>2 Star</option>
+                                                                        <option value='3'>3 Star</option>
+                                                                        <option value='4'>4 Star</option>
+                                                                        <option value='5'>5 Star</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-12">
@@ -352,13 +369,28 @@ export class Product extends Component {
                                                             <div className="col-sm-12">
                                                                 <label>Rating</label>
                                                                 <div className="star-rating m-0">
-                                                                <span className="rating">
-                                                                    <input type="radio" className="rating-input" id="rating-input-1-1" name="rating" value="5" onClick={(e)=>this.onChange(e)}/><label htmlFor="rating-input-1-1" className="rating-star"></label>
-                                                                    <input type="radio" className="rating-input" id="rating-input-1-2" name="rating" value="4" onClick={(e)=>this.onChange(e)}/><label htmlFor="rating-input-1-2" className="rating-star"></label>
-                                                                    <input type="radio" className="rating-input" id="rating-input-1-3" name="rating" value="3" onClick={(e)=>this.onChange(e)}/><label htmlFor="rating-input-1-3" className="rating-star"></label>
-                                                                    <input type="radio" className="rating-input" id="rating-input-1-4" name="rating" value="2" onClick={(e)=>this.onChange(e)}/><label htmlFor="rating-input-1-4" className="rating-star"></label>
-                                                                    <input type="radio" className="rating-input" id="rating-input-1-5" name="rating" value="1" onClick={(e)=>this.onChange(e)}/><label htmlFor="rating-input-1-5" className="rating-star"></label>
-                                                                </span>
+                                                                    {/* <span className="rating">
+                                                                        <div onClick={()=>this.productRating(1)}><input type="radio" className="rating-input" id="rating-input-1-1" name="rating" onChange={this.onChange} checked={this.state.rating>= 1 ? true : false}/><label htmlFor="rating-input-1-1" className="rating-star"></label></div>
+                                                                        <div onClick={()=>this.productRating(2)}><input type="radio" className="rating-input" id="rating-input-1-2" name="rating" onChange={this.onChange} checked={this.state.rating>= 2 ? true : false}/><label htmlFor="rating-input-1-2" className="rating-star"></label></div>
+                                                                        <div onClick={()=>this.productRating(3)}><input type="radio" className="rating-input" id="rating-input-1-3" name="rating" onChange={this.onChange} checked={this.state.rating>= 3 ? true : false}/><label htmlFor="rating-input-1-3" className="rating-star"></label></div>
+                                                                        <div onClick={()=>this.productRating(4)}><input type="radio" className="rating-input" id="rating-input-1-4" name="rating" onChange={this.onChange} checked={this.state.rating>= 4 ? true : false}/><label htmlFor="rating-input-1-4" className="rating-star"></label></div>
+                                                                        <div onClick={()=>this.productRating(5)}><input type="radio" className="rating-input" id="rating-input-1-5" name="rating" onChange={this.onChange} checked={this.state.rating= 5 ? true : false}/><label htmlFor="rating-input-1-5" className="rating-star"></label></div>
+                                                                    </span> */}
+                                                                    {/* <span className="rating">
+                                                                        <div onClick={(e)=>this.productRating(1)}>{this.state.rating>=1 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
+                                                                        <div onClick={(e)=>this.productRating(2)}>{this.state.rating>=2 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
+                                                                        <div onClick={(e)=>this.productRating(3)}>{this.state.rating>=3 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
+                                                                        <div onClick={(e)=>this.productRating(4)}>{this.state.rating>=4 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
+                                                                        <div onClick={(e)=>this.productRating(5)}>{this.state.rating=5 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
+                                                                    </span> */}
+                                                                    <select className="form-control mb-3" name="rating" onChange={this.onChange}>
+                                                                        <option value=''>Give rating</option>
+                                                                        <option value='1'>1 Star</option>
+                                                                        <option value='2'>2 Star</option>
+                                                                        <option value='3'>3 Star</option>
+                                                                        <option value='4'>4 Star</option>
+                                                                        <option value='5'>5 Star</option>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div className="col-sm-12">
