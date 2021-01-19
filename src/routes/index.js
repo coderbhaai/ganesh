@@ -3,14 +3,12 @@ import React from "react";
 import { renderToString } from "react-dom/server"
 import "regenerator-runtime/runtime.js"
 
-
 import { decode } from "jsonwebtoken"
 
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
 
-const nodemailer = require("nodemailer");
 var pool = require('./mysqlConnector');
 
 router.use('/auth', require('./auth'))
@@ -49,6 +47,9 @@ import AdminOrders from "../pages/admin/AdminOrders"
 import Products from "../pages/admin/Products"
 import AddProduct from "../pages/admin/AddProduct"
 import EditProduct from "../pages/admin/EditProduct"
+
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
 
 router.get('/', asyncMiddleware( async(req, res, next) => {
   const meta = await func.getMeta(req.url)
@@ -157,7 +158,6 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
         "email":        req.body.email,
         "phone":        req.body.phone,
         "message":      req.body.message,
-        "_token":       '22',
         "created_at":   time,
         "updated_at":   time,
     }
@@ -179,19 +179,13 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
           <p>Amit Kumar Khare</p>
           <a href="https://www.linkedin.com/in/amitkhare588/"><p>Connect on Linkedin</p></a>
           `
-        let transporter = nodemailer.createTransport({ host: "sg3plcpnl0076.prod.sin3.secureserver.net", port: 465, secure: true, auth: { user: 'amit@amitkk.com', pass: 'coderBhai588' }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
         let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.amitkk.com", html: mailBody }
         transporter.sendMail( mailOptions, (error, info)=>{
           if(error){ return console.log(error)}
           console.log("Message sent: %s");
         });
-        // res.redirect('/thank-you');
         res.send({ success: true, message: "Mail Sent" }); 
-      }catch(e){
-        logError(e, req.url)
-        res.status(403);
-        return;
-      }
+      }catch(e){ func.logError(e); res.status(403); return; }
     })
   })
 

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+import {Modal, ModalHeader, ModalBody } from 'reactstrap'
+import Form from './Form'
 
 export class Footer extends Component {
     render() {
         return (
+            <>
             <footer>
                 <div className="container-fluid">
                     <div className="row">
@@ -21,7 +24,7 @@ export class Footer extends Component {
                                 <li><a href="#"><img src="/images/icons/twitter-white.svg"/></a></li>
                                 <li><a href="#"><img src="/images/icons/instagram-white.svg"/></a></li>
                             </ul>
-                            <div className="text-center"><button className="btn">Enter Your Query</button></div>
+                            <div className="text-center"><a className="btn" data-toggle="modal" data-target="#callBack">Enter Your Query</a></div>
                         </div>
                     </div>
                 </div>
@@ -30,6 +33,25 @@ export class Footer extends Component {
                     <p className="akkLink">Developed by <a href="https://www.amitkk.com" target="_blank">AmitKK</a></p>
                 </div>
             </footer>
+            <div className="callBack">
+                <div className="modal fade" id="callBack" tabIndex="-1" role="dialog" aria-label="callBackTitle" aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h2 className="heading">Enter Your Query</h2>
+                                <button data-dismiss="modal" aria-label="Close" className="closeBtn">X</button>
+                            </div>
+                            <div className="modal-body container">
+                                <div className="row">
+                                    <div className="col-sm-3"></div>
+                                    <div className="col-sm-6"><Form/></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </>
         )
     }
 }

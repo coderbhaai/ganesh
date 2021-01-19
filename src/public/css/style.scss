@@ -4,6 +4,15 @@
 @import '_semantic';
 @import '_blog';
 @import '_store';
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Yusei+Magic&display=swap');
+
+body{
+   font-family: 'Source Sans Pro', sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+   font-family: 'Yusei Magic', sans-serif;
+}
+
 
 .logout:hover, .dropdown-item:hover, .closeModal:hover, .editIcon:hover{
    cursor: pointer;
@@ -46,6 +55,13 @@
       color: #fff;
    }
 }
+.cartIcon{
+   display: flex;
+   align-items: center;
+   img{
+      max-width: 45px;
+   }
+}
 footer{
    h3{
       color: #fff;
@@ -84,7 +100,7 @@ footer{
             margin-right: 1em;
          }
       }
-      button{
+      .btn{
          color: #fff;
          border: 2px solid #fff;
          margin: 2em auto;
@@ -92,6 +108,7 @@ footer{
          background: transparent;
          padding: 1em;
          transition: 0.5s all;
+         display: block;
          &:hover{
             background: $primary;
             border: 2px solid $primary;
@@ -295,4 +312,78 @@ footer{
 .my-div{
    text-align: center;
    padding: 1em 0;
+}
+#callback{
+   position: fixed;
+   right: 0;
+   bottom: 20%;
+   z-index: 1000;
+   background: $primary;
+   padding: 15px 1em;
+   border-radius: 5px 0 0 5px;
+   text-align: center;
+}
+.callBack{
+   a{
+      color: #fff;
+      font-family: Arial,sans-serif;
+      font-size: 16px;
+      text-decoration: none;
+      text-align: center;
+      border-radius: 2px;
+      font-weight: 600;
+   }
+   img{
+      max-width: 40px;
+      display: block;
+      margin: 0 auto .5em;
+   }
+   .modal{
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      opacity: 0;
+      -webkit-transition: all .4s;
+      transition: all .4s;
+      -webkit-transform: scale(0.9);
+      transform: scale(0.9);
+      height: 0;
+      overflow: visible;
+      z-index: 10000;
+      padding: 0;
+      .modal-dialog{
+         height: 100vh;
+         top:  0;
+         margin: 0;
+         max-height: unset;
+         width: unset;
+      }
+   }
+   .show{
+      display: block;
+      opacity: 1;
+      -webkit-transform: scale(1);
+      transform: scale(1);
+      height: 100vh;
+      width: 100vw;   
+      overflow-y: scroll;
+   }
+   form textarea{
+      height: 150px;
+   }
+   .container{
+      width:75%;
+   }
+   .closeBtn {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      font-weight: 700;
+      font-size: 2em;
+      color: $primary;
+      border: none;
+      background: 0 0;
+    }
 }

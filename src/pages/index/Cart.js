@@ -176,9 +176,9 @@ export class Cart extends Component {
                             </form>
                         </>
                         :
-                        <div className="row">
+                        <div className="row my-5">
                             <div className="col-sm-12">
-                                <p>Empty Cart</p>
+                                <p className='text-center'>You are travelling with an empty cart my friend. Go back to the <a href="/shop" className="amitBtn">shop page</a> and buy something for your happy life</p>
                             </div>
                         </div>
                     }

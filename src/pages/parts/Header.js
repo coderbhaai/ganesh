@@ -70,15 +70,12 @@ export class Header extends Component {
                     </ul>
                     <div className="header-social">
                         <div>
-                            <img src="/images/icons/facebook-white.svg"/>
-                            <img src="/images/icons/linkedin-white.svg"/>
-                            <img src="/images/icons/twitter-white.svg"/>
-                            <img src="/images/icons/instagram-white.svg"/>
+                            <a href=""><img src="/images/icons/facebook-white.svg"/></a>
+                            <a href=""><img src="/images/icons/linkedin-white.svg"/></a>
+                            <a href=""><img src="/images/icons/twitter-white.svg"/></a>
+                            <a href=""><img src="/images/icons/instagram-white.svg"/></a>
                             {!this.state.user.role? <span><a href="/login">Login | </a><a href="/register">Signup</a></span> : null}
-                            <a href="/cart">
-                                <img src="/images/icons/cart.svg"/>
-                                <span className='value'>{this.props.cart ? this.props.cart : 0 }</span>
-                            </a>
+                            <a href="/cart" className="cartIcon"> <img src="/images/icons/cart-white.svg"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
                         </div>
                     </div>
                 </div>

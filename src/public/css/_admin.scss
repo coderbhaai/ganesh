@@ -1,11 +1,17 @@
 $primary: #e1672e;
 .AdminBar{
     background: $primary;
-}
-.AdminBar a{
-    display: block;
-    padding: 1em 0;
-    color: #fff;
+    a{
+        display: block;
+        padding: 1.5em 0;
+        color: #fff;
+        text-align: center;
+    }
+    .active{
+        background: #fff;
+        color: $primary;
+        border-radius: 5px;
+    }
 }
 .table {
     width: 100%; 

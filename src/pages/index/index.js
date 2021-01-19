@@ -147,7 +147,7 @@ export class index extends Component {
                                                         </div>
                                                     : null}
                                                 </div>
-                                                <p className="usage">Ideal for all Puja like</p>
+                                                {/* <p className="usage">Ideal for all Puja like</p> */}
                                                 <div className="productDetail">
                                                     <h3>{i.name}</h3>
                                                     <p>Price: Rs {i.price}</p>

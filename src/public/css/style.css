@@ -4,6 +4,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Yusei+Magic&display=swap");
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -334,6 +335,11 @@ form input {
   .loading img {
     max-width: 120px;
     height: auto; }
+
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545; }
 
 /* Swiper CSS */
 /* Swiper CSS */
@@ -829,11 +835,15 @@ button.swiper-pagination-bullet {
 /* Swiper CSS */
 .AdminBar {
   background: #e1672e; }
-
-.AdminBar a {
-  display: block;
-  padding: 1em 0;
-  color: #fff; }
+  .AdminBar a {
+    display: block;
+    padding: 1.5em 0;
+    color: #fff;
+    text-align: center; }
+  .AdminBar .active {
+    background: #fff;
+    color: #e1672e;
+    border-radius: 5px; }
 
 .table {
   width: 100%;
@@ -1840,6 +1850,12 @@ input[type=range]::-ms-thumb {
   cursor: pointer; }
 
 /* Price Slider */
+body {
+  font-family: 'Source Sans Pro', sans-serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Yusei Magic', sans-serif; }
+
 .logout:hover, .dropdown-item:hover, .closeModal:hover, .editIcon:hover {
   cursor: pointer; }
 
@@ -1878,6 +1894,12 @@ input[type=range]::-ms-thumb {
   .header-social a {
     color: #fff; }
 
+.cartIcon {
+  display: flex;
+  align-items: center; }
+  .cartIcon img {
+    max-width: 45px; }
+
 footer h3 {
   color: #fff;
   font-size: 2.5em;
@@ -1909,15 +1931,16 @@ footer .col-sm-6:nth-child(2) {
     footer .col-sm-6:nth-child(2) ul li a img {
       max-width: 20px;
       margin-right: 1em; }
-  footer .col-sm-6:nth-child(2) button {
+  footer .col-sm-6:nth-child(2) .btn {
     color: #fff;
     border: 2px solid #fff;
     margin: 2em auto;
     min-width: 350px;
     background: transparent;
     padding: 1em;
-    transition: 0.5s all; }
-    footer .col-sm-6:nth-child(2) button:hover {
+    transition: 0.5s all;
+    display: block; }
+    footer .col-sm-6:nth-child(2) .btn:hover {
       background: #e1672e;
       border: 2px solid #e1672e;
       cursor: pointer; }
@@ -2079,3 +2102,74 @@ footer .akk {
 .my-div {
   text-align: center;
   padding: 1em 0; }
+
+#callback {
+  position: fixed;
+  right: 0;
+  bottom: 20%;
+  z-index: 1000;
+  background: #e1672e;
+  padding: 15px 1em;
+  border-radius: 5px 0 0 5px;
+  text-align: center; }
+
+.callBack a {
+  color: #fff;
+  font-family: Arial,sans-serif;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 2px;
+  font-weight: 600; }
+
+.callBack img {
+  max-width: 40px;
+  display: block;
+  margin: 0 auto .5em; }
+
+.callBack .modal {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0;
+  -webkit-transition: all .4s;
+  transition: all .4s;
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+  height: 0;
+  overflow: visible;
+  z-index: 10000;
+  padding: 0; }
+  .callBack .modal .modal-dialog {
+    height: 100vh;
+    top: 0;
+    margin: 0;
+    max-height: unset;
+    width: unset; }
+
+.callBack .show {
+  display: block;
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  height: 100vh;
+  width: 100vw;
+  overflow-y: scroll; }
+
+.callBack form textarea {
+  height: 150px; }
+
+.callBack .container {
+  width: 75%; }
+
+.callBack .closeBtn {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  font-weight: 700;
+  font-size: 2em;
+  color: #e1672e;
+  border: none;
+  background: 0 0; }
