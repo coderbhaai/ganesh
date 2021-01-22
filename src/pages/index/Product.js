@@ -255,7 +255,7 @@ export class Product extends Component {
                                 {this.state.product.rating? <StarRating rating={JSON.parse( this.state.product.rating)[0]}/> : null }
                                 <h1 style={{textAlign:'left', marginBottom:'0'}}><span>{this.state.product.name}</span></h1>
                                 <section className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.product.shortDesc }} />
-                                <p className="text-left">Add to cart</p>
+                                <h3 className="text-left mb-3">Add to cart</h3>
                                 <div className="cartBtnGroup flex-sb">
                                     <div className="plusMinus">
                                         <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(this.state.product)} style={{marginRight: '10px'}}/>
@@ -300,10 +300,10 @@ export class Product extends Component {
                                     <div className="col-sm-12">
                                         <ul className="nav nav-tabs flex-h">
                                             <li><a className="active" data-toggle="tab" href="#home">Description</a></li>
-                                            <li><a data-toggle="tab" href="#menu1">Reviews</a></li>
+                                            {this.state.reviews.length? <li><a data-toggle="tab" href="#menu1">Reviews</a></li> : null}
                                             { this.state.reviewSubmitted ?
                                                 <li><a data-toggle="tab" href="#menu2">Update your Review</a></li>
-                                            : this.state.allowReview && !this.state.isSeller ?
+                                            : this.state.allowReview ?
                                                 <li><a data-toggle="tab" href="#menu2">Submit a Review</a></li>
                                             : 
                                             null

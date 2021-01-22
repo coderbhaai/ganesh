@@ -162,15 +162,15 @@ export class Cart extends Component {
                                         <textarea type="text" name="message" required className="form-control" placeholder="Message" value={this.state.message} onChange={this.onChange}></textarea>
                                     </div>
                                     <div className="w-100 mt-5">
-                                        <h3>Final Invoice : </h3>
-                                            <span>Cost <strong>&#8377;{this.reduceCart()}</strong> </span>
+                                        <h3>Final Invoice : &#8377;{this.reduceCart()}</h3>
+                                            {/* <span>Cost <strong>&#8377;{this.reduceCart()}</strong> </span>
                                             {this.state.paymentInProcess ?
                                                 <div className="loading"><img src="/images/icons/loading.gif"/></div>
                                             :
                                                 <div className="my-btn my-5">
                                                     <button className="amitBtn">Pay now</button>
                                                 </div>
-                                            }
+                                            } */}
                                     </div>
                                 </div>
                             </form>

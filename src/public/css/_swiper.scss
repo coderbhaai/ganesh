@@ -68,6 +68,9 @@
     justify-content: center;
     position: relative;
     transition-property: transform;
+    &:hover{
+      cursor: pointer;
+    }
   }
   .swiper-slide-invisible-blank {
     visibility: hidden;

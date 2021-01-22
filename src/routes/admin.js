@@ -9,8 +9,8 @@ const upload = require('express-fileupload')
 const fs = require('fs')
 router.use(upload())
 
-// const storage = '/var/www/totalinfrasolutions.in/public_html/public/images/'
-const storage = './src/public/images/'
+const storage = '/var/www/pujarambh.com/amit/public/images/'
+// const storage = './src/public/images/'
 
 router.get('/AdminUsers', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql =   `SELECT name, email, role, created_at FROM users`

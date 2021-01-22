@@ -94,7 +94,7 @@ export class index extends Component {
                 <section className="banner">
                     <img src="/images/static/banner.jpg"/>
                     <div className="caption">
-                        <h1>Book Your Pandit Online For</h1>
+                        <h1 className="mb-5">Book Your Pandit Online For</h1>
                         <p>Ganesh Puja</p>
                         <button className="amitBtn btn">Book Now</button>
                     </div>
@@ -102,35 +102,35 @@ export class index extends Component {
                 <section className="text-heading">
                     <h2>Who we Are</h2>
                 </section>
-                <div className="container puja">
+                <div className="container puja py-5">
                     <div className="row">
-                        <div className="col-sm-7">
+                        <div className="col-sm-9">
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                             <button className="amitBtn">Read More</button>
                         </div>
-                        <div className="col-sm-5">
+                        <div className="col-sm-3">
                             <img src="/images/static/puja.jpg"/>
                         </div>
                     </div>
                 </div>
                 <section className="text-heading">
                     <h2>Our Offering</h2>
-                    <ul>
+                    {/* <ul>
                         <li>Order Samagari</li>
                         <li>Puja Samagari</li>
-                    </ul>
+                    </ul>   */}
                 </section>
                 <section className="product">
                     {this.state.products ?
-                        <div className="container">
+                        <div className="container py-5">
                             <div className="row">
                                 <div className="col-sm-12">
                                     <Swiper {...params}>
                                         {this.state.products.map((i,index)=>( 
                                             <div key={index}>
                                                 <div className="imgBox">
-                                                    <img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/>
+                                                    <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
                                                     { this.state.cart.some(x => x[1] === i.id) ? 
                                                         <div className="cartBtnGroup flex-sb">
                                                             <div className="plusMinus">
@@ -151,10 +151,18 @@ export class index extends Component {
                                                 <div className="productDetail">
                                                     <h3>{i.name}</h3>
                                                     <p>Price: Rs {i.price}</p>
-                                                    <ul>
+                                                    <div className="button-wrap">
+                                                        <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
+                                                            <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
+                                                        </a>
+                                                        <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
+                                                            <span className="button-slanted-content">Add To cart</span>
+                                                        </div>
+                                                    </div>
+                                                    {/* <ul>
                                                         <li><a href={"/product/"+i.url}>View Detail</a></li>
                                                         <li onClick={()=>this.addToCart(i)}>Add To cart</li>
-                                                    </ul>
+                                                    </ul> */}
                                                 </div>
                                             </div>
                                         ))}
@@ -171,16 +179,34 @@ export class index extends Component {
                             <div className="col-sm-12">
                                 <Swiper {...params2}>
                                     <div>
-                                        <div>
-                                            <ul>
-                                                <li className="client">
-                                                    <img src="/images/static/amit.jpg"/>
-                                                    <h3>Amit Khare</h3>
-                                                    <p>Web Developer</p>
-                                                </li>
-                                                <li><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></li>
-                                            </ul>
-                                        </div>
+                                        <ul>
+                                            <li className="client">
+                                                <img src="/images/static/amit.jpg"/>
+                                                <h3>Amit Khare</h3>
+                                                <p>Web Developer</p>
+                                            </li>
+                                            <li><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <ul>
+                                            <li className="client">
+                                                <img src="/images/static/amit.jpg"/>
+                                                <h3>Amit Khare</h3>
+                                                <p>Web Developer</p>
+                                            </li>
+                                            <li><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <ul>
+                                            <li className="client">
+                                                <img src="/images/static/amit.jpg"/>
+                                                <h3>Amit Khare</h3>
+                                                <p>Web Developer</p>
+                                            </li>
+                                            <li><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></li>
+                                        </ul>
                                     </div>
                                 </Swiper>
                             </div>
@@ -189,10 +215,11 @@ export class index extends Component {
                 </section>
                 {this.state.blogs?
                 <section className="blogList">
-                    <div className="container">
+                    <div className="container-fluid">
                         <h2>Latest Blogs</h2>
                         <div className="row">
-                            <div className="col-sm-8">
+                            <div className="col-sm-2"></div>
+                            <div className="col-sm-7 blogData">
                                 <h3>Blogs</h3>
                                 <ul>
                                 {this.state.blogs.slice(0,5).map((i,index)=>(
@@ -205,16 +232,17 @@ export class index extends Component {
                                     ))}
                                 </ul>
                             </div>
-                            <div className="col-sm-4">
-
+                            <div className="col-sm-3 side">
+                                {/* <img src="/images/static/side.png"/> */}
                             </div>
+                            <img src="/images/static/side.png" className="side"/>
                         </div>
                     </div>
                 </section>
                 : null}
                 <section className="articles text-heading">
                     <ul>
-                        <li>Articles</li>
+                        {/* <li>Articles</li> */}
                         <li>Blogs</li>
                     </ul>
                 </section>

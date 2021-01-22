@@ -176,7 +176,7 @@ export class Shop extends Component {
                 <div className="col-sm-3 mb-3" key={index}>
                     <div style={{'overflow':'hidden'}}>
                         <div className="imgBox">
-                            <img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/>
+                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
                             { this.state.cart.some(x => x[1] === i.id) ? 
                                 <div className="cartBtnGroup flex-sb">
                                     <div className="plusMinus">
@@ -193,14 +193,22 @@ export class Shop extends Component {
                                 </div>
                             : null}
                         </div>
-                        <p className="usage">Ideal for all Puja like</p>
+                        {/* <p className="usage">Ideal for all Puja like</p> */}
                         <div className="productDetail">
                             <h3>{i.name}</h3>
                             <p>Price: Rs {i.price}</p>
-                            <ul>
+                            <div className="button-wrap">
+                                <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
+                                    <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
+                                </a>
+                                <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
+                                    <span className="button-slanted-content">Add To cart</span>
+                                </div>
+                            </div>
+                            {/* <ul>
                                 <li><a href={"/product/"+i.url}>View Detail</a></li>
                                 <li onClick={()=>this.addToCart(i)}>Add To cart</li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 </div>

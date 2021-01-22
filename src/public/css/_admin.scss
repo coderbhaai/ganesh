@@ -208,7 +208,7 @@ input[readonly]{
   }
   .onoffswitch-inner:after {
       content: "OFF";
-      background-color: #dc3545; color: #FFFFFF;
+      background-color: $primary; color: #FFFFFF;
       text-align: right;
       font-size: 10px;
       padding: 0 5px 0 10px;
