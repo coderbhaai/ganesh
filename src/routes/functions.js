@@ -131,6 +131,63 @@ export function productIncName(data) {
     });
 }
 
+export function productExcName(data) {
+    var list = []
+    return new Promise((resolve, reject) => {
+        if(data.length>0){
+            for(var i = 0; i < data.length; i++){
+                let sql = `SELECT name as text, id as value, tab1 FROM basic Where type='Puja' AND id = '${data[i]}';`
+                pool.query(sql, (err, results) => {
+                    try{ if(err) throw err;
+                        list.push(results[0])
+                        if(i == list.length){ resolve(list) }
+                    }catch(e){ logError(e); return; }
+                });
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
+export function productRecomName(data) {
+    var list = []
+    return new Promise((resolve, reject) => {
+        if(data.length>0){
+            for(var i = 0; i < data.length; i++){
+                let sql = `SELECT name as text, id as value FROM products Where id = '${data[i]}';`
+                pool.query(sql, (err, results) => {
+                    try{ if(err) throw err;
+                        list.push(results[0])
+                        if(i == list.length){ resolve(list) }
+                    }catch(e){ logError(e); return; }
+                });
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
+export function productRelatedName(data) {
+    var list = []
+    return new Promise((resolve, reject) => {
+        if(data.length>0){
+            for(var i = 0; i < data.length; i++){
+                let sql = `SELECT name as text, id as value FROM products Where id = '${data[i]}';`
+                pool.query(sql, (err, results) => {
+                    try{ if(err) throw err;
+                        list.push(results[0])
+                        if(i == list.length){ resolve(list) }
+                    }catch(e){ logError(e); return; }
+                });
+            }
+        }else{
+            resolve(list)
+        }
+    });
+}
+
 export function blogMetaData(id) {
     return new Promise((resolve, reject) => {
         let sql = `SELECT title, url FROM blogs ORDER BY id DESC;
@@ -203,7 +260,7 @@ export function getCatFilterProducts(data){
 
 export function suggestProducts() {
     return new Promise((resolve, reject) => {
-      let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1';`
+      let sql = `SELECT id, name, type, url, images, price, sale, tagline, rating FROM products WHERE status = '1';`
       pool.query(sql, (err, rows) => {
         try{
             if(err){ throw err }

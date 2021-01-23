@@ -11,6 +11,7 @@ export class index extends Component {
             blogs:                  this.props.blogs,
             products:               this.props.products,
             cart:                   [],
+            active:                 'Service'
         }
     }
 
@@ -31,7 +32,7 @@ export class index extends Component {
     }
 
     addToCart=(i)=>{
-        console.log('i', i)
+        // console.log('i', i)
         var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
@@ -63,8 +64,12 @@ export class index extends Component {
         }
         this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
     }
+
+    activeOffering=(value)=>{ this.setState({ active: value })}
+
     
     render() {
+        console.log('this.state', this.state)
         const params = {
             slidesPerView: 6,
             spaceBetween: 10,
@@ -88,19 +93,20 @@ export class index extends Component {
             },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         }
+        
         return (
             <>
                 <Header cart={this.state.cart.length}/>
                 <section className="banner">
                     <img src="/images/static/banner.jpg"/>
                     <div className="caption">
-                        <h1 className="mb-5">Book Your Pandit Online For</h1>
-                        <p>Ganesh Puja</p>
+                        <h1 className="mb-3">Book Your Pandit Online For</h1>
+                        <p className="hindi">Ganesh Puja</p>
                         <button className="amitBtn btn">Book Now</button>
                     </div>
                 </section>
                 <section className="text-heading">
-                    <h2>Who we Are</h2>
+                    <h2 className="hindi">Who we Are</h2>
                 </section>
                 <div className="container puja py-5">
                     <div className="row">
@@ -115,11 +121,11 @@ export class index extends Component {
                     </div>
                 </div>
                 <section className="text-heading">
-                    <h2>Our Offering</h2>
-                    {/* <ul>
-                        <li>Order Samagari</li>
-                        <li>Puja Samagari</li>
-                    </ul>   */}
+                    <h2 className="hindi">Our Offering</h2>
+                    <ul>
+                        <li onClick={()=>this.activeOffering('Service')} className={this.state.active == 'Service' ? 'hindi active' : 'hindi'}>Service</li>
+                        <li onClick={()=>this.activeOffering('Product')} className={this.state.active == 'Product' ? 'hindi active' : 'hindi'}>Product</li>
+                    </ul>  
                 </section>
                 <section className="product">
                     {this.state.products ?
@@ -147,7 +153,7 @@ export class index extends Component {
                                                         </div>
                                                     : null}
                                                 </div>
-                                                {/* <p className="usage">Ideal for all Puja like</p> */}
+                                                {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                 <div className="productDetail">
                                                     <h3>{i.name}</h3>
                                                     <p>Price: Rs {i.price}</p>
@@ -159,10 +165,6 @@ export class index extends Component {
                                                             <span className="button-slanted-content">Add To cart</span>
                                                         </div>
                                                     </div>
-                                                    {/* <ul>
-                                                        <li><a href={"/product/"+i.url}>View Detail</a></li>
-                                                        <li onClick={()=>this.addToCart(i)}>Add To cart</li>
-                                                    </ul> */}
                                                 </div>
                                             </div>
                                         ))}
@@ -174,7 +176,7 @@ export class index extends Component {
                 </section>
                 <section className="testis">
                     <div className="container">
-                        <h2>Testimonial</h2>
+                        <h2 className="hindi">Testimonial</h2>
                         <div className="row">
                             <div className="col-sm-12">
                                 <Swiper {...params2}>
@@ -216,21 +218,22 @@ export class index extends Component {
                 {this.state.blogs?
                 <section className="blogList">
                     <div className="container-fluid">
-                        <h2>Latest Blogs</h2>
+                        <h2 className="hindi">Latest Blogs</h2>
                         <div className="row">
                             <div className="col-sm-2"></div>
                             <div className="col-sm-7 blogData">
-                                <h3>Blogs</h3>
+                                <h3 className="hindi">Blog Posts</h3>
                                 <ul>
-                                {this.state.blogs.slice(0,3).map((i,index)=>(
-                                    <li className="mb-5" key={index}>
-                                        <a href={"/"+i.url}>
-                                            <h4>{i.heading}</h4>
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
-                                        </a>
-                                    </li>
+                                    {this.state.blogs.slice(0,3).map((i,index)=>(
+                                        <li className="mb-5" key={index}>
+                                            <a href={"/"+i.url}>
+                                                <h4>{i.heading}</h4>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+                                            </a>
+                                        </li>
                                     ))}
                                 </ul>
+                                <a href="/blog" className="amitBtn mb-5">Read More</a>
                             </div>
                             <div className="col-sm-3 side">
                                 {/* <img src="/images/static/side.png"/> */}

@@ -481,16 +481,18 @@ router.get('/addProductOptions', [func.verifyToken, func.verifyAdmin], asyncMidd
     let sql = `SELECT name as text, id as value FROM basic Where type='Category';
                 SELECT name as text, id as value FROM basic Where type='Tag';
                 SELECT name as text, id as value FROM basic Where type='Vendor';
-                SELECT name as text, id as value, tab1 FROM basic Where type='Puja';`
-    pool.query(sql, [1,2,3,4], (err, results) => {
+                SELECT name as text, id as value, tab1 FROM basic Where type='Puja';
+                SELECT name as text, id as value FROM products;`
+    pool.query(sql, [1,2,3,4,5], (err, results) => {
         try{
             if(err){ throw err }
             if(results){ 
                 res.send({ 
-                    catOptions: results[0],
-                    tagOptions: results[1],
-                    vendorOptions: results[2],
-                    incOptions: results[3]
+                    catOptions:             results[0],
+                    tagOptions:             results[1],
+                    vendorOptions:          results[2],
+                    incOptions:             results[3],
+                    productOptions:         results[4],
                 });
             }
         }catch(e){ func.logError(e); res.status(500); return; }
@@ -506,12 +508,18 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         'category':             req.body.category,
         'tags':                 req.body.tags,
         'inclusion':            req.body.inclusion,
+        'exclusion':            req.body.exclusion,
+        'recom':                req.body.recom,
+        'related':              req.body.related,
         'shortDesc':            req.body.shortDesc,
         'longDesc':             req.body.longDesc,
         'price':                req.body.price,
+        'type':                 req.body.type,
         'rating':               JSON.stringify( [0,0] ),
         "updated_at":           time,
     }
+    if(req.body.sale >0 ){ post.sale = req.body.sale }
+    if(req.body.tagline !== 'undefined'){ post.tagline = req.body.tagline }
     if(req.files.images){
         var images = []
         for(var i = 0; i < req.files.images.length; i++){
@@ -531,7 +539,7 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
 }))
 
 router.get('/getProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.vendor, a.price, a.rating, a.status, a.updated_at, b.name as vendor, a.inclusion FROM products as a
+    let sql =   `SELECT a.id, a.name, a.images, a.url, a.images, a.vendor, a.price, a.sale, a.rating, a.status, a.updated_at, b.name as vendor, a.inclusion FROM products as a
                 left join basic as b on b.id = a.vendor ORDER BY a.id DESC`
     pool.query(sql, (err, results) => {
         try{    
@@ -568,29 +576,37 @@ router.post('/changeProductStatus', [func.verifyToken, func.verifyAdmin], asyncM
 }))
 
 router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, a.inclusion, b.name, b.tab1 as vendor 
+    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.sale, a.status, a.inclusion, a.exclusion, a.recom, a.related, a.tagline, b.name as vendorName, b.tab1 as vendor 
                 FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.id = '${req.params.id}';
                 SELECT name as text, id as value FROM basic Where type='Category';
                 SELECT name as text, id as value FROM basic Where type='Tag';
                 SELECT name as text, id as value FROM basic Where type='Vendor';
-                SELECT name as text, id as value, tab1 FROM basic Where type='Puja';`
-    pool.query(sql, [1,2,3,4,5], async(err, results) => {
+                SELECT name as text, id as value, tab1 FROM basic Where type='Puja';
+                SELECT name as text, id as value FROM products where id <> '${req.params.id}';`
+    pool.query(sql, [1,2,3,4,5,6], async(err, results) => {
         try{ 
             if(err){ throw err }   
             if(results){ 
                 const catList = await func.productCatName(JSON.parse(results[0][0].category))
                 const tagList = await func.productTagName(JSON.parse(results[0][0].tags))
                 const incList = await func.productIncName(JSON.parse(results[0][0].inclusion))
+                const excList = await func.productExcName(JSON.parse(results[0][0].exclusion))
+                const recomList = await func.productRecomName(JSON.parse(results[0][0].recom))
+                const relatedList = await func.productRelatedName(JSON.parse(results[0][0].related))
                 res.send({ 
                     data:               results[0][0],
                     catOptions:         results[1],
                     tagOptions:         results[2],
                     vendorOptions:      results[3],
                     incOptions:         results[4],
+                    productOptions:     results[5],
                     catList:            catList,
                     tagList:            tagList,
                     incList:            incList,
+                    excList:            excList,
+                    recomList:          recomList,
+                    relatedList:        relatedList
                 });
             }
         }catch(e){ func.logError(e); res.status(500); return; }
@@ -606,12 +622,17 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
         'category':             req.body.category,
         'tags':                 req.body.tags,
         'inclusion':            req.body.inclusion,
-        'inclusion':            req.body.inclusion,
+        'exclusion':            req.body.exclusion,
+        'recom':                req.body.recom,
+        'related':              req.body.related,
         'shortDesc':            req.body.shortDesc,
         'longDesc':             req.body.longDesc,
         'price':                req.body.price,
+        'type':                 req.body.type,
         "updated_at":           time,
     }
+    if(req.body.sale >0 ){ post.sale = req.body.sale }
+    if(req.body.tagline !== 'undefined'){ post.tagline = req.body.tagline }
     if(req.files){
         if(req.files.images){
             var images = []

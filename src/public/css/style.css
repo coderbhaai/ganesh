@@ -389,7 +389,8 @@ form input {
   -ms-transform: skewX(20deg);
   -webkit-transform: skewX(20deg);
   transform: skewX(20deg);
-  display: inline-block; }
+  display: inline-block;
+  font-size: 12px; }
 
 .phone {
   /* Chrome, Safari, Edge, Opera */
@@ -1038,7 +1039,8 @@ input[readonly] {
 
 .previewImg {
   max-width: 50px;
-  margin-right: 10px; }
+  margin-right: 10px;
+  display: inline-block; }
 
 /* Switch Button */
 .filter {
@@ -1557,11 +1559,12 @@ button, input {
   margin-bottom: 1em; }
 
 .label-down .ui.fluid.dropdown {
-  display: inherit; }
+  display: flex;
+  flex-wrap: wrap; }
 
 .label-down .ui.multiple.dropdown > .label {
   position: relative;
-  top: 3em;
+  top: 0;
   display: flex;
   padding: 10px;
   box-shadow: none;
@@ -1925,6 +1928,9 @@ body, .form-control {
   font-family: 'Source Sans Pro', sans-serif; }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: 'Yusei Magic', sans-serif; }
+
+.hindi {
   font-family: 'Samarkan Normal';
   font-weight: normal; }
 
@@ -2065,8 +2071,6 @@ footer .akk {
     display: flex;
     flex-direction: column;
     justify-content: space-around; }
-    .banner .caption h1 {
-      color: #fff; }
     .banner .caption p {
       color: #fff;
       background: #902487;
@@ -2074,7 +2078,8 @@ footer .akk {
       padding: .5em;
       font-size: 3em;
       border-radius: 5px;
-      margin-bottom: 1em; }
+      margin-bottom: 1em;
+      line-height: 1em; }
     .banner .caption .amitBtn {
       max-width: 150px; }
 
@@ -2088,7 +2093,14 @@ footer .akk {
   .text-heading ul {
     display: flex; }
     .text-heading ul li {
-      padding: 1em; }
+      padding: 1em;
+      border: 2px solid #e1672e;
+      border-radius: 5px; }
+      .text-heading ul li:hover {
+        cursor: pointer; }
+    .text-heading ul li.active {
+      background: #fff;
+      color: #e1672e; }
 
 .puja .row {
   align-items: center; }
@@ -2134,7 +2146,7 @@ footer .akk {
         color: #fff; }
 
 .testis {
-  background-color: #e1672e;
+  background: url(/images/static/testis.jpg) no-repeat center;
   padding: 4em 0; }
   .testis .container > h2 {
     color: #fff;
@@ -2176,11 +2188,13 @@ footer .akk {
       background: #272727;
       padding: 1em 2em; }
     .blogList .blogData ul {
-      padding: 4em; }
+      padding: 4em 2em 0; }
       .blogList .blogData ul li h4 {
         color: #fff; }
       .blogList .blogData ul li p {
         color: #fff; }
+    .blogList .blogData .amitBtn {
+      margin-left: 2em; }
   .blogList img {
     position: absolute;
     right: 0;

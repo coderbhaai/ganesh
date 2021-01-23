@@ -22,7 +22,9 @@ body, .form-control{
    font-family: 'Source Sans Pro', sans-serif;
 }
 h1, h2, h3, h4, h5, h6{
-   // font-family: 'Yusei Magic', sans-serif;
+   font-family: 'Yusei Magic', sans-serif;
+}
+.hindi{
    font-family:'Samarkan Normal';font-weight:normal;
 }
 .logout:hover, .dropdown-item:hover, .closeModal:hover, .editIcon:hover{
@@ -185,9 +187,9 @@ footer{
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      h1{
-         color: #fff;
-      }
+      // h1{
+      //    color: #fff;
+      // }
       p{
          color: #fff;
          background: $purple;
@@ -196,6 +198,7 @@ footer{
          font-size: 3em;
          border-radius: 5px;
          margin-bottom: 1em;
+         line-height: 1em;
       }
       .amitBtn {
          max-width: 150px;
@@ -213,6 +216,15 @@ footer{
       display: flex;
       li{
          padding: 1em;
+         border: 2px solid $primary;
+         border-radius: 5px;
+         &:hover{
+            cursor: pointer;
+         }
+      }
+      li.active{
+         background: #fff;
+         color: $primary;
       }
    }
 }
@@ -273,7 +285,8 @@ footer{
    }
 }
 .testis{
-   background-color: $primary;
+   // background-color: $primary;
+   background: url(/images/static/testis.jpg) no-repeat center;
    padding: 4em 0;
    .container>h2{
       color: #fff;
@@ -324,7 +337,7 @@ footer{
          padding: 1em 2em;
       }
       ul {
-         padding: 4em;
+         padding: 4em 2em 0;
          li{
             h4{
                color: #fff;
@@ -333,6 +346,9 @@ footer{
                color: #fff;
             }
          }
+      }
+      .amitBtn{
+         margin-left: 2em;
       }
    }
    img{

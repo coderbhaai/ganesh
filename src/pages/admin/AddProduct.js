@@ -6,6 +6,7 @@ import axios from 'axios'
 import swal from 'sweetalert'
 import { Dropdown } from 'semantic-ui-react'
 import CKEditor from 'ckeditor4-react'
+const func = require('../parts/functions')
 
 export class AddProduct extends Component {
     constructor(props) {
@@ -15,16 +16,23 @@ export class AddProduct extends Component {
             name:                   '',
             url:                    '',
             status:                 '',
+            type:                   '',
             selectedCategory:       [],
             selectedTag:            [],
-            selectedInc:            [],
+            inclusions:            [],
+            exclusions:            [],
+            recom:                  [],
+            related:                [],
             shortDesc:              '',
             longDesc:               '',
             catOptions:             [],
             tagOptions:             [],
             vendorOptions:          [],
             incOptions:             [],
+            productOptions:         [],
             price:                  '',
+            sale:                   '',
+            tagline:                ''
         }
         this.handleChange1 = this.handleChange1.bind( this )
         this.handleChange2 = this.handleChange2.bind( this )
@@ -40,7 +48,10 @@ export class AddProduct extends Component {
     imagesAdd = (e) =>{ this.setState({ images: e.target.files }) }
     categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
     tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
-    incSelected = (e, {value}) => { this.setState({ selectedInc: value }) }
+    incSelected = (e, {value}) => { this.setState({ inclusions: value }) }
+    excSelected = (e, {value}) => { this.setState({ exclusions: value }) }
+    recomSelected = (e, {value}) => { this.setState({ recom: value }) }
+    relatedSelected = (e, {value}) => { this.setState({ related: value }) }
     vendorSelected = (e, {value}) => { this.setState({ selectedVendor: value }) }
     removeTag =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
     removeCategory =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
@@ -57,6 +68,7 @@ export class AddProduct extends Component {
             catOptions:               body.catOptions,
             tagOptions:               body.tagOptions,
             vendorOptions:            body.vendorOptions,
+            productOptions:           body.productOptions,
         })
         const options = []
         body.incOptions.map(i => { options.push({'text': i.text+'-'+i.tab1, 'value': i.value}) })
@@ -65,26 +77,36 @@ export class AddProduct extends Component {
 
     submitHandler = (e) =>{
         e.preventDefault()
-        const data = new FormData()
-        if(this.state.images){ for(const f of this.state.images){ data.append('images', f) } }
-        data.append('vendor', this.state.selectedVendor)
-        data.append('name', this.state.name)
-        data.append('url', this.state.url.replace(/ /g,"-"))
-        data.append('status', this.state.status)
-        data.append('category', JSON.stringify(this.state.selectedCategory) )
-        data.append('tags', JSON.stringify(this.state.selectedTag) )
-        data.append('inclusion', JSON.stringify(this.state.selectedInc) )
-        data.append('shortDesc', this.state.shortDesc) 
-        data.append('longDesc', this.state.longDesc)
-        data.append('price', this.state.price)
-        axios.post('/admin/addProduct', data)
-            .catch(err=>console.log('err', err))
-            .then(res=>{
-                if(res.data.success){
-                    localStorage.setItem( 'message', res.data.message )
-                    window.location.href = '/admin/adminProducts'
-                }
-            })
+        if(parseInt(this.state.price) <= parseInt(this.state.sale)){
+            func.callSwal("Sale Price has to be lower than Price")
+        }else{
+            const data = new FormData()
+            if(this.state.images){ for(const f of this.state.images){ data.append('images', f) } }
+            data.append('vendor', this.state.selectedVendor)
+            data.append('name', this.state.name)
+            data.append('type', this.state.type)
+            data.append('url', this.state.url.replace(/ /g,"-"))
+            data.append('status', this.state.status)
+            data.append('category', JSON.stringify(this.state.selectedCategory) )
+            data.append('tags', JSON.stringify(this.state.selectedTag) )
+            data.append('inclusion', JSON.stringify(this.state.inclusions) )
+            data.append('exclusion', JSON.stringify(this.state.exclusions) )
+            data.append('recom', JSON.stringify(this.state.recom) )
+            data.append('related', JSON.stringify(this.state.related) )
+            data.append('shortDesc', this.state.shortDesc) 
+            data.append('longDesc', this.state.longDesc)
+            data.append('price', this.state.price)
+            data.append('sale', this.state.sale)
+            data.append('tagline', this.state.tagline)
+            axios.post('/admin/addProduct', data)
+                .catch(err=>console.log('err', err))
+                .then(res=>{
+                    if(res.data.success){
+                        localStorage.setItem( 'message', res.data.message )
+                        window.location.href = '/admin/adminProducts'
+                    }
+                })
+        }
     }
 
     render() {
@@ -99,9 +121,17 @@ export class AddProduct extends Component {
                             <h1 className="heading"><span>Admin Panel </span>(Add Product)</h1>
                             <form className="modal-form" encType="multipart/form-data" onSubmit={this.submitHandler}>
                                 <div className="row">
-                                    <div className="col-sm-4">
+                                    <div className="col-sm-6">
                                         <label>Name of Product</label>
                                         <input className="form-control" type="text" placeholder="Name of Product" name="name" required value={this.state.name} onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-6">
+                                        <label>URL</label>
+                                        <input className="form-control" type="text" placeholder="URL of Product" name="url" required value={this.state.url} onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-4 compare label-down">
+                                        <label>Add Seller</label>
+                                        <Dropdown placeholder='Select Tags' fluid search selection onChange={this.vendorSelected} options={this.state.vendorOptions}/>
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Images</label>
@@ -110,22 +140,31 @@ export class AddProduct extends Component {
                                     <div className="col-sm-4">
                                         <label>Display Status</label>
                                         <select className="form-control" required value={this.state.status} onChange={this.onChange} name="status">
-                                            <option>Select Display</option>
+                                            <option value=''>Select Display</option>
                                             <option value="1">Show Product</option> 
                                             <option value="0">Hide Product</option>
                                         </select>
                                     </div>
-                                    <div className="col-sm-4 compare label-down mb-5">
-                                        <label>Add Seller</label>
-                                        <Dropdown placeholder='Select Tags' fluid search selection onChange={this.vendorSelected} options={this.state.vendorOptions}/>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <label>URL</label>
-                                        <input className="form-control" type="text" placeholder="URL of Product" name="url" required value={this.state.url} onChange={this.onChange}/>
-                                    </div>
                                     <div className="col-sm-4">
                                         <label>Price</label>
-                                        <input className="form-control" type="text" placeholder="Price of Product" name="price" required value={this.state.price} onChange={this.onChange}/>
+                                        <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" placeholder="Price of Product" name="price" required value={this.state.price} onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Sale Price</label>
+                                        <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" placeholder="Sale Price" name="sale" value={this.state.sale} onChange={this.onChange}/>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <label>Type of Product</label>
+                                        <select className="form-control" required value={this.state.type} onChange={this.onChange} name="type">
+                                            <option value=''>Select Type</option>
+                                            <option value="1">Puja</option> 
+                                            <option value="2">Consultation</option>
+                                            <option value="3">Puja Samagri</option>
+                                        </select>
+                                    </div>
+                                    <div className="col-sm-12">
+                                        <label>Tagline</label>
+                                        <input className="form-control" type="text" placeholder="Product Tagline" name="tagline" value={this.state.tagline || ''} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-6">
                                         <label>Short Description</label>
@@ -145,17 +184,29 @@ export class AddProduct extends Component {
                                             config={ { allowedContent : true, extraAllowedContent: "span; *(*); div(col-sm-*, container-fluid, container, row)" } }
                                         />
                                     </div>
-                                    <div className="col-sm-12 compare label-down my-5">
+                                    <div className="col-sm-6 compare label-down mt-5">
                                         <label>Categories</label>
                                         <Dropdown placeholder='Select category' multiple fluid search selection onChange={this.categorySelected} options={this.state.catOptions}/>
                                     </div>
-                                    <div className="col-sm-12 compare label-down mb-5">
+                                    <div className="col-sm-6 compare label-down mt-5">
                                         <label>Add Tags</label>
                                         <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.tagSelected} options={this.state.tagOptions}/>
                                     </div>
-                                    <div className="col-sm-12 compare label-down mb-5">
+                                    <div className="col-sm-6 compare label-down my-5">
                                         <label>Puja Inclusion</label>
                                         <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.incSelected} options={this.state.incOptions}/>
+                                    </div>
+                                    <div className="col-sm-6 compare label-down my-5">
+                                        <label>Puja Exclusion</label>
+                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.excSelected} options={this.state.incOptions}/>
+                                    </div>
+                                    <div className="col-sm-6 compare label-down mb-5">
+                                        <label>Recommended Products</label>
+                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.recomSelected} options={this.state.productOptions}/>
+                                    </div>
+                                    <div className="col-sm-6 compare label-down mb-5">
+                                        <label>Related Products</label>
+                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.relatedSelected} options={this.state.productOptions}/>
                                     </div>
                                     <div className="my-div col-sm-12">
                                         <button className="amitBtn" type="submit">Submit</button>
