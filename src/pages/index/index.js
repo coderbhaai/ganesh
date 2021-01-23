@@ -222,8 +222,8 @@ export class index extends Component {
                             <div className="col-sm-7 blogData">
                                 <h3>Blogs</h3>
                                 <ul>
-                                {this.state.blogs.slice(0,5).map((i,index)=>(
-                                    <li className="mb-3" key={index}>
+                                {this.state.blogs.slice(0,3).map((i,index)=>(
+                                    <li className="mb-5" key={index}>
                                         <a href={"/"+i.url}>
                                             <h4>{i.heading}</h4>
                                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
@@ -240,9 +240,9 @@ export class index extends Component {
                     </div>
                 </section>
                 : null}
-                <section className="articles text-heading">
+                {/* <section className="articles text-heading">
                     <ul>
-                        {/* <li>Articles</li> */}
+                        <li>Articles</li>
                         <li>Blogs</li>
                     </ul>
                 </section>
@@ -261,7 +261,7 @@ export class index extends Component {
                             </div>
                         ))}
                     </div>
-                : null}
+                : null} */}
                 <Footer/>
             </>
         )

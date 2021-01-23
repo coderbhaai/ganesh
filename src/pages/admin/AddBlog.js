@@ -54,7 +54,7 @@ export class AddBlog extends Component {
         const data = new FormData()
         data.append('file', this.state.blogImage)
         data.append('title', this.state.title)
-        data.append('url', this.state.blogURL)
+        data.append('url', this.state.blogURL.replace(/ /g,"-"))
         data.append('content', this.state.content)
         data.append('category', JSON.stringify(this.state.selectedCategory) )
         data.append('tag', JSON.stringify(this.state.selectedTag) )

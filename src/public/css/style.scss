@@ -5,12 +5,25 @@
 @import '_blog';
 @import '_store';
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Yusei+Magic&display=swap');
+@font-face {
+   font-family: 'Samarkan Normal';
+   font-style: normal;
+   font-weight: normal;
+   src: local('Samarkan Normal'), url('SAMARN__.woff') format('woff');
+}
+@font-face {
+   font-family: 'Samarkan Oblique';
+   font-style: normal;
+   font-weight: normal;
+   src: local('Samarkan Oblique'), url('SAMARO__.woff') format('woff');
+}
 
 body, .form-control{
    font-family: 'Source Sans Pro', sans-serif;
 }
 h1, h2, h3, h4, h5, h6{
-   font-family: 'Yusei Magic', sans-serif;
+   // font-family: 'Yusei Magic', sans-serif;
+   font-family:'Samarkan Normal';font-weight:normal;
 }
 .logout:hover, .dropdown-item:hover, .closeModal:hover, .editIcon:hover{
    cursor: pointer;
@@ -35,6 +48,30 @@ h1, h2, h3, h4, h5, h6{
    text-align: center;
    margin: 2em 0 1em 0;
    font-size: 2em;
+}
+.auth{
+   .row{
+      align-items: center;
+   }
+   ul{
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      margin-bottom: 2em;
+      li{
+         padding: 1em 2em;
+         border: 2px solid $primary;
+         background-color: transparent;
+         border-radius: 5px;
+         &:hover{
+            cursor: pointer;
+         }
+      }
+      li.active{
+         background-color: $primary;
+         color: #fff;
+      }
+   }
 }
 .header-social{
    display: inline-flex;

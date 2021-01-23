@@ -131,11 +131,11 @@ export class Cart extends Component {
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Email</label>
-                                        <input className="form-control" type="email" name="email" required placeholder="Email Please" value={this.state.email} onChange={this.onChange}/> 
+                                        <input className="form-control" type="email" name="email" required placeholder="Email" value={this.state.email} onChange={this.onChange}/> 
                                     </div>
-                                    <div className="col-sm-3">
+                                    <div className="col-sm-3 phone">
                                         <label>Phone</label>
-                                        <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="phone" required placeholder="Phone Please" value={this.state.phone} onChange={this.onChange}/>
+                                        <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="phone" required placeholder="Phone" value={this.state.phone} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Country</label>
@@ -151,11 +151,11 @@ export class Cart extends Component {
                                     </div>
                                     <div className="col-sm-9">
                                         <label>Address</label>
-                                        <input className="form-control" type="text" name="address" required placeholder="Shipping Addrress Please" value={this.state.address} onChange={this.onChange}/> 
+                                        <input className="form-control" type="text" name="address" required placeholder="Shipping Address" value={this.state.address} onChange={this.onChange}/> 
                                     </div>
                                     <div className="col-sm-3">
                                         <label>PIN Code</label>
-                                        <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="pin" required placeholder="Postal PIN Please" value={this.state.pin} onChange={this.onChange}/>
+                                        <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="pin" required placeholder="Postal PIN" value={this.state.pin} onChange={this.onChange}/>
                                     </div>
                                     <div className="col-sm-12">
                                         <label>Message</label>
@@ -167,10 +167,9 @@ export class Cart extends Component {
                                             {this.state.paymentInProcess ?
                                                 <div className="loading"><img src="/images/icons/loading.gif"/></div>
                                             :
-                                                <div className="my-btn my-5">
-                                                    <button className="amitBtn">Pay now</button>
-                                                </div>
+                                                
                                             } */}
+                                            <div className="my-div"><button className="amitBtn">Pay now</button></div>
                                     </div>
                                 </div>
                             </form>

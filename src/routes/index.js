@@ -26,10 +26,11 @@ import ThankYou from "../pages/index/ThankYou"
 import FourOFour from "../pages/index/FourOFour"
 
 
-import Register from "../pages/auth/Register"
-import Login from "../pages/auth/Login"
-import ForgotPassword from "../pages/auth/ForgotPassword"
-import ResetPassword from "../pages/auth/ResetPassword"
+import Auth from "../pages/index/Auth"
+// import Register from "../pages/auth/Register"
+// import Login from "../pages/auth/Login"
+// import ForgotPassword from "../pages/auth/ForgotPassword"
+// import ResetPassword from "../pages/auth/ResetPassword"
 
 import Blog from "../pages/blog/Blog"
 import Single from "../pages/blog/Single"
@@ -69,10 +70,11 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
 }))
 
 // // Auth Pages
-  router.get('/register', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Register', { reactApp: renderToString(<Register />), meta: meta }) }))
-  router.get('/login', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Login', { reactApp: renderToString(<Login />), meta: meta }) }))
-  router.get('/forgot-password', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/ForgotPassword', { reactApp: renderToString(<ForgotPassword />), meta: meta }) }))
-  router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('auth/ResetPassword', { reactApp: renderToString(<ResetPassword/>), meta: [] }) }))
+  router.get('/sign-up', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: meta }) }))
+  // router.get('/register', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Register', { reactApp: renderToString(<Register />), meta: meta }) }))
+  // router.get('/login', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Login', { reactApp: renderToString(<Login />), meta: meta }) }))
+  // router.get('/forgot-password', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/ForgotPassword', { reactApp: renderToString(<ForgotPassword />), meta: meta }) }))
+  // router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('auth/ResetPassword', { reactApp: renderToString(<ResetPassword/>), meta: [] }) }))
 // // Auth Pages
 
 //Blog Pages

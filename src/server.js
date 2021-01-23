@@ -25,5 +25,5 @@ app.use(express.static(__dirname + "/public"));
 //Routes
 app.use("/", index);
 
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 3000;
 app.listen(port, function listenHandler() { console.info(`Running on ${port}`) });
