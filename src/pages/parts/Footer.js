@@ -29,7 +29,7 @@ export class Footer extends Component {
                     </div>
                 </div>
                 <div className="akk">
-                    <p className="text-center">Copyright 2018 Mangal Bhavan - All Rights Reserved</p>
+                    <p>© 2021 Mangal Bhavan - All Rights Reserved</p>
                     <p className="akkLink">Developed by <a href="https://www.amitkk.com" target="_blank">AmitKK</a></p>
                 </div>
             </footer>

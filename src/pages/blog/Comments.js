@@ -124,7 +124,7 @@ export class Comments extends Component {
     render() {
         return (
             <>
-                <div className="container comments">
+                <div className="comments">
                     <h3 className="heading"><span>Share your </span>Views</h3>
                     <p>Please keep your views respectful and not include any anchors, promotional content or obscene words in them. Such comments will be definitely removed and your IP be blocked for future purpose.</p>
                     <form encType="multipart/form-data" onSubmit={this.submitComment}>

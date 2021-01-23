@@ -67,40 +67,38 @@ export class index extends Component {
 
     activeOffering=(value)=>{ this.setState({ active: value })}
 
-    
     render() {
         console.log('this.state', this.state)
         const params = {
-            slidesPerView: 6,
+            slidesPerView: 1,
             spaceBetween: 10,
             // loop: true,
             // autoplay: { delay: 3000 },
             breakpoints: {
-                640: { slidesPerView: 2, spaceBetween: 20, },
+                440: { slidesPerView: 2, spaceBetween: 20, },
                 768: { slidesPerView: 3, spaceBetween: 20, },
                 1400: { slidesPerView: 6, spaceBetween: 30, },
             },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         }
         const params2 = {
-            slidesPerView: 3,
+            slidesPerView: 1,
             spaceBetween: 20,
             // loop: true,
             // autoplay: { delay: 3000 },
             breakpoints: {
-                768: { slidesPerView: 1 },
-                1400: { slidesPerView: 2, spaceBetween: 50, },
+                767: { slidesPerView: 2 },
+                1400: { slidesPerView: 2, spaceBetween: 10, },
             },
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
         }
-        
         return (
             <>
                 <Header cart={this.state.cart.length}/>
                 <section className="banner">
                     <img src="/images/static/banner.jpg"/>
                     <div className="caption">
-                        <h1 className="mb-3">Book Your Pandit Online For</h1>
+                        <h1>Book Your Pandit Online For</h1>
                         <p className="hindi">Ganesh Puja</p>
                         <button className="amitBtn btn">Book Now</button>
                     </div>
@@ -131,45 +129,130 @@ export class index extends Component {
                     {this.state.products ?
                         <div className="container py-5">
                             <div className="row">
-                                <div className="col-sm-12">
-                                    <Swiper {...params}>
-                                        {this.state.products.map((i,index)=>( 
-                                            <div key={index}>
-                                                <div className="imgBox">
-                                                    <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                    { this.state.cart.some(x => x[1] === i.id) ? 
-                                                        <div className="cartBtnGroup flex-sb">
-                                                            <div className="plusMinus">
-                                                                <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
-                                                                <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
+                                    { this.state.active == 'Product' ?
+                                        <div className="col-sm-12">
+                                            <Swiper {...params}> 
+                                                {this.state.products.map((i,index)=>( 
+                                                    <div key={index}>
+                                                        <div className="imgBox">
+                                                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
+                                                            { this.state.cart.some(x => x[1] === i.id) ? 
+                                                                <div className="cartBtnGroup flex-sb">
+                                                                    <div className="plusMinus">
+                                                                        <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
+                                                                        <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
+                                                                    </div>
+                                                                </div>
+                                                            : null }
+                                                            { this.state.cart.some(x => x[1] === i.id) ?
+                                                                <div className="itemAdded">
+                                                                    { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
+                                                                        <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
+                                                                    )})}
+                                                                </div>
+                                                            : null}
+                                                        </div>
+                                                        {i.tagline? <p className="usage">{i.tagline}</p> : null}
+                                                        <div className="productDetail">
+                                                            <h3>{i.name}</h3>
+                                                            <p>Price: Rs {i.price}</p>
+                                                            <div className="button-wrap">
+                                                                <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
+                                                                    <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
+                                                                </a>
+                                                                <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
+                                                                    <span className="button-slanted-content">Add To cart</span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    : null }
-                                                    { this.state.cart.some(x => x[1] === i.id) ?
-                                                        <div className="itemAdded">
-                                                            { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
-                                                                <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
-                                                            )})}
-                                                        </div>
-                                                    : null}
-                                                </div>
-                                                {i.tagline? <p className="usage">{i.tagline}</p> : null}
-                                                <div className="productDetail">
-                                                    <h3>{i.name}</h3>
-                                                    <p>Price: Rs {i.price}</p>
-                                                    <div className="button-wrap">
-                                                        <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
-                                                            <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
-                                                        </a>
-                                                        <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
-                                                            <span className="button-slanted-content">Add To cart</span>
-                                                        </div>
                                                     </div>
-                                                </div>
+                                                ))} 
+                                            </Swiper>
+                                        </div>
+                                    : this.state.active == 'Service' ? 
+                                        <>
+                                            <div className="col-sm-12 mb-5">
+                                                <div className="mb-5 text-left"><a href="/shop" className="amitBtn btn">Puja</a></div>
+                                                <Swiper {...params}> 
+                                                    {this.state.products.map((i,index)=>( 
+                                                        <div key={index}>
+                                                            <div className="imgBox">
+                                                                <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
+                                                                { this.state.cart.some(x => x[1] === i.id) ? 
+                                                                    <div className="cartBtnGroup flex-sb">
+                                                                        <div className="plusMinus">
+                                                                            <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
+                                                                            <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
+                                                                        </div>
+                                                                    </div>
+                                                                : null }
+                                                                { this.state.cart.some(x => x[1] === i.id) ?
+                                                                    <div className="itemAdded">
+                                                                        { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
+                                                                            <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
+                                                                        )})}
+                                                                    </div>
+                                                                : null}
+                                                            </div>
+                                                            {i.tagline? <p className="usage">{i.tagline}</p> : null}
+                                                            <div className="productDetail">
+                                                                <h3>{i.name}</h3>
+                                                                <p>Price: Rs {i.price}</p>
+                                                                <div className="button-wrap">
+                                                                    <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
+                                                                        <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
+                                                                    </a>
+                                                                    <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
+                                                                        <span className="button-slanted-content">Add To cart</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))} 
+                                                </Swiper>
                                             </div>
-                                        ))}
-                                    </Swiper>
-                                </div>
+                                            <div className="col-sm-12">
+                                                <div className="mb-5 text-left"><a href="/shop" className="amitBtn btn">Consultation</a></div>
+                                                <Swiper {...params}> 
+                                                    {this.state.products.map((i,index)=>( 
+                                                        <div key={index}>
+                                                            <div className="imgBox">
+                                                                <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
+                                                                { this.state.cart.some(x => x[1] === i.id) ? 
+                                                                    <div className="cartBtnGroup flex-sb">
+                                                                        <div className="plusMinus">
+                                                                            <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
+                                                                            <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
+                                                                        </div>
+                                                                    </div>
+                                                                : null }
+                                                                { this.state.cart.some(x => x[1] === i.id) ?
+                                                                    <div className="itemAdded">
+                                                                        { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
+                                                                            <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
+                                                                        )})}
+                                                                    </div>
+                                                                : null}
+                                                            </div>
+                                                            {i.tagline? <p className="usage">{i.tagline}</p> : null}
+                                                            <div className="productDetail">
+                                                                <h3>{i.name}</h3>
+                                                                <p>Price: Rs {i.price}</p>
+                                                                <div className="button-wrap">
+                                                                    <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
+                                                                        <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
+                                                                    </a>
+                                                                    <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
+                                                                        <span className="button-slanted-content">Add To cart</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))} 
+                                                </Swiper>
+                                            </div>
+                                        </>
+                                    : null }
                             </div>
                         </div>
                     : null}
@@ -220,7 +303,7 @@ export class index extends Component {
                     <div className="container-fluid">
                         <h2 className="hindi">Latest Blogs</h2>
                         <div className="row">
-                            <div className="col-sm-2"></div>
+                            <div className="col-sm-2 blank"></div>
                             <div className="col-sm-7 blogData">
                                 <h3 className="hindi">Blog Posts</h3>
                                 <ul>

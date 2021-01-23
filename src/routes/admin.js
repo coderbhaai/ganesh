@@ -740,7 +740,7 @@ router.post('/updateOrderStatus', [func.verifyToken, func.verifyAdmin], asyncMid
 
 router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
     console.log('req.params.url', req.params.url)
-    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, a.rating, a.inclusion, b.name as VendorName, b.tab1 as vendor
+    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, a.rating, a.inclusion, a.exclusion, a.recom, a.related, b.name as VendorName, b.tab1 as vendor
                 FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.url = '${req.params.url}';`
     pool.query(sql, async(err, results) => { 
@@ -751,14 +751,21 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
                 const catProducts   = await func.similarCatProducts(JSON.parse(results[0].category), results[0].id )
                 const tagProducts   = await func.similarTagProducts(JSON.parse(results[0].tags, results[0].id ))
                 const incList       = await func.productIncName(JSON.parse(results[0].inclusion))
+                const excList       = await func.productExcName(JSON.parse(results[0].exclusion))
+                const recomList     = await func.productRecomName(JSON.parse(results[0].recom))
+                const relatedList   = await func.productRelatedName(JSON.parse(results[0].related))
                 const reviewList    = await func.productReview(JSON.parse( results[0].id ))
+
                 console.log('reviewList', reviewList)
                 res.send({ 
                     product:            results[0],
                     incList:            incList,
                     catProducts:        catProducts,
                     tagProducts:        tagProducts,
-                    reviewList:         reviewList
+                    excList:            excList,
+                    recomList:          recomList,
+                    relatedList:        relatedList,
+                    reviewList:         reviewList,
                 });
             }
         }catch(e){ func.logError(e); res.status(500); return; }

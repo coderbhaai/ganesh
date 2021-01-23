@@ -23,6 +23,8 @@ export class Product extends Component {
             relatedProducts:        [],
             finalRating:            [],
             reviews:                [],
+            recomList:              [],
+            relatedList:            [],
             rating:                 0,
             review:                 '',
             reviewId:               '',
@@ -63,19 +65,10 @@ export class Product extends Component {
                 incList:                body.incList,
                 catProducts:            body.catProducts,
                 currentImg:             JSON.parse( body.product.images )[0],
-                reviews:                body.reviewList
+                reviews:                body.reviewList,
+                recomList:              body.recomList,
+                relatedList:            body.relatedList,
             },()=> this.checkForReview( body.product.id ))
-
-            
-                            
-
-
-        // const response2 = await fetch('/suggest'); 
-        // const body2 = await response2.json();
-        // if (response2.status !== 200) throw Error(body2.message)
-        // this.setState({
-        //     blogs: body2.blogs
-        // })
     }
 
     checkForReview=async(id)=>{
@@ -273,7 +266,7 @@ export class Product extends Component {
                                 <div className="bg-white sideProducts" style={{padding:'10px'}}>
                                     <p className="text-center">Related Products</p>
                                     <hr style={{margin: '0 0 7px'}}/>
-                                    {this.state.catProducts.map((i, index)=>(
+                                    {this.state.relatedList.map((i, index)=>(
                                         <div className="flex-sb mb-3" key={index}>
                                             <a href={"/product/"+i.url}>
                                                 <img key={index} src={"/images/product/"+JSON.parse(i.images)[0]}/>

@@ -107,7 +107,7 @@ p{
   padding-right: 15px;
   padding-left: 15px;
 }
-@media (min-width: 576px) {
+@media (min-width: 767px) {
   .col-sm-1 {
     -ms-flex: 0 0 8.333333%;
     flex: 0 0 8.333333%;
@@ -194,7 +194,7 @@ p{
   align-items: center;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding-left: 2em;
+  padding: 0 2em;
   background: #fff;
   box-shadow: 1px 1px 1px #e1672e;
 }
@@ -277,7 +277,9 @@ p{
   border-radius: 0.25rem;
 }
 .logo{
-  max-height: 60px;
+  // max-height: 60px;
+  max-width: 130px;
+  padding: 5px;
 }
 .navbar-collapse{
   display: flex;
@@ -383,5 +385,66 @@ form{
   /* Firefox */
   input[type=number] {
     -moz-appearance: textfield;
+  }
+}
+.toggle-btn span {
+  height: 2px;
+  width: 25px;
+  display: block;
+  margin-top: 3px;
+  background-color:$primary;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-transition: .5s ease;
+  -o-transition: .5s ease;
+  transition: .5s ease;
+}
+.collapse {
+  display: none;
+  transition: .5s all;
+}
+.collapse.show {
+  display: block;
+  transition: .5s all;
+  margin: .5em;
+}
+.navbar-collapse {
+  -ms-flex-preferred-size: 100%;
+  flex-basis: 100%;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-align: center;
+  align-items: center;
+}
+@media (min-width: 992px) {
+  .toggle-btn {
+    display: none;
+  }
+  .navbar-collapse {
+    display: -ms-flexbox!important;
+    display: flex!important;
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+  }
+}
+@media (max-width:991px) {  
+  .navbar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .header-social {
+    width: 100%;
+    > div{
+      min-width: unset;
+      width: 100%;
+    }
+  }
+  .container{
+    max-width: 100%;
+  }
+}
+@media (max-width:640px) {
+  .navbar {
+    padding: 0 1em;
   }
 }

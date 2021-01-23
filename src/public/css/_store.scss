@@ -27,6 +27,9 @@
     display: inline;
     max-width: 50px;
     padding: 5px;
+    &:hover{
+      cursor: pointer;
+    }
 }
 .imgZoom div{
     z-index: 1000;

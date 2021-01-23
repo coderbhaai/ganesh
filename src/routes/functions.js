@@ -155,7 +155,7 @@ export function productRecomName(data) {
     return new Promise((resolve, reject) => {
         if(data.length>0){
             for(var i = 0; i < data.length; i++){
-                let sql = `SELECT name as text, id as value FROM products Where id = '${data[i]}';`
+                let sql = `SELECT id, name as text, id as value, images, rating, price FROM products Where id = '${data[i]}';`
                 pool.query(sql, (err, results) => {
                     try{ if(err) throw err;
                         list.push(results[0])
@@ -174,7 +174,7 @@ export function productRelatedName(data) {
     return new Promise((resolve, reject) => {
         if(data.length>0){
             for(var i = 0; i < data.length; i++){
-                let sql = `SELECT name as text, id as value FROM products Where id = '${data[i]}';`
+                let sql = `SELECT id, name as text, id as value, images, rating, price FROM products Where id = '${data[i]}';`
                 pool.query(sql, (err, results) => {
                     try{ if(err) throw err;
                         list.push(results[0])
@@ -234,7 +234,6 @@ export function addTagChecks(products){
     })
 }
 
-
 export function getCatFilterProducts(data){
     var list = []
     return new Promise((resolve, reject) => {
@@ -255,8 +254,6 @@ export function getCatFilterProducts(data){
         }
     });
 }
-
-
 
 export function suggestProducts() {
     return new Promise((resolve, reject) => {

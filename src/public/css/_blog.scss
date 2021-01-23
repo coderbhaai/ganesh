@@ -66,9 +66,12 @@
         }
     }
 }
-.coments{
+.comments{
     .forAdmin{
         text-align: right;
+    }
+    .cke_top {
+        display: none;
     }
     .card .originalComment:before, blockquote:before {
         color: $primary;

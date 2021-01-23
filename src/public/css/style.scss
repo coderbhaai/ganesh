@@ -23,6 +23,7 @@ body, .form-control{
 }
 h1, h2, h3, h4, h5, h6{
    font-family: 'Yusei Magic', sans-serif;
+   line-height: 2em;
 }
 .hindi{
    font-family:'Samarkan Normal';font-weight:normal;
@@ -161,6 +162,7 @@ footer{
          color: #fff;
          padding: 10px 0;
          margin: 0;
+         text-align: center;
       }
       .akkLink{
          color: #fff;
@@ -187,9 +189,9 @@ footer{
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      // h1{
-      //    color: #fff;
-      // }
+      h1{
+         margin-bottom: 1em;
+      }
       p{
          color: #fff;
          background: $purple;
@@ -248,6 +250,17 @@ footer{
       color: #fff;
       padding: 5px 0;
       font-size: 13px;
+      // transform: skewX(-20deg);
+      // left: -6px;
+      // &:after{
+      //    content: "";
+      //    position: absolute;
+      //    width: 21px;
+      //    height: 100%;
+      //    background-color: inherit;
+      //    transform: skewX(20deg);
+      //    top: 0;
+      // }
    }
    .productDetail{
       padding: 10px 5px;
@@ -449,4 +462,166 @@ footer{
       border: none;
       background: 0 0;
     }
+}
+@media (max-width:1200px) {
+   .header-social > div {
+      min-width: 350px;
+   }
+   .nav-link {
+      padding: 1.5rem 1.5rem;
+   }
+   .testis{
+      .container{
+         max-width: 98%;
+      }
+   }
+}
+@media (max-width:1080px) {
+   .testis{
+      ul{
+         display: block;
+         li{
+            img{
+               margin: 1em auto;
+            }
+         }
+      }
+   }
+   .blogList{
+      .blank{
+         max-width: 30px;
+      }
+   }
+}
+@media (max-width:991px) {   
+   .amitBtn{
+      max-width: unset;
+      min-width: unset;
+      padding: 5px 10px;
+      font-size: 13px;
+   }
+   .banner {
+      .caption {
+         top: 20%;
+         display: block;
+         h1{
+            font-size: 16px;
+         }
+         p {
+            font-size: 1.5em;
+         }
+      }
+   }
+   .puja{
+      .col-sm-3{
+         margin-top: 2em;
+      }
+   }
+   footer{
+      h3{
+         font-size: 1.5em;
+      }
+      .col-sm-6:first-child{
+         padding: 2em;
+      }
+      .col-sm-6:nth-child(2){
+         padding: 2em;
+         .btn{
+            min-width: unset;
+         }
+      }
+      .akk{
+         p{
+            text-align: left;
+            padding-left: 1em;
+         }
+      }
+   }
+   .blogList{
+      h2{
+         text-align: left;
+      }
+   } 
+}
+@media (max-width:767px) {
+   .blogList{
+      padding: 2em;
+      .blogData{
+         ul{
+            padding: 2em 0 0;
+         }
+      } 
+      img{
+         display: none;
+      }
+      .nav-link {
+         padding: 1rem 1rem;
+     }
+   }
+}
+@media (max-width:640px) {
+   .banner {
+      .caption {
+         left: 0.5em;
+         h1{
+            font-size: 12px;
+         }
+         p {
+            font-size: 1em;
+         }
+      }
+   }
+   .text-heading {
+      padding: 1em 2em;
+   }
+   footer{
+      .akk{
+         p{
+            text-align: center;
+            padding: 0;
+         }
+         .akkLink{
+            position: relative;
+            padding: 0;
+         }
+      }
+   }
+   .heading {
+      font-size: 1.5em;
+  }
+}
+@media (max-width:440px) {
+   .banner {
+      .caption {
+         left: 0.5em;
+         h1{
+            font-size: 12px;
+            margin-bottom: 0;
+            max-width: 120px;
+         }
+         p {
+            color: $purple;
+            background-color: transparent;
+            text-align: left;
+            margin-bottom: 0;
+         }
+      }
+   }
+   .text-heading {
+      h2{
+         font-size: 16px;
+      }
+      padding: .5em 1em;
+      ul{
+         li{
+            padding: .5em;
+         }
+      }
+   }
+   .blogList {
+      padding: .5em;
+   }
+   .header-social > div {
+      min-width: 300px;
+   }
 }
