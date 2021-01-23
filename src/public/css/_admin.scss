@@ -240,3 +240,19 @@ input[readonly]{
     margin-left: auto;
   }
   /* Switch Button */
+@media (max-width:1200px) {
+    .AdminBar{
+        ul{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            li{
+                margin-right: 2em;
+                a {
+                    padding: 0.5em 0;
+                }
+            }
+        }
+    }
+}
