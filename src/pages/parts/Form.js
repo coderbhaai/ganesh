@@ -33,7 +33,7 @@ export class Form extends Component {
                     window.location.href = '/thank-you'
                 }
             })
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
     }
 
     render() {

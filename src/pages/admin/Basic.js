@@ -73,7 +73,7 @@ export class Basic extends Component {
         data.append('tab2', this.state.tab2)
         data.append('image', this.state.image)
         axios.post('/admin/addBasic', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){
                     this.setState({ data: [...this.state.data, res.data.data ] })
@@ -106,7 +106,7 @@ export class Basic extends Component {
         data.append('image', this.state.image)
         data.append('oldImage', this.state.oldImage)
         axios.post('/admin/updateBasic', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){
                     this.setState({ data: this.state.data.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })

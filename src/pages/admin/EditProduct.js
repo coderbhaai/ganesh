@@ -83,7 +83,6 @@ export class EditProduct extends Component {
             this.setState({ loading: false })
             const response = await fetch('/admin/editProductData/'+this.state.id)
             const body = await response.json()
-            console.log('body', body)
             if (response.status !== 200) throw Error(body.message)
             this.setState({
                 selectedVendor:                 body.data.vendorId,
@@ -151,7 +150,7 @@ export class EditProduct extends Component {
             data.append('tagline', this.state.tagline)
             data.append('oldImages', JSON.stringify( this.state.oldImages ))
             axios.post('/admin/updateProduct', data)
-                .catch(err=>console.log('err', err))
+                .catch(err=>{ func.printError(err) })
                 .then(res=>{
                     if(res.data.success){
                         localStorage.setItem( 'message', res.data.message )
@@ -162,7 +161,6 @@ export class EditProduct extends Component {
     }
 
     render() {
-        console.log('this.state', this.state)
         return (
             <>
                 <Header/>

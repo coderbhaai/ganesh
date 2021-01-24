@@ -52,7 +52,6 @@ export class Shop extends Component {
     callApi = async () => {
         const response = await fetch( '/admin/fetchShop' ); 
         const body = await response.json()
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message)
         this.setState({
             categories:             body.categories,
@@ -65,7 +64,6 @@ export class Shop extends Component {
     }
 
     addToCart=(i)=>{
-        console.log('i', i)
         var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
@@ -101,12 +99,10 @@ export class Shop extends Component {
     filterCategory = (cat, check) => { 
         this.state.categories.forEach((o)=>{ if( o.id == parseInt( cat ) ){ o.isChecked = check } })
         if(check){ 
-            console.log(true)
             this.setState({ catSelected: [ ...this.state.catSelected, parseInt( cat ) ] }
             // ,()=>this.finalFilter()
             )
-        }else{ 
-            console.log(false)
+        }else{
             this.state.catSelected.map((x, index) => x == cat ? this.state.catSelected.splice(index, 1) : null)
             this.setState({ catSelected: this.state.catSelected }
                 // ,()=>this.finalFilter()
@@ -163,7 +159,6 @@ export class Shop extends Component {
     // }
 
     render() {
-        console.log('this.state', this.state)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage

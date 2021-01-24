@@ -59,7 +59,7 @@ export class AddBlog extends Component {
         data.append('category', JSON.stringify(this.state.selectedCategory) )
         data.append('tag', JSON.stringify(this.state.selectedTag) )
         axios.post('/admin/addBlog', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{ 
                 if(res.data.success){ 
                     localStorage.setItem('message', res.data.message)

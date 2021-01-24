@@ -62,7 +62,6 @@ export class AddProduct extends Component {
     callApi = async () => {
         const response = await fetch('/admin/addProductOptions')
         const body = await response.json()
-        console.log('body', body)
         if (response.status !== 200) throw Error(body.message)
         this.setState({
             catOptions:               body.catOptions,
@@ -99,7 +98,7 @@ export class AddProduct extends Component {
             data.append('sale', this.state.sale)
             data.append('tagline', this.state.tagline)
             axios.post('/admin/addProduct', data)
-                .catch(err=>console.log('err', err))
+                .catch(err=>{ func.printError(err) })
                 .then(res=>{
                     if(res.data.success){
                         localStorage.setItem( 'message', res.data.message )
@@ -110,7 +109,6 @@ export class AddProduct extends Component {
     }
 
     render() {
-        console.log('this.state', this.state)
         return (
             <>
                 <Header/>

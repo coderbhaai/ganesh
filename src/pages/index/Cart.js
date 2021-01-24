@@ -61,7 +61,7 @@ export class Cart extends Component {
             name:                   this.state.name
         } 
         axios.post('/admin/placeOrder', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){ 
                     this.setState({ cart: [] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))

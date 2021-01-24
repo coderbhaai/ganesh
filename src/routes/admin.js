@@ -739,12 +739,10 @@ router.post('/updateOrderStatus', [func.verifyToken, func.verifyAdmin], asyncMid
 }))
 
 router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
-    console.log('req.params.url', req.params.url)
     let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, a.rating, a.inclusion, a.exclusion, a.recom, a.related, b.name as VendorName, b.tab1 as vendor
                 FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.url = '${req.params.url}';`
-    pool.query(sql, async(err, results) => { 
-        console.log('results', results)
+    pool.query(sql, async(err, results) => {
         try{    
             if(err){ throw err }
             if(results){
@@ -755,8 +753,6 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
                 const recomList     = await func.productRecomName(JSON.parse(results[0].recom))
                 const relatedList   = await func.productRelatedName(JSON.parse(results[0].related))
                 const reviewList    = await func.productReview(JSON.parse( results[0].id ))
-
-                console.log('reviewList', reviewList)
                 res.send({ 
                     product:            results[0],
                     incList:            incList,

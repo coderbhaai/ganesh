@@ -14,7 +14,6 @@ export class SingleProduct extends Component {
     }
 
     addToCart=(i)=>{
-        // console.log('i', i)
         var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
@@ -48,7 +47,6 @@ export class SingleProduct extends Component {
     }
     
     render() {
-        console.log('this.state.cart', this.state.cart)
         return (
             <>
                 { this.props.product ?

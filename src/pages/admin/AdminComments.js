@@ -75,7 +75,7 @@ export class AdminComments extends Component {
             status :            this.state.status
         }    
         axios.post('/admin/updateComment', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){
                     this.setState({ comments: this.state.comments.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })

@@ -46,7 +46,7 @@ export class Products extends Component {
             if(res.data.success){ this.setState({ products: this.state.products.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) }) }
             func.callSwal(res.data.message)
         })
-        .catch(err=>console.log('err', err))
+        .catch(err=>{ func.printError(err) })
     }
 
     render() {

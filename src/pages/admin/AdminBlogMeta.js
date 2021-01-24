@@ -69,7 +69,7 @@ class AdminBlogMeta extends Component {
         data.append('url', this.state.url.replace(/ /g,"-"))
         data.append('cover', this.state.cover)
         axios.post('/admin/addBlogMeta', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{ 
                 if(res.data.success){ this.setState({ metas: [...this.state.metas, res.data.data ] }) }
                 func.callSwal(res.data.message)
@@ -98,7 +98,7 @@ class AdminBlogMeta extends Component {
         data.append('cover', this.state.cover)
         data.append('oldCover', this.state.oldCover)
         axios.post('/admin/updateBlogMeta', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{ 
                 if(res.data.success){
                     this.setState({ metas: this.state.metas.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })

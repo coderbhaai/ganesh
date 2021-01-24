@@ -56,7 +56,7 @@ class Auth extends Component {
                 func.callSwal(res.data.message)
             }
         })
-        .catch(err=>console.log('err', err))
+        .catch(err=>{ func.printError(err) })
     }
 
     Login = e =>{
@@ -73,7 +73,7 @@ class Auth extends Component {
                     window.location.href = '/'
                 }else{ func.callSwal(res.data.message) }
             })
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
     }
 
     ResetPassword = e =>{
@@ -90,7 +90,7 @@ class Auth extends Component {
                     func.callSwal(res.data.message)
                 }
             })
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
     }
 
     changeActive=(value)=>{ this.setState({ active: value }) }

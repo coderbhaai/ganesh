@@ -32,7 +32,6 @@ export class index extends Component {
     }
 
     addToCart=(i)=>{
-        // console.log('i', i)
         var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
@@ -68,7 +67,6 @@ export class index extends Component {
     activeOffering=(value)=>{ this.setState({ active: value })}
 
     render() {
-        console.log('this.state', this.state)
         const params = {
             slidesPerView: 1,
             spaceBetween: 10,

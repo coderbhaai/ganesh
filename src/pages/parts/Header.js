@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import swal from 'sweetalert'
 import axios from 'axios'
+const func = require('../parts/functions')
 
 export class Header extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ export class Header extends Component {
                     window.location.href = '/login'
                 }
             })
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
     }
     render() {
         return (

@@ -66,7 +66,7 @@ class AdminOrders extends Component {
             remarks:                this.state.remarks,
         }
         axios.post('/admin/updateOrderStatus', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{
                 this.setState({ orders: this.state.orders.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })
                 func.callSwal(res.data.message)

@@ -69,7 +69,7 @@ export class Meta extends Component {
             keyword:            this.state.keyword
         } 
         axios.post('/admin/addMeta', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){
                     this.setState({ metas: [...this.state.metas, res.data.data ] })
@@ -100,7 +100,7 @@ export class Meta extends Component {
             keyword:            this.state.keyword
         } 
         axios.post('/admin/updateMeta', data)
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){
                     this.setState({ metas: this.state.metas.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })

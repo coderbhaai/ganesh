@@ -268,7 +268,6 @@ export function suggestProducts() {
 }
 
 export function similarCatProducts(array, id){
-    console.log('array', array)
     return new Promise((resolve, reject) => {
         var list = []
         const idList = [id]
@@ -276,25 +275,19 @@ export function similarCatProducts(array, id){
         if(array.length>0){
             for(var i = 0; i < array.length || i<2; i++){
                 if( i === 2 || list.length === lim ){
-                    console.log('i, list.length, lim', i, list.length, lim)
                     resolve(list)
                 }else{
                     let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1' AND category LIKE '%${array[i]}%';`
                     pool.query(sql, async (err, results) => {
                         try{ 
                             if(err) throw err;
-                            // await console.log('array[i]', array[i])
-                            // await console.log('i', i)
-                            // await console.log( 'results[0].id', results[0].id )
                             for(var j = 0; j < results.length; j++){
                                 if(idList.indexOf(results[j].id) !== -1){
                                 } else{
                                     await list.push(results[j])
                                     await idList.push(results[j].id)
                                 }
-                                // console.log('idList', idList)
                                 if( i === array.length || i === 2 || list.length === lim ){ 
-                                    console.log('i,j', i,j, array.length, list.length)
                                     resolve(list) }
                                     // break
                             }
@@ -316,7 +309,6 @@ export function similarTagProducts(array, id) {
         if(array.length>0){
             for(var i = 0; i < array.length || i<2; i++){
                 if( i === 2 || list.length === lim ){
-                    console.log('i, list.length, lim', i, list.length, lim)
                     resolve(list)
                 }else{
                     let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1' AND tags LIKE '%${array[i]}%';`
@@ -343,7 +335,6 @@ export function similarTagProducts(array, id) {
 }
 
 export function productReview(id) {
-    console.log('id', id)
     return new Promise((resolve, reject) => {
         let sql = `SELECT a.id, a.productId, a.userId, a.review, a.rating, a.updated_at, b.name FROM rating as a 
                     left join users as b on b.id = a.userId WHERE productId = '${id}';`

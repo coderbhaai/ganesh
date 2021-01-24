@@ -61,3 +61,7 @@ export function sortArray(array, sortBy, type, direction){
         return;
     })
 }
+
+export function printError(mesg){
+    console.log('mesg', mesg)
+}

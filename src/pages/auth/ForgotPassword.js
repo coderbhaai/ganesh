@@ -41,7 +41,7 @@ export class ForgotPassword extends Component {
                     func.callSwal(res.data.message)
                 }
             })
-            .catch(err=>console.log('err', err))
+            .catch(err=>{ func.printError(err) })
     }
 
     render() {

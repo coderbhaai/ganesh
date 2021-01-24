@@ -57,7 +57,6 @@ export class Product extends Component {
     callApi = async (url) => {
         const response = await fetch( '/admin/fetchproduct/'+url ); 
         const body = await response.json()
-        console.log('body', body)
             this.setState({
                 id:                     body.product.id,
                 product:                body.product,
@@ -89,13 +88,10 @@ export class Product extends Component {
             }else{
                 this.setState({ allowReview: true })
             }
-        }else{
-            console.log('Not Logged in')
         }
     }
 
     addToCart=(i)=>{
-        console.log('i', i)
         var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
@@ -160,9 +156,8 @@ export class Product extends Component {
                 finalRating:            productRating
             } 
             axios.post('/admin/addReview', data)
-                .catch(err=>console.log('err', err))
+                .catch(err=>{ func.printError(err) })
                 .then(res=>{
-                    console.log('res', res)
                     if(res.data.success){
                         this.setState({ 
                             finalRating:                JSON.parse( productRating ),
@@ -193,7 +188,7 @@ export class Product extends Component {
                 finalRating:            productRating
             } 
             axios.post('/admin/updateReview', data)
-                .catch(err=>console.log('err', err))
+                .catch(err=>{ func.printError(err) })
                 .then(res=>{
                     if(res.data.success){
                         this.setState({ 
@@ -210,12 +205,10 @@ export class Product extends Component {
     }
 
     productRating=(value)=>{
-        console.log('value', value)
         this.setState({ rating: value})
     }
 
     render() {
-        console.log('this.state', this.state)
         const count = Math.round( this.state.incList.length/4 )
         return (
             <> 

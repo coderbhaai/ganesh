@@ -111,7 +111,7 @@ export class Comments extends Component {
                 comment:            this.state.comment
             }   
             axios.post('/admin/addComment', data)
-                .catch(err=>console.log('err', err))
+                .catch(err=>{ func.printError(err) })
                 .then(res=>{ 
                     func.callSwal(res.data.message)
                 })
