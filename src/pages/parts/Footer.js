@@ -12,7 +12,7 @@ export class Footer extends Component {
                         <div className="col-sm-6">
                             <h3>Contact Us</h3>
                             <ul>
-                                <li><img src="/images/icons/call-white.svg"/><span>88007 74985</span></li>
+                                <li><img src="/images/icons/call-white.svg"/><span>987-04-05-987</span></li>
                                 <li><img src="/images/icons/call-white.svg"/><span>All Days: 9: 00 AM - 8:00 PM</span></li>
                             </ul>
                         </div>
@@ -29,7 +29,7 @@ export class Footer extends Component {
                     </div>
                 </div>
                 <div className="akk">
-                    <p>© 2021 Mangal Bhavan - All Rights Reserved</p>
+                    <p>© 2021 Pujarambh - All Rights Reserved</p>
                     <p className="akkLink">Developed by <a href="https://www.amitkk.com" target="_blank">AmitKK</a></p>
                 </div>
             </footer>

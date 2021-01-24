@@ -219,8 +219,9 @@ p {
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-pack: justify;
-  justify-content: space-between;
-  padding: 0 2em;
+  justify-content: space-between; }
+
+header {
   background: #fff;
   box-shadow: 1px 1px 1px #e1672e; }
 
@@ -303,7 +304,7 @@ p {
   border-radius: 0.25rem; }
 
 .logo {
-  max-width: 130px;
+  max-width: 110px;
   padding: 5px; }
 
 .navbar-collapse {
@@ -2056,7 +2057,8 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: space-evenly;
     min-width: 450px;
-    background: #e1672e; }
+    background: #e1672e;
+    padding: 1em 0; }
   .header-social img {
     max-width: 25px;
     padding-right: 10px; }
@@ -2077,7 +2079,8 @@ footer h3 {
 
 footer .col-sm-6:first-child {
   background: #545454;
-  padding: 4em 4em; }
+  padding: 4em 4em;
+  padding-left: 10%; }
   footer .col-sm-6:first-child li {
     display: flex;
     align-items: center;
@@ -2090,7 +2093,8 @@ footer .col-sm-6:first-child {
 
 footer .col-sm-6:nth-child(2) {
   background: #353535;
-  padding: 4em 4em; }
+  padding: 4em 4em;
+  padding-right: 10%; }
   footer .col-sm-6:nth-child(2) h3 {
     text-align: center; }
   footer .col-sm-6:nth-child(2) ul {
@@ -2160,22 +2164,31 @@ footer .akk {
 
 .text-heading {
   background-color: #e1672e;
-  padding: 1em 4em;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: space-between; }
-  .text-heading ul {
-    display: flex; }
-    .text-heading ul li {
-      padding: 1em;
-      border: 2px solid #e1672e;
-      border-radius: 5px; }
-      .text-heading ul li:hover {
-        cursor: pointer; }
-    .text-heading ul li.active {
-      background: #fff;
-      color: #e1672e; }
+  .text-heading h2 {
+    padding: 0.5em 0; }
+
+.text-headingList {
+  background-color: #e1672e;
+  color: #fff; }
+  .text-headingList .tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1em; }
+    .text-headingList .tabs ul {
+      display: flex; }
+      .text-headingList .tabs ul li {
+        padding: 1em;
+        border-radius: 5px 5px 0 0; }
+        .text-headingList .tabs ul li:hover {
+          cursor: pointer; }
+      .text-headingList .tabs ul li.active {
+        background: #fff;
+        color: #e1672e; }
 
 .puja .row {
   align-items: center; }
@@ -2183,6 +2196,14 @@ footer .akk {
 .product {
   position: relative;
   text-align: center; }
+  .product h4 {
+    text-align: left;
+    margin-bottom: 1em;
+    background: #000;
+    color: #fff;
+    padding: 5px 3em;
+    width: fit-content;
+    border-radius: 5px; }
   .product p {
     text-align: center;
     font-size: 13px; }

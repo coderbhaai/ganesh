@@ -194,7 +194,8 @@ p{
   align-items: center;
   -ms-flex-pack: justify;
   justify-content: space-between;
-  padding: 0 2em;
+}
+header{
   background: #fff;
   box-shadow: 1px 1px 1px #e1672e;
 }
@@ -278,7 +279,7 @@ p{
 }
 .logo{
   // max-height: 60px;
-  max-width: 130px;
+  max-width: 110px;
   padding: 5px;
 }
 .navbar-collapse{
@@ -427,7 +428,7 @@ form{
     flex-basis: auto;
   }
 }
-@media (max-width:991px) {  
+@media (max-width:991px) {
   .navbar-nav {
     flex-direction: row;
     justify-content: space-around;

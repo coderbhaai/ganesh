@@ -102,7 +102,9 @@ export class index extends Component {
                     </div>
                 </section>
                 <section className="text-heading">
-                    <h2 className="hindi">Who we Are</h2>
+                    <div className="container">
+                        <h2 className="hindi">Who we Are</h2>
+                    </div>
                 </section>
                 <div className="container puja py-5">
                     <div className="row">
@@ -116,12 +118,16 @@ export class index extends Component {
                         </div>
                     </div>
                 </div>
-                <section className="text-heading">
-                    <h2 className="hindi">Our Offering</h2>
-                    <ul>
-                        <li onClick={()=>this.activeOffering('Service')} className={this.state.active == 'Service' ? 'hindi active' : 'hindi'}>Service</li>
-                        <li onClick={()=>this.activeOffering('Product')} className={this.state.active == 'Product' ? 'hindi active' : 'hindi'}>Product</li>
-                    </ul>  
+                <section className="text-headingList">
+                    <div className="container">
+                        <div className="tabs">
+                            <h2 className="hindi">Our Offering</h2>
+                            <ul>
+                                <li onClick={()=>this.activeOffering('Service')} className={this.state.active == 'Service' ? 'hindi active' : 'hindi'}>Service</li>
+                                <li onClick={()=>this.activeOffering('Product')} className={this.state.active == 'Product' ? 'hindi active' : 'hindi'}>Product</li>
+                            </ul>  
+                        </div>
+                    </div>
                 </section>
                 <section className="product">
                     {this.state.products ?
@@ -170,7 +176,7 @@ export class index extends Component {
                                     : this.state.active == 'Service' ? 
                                         <>
                                             <div className="col-sm-12 mb-5">
-                                                <div className="mb-5 text-left"><a href="/shop" className="amitBtn btn">Puja</a></div>
+                                                <h4>Puja</h4>
                                                 <Swiper {...params}> 
                                                     {this.state.products.map((i,index)=>( 
                                                         <div key={index}>
@@ -210,7 +216,7 @@ export class index extends Component {
                                                 </Swiper>
                                             </div>
                                             <div className="col-sm-12">
-                                                <div className="mb-5 text-left"><a href="/shop" className="amitBtn btn">Consultation</a></div>
+                                                <h4>Consultation</h4>
                                                 <Swiper {...params}> 
                                                     {this.state.products.map((i,index)=>( 
                                                         <div key={index}>
@@ -301,7 +307,7 @@ export class index extends Component {
                     <div className="container-fluid">
                         <h2 className="hindi">Latest Blogs</h2>
                         <div className="row">
-                            <div className="col-sm-2 blank"></div>
+                            <div className="col-sm-1 blank"></div>
                             <div className="col-sm-7 blogData">
                                 <h3 className="hindi">Blog Posts</h3>
                                 <ul>
