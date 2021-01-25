@@ -2384,6 +2384,18 @@ footer .akk {
   border: none;
   background: 0 0; }
 
+.gofb {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 2em; }
+  .gofb > button {
+    height: 50px; }
+  .gofb .kep-login-facebook.metro {
+    padding: 10px 20px;
+    height: 50px;
+    border-radius: 3px; }
+
 @media (max-width: 1200px) {
   .header-social > div {
     min-width: 350px; }

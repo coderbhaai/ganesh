@@ -464,7 +464,7 @@ export function verifyToken(req,res,next){
         req.token = bearerHeader
         const { exp }  = decode(bearerHeader)
         if (Date.now() >= exp * 1000) { 
-          res.redirect('/login?e=' + encodeURIComponent('LoggedOut'));
+          res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
           return;
         }
         next()
@@ -473,7 +473,7 @@ export function verifyToken(req,res,next){
         return
       }
     }else{
-      res.redirect('/login?e=' + encodeURIComponent('LoggedOut'));
+      res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
       return;
     }
 }
@@ -495,7 +495,7 @@ export function verifyAdmin(req,res,next){
             return;
         }
         }else{
-            res.redirect('/login?e=' + encodeURIComponent('LoggedOut'));
+            res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
         }
 }
 

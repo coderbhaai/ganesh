@@ -1,4 +1,4 @@
 import React from "react"
-import { hydrate } from "react-dom"
+import { render } from "react-dom"
 import Auth from '../../pages/index/Auth'
-hydrate( <Auth/>, document.getElementById("root"));
+render( <Auth/>, document.getElementById("root"));

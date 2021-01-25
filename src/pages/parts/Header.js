@@ -25,13 +25,17 @@ export class Header extends Component {
 
     logout = (e) =>{
         e.preventDefault()
-        axios.post('/auth/logOut')
+        const data={
+            email: this.state.user.email,
+            id: this.state.user.id
+        }
+        axios.post('/auth/logOut', data)
             .then(res=> {
                 if(res.data.success){
                     localStorage.clear();
                     this.setState({ user: [] })
                     localStorage.setItem('message', res.data.message)
-                    window.location.href = '/login'
+                    window.location.href = '/sign-up'
                 }
             })
             .catch(err=>{ func.printError(err) })

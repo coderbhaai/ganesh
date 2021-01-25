@@ -5,6 +5,9 @@ import window from 'global'
 import axios from 'axios'
 import api from '../parts/api'
 const func = require('../parts/functions')
+import FacebookLogin from 'react-facebook-login';
+
+import GoogleLogin from 'react-google-login';
 
 class Auth extends Component {
     constructor(props) {
@@ -21,7 +24,9 @@ class Auth extends Component {
             // password:                   '123456789',
             // password_confirmation:      '123456789',
             auth:                       false,
-            active:                     'Register'
+            active:                     'Register',
+            clientId:                   '646152523176-i1660jbh9fk7cmb64jh5obhk1f7giimt.apps.googleusercontent.com',
+            clientSecret:               'ewg2pkrHQR7zTyYCydrCMWTy'
         }
     }
 
@@ -94,8 +99,69 @@ class Auth extends Component {
     }
 
     changeActive=(value)=>{ this.setState({ active: value }) }
-    
+
+    gofbRegisteration(res, type) {
+        if(type=='Google'){
+            var data = {
+                name: res.profileObj.name,
+                email: res.profileObj.email,
+                token: res.googleId,
+                image: res.profileObj.imageUrl,
+                provider: 'Google',
+                role: this.state.role
+            };
+        }else if(type=='FB'){
+            var data = {
+                name: res.name,
+                email: res.email,
+                token: res.userID,
+                image: res.picture.data.url,
+                provider: 'FB',
+                role: this.state.role
+            };
+        }
+        axios.post(api.gofbRegister, data)
+            .then( res=>{
+                if(res.data.success){
+                    localStorage.setItem('user', JSON.stringify(res.data.user))
+                    localStorage.setItem( 'message', res.data.message )
+                    window.location.href = '/'
+                }else{
+                    func.callSwal(res.data.message)
+                }
+            })
+            .catch(err=>{ func.printError(err) })
+    };
+
+    gofbLogin = (res, type) =>{
+        if(type=='Google'){
+            var data = {
+                email: res.profileObj.email,
+                token: res.googleId,
+            };
+        }else if(type=='FB'){
+            var data = {
+                email: res.email,
+                token: res.userID,
+            };
+        }
+        axios.post(api.gofbLogin, data)
+            .then(res=> {
+                if(res.data.success){
+                    localStorage.setItem('user', JSON.stringify(res.data.user))
+                    localStorage.setItem('message', res.data.message)
+                    window.location.href = '/'
+                }else{ func.callSwal(res.data.message) }
+            })
+            .catch(err=>{ func.printError(err) })
+    }
+
     render() {
+        const regGoogle = (res) => { this.gofbRegisteration(res, 'Google'); }
+        const loginGoogle = (res) => { this.gofbLogin(res, 'Google'); }
+        const regFB = (res) => { this.gofbRegisteration(res, 'FB'); }
+        const loginFB = (res) => { this.gofbLogin(res, 'FB'); }
+
         return (
             <>
                 <Header/>
@@ -113,38 +179,49 @@ class Auth extends Component {
                                     <li onClick={()=>this.changeActive('Reset')} className={this.state.active =='Reset' ? 'active' : null}>Forgot Password</li>
                                 </ul>
                                 { this.state.active=='Register' ?
-                                    <form onSubmit={this.Register}>
-                                        <div className="row">
-                                            <div className="col-sm-6">
-                                                <label>Name</label>
-                                                <input type="text" className="form-control" name="name" value={this.state.name} required placeholder="Name Please" onChange={this.onChange}/>
+                                    <>
+                                        <form onSubmit={this.Register}>
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <label>Name</label>
+                                                    <input type="text" className="form-control" name="name" value={this.state.name} required placeholder="Name Please" onChange={this.onChange}/>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <label>E-Mail Address</label>
+                                                    <input type="email" className="form-control" name="email" value={this.state.email} required placeholder="Email Please" onChange={this.onChange}/>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <label>Password</label>
+                                                    <input type="password" className="form-control" name="password" value={this.state.password} required placeholder="Password Please" onChange={this.onChange}/>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <label>Confirm Password</label>
+                                                    <input type="password" className="form-control" name="password_confirmation" value={this.state.password_confirmation} required placeholder="Confirm Password" onChange={this.onChange}/>
+                                                </div>
                                             </div>
-                                            <div className="col-sm-6">
-                                                <label>E-Mail Address</label>
-                                                <input type="email" className="form-control" name="email" value={this.state.email} required placeholder="Email Please" onChange={this.onChange}/>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <label>Password</label>
-                                                <input type="password" className="form-control" name="password" value={this.state.password} required placeholder="Password Please" onChange={this.onChange}/>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <label>Confirm Password</label>
-                                                <input type="password" className="form-control" name="password_confirmation" value={this.state.password_confirmation} required placeholder="Confirm Password" onChange={this.onChange}/>
-                                            </div>
+                                            <div className="my-div"><button className="amitBtn" type="submit">Register</button></div>
+                                        </form>
+                                        <div className="gofb">
+                                            <GoogleLogin clientId={this.state.clientId} buttonText="Register with Google" onSuccess={regGoogle} onFailure={regGoogle} ></GoogleLogin>
+                                            <FacebookLogin textButton="Sign up with Facebook" appId="885798875528804" autoLoad={false} fields="name,email,picture" callback={regFB}/>
                                         </div>
-                                        <div className="my-div"><button className="amitBtn" type="submit">Register</button></div>
-                                    </form>
+                                    </>
                                 : this.state.active=='Login' ?
-                                    <form onSubmit={this.Login}>
-                                        <label>E-Mail Address</label>
-                                        <input type="email" className="form-control" name="email" required placeholder="Email Please" onChange={this.onChange} value={this.state.email}/>
-                                        <label>Password</label>
-                                        <input type="password" className="form-control" name="password" required placeholder="Password Please" onChange={this.onChange} value={this.state.password}/>
-                                        <div className="my-div">
-                                            <button className="amitBtn mr-5" type="submit">Login</button>
-                                            {/* <button className="amitBtn" onClick={()=>this.changeActive('Reset')}>Forgot Password</button> */}
+                                    <>
+                                        <form onSubmit={this.Login}>
+                                            <label>E-Mail Address</label>
+                                            <input type="email" className="form-control" name="email" required placeholder="Email Please" onChange={this.onChange} value={this.state.email}/>
+                                            <label>Password</label>
+                                            <input type="password" className="form-control" name="password" required placeholder="Password Please" onChange={this.onChange} value={this.state.password}/>
+                                            <div className="my-div">
+                                                <button className="amitBtn mr-5" type="submit">Login</button>
+                                            </div>
+                                        </form>
+                                        <div className="gofb">
+                                            <GoogleLogin clientId={this.state.clientId} buttonText="Login with Google" onSuccess={loginGoogle} onFailure={loginGoogle} ></GoogleLogin>
+                                            <FacebookLogin appId="885798875528804" autoLoad={false} fields="name,email,picture" callback={loginFB}/>
                                         </div>
-                                    </form>
+                                    </>
                                 : this.state.active=='Reset' ?
                                     <form onSubmit={this.ResetPassword}>
                                         <div className="row">
@@ -156,9 +233,6 @@ class Auth extends Component {
                                         <div className="my-div"><button className="amitBtn" type="submit">Reset Password</button></div>
                                     </form>
                                 : null}
-                                {/* <h2 className="heading">How we Work</h2>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> */}
                             </div>
                         </div>
                     </div>
