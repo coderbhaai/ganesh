@@ -520,3 +520,7 @@ export function logError(e){
     // sendMailOnError(e)
     console.log('e', e)
 }
+
+export function printError(mesg){
+    console.log('mesg', mesg)
+}

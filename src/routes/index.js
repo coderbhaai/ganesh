@@ -183,8 +183,8 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
           `
         let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.amitkk.com", html: mailBody }
         transporter.sendMail( mailOptions, (error, info)=>{
-          if(error){ return console.log(error)}
-          console.log("Message sent: %s");
+          if(error){ func.printError(err) }
+          func.printError("Message sent: %s")
         });
         res.send({ success: true, message: "Mail Sent" }); 
       }catch(e){ func.logError(e); res.status(403); return; }

@@ -63,8 +63,8 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
                                                     `
                                                 let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambh.com>', cc: "amit.khare588@gmail.com", subject: `${req.body.name} regsitered on website ✔ www.pujarambh.com`, html: mailBody }
                                                 transporter.sendMail( mailOptions, (error, info)=>{
-                                                    if(error){ return console.log(error)}
-                                                    console.log("Message sent: %s");
+                                                    if(error){ func.printError(err) }
+                                                    func.printError("Message sent: %s")
                                                 });
                                                 user.token = token
                                                 user.auth = true
@@ -239,10 +239,8 @@ router.post('/logOut', asyncMiddleware( async(req, res, next) => {
 }))
 
 router.post('/gofbRegister', asyncMiddleware( async(req, res, next) => {
-    console.log('req.body', req.body)
     let sql = `SELECT id, provider FROM gofb WHERE email='${req.body.email}';`
     pool.query(sql, (err, results) => {
-        console.log('results', results)
         try{
             if(err){ throw err }
             if(results[0]){
@@ -290,8 +288,8 @@ router.post('/gofbRegister', asyncMiddleware( async(req, res, next) => {
                                                 `
                                             let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambh.com>', cc: "amit.khare588@gmail.com", subject: `${req.body.name} regsitered on website ✔ www.pujarambh.com`, html: mailBody }
                                             transporter.sendMail( mailOptions, (error, info)=>{
-                                                if(error){ return console.log(error)}
-                                                console.log("Message sent: %s");
+                                                if(error){ return func.printError(error)}
+                                                func.printError("Message sent: %s")
                                             });
                                             user.token = token
                                             user.auth = true
@@ -311,13 +309,11 @@ router.post('/gofbRegister', asyncMiddleware( async(req, res, next) => {
 }))
 
 router.post('/gofbLogin', asyncMiddleware( async(req, res, next) => {
-    console.log('req.body', req.body)
     let sql = `SELECT id, name, email, role, gofbtoken, token, image from gofb WHERE email = '${req.body.email}'`
     pool.query(sql, async(err, results) => {
         try{
             if(err){ throw err }
             if(results && results.length){
-                console.log('results[0]', results[0])
                 if(results[0]){
                     bcrypt.compare(req.body.token, results[0].gofbtoken)
                     .then(isMatch=>{

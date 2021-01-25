@@ -139,7 +139,6 @@ export class Shop extends Component {
     }
 
     // finalFilter = async ()=>{
-    //     console.log('Final filter called')
     //     var xx = []
     //     this.state.data.map((i)=> { i.price>parseInt( this.state.firstValue ) && i.price<parseInt( this.state.secondValue ) ? xx.push(i) : null })
     //     if(this.state.catSelected.length){
@@ -149,7 +148,6 @@ export class Shop extends Component {
     //     }
 
     //     if(this.state.tagSelected.length){
-    //         console.log('xx', xx)
     //         for (var i = xx.length - 1; i >= 0; --i) {
     //             this.state.tagSelected.map( j => JSON.parse( xx[i].tags ).includes(j) ? null : xx.splice(i,1) )
     //         }

@@ -2396,11 +2396,15 @@ footer .akk {
     height: 50px;
     border-radius: 3px; }
 
+@media (max-width: 1400px) {
+  .nav-link {
+    padding: 1.5rem 1rem; } }
+
 @media (max-width: 1200px) {
   .header-social > div {
     min-width: 350px; }
   .nav-link {
-    padding: 1.5rem 1.5rem; }
+    padding: 1.5rem 1rem; }
   .testis .container {
     max-width: 98%; } }
 
@@ -2410,7 +2414,11 @@ footer .akk {
     .testis ul li img {
       margin: 1em auto; }
   .blogList .blank {
-    max-width: 30px; } }
+    max-width: 30px; }
+  .nav-link {
+    padding: 1.5rem .5rem; }
+  .header-social > div {
+    min-width: 300px; } }
 
 @media (max-width: 991px) {
   .amitBtn {
