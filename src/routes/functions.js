@@ -155,7 +155,7 @@ export function productRecomName(data) {
     return new Promise((resolve, reject) => {
         if(data.length>0){
             for(var i = 0; i < data.length; i++){
-                let sql = `SELECT id, name as text, id as value, images, rating, price FROM products Where id = '${data[i]}';`
+                let sql = `SELECT id, name as text, id as value, images, rating, price, url FROM products Where id = '${data[i]}';`
                 pool.query(sql, (err, results) => {
                     try{ if(err) throw err;
                         list.push(results[0])
@@ -174,7 +174,7 @@ export function productRelatedName(data) {
     return new Promise((resolve, reject) => {
         if(data.length>0){
             for(var i = 0; i < data.length; i++){
-                let sql = `SELECT id, name as text, id as value, images, rating, price FROM products Where id = '${data[i]}';`
+                let sql = `SELECT id, name as text, id as value, images, rating, price, url FROM products Where id = '${data[i]}';`
                 pool.query(sql, (err, results) => {
                     try{ if(err) throw err;
                         list.push(results[0])
@@ -521,6 +521,4 @@ export function logError(e){
     console.log('e', e)
 }
 
-export function printError(mesg){
-    console.log('mesg', mesg)
-}
+export function printError(mesg){ console.log('mesg', mesg) }

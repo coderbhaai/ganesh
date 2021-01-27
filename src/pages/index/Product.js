@@ -6,9 +6,11 @@ import CKEditor from 'ckeditor4-react'
 import axios from 'axios'
 import swal from 'sweetalert'
 import StarRating from '../parts/StarRating'
+import ProductShare from '../parts/ProductShare'
 import moment from "moment"
 import BlogCarousel from '../blog/BlogCarousel'
 const func = require('../parts/functions')
+import {Modal, ModalHeader, ModalBody } from 'reactstrap'
 
 export class Product extends Component {
     constructor(props) {
@@ -17,6 +19,7 @@ export class Product extends Component {
             cart:                   [],
             product:                {},
             incList:                [],
+            excList:                [],
             catProducts:            [],
             currentImg:             '',
             topProducts:            [],
@@ -32,7 +35,15 @@ export class Product extends Component {
             allowReview:            false,
             reviewSubmitted:        false,
             isSeller:               false,
-            blogs:                  this.props.blogs
+            blogs:                  this.props.blogs,
+            addmodalIsOpen:         false,
+            prodName:               '',
+            prodUrl:                '',
+            prodId:                 '',
+            name:                   '',
+            email:                  '',
+            phone:                  '',
+            question:               '',
         }
         this.handleChange1 = this.handleChange1.bind( this )
 		this.onEditorChange1 = this.onEditorChange1.bind( this )
@@ -42,6 +53,7 @@ export class Product extends Component {
     onEditorChange1( evt1 ) { this.setState( { review: evt1.editor.getData() } ) }
     handleChange1( changeEvent1 ) { this.setState( { review: changeEvent1.target.value } ) }
     changeImg=(i)=>{ this.setState({ currentImg: i }) }
+    addModalOn = ()=>{ this.setState({ addmodalIsOpen: true }) }
     componentDidMount(){
         window.scrollTo(0, 0)
         if(typeof(Storage) !== "undefined"){ 
@@ -53,21 +65,36 @@ export class Product extends Component {
         const url = window.location.href.split("/").pop()
         this.callApi(url)
     }
+    
+    cartFieldChange= (e) => { this.setState({ [e.target.name]: e.target.value },()=>this.addFormField() ) }
+
+    addFormField=()=>{
+        if( this.state.cart.some( j => j[1] === parseInt(this.state.product.id) )){
+            this.state.cart.forEach((o)=>{
+                if( o[1] === parseInt(this.state.product.id) ){ 
+                    o[7] = this.state.date,
+                    o[8] = this.state.place
+                }
+            })
+            this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
+        }
+    }
 
     callApi = async (url) => {
         const response = await fetch( '/admin/fetchproduct/'+url ); 
         const body = await response.json()
-            this.setState({
-                id:                     body.product.id,
-                product:                body.product,
-                finalRating:            JSON.parse( body.product.rating ),
-                incList:                body.incList,
-                catProducts:            body.catProducts,
-                currentImg:             JSON.parse( body.product.images )[0],
-                reviews:                body.reviewList,
-                recomList:              body.recomList,
-                relatedList:            body.relatedList,
-            },()=> this.checkForReview( body.product.id ))
+        this.setState({
+            id:                     body.product.id,
+            product:                body.product,
+            finalRating:            JSON.parse( body.product.rating ),
+            incList:                body.incList,
+            excList:                body.excList,
+            catProducts:            body.catProducts,
+            currentImg:             JSON.parse( body.product.images )[0],
+            reviews:                body.reviewList,
+            recomList:              body.recomList,
+            relatedList:            body.relatedList,
+        },()=> this.checkForReview( body.product.id ))
     }
 
     checkForReview=async(id)=>{
@@ -92,7 +119,7 @@ export class Product extends Component {
     }
 
     addToCart=(i)=>{
-        var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url ]
+        var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url, i.type ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
                 if( o[1] === parseInt(i.id) ){ 
@@ -208,8 +235,40 @@ export class Product extends Component {
         this.setState({ rating: value})
     }
 
+    resetData = ()=>{ 
+        this.setState({ 
+            addmodalIsOpen:             false,
+            prodName:                   '',
+            prodUrl:                    '',
+            prodId:                     '',
+            name:                       '',
+            email:                      '',
+            phone:                      '',
+            question:                   '',
+        })
+        window.scrollTo(0, 0)
+    }
+
+    askQuestion = (e) => {
+        e.preventDefault()
+        const data={
+            prodName:           this.state.product.name,
+            prodUrl:            this.state.product.url,
+            name:               this.state.name,
+            email:              this.state.email,
+            phone:              this.state.phone,
+            question:           this.state.question,
+            prodId:             this.state.prodId,
+        }
+        axios.post('/askQuestion', data)
+            .catch(err=>{ func.printError(err) })
+            .then(res=>{ func.callSwal(res.data.message) })
+        this.resetData()
+    }
+
     render() {
-        const count = Math.round( this.state.incList.length/4 )
+        console.log('this.state', this.state)
+        const count = Math.round( this.state.incList.length/3 )
         return (
             <> 
                 <Header cart={this.state.cart.length}/>
@@ -234,52 +293,95 @@ export class Product extends Component {
                                         <div className="thumbnail">
                                             {JSON.parse(this.state.product.images).map((i, index)=>( <img key={index} src={"/images/product/"+i} onClick={()=>this.changeImg(i)}/>))}
                                         </div>
+                                        <button className="amitBtn" onClick={()=>this.addToCart(this.state.product)}>Add To Cart</button>
                                     </>
                                 : null}
                             </div>
                             <div className="col-sm-6">
                                 {this.state.product.rating? <StarRating rating={JSON.parse( this.state.product.rating)[0]}/> : null }
-                                <h1 style={{textAlign:'left', marginBottom:'0'}}><span>{this.state.product.name}</span></h1>
+                                <h1>{this.state.product.name}</h1>
+                                <p className="price"><span className="rs">&#8377; </span>{this.state.product.price} /-</p>
+                                <h2>Puja Description</h2>
                                 <section className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.product.shortDesc }} />
-                                <h3 className="text-left mb-3">Add to cart</h3>
-                                <div className="cartBtnGroup flex-sb">
+                                {this.state.product.type==1 && this.state.cart.some(x => x[1] === this.state.product.id) ?
+                                <>
+                                    <label>Desire date * (Please book 48 Hours in Advance)</label>
+                                    <input className="form-control" type="date" placeholder="Desire date of Puja" onChange={this.cartFieldChange} name="date" value={this.state.date || ''}/>
+                                    <label>Place *</label>
+                                    <input className="form-control" type="text" placeholder="Place of Puja" onChange={this.cartFieldChange} name="place" value={this.state.puja}/>
+                                </>
+                                : null
+                                }
+                                {/* <h3 className="text-left mb-3">Add to cart</h3> */}
+                                {/* <div className="cartBtnGroup flex-sb">
                                     <div className="plusMinus">
                                         <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(this.state.product)} style={{marginRight: '10px'}}/>
                                         { this.state.cart.some(x => x[1] === this.state.product.id) ? <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(this.state.product)}/> : null }
                                     </div>
-                                </div>
-                                <h2 className="heading">Inclusions</h2>
-                                <div className="row inclusions">
-                                    <div className="col-sm-4"><ul>{this.state.incList.slice(0, count).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
-                                    <div className="col-sm-4"><ul>{this.state.incList.slice(count, count*2).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
-                                    <div className="col-sm-4"><ul>{this.state.incList.slice(count*2, this.state.incList.length).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                </div> */}
+
+                                <div className="changeQty flex-sb mt-5">
+                                    <div>
+                                        <label>Quantity</label>
+                                        <ul>
+                                            <li onClick={()=>this.removeFromCart(this.state.product)}>-</li>
+                                            <li>{this.state.cart.filter(i=>i[1]==this.state.product.id).length ? this.state.cart.filter(i=>i[1]==this.state.product.id)[0][0] : 0 }</li>
+                                            <li onClick={()=>this.addToCart(this.state.product)}>+</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <label>Share With</label>
+                                        <ProductShare title={this.state.product.name} url={"https://pujarambh.com/product/"+this.state.product.url} media={"https://pujarambh.com/images/product/"+this.state.currentImg}/>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-sm-3">
-                                <div className="bg-white sideProducts" style={{padding:'10px'}}>
-                                    <p className="text-center">Related Products</p>
-                                    <hr style={{margin: '0 0 7px'}}/>
-                                    {this.state.relatedList.map((i, index)=>(
-                                        <div className="flex-sb mb-3" key={index}>
-                                            <a href={"/product/"+i.url}>
-                                                <img key={index} src={"/images/product/"+JSON.parse(i.images)[0]}/>
-                                                <div className=" w-100" style={{paddingLeft:'5px'}}>
-                                                    <div className="text-center">
-                                                        {i.rating? <StarRating rating={JSON.parse( i.rating)[0]}/> : null }
+                                {this.state.relatedList.length?
+                                    <div className="bg-white sideProducts" style={{padding:'10px'}}>
+                                        <p className="text-center">Related Products</p>
+                                        <hr style={{margin: '0 0 7px'}}/>
+                                        {this.state.relatedList.map((i, index)=>(
+                                            <div className="flex-sb mb-3" key={index}>
+                                                <a href={"/product/"+i.url}>
+                                                    <img key={index} src={"/images/product/"+JSON.parse(i.images)[0]}/>
+                                                    <div className=" w-100" style={{paddingLeft:'5px'}}>
+                                                        <div className="text-center">
+                                                            {i.rating? <StarRating rating={JSON.parse( i.rating)[0]}/> : null }
+                                                        </div>
+                                                        <p style={{fontWeight:'600'}}>{i.text}</p>
+                                                        <p className="price">&#8377;{i.price}</p>
                                                     </div>
-                                                    <p style={{fontWeight:'600'}}>{i.name}</p>
-                                                    <p>&#8377;{i.price}</p>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    ))}
-                                </div>
+                                                </a>
+                                            </div>
+                                        ))}
+                                    </div>
+                                : null}
                             </div>
                         </div>
                     </div>
                 : null }
-                <div className="container my-5 extraProducts">
-                    <div className="row mt-5">
+                <div className="container extraProducts">
+                    <div className="row my-5">
+                        <div className="col-sm-3"></div>
+                        <div className="col-sm-9">
+                            <div className="row inclusions">
+                                <div className="col-sm-9">
+                                    <h2>{this.state.product.name} Includes</h2>
+                                    <div className="row">
+                                        <div className="col-sm-3"><ul>{this.state.incList.slice(0, count).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                        <div className="col-sm-3"><ul>{this.state.incList.slice(count, count*2).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                        <div className="col-sm-3"><ul>{this.state.incList.slice(count*2, count*3).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                        <div className="col-sm-3"><ul>{this.state.incList.slice(count*3, this.state.incList.length).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                    </div>
+                                </div>
+                                <div className="col-sm-3">
+                                    <h2>Client needs to arrange</h2>
+                                    <ul>{this.state.excList.map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
                         <div className="col-sm-12 relatedProducts p-0">
                             <section className="box">
                                 <div className="bg-white reviewsDesc row">
@@ -336,17 +438,10 @@ export class Product extends Component {
                                                             </div>
                                                             <div className="col-sm-12">
                                                                 <label>Review</label>
-                                                                <CKEditor 
-                                                                    onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
-                                                                    data={this.state.review}
-                                                                    review= {this.state.review}
-                                                                    onChange={this.onEditorChange1}
-                                                                />
+                                                                <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } data={this.state.review} review= {this.state.review} onChange={this.onEditorChange1}/>
                                                             </div>
                                                         </div>
-                                                        <div className="my-btn">
-                                                            <button className="amitBtn" type="submit">Submit</button> 
-                                                        </div>
+                                                        <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                                                     </form>
                                                 : this.state.allowReview && !this.state.isSeller ?
                                                     <form encType="multipart/form-data" onSubmit={this.addReview}>
@@ -381,16 +476,10 @@ export class Product extends Component {
                                                             </div>
                                                             <div className="col-sm-12">
                                                                 <label>Review</label>
-                                                                <CKEditor 
-                                                                    onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
-                                                                    review= {this.state.review}
-                                                                    onChange={this.onEditorChange1}
-                                                                />
+                                                                <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } review= {this.state.review} onChange={this.onEditorChange1}/>
                                                             </div>
                                                         </div>
-                                                        <div className="my-btn">
-                                                            <button className="amitBtn" type="submit">Submit</button> 
-                                                        </div>
+                                                        <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
                                                     </form>
                                                 :
                                                     <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>Please login to submit a review</span></h3>
@@ -403,8 +492,47 @@ export class Product extends Component {
                         </div>
                     </div>
                 </div>
+                <section className="mt-5 doubtShield">
+                    <div className="container">
+                        <h3>Have Doubts regarding this product?</h3>
+                        <button className="amitBtn" onClick={this.addModalOn}>Post Your Question</button>
+                    </div>
+                    <div className="container">
+                        <img src="/images/icons/shield.svg"/>
+                        <p>Safe and secure payments. Easy returns. 100% authentic products.</p>
+                    </div>
+                </section>
                 <BlogCarousel blogs={this.state.blogs}/>
                 <Footer/>
+                <Modal isOpen={this.state.addmodalIsOpen} className="adminModal"> 
+                    <ModalHeader> Ask Question </ModalHeader>
+                    <div className="closeModal" onClick={this.resetData}>X</div>
+                    <ModalBody>
+                        <form encType="multipart/form-data" onSubmit={this.askQuestion}>
+                            <div className="row">
+                                <div className="col-sm-4">
+                                    <label>Name</label>
+                                    <input name="name" type="text" className="form-control" placeholder="Name" value={this.state.name} required onChange={this.onChange}/>
+                                </div>
+                                <div className="col-sm-4">
+                                    <label>Email</label>
+                                    <input name="email" type="email" className="form-control" placeholder="Email" value={this.state.email} required onChange={this.onChange}/>
+                                </div>
+                                <div className="col-sm-4">
+                                    <label>Phone</label>
+                                    <input name="phone" type="tel" className="form-control" placeholder="Phone" value={this.state.phone} required onChange={this.onChange}/>
+                                </div>
+                                <div className="col-sm-12">
+                                    <label>Question</label>
+                                    <input name="question" type="text" className="form-control" placeholder="question" value={this.state.question} required onChange={this.onChange}/>
+                                </div>
+                            </div>
+                            <div className="my-div">
+                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                            </div>
+                        </form>
+                    </ModalBody>
+                </Modal>
             </> 
         )
     }

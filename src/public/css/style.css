@@ -17,9 +17,12 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  outline: none; }
   a:hover {
     text-decoration: none; }
+  a:focus {
+    outline: none; }
 
 .text-center {
   text-align: center !important; }
@@ -432,6 +435,12 @@ form input {
   flex-grow: 1;
   -ms-flex-align: center;
   align-items: center; }
+
+.socialShare button {
+  margin-right: 10px; }
+
+.rs {
+  font-size: 18px; }
 
 @media (min-width: 992px) {
   .toggle-btn {
@@ -1749,8 +1758,44 @@ i.icon.delete:before {
   .thumbnail img:hover {
     cursor: pointer; }
 
+.imgZoom .amitBtn {
+  width: 100%;
+  margin-top: 2em;
+  background: #e1672e;
+  padding: 10px 0; }
+
 .imgZoom div {
   z-index: 1000; }
+
+.changeQty {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .changeQty label {
+    text-align: left; }
+  .changeQty ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; }
+    .changeQty ul li {
+      border: 2px solid #c5c5c5;
+      height: 45px;
+      width: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: .5s all; }
+      .changeQty ul li:hover {
+        border: 2px solid #e1672e;
+        color: #e1672e;
+        cursor: pointer; }
+    .changeQty ul :nth-child(2) {
+      border-right: none;
+      border-left: none; }
+      .changeQty ul :nth-child(2):hover {
+        border: 2px solid #e1672e;
+        color: #e1672e; }
 
 .star-rating {
   margin: 10px 0;
@@ -1791,7 +1836,8 @@ form .rating {
     width: 100%; }
     .imgBox .itemAdded p {
       color: #fff;
-      text-shadow: 1px 1px black; }
+      text-shadow: 1px 1px black;
+      text-align: center; }
   .imgBox .cartBtnGroup {
     position: absolute;
     width: 100%;
@@ -1824,6 +1870,13 @@ form .rating {
   text-align: start;
   display: flex; }
 
+.singleProduct .price {
+  font-size: 2em;
+  color: #e1672e; }
+
+.singleProduct input.form-control {
+  margin-bottom: 10px; }
+
 .inclusions ul li {
   padding: 10px 0; }
 
@@ -1837,6 +1890,10 @@ form .rating {
   .sideProducts > div a p {
     margin: 0;
     text-align: left; }
+  .sideProducts > div a .price {
+    font-size: 14px;
+    color: #e1672e;
+    font-weight: 600; }
 
 .tab-content > .tab-pane {
   display: none; }
@@ -1866,6 +1923,33 @@ form .rating {
   border: 1px solid #eee; }
   .reviewsDesc .tab-pane .heading {
     margin: 5px 0; }
+
+.reviewsDesc .cke_top {
+  display: none; }
+
+.extraProducts h2 {
+  font-size: 15px;
+  color: #e1672e; }
+
+.doubtShield {
+  background-color: #ebebeb;
+  padding: 2em 0; }
+  .doubtShield div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2em; }
+    .doubtShield div:first-child h3 {
+      letter-spacing: 5px; }
+    .doubtShield div:first-child .amitBtn {
+      background: #e1672e; }
+  .doubtShield div:nth-child(2) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; }
+    .doubtShield div:nth-child(2) img {
+      max-width: 30px;
+      margin-right: 1em; }
 
 /* Price Slider */
 .range-slider {
@@ -2194,8 +2278,7 @@ footer .akk {
   align-items: center; }
 
 .product {
-  position: relative;
-  text-align: center; }
+  position: relative; }
   .product h4 {
     text-align: left;
     margin-bottom: 1em;
@@ -2205,7 +2288,6 @@ footer .akk {
     width: fit-content;
     border-radius: 5px; }
   .product p {
-    text-align: center;
     font-size: 13px; }
   .product .usage {
     position: absolute;
@@ -2214,11 +2296,15 @@ footer .akk {
     width: 100%;
     color: #fff;
     padding: 5px 0;
-    font-size: 13px; }
+    font-size: 13px;
+    text-align: center; }
   .product .productDetail {
     padding: 10px 5px; }
     .product .productDetail h3 {
-      font-size: 14px; }
+      font-size: 14px;
+      text-align: center; }
+    .product .productDetail p {
+      text-align: center; }
     .product .productDetail ul {
       display: flex;
       align-items: center;

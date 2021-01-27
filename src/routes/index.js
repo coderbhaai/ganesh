@@ -191,6 +191,44 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
     })
   })
 
+  router.post('/askQuestion', (req, res, next) => {
+    let post= {
+        "name":         req.body.name,
+        "email":        req.body.email,
+        "phone":        req.body.phone,
+        "question":     req.body.question,
+        "product":      req.body.prodId,
+        "created_at":   time,
+    }
+    let sql = 'INSERT INTO question SET ?'
+    pool.query(sql, post, (err, results) => {
+      try{
+        if(err) throw err;
+        const mailBody =`
+          <h2><strong>Dear ${req.body.name}</strong></h2>
+          <p>Thanks for connecting with us.</p>
+          <p>The details provided by you are:</p>
+          <ul>
+            <li>Email: ${req.body.email}</li>
+            <li>Phone: ${req.body.phone}</li>
+            <li>Product: <a href="https://pujarambh.com/product/${req.body.prodUrl}">${req.body.prodName}</a></li>
+            <li>Question: ${req.body.question}</li>
+          </ul>
+          <p>We will reach back to you on priority. If anything urgent, you can call me on +91-84240 03840 / +91-93548 11331</p><br/>
+          <p>Warm Regards</p>
+          <p>Amit Kumar Khare</p>
+          <a href="https://www.linkedin.com/in/amitkhare588/"><p>Connect on Linkedin</p></a>
+          `
+        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
+        transporter.sendMail( mailOptions, (error, info)=>{
+          if(error){ func.printError(err) }
+          func.printError("Message sent: %s")
+        });
+        res.send({ success: true, message: "Mail Sent" }); 
+      }catch(e){ func.logError(e); res.status(403); return; }
+    })
+  })
+
   router.get('/blog', asyncMiddleware( async(req, res, next) => {
     const meta = await func.getMeta(req.url)
     let sql = `SELECT id, title, url, coverImg, updated_at FROM blogs ORDER BY id DESC`;

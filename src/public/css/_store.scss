@@ -31,8 +31,52 @@
       cursor: pointer;
     }
 }
-.imgZoom div{
+.imgZoom {
+  .amitBtn{
+    width: 100%;
+    margin-top: 2em;
+    background: $primary;
+    padding: 10px 0;
+  }
+  div{
     z-index: 1000;
+  }
+}
+.changeQty{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  label{ 
+    text-align: left;
+  }
+  ul{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    li{
+      border: 2px solid #c5c5c5;
+      height: 45px;
+      width: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      transition: .5s all;
+      &:hover{
+        border: 2px solid $primary;
+        color: $primary;
+        cursor: pointer;
+      }
+    }
+    :nth-child(2){
+      border-right: none;
+      border-left: none;
+      &:hover{
+        border: 2px solid $primary;
+        color: $primary;
+      }
+    }
+  }
 }
 .star-rating{
     margin: 10px 0;
@@ -81,6 +125,7 @@ form{
        p{
           color: #fff;
           text-shadow: 1px 1px black;
+          text-align: center;
        }
     }
     .cartBtnGroup{
@@ -123,6 +168,13 @@ form{
         text-align:start;
         display: flex;
     }
+    .price{
+      font-size: 2em;
+      color: $primary;
+    }
+    input.form-control{
+      margin-bottom: 10px;
+    }
 }
 .inclusions{
     ul{
@@ -143,6 +195,11 @@ form{
             p{
                 margin: 0;
                 text-align: left;
+            }
+            .price{
+              font-size: 14px;
+              color: $primary;
+              font-weight: 600;
             }
         }
     }
@@ -184,11 +241,39 @@ form{
             margin: 5px 0;
         }
     }
-    // .tab-pane.active{
-    //     position: absolute;
-    //     top: 0;
-    // }
-} 
+    .cke_top {
+      display: none;
+    }
+}
+.extraProducts h2{
+  font-size: 15px;
+  color: $primary;
+}
+.doubtShield{
+  background-color: $greyBg;
+  padding: 2em 0;
+  div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2em;
+    h3{
+      letter-spacing: 5px;
+    }
+    .amitBtn{
+      background: $primary;
+    }
+  }
+  div:nth-child(2){
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    img{
+      max-width: 30px;
+      margin-right: 1em;
+    }
+  }
+}
 /* Price Slider */
 .range-slider {
     margin: auto;
