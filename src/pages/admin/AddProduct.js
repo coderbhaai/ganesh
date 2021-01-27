@@ -132,7 +132,7 @@ export class AddProduct extends Component {
                                         <Dropdown placeholder='Select Tags' fluid search selection onChange={this.vendorSelected} options={this.state.vendorOptions}/>
                                     </div>
                                     <div className="col-sm-4">
-                                        <label>Images</label>
+                                        <label>Images (650px X 750px)</label>
                                         <input className="form-control" type="file" multiple onChange={this.imagesAdd}/>
                                     </div>
                                     <div className="col-sm-4">

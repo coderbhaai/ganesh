@@ -185,7 +185,7 @@ export class EditProduct extends Component {
                                         <p><strong>Vendor:</strong> {this.state.oldVendor}</p>
                                     </div>
                                     <div className="col-sm-4">
-                                        <label>Images</label>
+                                        <label>Images (650px X 750px)</label>
                                         <input className="form-control" type="file" multiple onChange={this.imagesAdd}/>
                                         {this.state.oldImages.map((i,index)=>(<img src={"/images/product/"+i} key={index} className="previewImg"/>))}
                                     </div>

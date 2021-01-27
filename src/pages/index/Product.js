@@ -267,7 +267,6 @@ export class Product extends Component {
     }
 
     render() {
-        console.log('this.state', this.state)
         const count = Math.round( this.state.incList.length/3 )
         return (
             <> 

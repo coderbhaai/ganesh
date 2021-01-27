@@ -127,7 +127,7 @@ export class UpdateBlog extends Component {
                                         <input className="form-control" value={this.state.blogURL} readOnly/> 
                                     </div>
                                     <div className="col-sm-4">
-                                        <label>Featured Image</label>
+                                        <label>Featured Image (1800px X 750px)</label>
                                         {this.state.previewImg? <img src={this.state.previewImg } alt="" className="img-fluid tableImg"/> : null}
                                         <input className="form-control" type="file" onChange={this.blogImage}/>
                                         <img src={"/images/blog/"+this.state.oldCoverImg } alt="" className="img-fluid tableImg"/>

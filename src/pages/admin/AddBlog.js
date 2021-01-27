@@ -90,7 +90,7 @@ export class AddBlog extends Component {
                                     </div>
                                     <div className="col-sm-4">
                                         {this.state.previewImg? <img src={this.state.previewImg } alt="" className="img-fluid tableImg"/> : null}
-                                        <label>Featured Image</label>
+                                        <label>Featured Image (1800px X 750px)</label>
                                         <input className="form-control" type="file" onChange={this.blogImage}/>
                                     </div>
                                     <div className="col-sm-12">
