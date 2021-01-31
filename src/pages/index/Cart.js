@@ -30,6 +30,8 @@ export class Cart extends Component {
             // address:                '1172',
             // pin:                    '122002',
             // message:                'Hi',
+            appId:                      '51409786e7f06e6c43c7d7c3d90415',
+            secretKey:                  '414a13ae0b6afb753ca031a73e35129a6f35ea57'
         }
     }
     

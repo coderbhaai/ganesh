@@ -67,36 +67,13 @@ export class index extends Component {
     activeOffering=(value)=>{ this.setState({ active: value })}
 
     render() {
-        const params = {
-            slidesPerView: 1,
-            spaceBetween: 10,
-            // loop: true,
-            // autoplay: { delay: 3000 },
-            breakpoints: {
-                440: { slidesPerView: 2, spaceBetween: 20, },
-                768: { slidesPerView: 3, spaceBetween: 20, },
-                1400: { slidesPerView: 6, spaceBetween: 30, },
-            },
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        }
-        const params2 = {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            // loop: true,
-            // autoplay: { delay: 3000 },
-            breakpoints: {
-                767: { slidesPerView: 2 },
-                1400: { slidesPerView: 2, spaceBetween: 10, },
-            },
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        }
         return (
             <>
                 <Header cart={this.state.cart.length}/>
                 <section className="banner">
                     <img src="/images/static/banner.jpg"/>
                     <div className="caption">
-                        <h1>Book Your Pandit Online For</h1>
+                        <h1>BOOK YOUR PANDIT ONLINE FOR</h1>
                         <p className="hindi">Ganesh Puja</p>
                         <button className="amitBtn btn">Book Now</button>
                     </div>
@@ -109,8 +86,8 @@ export class index extends Component {
                 <div className="container puja py-5">
                     <div className="row">
                         <div className="col-sm-9">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <p>Pujarambh is end to your search for qualified pundit/purohits for any puja or hawan and authentic puja samagri for all rituals along with consultation from pundits for shubh muhurat and vastu.</p>
+                            <p>We have a large network of pundits which we connects with customers to organize puja or consultations and by utilizing the individual expertise of pundits we are able to provide a better experience for customers participating in the ceremonies.</p>
                             <button className="amitBtn">Read More</button>
                         </div>
                         <div className="col-sm-3">
@@ -134,9 +111,11 @@ export class index extends Component {
                         <div className="container py-5">
                             <div className="row">
                                     { this.state.active == 'Product' ?
-                                        <div className="col-sm-12">
-                                            <Swiper {...params}> 
-                                                {this.state.products.map((i,index)=>( 
+                                        <>
+                                        <div className="col-sm-12 mb-5">
+                                            <h4>Puja Samagri</h4>
+                                            <Swiper {...func.params}> 
+                                                {this.state.products.filter(i=>i.type == 3).map((i,index)=>(
                                                     <div key={index}>
                                                         <div className="imgBox">
                                                             <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
@@ -173,12 +152,53 @@ export class index extends Component {
                                                 ))} 
                                             </Swiper>
                                         </div>
+                                        <div className="col-sm-12">
+                                            <h4>Home Decor</h4>
+                                            <Swiper {...func.params}> 
+                                            {this.state.products.filter(i=>i.type == 4).map((i,index)=>( 
+                                                    <div key={index}>
+                                                        <div className="imgBox">
+                                                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
+                                                            { this.state.cart.some(x => x[1] === i.id) ? 
+                                                                <div className="cartBtnGroup flex-sb">
+                                                                    <div className="plusMinus">
+                                                                        <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
+                                                                        <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
+                                                                    </div>
+                                                                </div>
+                                                            : null }
+                                                            { this.state.cart.some(x => x[1] === i.id) ?
+                                                                <div className="itemAdded">
+                                                                    { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
+                                                                        <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
+                                                                    )})}
+                                                                </div>
+                                                            : null}
+                                                        </div>
+                                                        {i.tagline? <p className="usage">{i.tagline}</p> : null}
+                                                        <div className="productDetail">
+                                                            <h3>{i.name}</h3>
+                                                            <p>Price: Rs {i.price}</p>
+                                                            <div className="button-wrap">
+                                                                <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
+                                                                    <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
+                                                                </a>
+                                                                <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
+                                                                    <span className="button-slanted-content">Add To cart</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))} 
+                                            </Swiper>
+                                        </div>
+                                    </>
                                     : this.state.active == 'Service' ? 
                                         <>
                                             <div className="col-sm-12 mb-5">
-                                                <h4>Puja</h4>
-                                                <Swiper {...params}> 
-                                                    {this.state.products.map((i,index)=>( 
+                                                <h4>Organize Puja</h4>
+                                                <Swiper {...func.params}> 
+                                                    {this.state.products.filter(i=>i.type == 1).map((i,index)=>( 
                                                         <div key={index}>
                                                             <div className="imgBox">
                                                                 <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
@@ -216,9 +236,9 @@ export class index extends Component {
                                                 </Swiper>
                                             </div>
                                             <div className="col-sm-12">
-                                                <h4>Consultation</h4>
-                                                <Swiper {...params}> 
-                                                    {this.state.products.map((i,index)=>( 
+                                                <h4>Astro Consultation</h4>
+                                                <Swiper {...func.params}> 
+                                                    {this.state.products.filter(i=>i.type == 2).map((i,index)=>( 
                                                         <div key={index}>
                                                             <div className="imgBox">
                                                                 <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
@@ -266,38 +286,20 @@ export class index extends Component {
                         <h2 className="hindi">Testimonial</h2>
                         <div className="row">
                             <div className="col-sm-12">
-                                <Swiper {...params2}>
-                                    <div>
-                                        <ul>
-                                            <li className="client">
-                                                <img src="/images/static/amit.jpg"/>
-                                                <h3>Amit Khare</h3>
-                                                <p>Web Developer</p>
-                                            </li>
-                                            <li><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <ul>
-                                            <li className="client">
-                                                <img src="/images/static/amit.jpg"/>
-                                                <h3>Amit Khare</h3>
-                                                <p>Web Developer</p>
-                                            </li>
-                                            <li><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></li>
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <ul>
-                                            <li className="client">
-                                                <img src="/images/static/amit.jpg"/>
-                                                <h3>Amit Khare</h3>
-                                                <p>Web Developer</p>
-                                            </li>
-                                            <li><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p></li>
-                                        </ul>
-                                    </div>
-                                </Swiper>
+                                <Swiper {...func.params2}>
+                                    {func.testis.map((i, index)=>(
+                                        <div key={index}>
+                                            <ul>
+                                                <li className="client">
+                                                    <img src={"/images/static/"+i.image}/>
+                                                    <h3>{i.name}</h3>
+                                                    {/* <p>Web Developer</p> */}
+                                                </li>
+                                                <li>{i.text}</li>
+                                            </ul>
+                                        </div>
+                                    ))}
+                                    </Swiper>
                             </div>
                         </div>
                     </div>
@@ -315,7 +317,7 @@ export class index extends Component {
                                         <li className="mb-5" key={index}>
                                             <a href={"/"+i.url}>
                                                 <h4>{i.heading}</h4>
-                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+                                                <p className="singleLine">{i.excerpt}</p>
                                             </a>
                                         </li>
                                     ))}

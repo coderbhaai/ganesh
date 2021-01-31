@@ -14,6 +14,7 @@ export class UpdateBlog extends Component {
         this.state = {
             id:                         '',
             title:                      '',
+            excerpt:                    '',
             blogURL:                    '',
             content:                    '',
             catOptions:                 [],
@@ -46,6 +47,7 @@ export class UpdateBlog extends Component {
             .then(res =>{
                 this.setState({ 
                     title:                          res.data.data.title,
+                    excerpt:                        res.data.excerpt,
                     content:                        res.data.data.content,
                     blogURL:                        res.data.data.url,
                     oldCoverImg:                    res.data.data.coverImg,
@@ -83,6 +85,7 @@ export class UpdateBlog extends Component {
         data.append('oldCoverImg', this.state.oldCoverImg)
         data.append('title', this.state.title)
         data.append('url', this.state.blogURL.replace(/ /g,"-"))
+        data.append('excerpt', this.state.excerpt)
         data.append('content', this.state.content)
         data.append('category', JSON.stringify(finalCategory) )
         data.append('tag', JSON.stringify(finalTag) )
@@ -132,7 +135,11 @@ export class UpdateBlog extends Component {
                                         <input className="form-control" type="file" onChange={this.blogImage}/>
                                         <img src={"/images/blog/"+this.state.oldCoverImg } alt="" className="img-fluid tableImg"/>
                                     </div>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-12 mb-3">
+                                        <label>Excerpt</label>
+                                        <textarea className="form-control" name="excerpt" required value={this.state.excerpt} onChange={this.onChange}></textarea>
+                                    </div>
+                                    <div className="col-sm-12 mb-3">
                                         <label>Blog Content</label>
                                         <CKEditor 
                                         onInstanceReady={this.ckEditorReady()}

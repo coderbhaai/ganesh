@@ -201,9 +201,10 @@ export class EditProduct extends Component {
                                         <label>Type of Product</label>
                                         <select className="form-control" required value={this.state.type} onChange={this.onChange} name="type">
                                             <option value=''>Select Type</option>
-                                            <option value="1">Puja</option> 
-                                            <option value="2">Consultation</option>
+                                            <option value="1">Organize Puja</option> 
+                                            <option value="2">Astro Consultation</option>
                                             <option value="3">Puja Samagri</option>
+                                            <option value="4">Home Decor</option>
                                         </select>
                                     </div>
                                     <div className="col-sm-4">

@@ -9,8 +9,8 @@ const upload = require('express-fileupload')
 const fs = require('fs')
 router.use(upload())
 
-const storage = '/home/myuser/amit/public/images/'
-// const storage = './src/public/images/'
+// const storage = '/home/myuser/amit/public/images/'
+const storage = './src/public/images/'
 
 router.get('/AdminUsers', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql =   `SELECT name, email, role, created_at FROM users`
@@ -224,6 +224,7 @@ router.post('/addBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware( a
         'title':                req.body.title,
         'url':                  req.body.url,
         'content':              req.body.content,
+        'excerpt':              req.body.excerpt,
         'category':             req.body.category,
         'tag':                  req.body.tag,
         "created_at":           time,
@@ -250,7 +251,7 @@ router.post('/addBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware( a
 }))
 
 router.get('/getBlog/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql = `SELECT id, title, url, coverImg, content, category, tag, updated_at FROM blogs WHERE id = '${req.params.id}'`
+    let sql = `SELECT id, title, url, coverImg, excerpt, content, category, tag, updated_at FROM blogs WHERE id = '${req.params.id}'`
     pool.query(sql, async(err, results) => {
         try{
             if(results){ 
@@ -266,6 +267,7 @@ router.post('/updateBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware
     let post= {
         'title':                req.body.title,
         'url':                  req.body.url,
+        'excerpt':              req.body.excerpt,
         'content':              req.body.content,
         'category':             req.body.category,
         'tag':                  req.body.tag,

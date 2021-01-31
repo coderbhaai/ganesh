@@ -13,7 +13,11 @@ export class Footer extends Component {
                             <h3>Contact Us</h3>
                             <ul>
                                 <li><img src="/images/icons/call-white.svg"/><span>987-04-05-987</span></li>
-                                <li><img src="/images/icons/call-white.svg"/><span>All Days: 9: 00 AM - 8:00 PM</span></li>
+                                <li><img src="/images/icons/clock.svg"/><span>All Days: 9: 00 AM - 8:00 PM</span></li>
+                            </ul>
+                            <ul className="links">
+                                <li><a href="/privacy-policy">Privacy Policy</a></li>
+                                <li><a href="/terms-and-condition">Terms &amp; Conditions</a></li>
                             </ul>
                         </div>
                         <div className="col-sm-6">

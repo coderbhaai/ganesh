@@ -65,3 +65,37 @@ export function sortArray(array, sortBy, type, direction){
 export function printError(mesg){
     console.log('mesg', mesg)
 }
+
+export const params = {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    loop: true,
+    // autoplay: { delay: 3000 },
+    breakpoints: {
+        440: { slidesPerView: 2, spaceBetween: 20, },
+        768: { slidesPerView: 3, spaceBetween: 20, },
+        1400: { slidesPerView: 6, spaceBetween: 30, },
+    },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+}
+
+export const params2 = {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+    // autoplay: { delay: 3000 },
+    breakpoints: {
+        767: { slidesPerView: 2 },
+        1400: { slidesPerView: 2, spaceBetween: 10, },
+    },
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+}
+
+export const testis = [
+    {name: 'Amit Singhal', image: '1.jpg', text: 'I simply loved the service and products. Parents and Family is extremely impressed. They have never seen such a degree of professional in such ceremonies.'},
+    {name: 'Somil Agrawal', image: '3.jpg', text: 'Great service! Easy to connect and extremely knowledgeable team! Have had multiple pooja done at my home over the years but this one by far was the most detailed and innovative in terms of new methods of rituals! The priest was friendly and explained all rituals in extremely polite manner! Do reach out to Pujarambh team for your religious needs!'},
+    {name: 'Parminder Bedi', image: 'female.svg', text: 'Marvelous site!!!!!!!!!!Especially for those who believe in ceremonies and all things formal.'},
+    {name: 'Shantanu Chauhan', image: '4.jpg', text: 'I needed a Pooja at my home on my sons 9th Birthday. I booked the same through Pujarambh. They sent a Pandit ji who was not only courteous but also well-educated and having deep knowledge of Sanskars.'},
+    {name: 'Dinesh Yalavarthy', image: '2.jpg', text: 'Amazing attention to detail and understanding of the requirements.. both you know of and don"t know of.Timely delivery of the samagri and unbelievable on the spot support for last minute needs.'},
+    {name: 'Neetu Saluja', image: 'female.svg', text: 'Thanks Mr Jain! you are doing a great work. It was our pleasure to have been able to use the services. Very well organised, highly professional yet authentic, hassle free... it was a good experience. Much appreciated'},
+]

@@ -6,27 +6,26 @@
 @import '_store';
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Yusei+Magic&display=swap');
 @font-face {
-   font-family: 'Samarkan Normal';
+   font-family: 'XXII ARABIAN-ONENIGHTSTAND Bold';
    font-style: normal;
    font-weight: normal;
-   src: local('Samarkan Normal'), url('SAMARN__.woff') format('woff');
+   src: local('../fonts/XXII ARABIAN-ONENIGHTSTAND Bold'), url('../fonts/XXII ARABIAN-ONENIGHTSTAND.woff') format('woff');
 }
 @font-face {
-   font-family: 'Samarkan Oblique';
-   font-style: normal;
-   font-weight: normal;
-   src: local('Samarkan Oblique'), url('SAMARO__.woff') format('woff');
+	font-family: 'fontscorecomttwcenmt';
+	src: url('../fonts/fontscorecomttwcenmt.eot');
+	src: local('../fonts/fontscorecomttwcenmt'), url('../fonts/fontscorecomttwcenmt.woff') format('woff'), url('../fonts/fontscorecomttwcenmt.ttf') format('truetype');
 }
-
 body, .form-control{
-   font-family: 'Source Sans Pro', sans-serif;
+   font-family: 'fontscorecomttwcenmt';
 }
 h1, h2, h3, h4, h5, h6{
-   font-family: 'Yusei Magic', sans-serif;
+   font-family: 'fontscorecomttwcenmt';
    line-height: 2em;
 }
 .hindi{
-   font-family:'Samarkan Normal';font-weight:normal;
+   font-family:'XXII ARABIAN-ONENIGHTSTAND Bold';
+   font-weight:normal;
 }
 .logout:hover, .dropdown-item:hover, .closeModal:hover, .editIcon:hover{
    cursor: pointer;
@@ -429,7 +428,6 @@ footer{
 .callBack{
    a{
       color: #fff;
-      font-family: Arial,sans-serif;
       font-size: 16px;
       text-decoration: none;
       text-align: center;
@@ -503,6 +501,26 @@ footer{
       height: 50px;
       border-radius: 3px;
    }
+}
+.links{
+   display: flex;
+   align-items: center;
+   li{
+      a{
+         color: #fff;
+         padding: 5px 10px;
+      }
+   }
+}
+.swiper-button-prev:after, .swiper-button-next:after{
+   color: $primary;
+}
+.singleLine{
+   overflow: hidden;
+   text-overflow: ellipsis;
+   -webkit-box-orient: vertical;
+   display: -webkit-box;
+   -webkit-line-clamp: 1;
 }
 @media (max-width:1400px) {
    .nav-link {
@@ -594,6 +612,9 @@ footer{
          text-align: left;
       }
    } 
+   .testis {
+      padding: 1em 0;
+  }
 }
 @media (max-width:767px) {
    .blogList{

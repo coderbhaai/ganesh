@@ -24,6 +24,8 @@ import Product from "../pages/index/Product"
 import Cart from "../pages/index/Cart"
 import ThankYou from "../pages/index/ThankYou"
 import FourOFour from "../pages/index/FourOFour"
+import PrivacyPolicy from "../pages/index/PrivacyPolicy"
+import Terms from "../pages/index/Terms"
 
 
 import Auth from "../pages/index/Auth"
@@ -349,8 +351,8 @@ router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = awa
 // router.get('/clients', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/clients','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/Clients', { reactApp: renderToString( <Clients blogs={blogs}/> ), meta: meta}) }))
 // router.get('/contact', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/contact','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/Contact', { reactApp: renderToString( <Contact blogs={blogs}/> ), meta: meta}) }))
 router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
-router.get('/privacy-policy', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
-router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
+router.get('/privacy-policy', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Privacypolicy', { reactApp: renderToString( <PrivacyPolicy/> ), meta: meta}) }))
+router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Terms', { reactApp: renderToString( <Terms/> ), meta: meta}) }))
 // // Regular Pages 
 
 // // Admin Pages 

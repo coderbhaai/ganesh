@@ -13,6 +13,7 @@ export class AddBlog extends Component {
         this.state = {
             title:                      '',
             blogURL:                    '',
+            excerpt:                    '',
             content:                    '',
             catOptions:                 [],
             tagOptions:                 [],
@@ -55,6 +56,7 @@ export class AddBlog extends Component {
         data.append('file', this.state.blogImage)
         data.append('title', this.state.title)
         data.append('url', this.state.blogURL.replace(/ /g,"-"))
+        data.append('excerpt', this.state.excerpt)
         data.append('content', this.state.content)
         data.append('category', JSON.stringify(this.state.selectedCategory) )
         data.append('tag', JSON.stringify(this.state.selectedTag) )
@@ -93,7 +95,11 @@ export class AddBlog extends Component {
                                         <label>Featured Image (1800px X 750px)</label>
                                         <input className="form-control" type="file" onChange={this.blogImage}/>
                                     </div>
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-12 mb-3">
+                                        <label>Excerpt</label>
+                                        <textarea className="form-control" name="excerpt" required value={this.state.excerpt} onChange={this.onChange}></textarea>
+                                    </div>
+                                    <div className="col-sm-12 mb-3">
                                         <label>Blog Content</label>
                                         <CKEditor 
                                             onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) }
