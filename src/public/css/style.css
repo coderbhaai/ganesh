@@ -2275,7 +2275,8 @@ footer .akk {
           cursor: pointer; }
       .text-headingList .tabs ul li.active {
         background: #fff;
-        color: #e1672e; }
+        color: #e1672e;
+        margin-bottom: 0; }
 
 .puja .row {
   align-items: center; }
