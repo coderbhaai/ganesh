@@ -61,7 +61,7 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
                                                     <p>Warm Regards</p>
                                                     <p>Team pujarambh Eagle</p>
                                                     `
-                                                let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambh.com>', cc: "amit.khare588@gmail.com", subject: `${req.body.name} regsitered on website ✔ www.pujarambh.com`, html: mailBody }
+                                                let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambh.com>', cc: "amit.khare588@gmail.com", subject: `${req.body.name} registered on website ✔ www.pujarambh.com`, html: mailBody }
                                                 transporter.sendMail( mailOptions, (error, info)=>{
                                                     if(error){ func.printError(err) }
                                                     func.printError("Message sent: %s")
@@ -286,7 +286,7 @@ router.post('/gofbRegister', asyncMiddleware( async(req, res, next) => {
                                                 <p>Warm Regards</p>
                                                 <p>Team Pujarambh</p>
                                                 `
-                                            let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambh.com>', cc: "amit.khare588@gmail.com", subject: `${req.body.name} regsitered on website ✔ www.pujarambh.com`, html: mailBody }
+                                            let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambh.com>', cc: "amit.khare588@gmail.com", subject: `${req.body.name} registered on website ✔ www.pujarambh.com`, html: mailBody }
                                             transporter.sendMail( mailOptions, (error, info)=>{
                                                 if(error){ return func.printError(error)}
                                                 func.printError("Message sent: %s")

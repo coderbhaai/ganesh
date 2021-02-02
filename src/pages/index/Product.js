@@ -277,6 +277,9 @@ export class Product extends Component {
                             <div className="col-sm-3 imgZoom">
                                 { this.state.product.images && this.state.currentImg ?
                                     <>
+                                        <div className="thumbnail web">
+                                            {JSON.parse(this.state.product.images).map((i, index)=>( <img key={index} src={"/images/product/"+i} onClick={()=>this.changeImg(i)}/>))}
+                                        </div>
                                         <ReactImageMagnify {...{
                                             smallImage: {
                                                 alt: 'Wristwatch by Ted Baker London',
@@ -289,8 +292,15 @@ export class Product extends Component {
                                                 height: 900
                                             }
                                         }} />
-                                        <div className="thumbnail">
-                                            {JSON.parse(this.state.product.images).map((i, index)=>( <img key={index} src={"/images/product/"+i} onClick={()=>this.changeImg(i)}/>))}
+                                        <div className="changeQty flex-sb">
+                                            <div>
+                                                <label>Quantity</label>
+                                                <ul>
+                                                    <li onClick={()=>this.removeFromCart(this.state.product)}>-</li>
+                                                    <li>{this.state.cart.filter(i=>i[1]==this.state.product.id).length ? this.state.cart.filter(i=>i[1]==this.state.product.id)[0][0] : 0 }</li>
+                                                    <li onClick={()=>this.addToCart(this.state.product)}>+</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <button className="amitBtn" onClick={()=>this.addToCart(this.state.product)}>Add To Cart</button>
                                     </>
@@ -320,14 +330,14 @@ export class Product extends Component {
                                 </div> */}
 
                                 <div className="changeQty flex-sb mt-5">
-                                    <div>
+                                    {/* <div>
                                         <label>Quantity</label>
                                         <ul>
                                             <li onClick={()=>this.removeFromCart(this.state.product)}>-</li>
                                             <li>{this.state.cart.filter(i=>i[1]==this.state.product.id).length ? this.state.cart.filter(i=>i[1]==this.state.product.id)[0][0] : 0 }</li>
                                             <li onClick={()=>this.addToCart(this.state.product)}>+</li>
                                         </ul>
-                                    </div>
+                                    </div> */}
                                     <div>
                                         <label>Share With</label>
                                         <ProductShare title={this.state.product.name} url={"https://pujarambh.com/product/"+this.state.product.url} media={"https://pujarambh.com/images/product/"+this.state.currentImg}/>

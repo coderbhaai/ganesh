@@ -496,4 +496,12 @@
     -o-transition-timing-function:linear!important; 
     transition-timing-function:linear!important;
 }
+@media (max-width:991px) {
+  .swiper-button-prev{
+    left: 0
+  }
+  .swiper-button-next{
+    right: 0
+  }
+}
 /* Swiper CSS */

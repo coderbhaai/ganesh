@@ -431,6 +431,9 @@ form{
 .rs{
   font-size: 18px;
 }
+.mobile{
+  display: none;
+}
 @media (min-width: 992px) {
   .toggle-btn {
     display: none;
@@ -458,8 +461,31 @@ form{
     max-width: 100%;
   }
 }
+@media (max-width:767px) {
+  .web{
+    display: none;
+  }
+  .mobile{
+    display: block;
+  }
+}
 @media (max-width:640px) {
   .navbar {
     padding: 0 1em;
+  }
+}
+@media (max-width:440px) {
+  .button-wrap {
+    flex-direction: column;
+    .button-slanted{
+      transform: unset;
+      margin-top: 5px;
+      .button-slanted-content{
+        transform: unset;
+      }
+      &::after{
+        content: none;
+      }
+    }
   }
 }

@@ -446,6 +446,9 @@ form input {
 .rs {
   font-size: 18px; }
 
+.mobile {
+  display: none; }
+
 @media (min-width: 992px) {
   .toggle-btn {
     display: none; }
@@ -467,9 +470,26 @@ form input {
   .container {
     max-width: 100%; } }
 
+@media (max-width: 767px) {
+  .web {
+    display: none; }
+  .mobile {
+    display: block; } }
+
 @media (max-width: 640px) {
   .navbar {
     padding: 0 1em; } }
+
+@media (max-width: 440px) {
+  .button-wrap {
+    flex-direction: column; }
+    .button-wrap .button-slanted {
+      transform: unset;
+      margin-top: 5px; }
+      .button-wrap .button-slanted .button-slanted-content {
+        transform: unset; }
+      .button-wrap .button-slanted::after {
+        content: none; } }
 
 /* Swiper CSS */
 /* Swiper CSS */
@@ -963,6 +983,12 @@ button.swiper-pagination-bullet {
   -webkit-transition-timing-function: linear !important;
   -o-transition-timing-function: linear !important;
   transition-timing-function: linear !important; }
+
+@media (max-width: 991px) {
+  .swiper-button-prev {
+    left: 0; }
+  .swiper-button-next {
+    right: 0; } }
 
 /* Swiper CSS */
 .AdminBar {
@@ -1736,6 +1762,11 @@ i.icon.delete:before {
   line-height: .1em;
   vertical-align: -.4em; }
 
+@media (max-width: 991px) {
+  .single .single-caption h1 {
+    text-shadow: 1px 1px black;
+    font-size: 1em; } }
+
 .cart tbody td {
   vertical-align: middle; }
 
@@ -1955,6 +1986,42 @@ form .rating {
       max-width: 30px;
       margin-right: 1em; }
 
+.cartLoop {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1em; }
+  .cartLoop .previewImg {
+    max-width: unset;
+    max-height: 150px;
+    width: auto; }
+  .cartLoop > div {
+    margin-left: 10px; }
+    .cartLoop > div .price {
+      color: #e1672e;
+      font-weight: 600;
+      letter-spacing: 2px; }
+
+.cartSummary li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1em; }
+  .cartSummary li div p {
+    margin: 0;
+    line-height: 1.5em; }
+
+.cartSummary .total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+  .cartSummary .total p {
+    color: #e1672e;
+    font-weight: 600; }
+
+.cartSummary hr {
+  margin-bottom: .5em; }
+
 /* Price Slider */
 .range-slider {
   margin: auto;
@@ -2072,6 +2139,13 @@ input[type=range]::-ms-thumb {
   cursor: pointer; }
 
 /* Price Slider */
+@media (max-width: 767px) {
+  .cartList {
+    margin-bottom: 1em; }
+  .cartLoop .changeQty ul li {
+    height: 30px;
+    width: 30px; } }
+
 @font-face {
   font-family: 'XXII ARABIAN-ONENIGHTSTAND Bold';
   font-style: normal;
@@ -2255,8 +2329,6 @@ footer .akk {
   display: flex;
   align-items: center;
   justify-content: space-between; }
-  .text-heading h2 {
-    padding: 0.5em 0; }
 
 .text-headingList {
   background-color: #e1672e;
@@ -2270,7 +2342,8 @@ footer .akk {
       display: flex; }
       .text-headingList .tabs ul li {
         padding: 1em;
-        border-radius: 5px 5px 0 0; }
+        border-radius: 5px 5px 0 0;
+        color: #fff; }
         .text-headingList .tabs ul li:hover {
           cursor: pointer; }
       .text-headingList .tabs ul li.active {
@@ -2502,6 +2575,9 @@ footer .akk {
   display: -webkit-box;
   -webkit-line-clamp: 1; }
 
+.cartIconMobile {
+  display: none; }
+
 @media (max-width: 1400px) {
   .nav-link {
     padding: 1.5rem 1rem; } }
@@ -2527,6 +2603,18 @@ footer .akk {
     min-width: 300px; } }
 
 @media (max-width: 991px) {
+  .cartIconMobile {
+    display: block;
+    max-width: 30px;
+    display: flex;
+    align-items: center; }
+    .cartIconMobile img {
+      padding-right: 10px; }
+  .cartToggle {
+    display: flex;
+    min-width: 80px;
+    align-items: center;
+    justify-content: space-between; }
   .amitBtn {
     max-width: unset;
     min-width: unset;
@@ -2553,11 +2641,49 @@ footer .akk {
     text-align: left;
     padding-left: 1em; }
   .blogList h2 {
-    text-align: left; }
+    margin: 1em 0; }
+  .blogList .blogData {
+    text-align: center; }
+    .blogList .blogData ul li h4 {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #edcb74;
+      text-align: center; }
+    .blogList .blogData ul li p {
+      text-align: center; }
+    .blogList .blogData h3 {
+      left: 0;
+      right: 0;
+      max-width: 180px;
+      margin: 2em auto; }
   .testis {
-    padding: 1em 0; } }
+    padding: 1em 0; }
+    .testis .container .hindi {
+      margin: 1em 0 0; }
+  .product h4 {
+    width: unset;
+    text-align: center; }
+  .text-headingList .tabs {
+    padding-top: 0; }
+    .text-headingList .tabs ul li {
+      border-radius: 0; } }
 
 @media (max-width: 767px) {
+  .banner .caption {
+    top: 5%;
+    left: 0;
+    right: 0;
+    text-align: center; }
+    .banner .caption h1 {
+      max-width: unset; }
+    .banner .caption p {
+      text-align: center;
+      color: #902487;
+      background-color: transparent;
+      margin-bottom: 0; }
+    .banner .caption .amitBtn {
+      max-width: 150px;
+      margin: 2em 0; }
   .blogList {
     padding: 2em; }
     .blogList .blogData ul {
@@ -2568,14 +2694,10 @@ footer .akk {
       padding: 1rem 1rem; } }
 
 @media (max-width: 640px) {
-  .banner .caption {
-    left: 0.5em; }
-    .banner .caption h1 {
-      font-size: 12px; }
-    .banner .caption p {
-      font-size: 1em; }
-  .text-heading {
-    padding: 1em 2em; }
+  .banner .caption h1 {
+    font-size: 12px; }
+  .banner .caption p {
+    font-size: 1.5em; }
   footer .akk p {
     text-align: center;
     padding: 0; }
@@ -2586,21 +2708,11 @@ footer .akk {
     font-size: 1.5em; } }
 
 @media (max-width: 440px) {
-  .banner .caption {
-    left: 0.5em; }
-    .banner .caption h1 {
-      font-size: 12px;
-      margin-bottom: 0;
-      max-width: 120px; }
-    .banner .caption p {
-      color: #902487;
-      background-color: transparent;
-      text-align: left;
-      margin-bottom: 0; }
+  .banner .caption h1 {
+    font-size: 12px;
+    margin-bottom: 0; }
   .text-heading {
-    padding: .5em 1em; }
-    .text-heading h2 {
-      font-size: 16px; }
+    padding: .5em 0em; }
     .text-heading ul li {
       padding: .5em; }
   .blogList {

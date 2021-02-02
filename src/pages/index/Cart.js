@@ -30,8 +30,8 @@ export class Cart extends Component {
             // address:                '1172',
             // pin:                    '122002',
             // message:                'Hi',
-            appId:                      '51409786e7f06e6c43c7d7c3d90415',
-            secretKey:                  '414a13ae0b6afb753ca031a73e35129a6f35ea57'
+            // appId:                      '51409786e7f06e6c43c7d7c3d90415',
+            // secretKey:                  '414a13ae0b6afb753ca031a73e35129a6f35ea57'
         }
     }
     
@@ -53,6 +53,7 @@ export class Cart extends Component {
 
     payment=(e)=>{
         e.preventDefault()
+        console.log('Initiate Payment')
         this.setState({ paymentInProcess: true })
         const cost = this.reduceCart();
         const data={
@@ -62,16 +63,18 @@ export class Cart extends Component {
             email :                 this.state.email,
             name:                   this.state.name
         } 
-        axios.post('/admin/placeOrder', data)
-            .catch(err=>{ func.printError(err) })
-            .then(res=>{
-                if(res.data.success){ 
-                    this.setState({ cart: [] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
-                    localStorage.setItem('message', res.data.message)
-                    this.setState({ paymentInProcess: false })
-                    window.location.href = '/thank-you'
-                }
-            })
+
+        
+        // axios.post('/admin/placeOrder', data)
+        //     .catch(err=>{ func.printError(err) })
+        //     .then(res=>{
+        //         if(res.data.success){ 
+        //             this.setState({ cart: [] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
+        //             localStorage.setItem('message', res.data.message)
+        //             this.setState({ paymentInProcess: false })
+        //             window.location.href = '/thank-you'
+        //         }
+        //     })
     }
 
     removeItem=(index)=>{
@@ -88,8 +91,48 @@ export class Cart extends Component {
                     {this.state.cart.length?
                         <>
                             <div className="row">
-                                <div className="col-sm-12">
-                                    <table className="table table-hover table-responsive">
+                                <div className="col-sm-9 cartList">
+                                { this.state.cart.map((i, index)=>{ return (
+                                    <div className="cartLoop" key={index}>
+                                        <a href={"/product/"+i[6]}><img src={"/images/product/"+i[2]} className="previewImg"/></a>
+                                        <div>
+                                            <a href={"/product/"+i[6]}><p>{i[3]}</p></a>
+                                            <p className="price">&#8377;{i[4]}</p>
+                                            <div className="changeQty flex-sb">
+                                                <div>
+                                                    <label>Quantity</label>
+                                                    <ul>
+                                                        <li onClick={()=>this.removeFromCart(i)}>-</li>
+                                                        <li>{this.state.cart.filter(i=>i[1]==i.id).length ? this.state.cart.filter(i=>i[1]==i.id)[0][0] : 0 }</li>
+                                                        <li onClick={()=>this.addToCart(i)}>+</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )})}
+                                </div>
+                                <div className="col-sm-3 cartSummary">
+                                    <h3>YOUR CART</h3>
+                                    { this.state.cart.map((i, index)=>{ return (
+                                        <ul>
+                                            <li>
+                                                <div>
+                                                    <p>{i[3]}</p>
+                                                    <p><span>{i[0]} Item</span></p>
+                                                </div>
+                                                <p>&#8377;{i[0]*i[4] ? i[0]*i[4] : 0 }</p>
+                                            </li>
+                                        </ul>
+                                    )})}
+                                    <hr/>
+                                    <div className="total">
+                                        <h3>Total</h3>
+                                        <p>&#8377;{this.reduceCart()}</p>
+                                    </div>
+                                </div>
+
+                                    {/* <table className="table table-hover table-responsive">
                                         <thead>
                                             <tr>
                                                 <td>Sl no.</td>
@@ -121,8 +164,8 @@ export class Cart extends Component {
                                             </tr>
                                             : null}
                                         </tbody>
-                                    </table>
-                                </div>
+                                    </table> */}
+                                {/* </div> */}
                             </div>
                             <form encType="multipart/form-data" onSubmit={this.payment} className="my-5">
                                 <h2 className="heading">Shipping Address</h2>
@@ -163,7 +206,7 @@ export class Cart extends Component {
                                         <label>Message</label>
                                         <textarea type="text" name="message" required className="form-control" placeholder="Message" value={this.state.message} onChange={this.onChange}></textarea>
                                     </div>
-                                    <div className="w-100 mt-5">
+                                    <div className="col-sm-12 w-100 mt-5">
                                         <h3>Final Invoice : &#8377;{this.reduceCart()}</h3>
                                             {/* <span>Cost <strong>&#8377;{this.reduceCart()}</strong> </span>
                                             {this.state.paymentInProcess ?

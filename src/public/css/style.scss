@@ -215,9 +215,6 @@ footer{
    display: flex;
    align-items: center;
    justify-content: space-between;
-   h2{
-      padding: 0.5em 0;
-   }
 }
 .text-headingList{
    background-color: $primary;
@@ -232,6 +229,7 @@ footer{
          li{
             padding: 1em;
             border-radius: 5px 5px 0 0;
+            color: #fff;
             &:hover{
                cursor: pointer;
             }
@@ -523,6 +521,9 @@ footer{
    display: -webkit-box;
    -webkit-line-clamp: 1;
 }
+.cartIconMobile{
+   display: none;
+}
 @media (max-width:1400px) {
    .nav-link {
       padding: 1.5rem 1rem;
@@ -565,6 +566,21 @@ footer{
    }
 }
 @media (max-width:991px) {   
+   .cartIconMobile{
+      display: block;
+      max-width: 30px;
+      display: flex;
+      align-items: center;
+      img{
+         padding-right: 10px;
+      }
+   }
+   .cartToggle{
+      display: flex;
+      min-width: 80px;
+      align-items: center;
+      justify-content: space-between;
+   }
    .amitBtn{
       max-width: unset;
       min-width: unset;
@@ -610,14 +626,78 @@ footer{
    }
    .blogList{
       h2{
-         text-align: left;
+         margin: 1em 0;
       }
+      .blogData{
+         text-align: center;
+         ul{
+            li{
+               h4{
+                  text-transform: uppercase;
+                  letter-spacing: 1px;
+                  color: $golden;
+                  text-align: center;
+               }
+               p{
+                  text-align: center;
+               }
+            }
+         }
+         h3{
+            left: 0;
+            right: 0;
+            max-width: 180px;
+            margin: 2em auto;
+         }
+      } 
    } 
    .testis {
       padding: 1em 0;
-  }
+      .container{
+         .hindi{
+            margin: 1em 0 0;
+         }
+      }
+   }
+   .product{
+      h4{
+         width: unset;
+         text-align: center;
+      }
+   }
+   .text-headingList{
+      .tabs{
+         padding-top: 0;
+         ul{
+            li{
+               border-radius: 0;
+            }
+         }
+      }
+   }
 }
 @media (max-width:767px) {
+   .banner {
+      .caption {
+         top: 5%;
+         left: 0;
+         right: 0;
+         text-align: center;
+         h1{
+            max-width: unset;
+         }
+         p {
+            text-align: center;
+            color: $purple;
+            background-color: transparent;
+            margin-bottom: 0;
+         }
+         .amitBtn{
+            max-width: 150px;
+            margin: 2em 0;
+         }
+      }
+   }
    .blogList{
       padding: 2em;
       .blogData{
@@ -636,17 +716,13 @@ footer{
 @media (max-width:640px) {
    .banner {
       .caption {
-         left: 0.5em;
          h1{
             font-size: 12px;
          }
          p {
-            font-size: 1em;
+            font-size: 1.5em;
          }
       }
-   }
-   .text-heading {
-      padding: 1em 2em;
    }
    footer{
       .akk{
@@ -667,25 +743,14 @@ footer{
 @media (max-width:440px) {
    .banner {
       .caption {
-         left: 0.5em;
          h1{
             font-size: 12px;
-            margin-bottom: 0;
-            max-width: 120px;
-         }
-         p {
-            color: $purple;
-            background-color: transparent;
-            text-align: left;
             margin-bottom: 0;
          }
       }
    }
    .text-heading {
-      h2{
-         font-size: 16px;
-      }
-      padding: .5em 1em;
+      padding: .5em 0em;
       ul{
          li{
             padding: .5em;

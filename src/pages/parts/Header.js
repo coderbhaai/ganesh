@@ -46,7 +46,10 @@ export class Header extends Component {
                 <nav className="navbar sticky-top container">
                     <a className="navbar-brand" href="/"><img src="/images/logo.svg" className="logo"/></a>
                     {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button> */}
-                    <div className="toggle-btn" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></div>
+                    <div className="cartToggle">
+                        <div className="toggle-btn" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></div>
+                        <a href="/cart" className="cartIconMobile"> <img src="/images/icons/cart-orange.svg"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
+                    </div>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item"><a className="nav-link active" href="#">Home</a></li>
@@ -77,7 +80,7 @@ export class Header extends Component {
                         </ul>
                         <div className="header-social">
                             <div>
-                                <a href=""><img src="/images/icons/facebook-white.svg"/></a>
+                                <a href="https://www.facebook.com/Pujarambh" target="_blank"><img src="/images/icons/facebook-white.svg"/></a>
                                 <a href=""><img src="/images/icons/linkedin-white.svg"/></a>
                                 <a href=""><img src="/images/icons/twitter-white.svg"/></a>
                                 <a href=""><img src="/images/icons/instagram-white.svg"/></a>

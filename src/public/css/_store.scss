@@ -274,6 +274,51 @@ form{
     }
   }
 }
+.cartLoop{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1em;
+  .previewImg {
+    max-width: unset;
+    max-height: 150px;
+    width: auto;
+  }
+  >div{
+    margin-left: 10px;
+    .price{
+      color: $primary;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+  }
+}
+.cartSummary{
+  li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    div{
+      p{
+        margin: 0;
+        line-height: 1.5em;
+      }
+    }
+  }
+  .total{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    p{
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+  hr{
+    margin-bottom: .5em;
+  }
+}
 /* Price Slider */
 .range-slider {
     margin: auto;
@@ -391,3 +436,14 @@ form{
     cursor: pointer;
   }
   /* Price Slider */
+  @media (max-width:767px) {
+    .cartList{
+      margin-bottom: 1em;
+    }
+    .cartLoop{
+      .changeQty ul li{
+        height: 30px;
+        width: 30px;
+      }
+    }
+  }

@@ -71,7 +71,8 @@ export class index extends Component {
             <>
                 <Header cart={this.state.cart.length}/>
                 <section className="banner">
-                    <img src="/images/static/banner.jpg"/>
+                    <img src="/images/static/banner.jpg" className="web"/>
+                    <img src="/images/static/banner-m.jpg" className="mobile"/>
                     <div className="caption">
                         <h1>BOOK YOUR PANDIT ONLINE FOR</h1>
                         <p className="hindi">Ganesh Puja</p>
@@ -91,7 +92,7 @@ export class index extends Component {
                             <button className="amitBtn">Read More</button>
                         </div>
                         <div className="col-sm-3">
-                            <img src="/images/static/puja.jpg"/>
+                            <img src="/images/static/puja.jpg" className="web"/>
                         </div>
                     </div>
                 </div>
@@ -113,13 +114,13 @@ export class index extends Component {
                                     { this.state.active == 'Product' ?
                                         <>
                                         <div className="col-sm-12 mb-5">
-                                            <h4>Puja Samagri</h4>
+                                            <h4 className="hindi">Puja Samagri</h4>
                                             <Swiper {...func.params}> 
                                                 {this.state.products.filter(i=>i.type == 3).map((i,index)=>(
                                                     <div key={index}>
                                                         <div className="imgBox">
                                                             <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                            { this.state.cart.some(x => x[1] === i.id) ? 
+                                                            {/* { this.state.cart.some(x => x[1] === i.id) ? 
                                                                 <div className="cartBtnGroup flex-sb">
                                                                     <div className="plusMinus">
                                                                         <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
@@ -133,7 +134,7 @@ export class index extends Component {
                                                                         <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
                                                                     )})}
                                                                 </div>
-                                                            : null}
+                                                            : null} */}
                                                         </div>
                                                         {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                         <div className="productDetail">
@@ -153,13 +154,13 @@ export class index extends Component {
                                             </Swiper>
                                         </div>
                                         <div className="col-sm-12">
-                                            <h4>Home Decor</h4>
+                                            <h4 className="hindi">Home Decor</h4>
                                             <Swiper {...func.params}> 
                                             {this.state.products.filter(i=>i.type == 4).map((i,index)=>( 
                                                     <div key={index}>
                                                         <div className="imgBox">
                                                             <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                            { this.state.cart.some(x => x[1] === i.id) ? 
+                                                            {/* { this.state.cart.some(x => x[1] === i.id) ? 
                                                                 <div className="cartBtnGroup flex-sb">
                                                                     <div className="plusMinus">
                                                                         <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
@@ -173,7 +174,7 @@ export class index extends Component {
                                                                         <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
                                                                     )})}
                                                                 </div>
-                                                            : null}
+                                                            : null} */}
                                                         </div>
                                                         {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                         <div className="productDetail">
@@ -196,13 +197,13 @@ export class index extends Component {
                                     : this.state.active == 'Service' ? 
                                         <>
                                             <div className="col-sm-12 mb-5">
-                                                <h4>Organize Puja</h4>
+                                                <h4 className="hindi">Organize Puja</h4>
                                                 <Swiper {...func.params}> 
                                                     {this.state.products.filter(i=>i.type == 1).map((i,index)=>( 
                                                         <div key={index}>
                                                             <div className="imgBox">
                                                                 <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                                { this.state.cart.some(x => x[1] === i.id) ? 
+                                                                {/* { this.state.cart.some(x => x[1] === i.id) ? 
                                                                     <div className="cartBtnGroup flex-sb">
                                                                         <div className="plusMinus">
                                                                             <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
@@ -216,7 +217,7 @@ export class index extends Component {
                                                                             <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
                                                                         )})}
                                                                     </div>
-                                                                : null}
+                                                                : null} */}
                                                             </div>
                                                             {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                             <div className="productDetail">
@@ -236,13 +237,13 @@ export class index extends Component {
                                                 </Swiper>
                                             </div>
                                             <div className="col-sm-12">
-                                                <h4>Astro Consultation</h4>
+                                                <h4 className="hindi">Astro Consultation</h4>
                                                 <Swiper {...func.params}> 
                                                     {this.state.products.filter(i=>i.type == 2).map((i,index)=>( 
                                                         <div key={index}>
                                                             <div className="imgBox">
                                                                 <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                                { this.state.cart.some(x => x[1] === i.id) ? 
+                                                                {/* { this.state.cart.some(x => x[1] === i.id) ? 
                                                                     <div className="cartBtnGroup flex-sb">
                                                                         <div className="plusMinus">
                                                                             <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
@@ -256,7 +257,7 @@ export class index extends Component {
                                                                             <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
                                                                         )})}
                                                                     </div>
-                                                                : null}
+                                                                : null} */}
                                                             </div>
                                                             {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                             <div className="productDetail">
