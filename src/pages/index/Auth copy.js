@@ -49,8 +49,7 @@ class Auth extends Component {
             email:                      this.state.email,
             role:                       this.state.role,
             password:                   this.state.password,
-            password_confirmation:      this.state.password
-            // password_confirmation:      this.state.password_confirmation
+            password_confirmation:      this.state.password_confirmation
         }               
         axios.post(api.register, data)
         .then( res=>{
@@ -168,46 +167,44 @@ class Auth extends Component {
                 <Header/>
                 <section className="auth py-5">
                     <div className="container">
+                        {/* <h1 className="heading">Register</h1> */}
                         <div className="row">
-                            <div className="col-sm-8">
+                            {/* <div className="col-sm-4 flex-h">
                                 <img src="images/static/register.jpg" alt=""/>
-                            </div>
-                            <div className="col-sm-4 authBox">
-                                <h1 className="heading">{this.state.active}</h1>
-                                {/* <ul>
+                            </div> */}
+                            <div className="col-sm-12">
+                                <ul>
                                     <li onClick={()=>this.changeActive('Register')} className={this.state.active =='Register' ? 'active' : null}>Register</li>
                                     <li onClick={()=>this.changeActive('Login')} className={this.state.active =='Login'  ? 'active' : null}>Login</li>
-                                    <li onClick={()=>this.changeActive('Reset')} className={this.state.active =='Reset' ? 'active' : null}>Forgot Password</li>
-                                </ul> */}
+                                    {/* <li onClick={()=>this.changeActive('Reset')} className={this.state.active =='Reset' ? 'active' : null}>Forgot Password</li> */}
+                                </ul>
                                 { this.state.active=='Register' ?
                                     <>
-                                    <p className="check">Already have an account? <span  onClick={()=>this.changeActive('Login')}>Sign In</span></p>
+                                        <form onSubmit={this.Register}>
+                                            <div className="row">
+                                                <div className="col-sm-6">
+                                                    <label>Name</label>
+                                                    <input type="text" className="form-control" name="name" value={this.state.name} required placeholder="Name Please" onChange={this.onChange}/>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <label>E-Mail Address</label>
+                                                    <input type="email" className="form-control" name="email" value={this.state.email} required placeholder="Email Please" onChange={this.onChange}/>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <label>Password</label>
+                                                    <input type="password" className="form-control" name="password" value={this.state.password} required placeholder="Password Please" onChange={this.onChange}/>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <label>Confirm Password</label>
+                                                    <input type="password" className="form-control" name="password_confirmation" value={this.state.password_confirmation} required placeholder="Confirm Password" onChange={this.onChange}/>
+                                                </div>
+                                            </div>
+                                            <div className="my-div"><button className="amitBtn" type="submit">Register</button></div>
+                                        </form>
                                         <div className="gofb">
                                             <GoogleLogin clientId={this.state.clientId} buttonText="Register with Google" onSuccess={regGoogle} onFailure={regGoogle} ></GoogleLogin>
                                             <FacebookLogin textButton="Sign up with Facebook" appId="885798875528804" autoLoad={false} fields="name,email,picture" callback={regFB}/>
                                         </div>
-                                        <p className="text-center my-3">Or create with</p>
-                                        <form onSubmit={this.Register}>
-                                            <div className="row">
-                                                <div className="col-sm-12">
-                                                    <label>Name</label>
-                                                    <input type="text" className="form-control" name="name" value={this.state.name} required placeholder="Name Please" onChange={this.onChange}/>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <label>E-Mail Address</label>
-                                                    <input type="email" className="form-control" name="email" value={this.state.email} required placeholder="Email Please" onChange={this.onChange}/>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <label>Password</label>
-                                                    <input type="password" className="form-control" name="password" value={this.state.password} required placeholder="Password Please" onChange={this.onChange}/>
-                                                </div>
-                                                {/* <div className="col-sm-6">
-                                                    <label>Confirm Password</label>
-                                                    <input type="password" className="form-control" name="password_confirmation" value={this.state.password_confirmation} required placeholder="Confirm Password" onChange={this.onChange}/>
-                                                </div> */}
-                                            </div>
-                                            <div className="my-div"><button className="amitBtn" type="submit">Register</button></div>
-                                        </form>
                                     </>
                                 : this.state.active=='Login' ?
                                     <>
@@ -220,14 +217,13 @@ class Auth extends Component {
                                                 <button className="amitBtn mr-5" type="submit">Login</button>
                                             </div>
                                         </form>
-                                        <p onClick={()=>this.changeActive('Forgot Password')} className='text-center check'><span>Forgot Password</span></p>
                                         <div className="gofb">
                                             <GoogleLogin clientId={this.state.clientId} buttonText="Login with Google" onSuccess={loginGoogle} onFailure={loginGoogle} ></GoogleLogin>
                                             <FacebookLogin appId="885798875528804" autoLoad={false} fields="name,email,picture" callback={loginFB}/>
                                         </div>
                                     </>
-                                : this.state.active=='Forgot Password' ?
-                                    <form onSubmit={this.ResetPassword} className="mt-5">
+                                : this.state.active=='Reset' ?
+                                    <form onSubmit={this.ResetPassword}>
                                         <div className="row">
                                             <div className="col-sm-12">
                                                 <label>E-Mail Address</label>

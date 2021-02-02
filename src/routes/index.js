@@ -2,6 +2,7 @@ import express from "express";
 import React from "react";
 import { renderToString } from "react-dom/server"
 import "regenerator-runtime/runtime.js"
+var crypto = require('crypto');
 
 import { decode } from "jsonwebtoken"
 
@@ -26,7 +27,7 @@ import ThankYou from "../pages/index/ThankYou"
 import FourOFour from "../pages/index/FourOFour"
 import PrivacyPolicy from "../pages/index/PrivacyPolicy"
 import Terms from "../pages/index/Terms"
-
+import Response from "../pages/index/Response"
 
 import Auth from "../pages/index/Auth"
 // import Register from "../pages/auth/Register"
@@ -353,6 +354,7 @@ router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = awa
 router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
 router.get('/privacy-policy', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/PrivacyPolicy', { reactApp: renderToString( <PrivacyPolicy/> ), meta: meta}) }))
 router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Terms', { reactApp: renderToString( <Terms/> ), meta: meta}) }))
+router.get('/response', asyncMiddleware( async(req, res, next) => { res.status(200).render('pages/Response', { reactApp: renderToString( <Response/> ), meta: []}) }))
 // // Regular Pages 
 
 // // Admin Pages 
@@ -379,6 +381,7 @@ router.get('/subcategory/:subcat', asyncMiddleware( async (req, res, next) => { 
 router.get('/product/:url', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Product', { reactApp: renderToString(<Product/>), meta: meta }) }))
 router.get('/product-tag/:url', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
 router.get('/cart', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
+router.get('/payment-response', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
 // Shopping
 
 router.get('/:url', asyncMiddleware( async(req, res, next) => {
@@ -406,5 +409,104 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
     }catch(e){ func.logError(e, req.url); res.status(403); return; }
   });
 }))
+
+// Payment Gateway
+  const appId = '51409786e7f06e6c43c7d7c3d90415'
+  // const secretKeyData = '414a13ae0b6afb753ca031a73e35129a6f35ea57'
+  const mode = 'TEST'
+
+  router.post('/getHash',function(req, res, next){
+    console.log('req.body', req.body);
+    var postData = {
+      "appId" : appId,
+      "orderId" : req.body.orderId,
+      "orderAmount" : req.body.orderAmount,
+      "orderCurrency" : req.body.orderCurrency,
+      "orderNote" : req.body.orderNote,
+      'customerName' : req.body.customerName,
+      "customerEmail" : req.body.customerEmail,
+      "customerPhone" : req.body.customerPhone,
+      "returnUrl" : req.body.returnUrl,
+      "notifyUrl" : req.body.notifyUrl
+    },
+    secretKey = req.body.secretKey,
+    sortedkeys = Object.keys(postData),
+    signatureData = "";
+    sortedkeys.sort();
+    for (var i = 0; i < sortedkeys.length; i++) {
+      var k = sortedkeys[i];
+      signatureData += k + postData[k];
+    }
+    var signature = crypto.createHmac('sha256',secretKey).update(signatureData).digest('base64');
+      postData['signature'] = signature;
+      res.send({ success: true, signature: signature });
+  });
+
+  router.post('/payment-response', asyncMiddleware( async(req, res, next) => {
+    if(req.body.txStatus){
+      const post ={
+        orderId:              req.body.orderId,
+        refId:                req.body.referenceId,
+        invoice:              req.body.orderAmount,
+        status:               1,
+        "created_at":         time,
+        "updated_at":         time,
+      }
+      let sql = `INSERT INTO orders SET ?`
+      pool.query(sql, post, (err, results) => {
+          try{
+            console.log('results', results)
+              if(err){ throw err }
+              if(results){ res.redirect('/payment-response'); }
+          }catch(e){ func.logError(e); res.status(500); return; }
+      })
+    }else{
+      res.redirect('/cart');
+    }
+  }))
+
+  router.post('/placeOrder', asyncMiddleware( async(req, res) => {
+    console.log('req.body in place order', req.body)
+    if(req.body.loggedIn){
+      var account           = 'Exists'
+      var buyer             = JSON.parse( req.body.user ).id
+      var message           = "Order Placed Successfully"
+      var name              = JSON.parse( req.body.user ).name
+      var email             = JSON.parse( req.body.user ).email
+      var user              = {}
+    }else{
+      var id                = await func.checkUser(JSON.parse(req.body.buyer)[0], JSON.parse(req.body.buyer)[1])
+      var account           = 'Created'
+      var buyer             = id[1]
+      var message           = id[4]
+      var name              = id[2].name
+      var email             = id[2].email
+      var user              = id[2]
+    }
+    let post= {
+            'buyer':                buyer,
+            'address':              'Dummy Address',
+            'cart':                 req.body.cart,
+            'status':               'Ordered',
+            "updated_at":           time
+        }
+        let sql = `UPDATE orders SET ? WHERE orderId = '${req.body.orderId}'`
+        pool.query(sql, post, async(err, results) => {
+            try{
+                if(err){ throw err }
+                if(results){
+                  // await func.mailOrderToSeller(req.body.cart) 
+                  // await func.mailOrderToBuyer( name, email, id[3], req.body.cart )
+                  res.send({ 
+                      success:    true,
+                      account:    account,
+                      user:       user,
+                      message:    message
+                  })
+                }
+            }catch(e){ func.logError(e); res.status(500); return; }
+        })
+    }))
+// Payment Gateway
 
 export default router;

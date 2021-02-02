@@ -660,46 +660,6 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
     })
 }))
 
-router.post('/placeOrder', asyncMiddleware( async(req, res) => {
-    const id                = await func.checkUser(req.body.name, req.body.email)
-    const order_number      = await func.latestOrderNumber()
-    const buyer = id[1]
-    const message = id[4]
-    var count = 0
-    JSON.parse(req.body.cart).forEach( i => {
-        let post= {
-            'order_number':         order_number,
-            'buyer':                buyer,
-            'address':              req.body.address,
-            'cart':                 JSON.stringify(i),
-            'invoice':              req.body.invoice,
-            'status':               'Ordered',
-            "created_at":           time,
-            "updated_at":           time
-        }
-        let sql =   `INSERT INTO orders SET ?`
-        pool.query(sql, post, async(err, results) => {
-            try{    
-                if(results){
-                    count++
-                    if(count == JSON.parse(req.body.cart).length){
-                        await func.mailOrderToSeller() 
-                        await func.mailOrderToBuyer( req.body.name, req.body.email, id[3] )
-                        res.send({ 
-                            success:    true,
-                            account:    id[0],
-                            user:       id[2],
-                            message:    message
-                        })
-                    }
-                }else if(err){ throw err }
-            }catch(e){ func.logError(e); res.status(500); return; }
-        })
-    })
-
-    
-}))
-
 router.get('/getOrders', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql = `SELECT a.id, a.order_number, a.buyer, a.address, a.cart, a.invoice, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a
     left join users as b on b.id = a.buyer `
@@ -873,8 +833,6 @@ router.get('/fetchShop', asyncMiddleware( async(req, res) => {
         }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
-
-
 
 
 

@@ -51,30 +51,30 @@ h1, h2, h3, h4, h5, h6{
    margin: 2em 0 1em 0;
    font-size: 2em;
 }
-.auth{
-   .row{
-      align-items: center;
-   }
-   ul{
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      margin-bottom: 2em;
-      li{
-         padding: 1em 2em;
-         border: 2px solid $primary;
-         background-color: transparent;
-         border-radius: 5px;
-         &:hover{
-            cursor: pointer;
-         }
-      }
-      li.active{
-         background-color: $primary;
-         color: #fff;
-      }
-   }
-}
+// .auth{
+//    .row{
+//       align-items: center;
+//    }
+//    ul{
+//       display: flex;
+//       align-items: center;
+//       justify-content: space-evenly;
+//       margin-bottom: 2em;
+//       li{
+//          padding: 1em 2em;
+//          border: 2px solid $primary;
+//          background-color: transparent;
+//          border-radius: 5px;
+//          &:hover{
+//             cursor: pointer;
+//          }
+//       }
+//       li.active{
+//          background-color: $primary;
+//          color: #fff;
+//       }
+//    }
+// }
 .header-social{
    display: inline-flex;
    >div{
@@ -496,9 +496,10 @@ footer{
       height: 50px;
    }
    .kep-login-facebook.metro{
-      padding: 10px 20px;
+      padding: 7px 10px;
       height: 50px;
       border-radius: 3px;
+      font-size: 12px;
    }
 }
 .links{
@@ -523,6 +524,37 @@ footer{
 }
 .cartIconMobile{
    display: none;
+}
+.auth{
+   background: url(/images/static/testis.jpg) no-repeat center;
+   background-size: cover;
+   img{
+      max-width: 300px;
+      margin: 0 auto;
+   }
+   .heading{
+      margin: 0;
+   }
+   .check{
+      text-align: center;
+      span{
+         text-decoration: underline;
+         color: $primary;
+         &:hover{
+            cursor: pointer;
+         }
+      }
+   }
+   .authBox{
+      background: #fff;
+      padding: 40px 48px;
+      border-radius: 5px;
+      border: 1px solid #d4dbe0;
+      .amitBtn{
+         width: 100%;
+         background: $primary;
+      }
+   }
 }
 @media (max-width:1400px) {
    .nav-link {

@@ -351,7 +351,8 @@ export function checkUser(name, email){
     return new Promise((resolve, reject) => {
         let sql = `SELECT id FROM users WHERE email = '${email}'`
         pool.query(sql, async(err, results) => {
-            try{    
+            try{  
+                if(err){ throw err }  
                 if(results){ 
                     if(results.length){
                         resolve(['Exists', results[0].id, {}, '', 'Order placed succesfully'])
@@ -391,7 +392,7 @@ export function checkUser(name, email){
                             }
                         })
                     }
-                }else if(err){ throw err }
+                }
             }catch(e){ logError(e); res.status(500); return; }
             
         })
