@@ -38,7 +38,6 @@ class Auth extends Component {
                 window.location.href = '/'
             }
         }
-        console.log('window.location.pathname.split("/")[1]', window.location.pathname.split("/")[1])
         if(window.location.pathname.split("/")[1] === 'reset-password'){ this.setState({ active: 'Reset Password' }) }
     }
 
@@ -166,8 +165,7 @@ class Auth extends Component {
             email:                      this.state.email,
             password:                   this.state.password,
             confirm_password:           this.state.confirm_password
-        } 
-        console.log('data', data)              
+        }           
         axios.post('/auth/resetPassword', data)
             .then(res=> {
                 if(res.data.success){
