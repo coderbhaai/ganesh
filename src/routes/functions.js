@@ -349,13 +349,15 @@ export function productReview(id) {
 
 export function checkUser(name, email){
     return new Promise((resolve, reject) => {
-        let sql = `SELECT id FROM users WHERE email = '${email}'`
+        // let sql = `SELECT id FROM users WHERE email = '${email}'`
+        let sql = `SELECT id, name, email, role, password from users WHERE email = '${email}'`
         pool.query(sql, async(err, results) => {
             try{  
                 if(err){ throw err }  
                 if(results){ 
                     if(results.length){
-                        resolve(['Exists', results[0].id, {}, '', 'Order placed succesfully'])
+                        const user={ id: results[0].id, name: results[0].name, email: results[0].email, role: results[0].role, auth: true }
+                        resolve(['Exists', results[0].id, user, '', 'Order placed succesfully'])
                     }else{
                         let post= {
                             'name':                       name, 
@@ -418,64 +420,98 @@ export function latestOrderNumber(){
     })
 }
 
-export function mailOrderToBuyer(name, email, password){
+// export function mailOrderToBuyer(loggedIn, name, email, password, cart){
+//     return new Promise((resolve, reject) => {
+//         if(password){
+//             var content = `<p>Your Account has also been created and the password is - <strong>${password}</strong>.</p><p>We are happy to serve you</p><br/>`
+//         }else{
+//             var content = `<p>We are happy to serve you</p><br/>`
+//         }
+//         const mailBody =`
+//             <h2><strong>Dear ${name}</strong></h2>
+//             <p>Your Order has been created and will be delivered soon.</p><br/>
+//             <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="http://localhost:3030/blog" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Your Order</a></button><br/>
+//             ${content}
+//             <p>Warm Regards</p>
+//             <p>Team Ecom</p>
+//             `
+//         let mailOptions = { to: email, from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Submitted ✔ www.pujarambh.com", html: mailBody }
+//         transporter.sendMail( mailOptions, (err, info)=>{ 
+//             if(err){ logError(err) }
+//             resolve( info )
+//         })
+//     })
+// }
+
+// export function mailOrderToSeller(){
+//     return new Promise((resolve, reject) => {
+//         const mailBody =`
+//             <h2><strong>Dear Team,</strong></h2>
+//             <p>Your have received an order on ECOM</p><br/>
+//             <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="http://localhost:3030/blog" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Order Received</a></button><br/>
+//             <p>Warm Regards</p>
+//             <p>Team Ecom</p>
+//             `
+//         let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Received ✔ www.pujarambh.com", html: mailBody }
+//         transporter.sendMail( mailOptions, (error, info)=>{ 
+//             if(error){ logError(error) }
+//             resolve( info )
+//         })
+//     })
+// }
+
+export function mailOrder(loggedIn, name, email, password, cart){
     return new Promise((resolve, reject) => {
         if(password){
             var content = `<p>Your Account has also been created and the password is - <strong>${password}</strong>.</p><p>We are happy to serve you</p><br/>`
         }else{
             var content = `<p>We are happy to serve you</p><br/>`
         }
-        const mailBody =`
+        const mailBody1 =`
             <h2><strong>Dear ${name}</strong></h2>
             <p>Your Order has been created and will be delivered soon.</p><br/>
-            <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="http://localhost:3030/blog" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Your Order</a></button><br/>
+            <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="https://pujarambh.com/user/admin" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Your Order</a></button><br/>
             ${content}
             <p>Warm Regards</p>
             <p>Team Ecom</p>
             `
-        let mailOptions = { to: email, from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Submitted ✔ www.bazaradda.com", html: mailBody }
-        transporter.sendMail( mailOptions, (error, info)=>{ 
+        let mailOptions1 = { to: email, from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Submitted ✔ www.pujarambh.com", html: mailBody1 }
+        transporter.sendMail( mailOptions1, (err, info)=>{ 
+            if(err){ logError(err) }
             resolve( info )
-            if(error){ logError(error) }
         })
-    })
-}
 
-export function mailOrderToSeller(){
-    return new Promise((resolve, reject) => {
-        const mailBody =`
-            <h2><strong>Dear Team,</strong></h2>
-            <p>Your have received an order on ECOM</p><br/>
-            <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="http://localhost:3030/blog" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Order Received</a></button><br/>
-            <p>Warm Regards</p>
-            <p>Team Ecom</p>
-            `
-        let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Received ✔ www.bazaradda.com", html: mailBody }
-        transporter.sendMail( mailOptions, (error, info)=>{ 
+        const mailBody2 =`
+        <h2><strong>Dear Team,</strong></h2>
+        <p>Your have received an order on ECOM</p><br/>
+        <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="https://pujarambh.com/admin/adminOrders" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Order Received</a></button><br/>
+        <p>Warm Regards</p>
+        <p>Team Ecom</p>
+        `
+
+        let mailOptions2 = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Received ✔ www.pujarambh.com", html: mailBody2 }
+        transporter.sendMail( mailOptions2, (err, info)=>{ 
+            if(err){ logError(err) }
             resolve( info )
-            if(error){ logError(error) }
         })
     })
 }
 
 export function verifyToken(req,res,next){
     if(req.cookies.token){
-      const bearerHeader = req.cookies.token
-      if(typeof bearerHeader !== 'undefined'){
-        req.token = bearerHeader
-        const { exp }  = decode(bearerHeader)
-        if (Date.now() >= exp * 1000) { 
-          res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
-          return;
-        }
-        next()
-      }else{
-        res.sendStatus(403)
-        return
-      }
+        const bearerHeader = req.cookies.token
+        if(typeof bearerHeader !== 'undefined'){
+            req.token = bearerHeader
+            const { exp }  = decode(bearerHeader)
+            if (Date.now() >= exp * 1000) { 
+                res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
+                return;
+            }
+            next()
+        }else{ res.sendStatus(403); return; }
     }else{
-      res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
-      return;
+        res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
+        return;
     }
 }
 
@@ -485,19 +521,32 @@ export function verifyAdmin(req,res,next){
         try{
             const user = jwt.verify(bearerHeader,'secretkey')
             if (user.user.role!=='Admin'){
-            res.redirect('/blog')
-            res.end()
-            return;
+                res.redirect('/blog')
+                res.end()
+                return;
             }
             next();
-        } catch(e){  
-            logError(e)        
-            res.status(403);
-            return;
-        }
-        }else{
-            res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
-        }
+        } catch(e){ logError(e); res.status(403); return; }
+    }else{
+        res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
+    }
+}
+
+export function verifyUser(req,res,next){
+    if(req.cookies.token){
+        const bearerHeader = req.cookies.token
+        try{
+            const user = jwt.verify(bearerHeader,'secretkey')
+            if (user.user.role!=='User'){
+                res.redirect('/blog')
+                res.end()
+                return;
+            }
+            next();
+        } catch(e){ logError(e); res.status(403); return; }
+    }else{
+        res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
+    }
 }
 
 function sendMailOnError(e) {
@@ -519,7 +568,7 @@ function sendMailOnError(e) {
   
 export function logError(e){
     // sendMailOnError(e)
-    console.log('e', e)
+    printError(e)
 }
 
 export function printError(mesg){ console.log('mesg', mesg) }

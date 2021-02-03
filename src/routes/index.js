@@ -3,9 +3,6 @@ import React from "react";
 import { renderToString } from "react-dom/server"
 import "regenerator-runtime/runtime.js"
 var crypto = require('crypto');
-
-import { decode } from "jsonwebtoken"
-
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -27,7 +24,6 @@ import ThankYou from "../pages/index/ThankYou"
 import FourOFour from "../pages/index/FourOFour"
 import PrivacyPolicy from "../pages/index/PrivacyPolicy"
 import Terms from "../pages/index/Terms"
-import Response from "../pages/index/Response"
 
 import Auth from "../pages/index/Auth"
 // import Register from "../pages/auth/Register"
@@ -52,6 +48,8 @@ import Products from "../pages/admin/Products"
 import AddProduct from "../pages/admin/AddProduct"
 import EditProduct from "../pages/admin/EditProduct"
 
+import UserAdmin from "../pages/user/UserAdmin"
+
 const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
 
@@ -74,6 +72,7 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
 
 // // Auth Pages
   router.get('/sign-up', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: meta }) }))
+  router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: [] }) }))
   // router.get('/register', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Register', { reactApp: renderToString(<Register />), meta: meta }) }))
   // router.get('/login', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Login', { reactApp: renderToString(<Login />), meta: meta }) }))
   // router.get('/forgot-password', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/ForgotPassword', { reactApp: renderToString(<ForgotPassword />), meta: meta }) }))
@@ -354,7 +353,6 @@ router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = awa
 router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
 router.get('/privacy-policy', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/PrivacyPolicy', { reactApp: renderToString( <PrivacyPolicy/> ), meta: meta}) }))
 router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Terms', { reactApp: renderToString( <Terms/> ), meta: meta}) }))
-router.get('/response', asyncMiddleware( async(req, res, next) => { res.status(200).render('pages/Response', { reactApp: renderToString( <Response/> ), meta: []}) }))
 // // Regular Pages 
 
 // // Admin Pages 
@@ -372,7 +370,13 @@ router.get('/response', asyncMiddleware( async(req, res, next) => { res.status(2
   router.get('/admin/adminProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/Products', { reactApp: renderToString(<Products/>), meta: [] }) }))
   router.get('/admin/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AddProduct', { reactApp: renderToString(<AddProduct/>), meta: [] }) }))
   router.get('/admin/editProduct/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/EditProduct', { reactApp: renderToString(<EditProduct/>), meta: [] }) }))
-// // Admin Pages
+  // // Admin Pages
+  
+  // User Pages
+  router.get('/user/admin', [func.verifyToken, func.verifyUser], asyncMiddleware( async(req, res, next) => { res.status(200).render('user/UserAdmin', { reactApp: renderToString(<UserAdmin/>), meta: [] }) }))
+  router.get('/user/user-admin', [func.verifyToken, func.verifyUser], asyncMiddleware( async(req, res, next) => { res.status(200).render('user/UserAdmin', { reactApp: renderToString(<UserAdmin/>), meta: [] }) }))
+
+// User Pages
 
 // Shopping
 router.get('/shop', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
@@ -416,7 +420,6 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
   const mode = 'TEST'
 
   router.post('/getHash',function(req, res, next){
-    console.log('req.body', req.body);
     var postData = {
       "appId" : appId,
       "orderId" : req.body.orderId,
@@ -455,7 +458,6 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
       let sql = `INSERT INTO orders SET ?`
       pool.query(sql, post, (err, results) => {
           try{
-            console.log('results', results)
               if(err){ throw err }
               if(results){ res.redirect('/payment-response'); }
           }catch(e){ func.logError(e); res.status(500); return; }
@@ -466,7 +468,6 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
   }))
 
   router.post('/placeOrder', asyncMiddleware( async(req, res) => {
-    console.log('req.body in place order', req.body)
     if(req.body.loggedIn){
       var account           = 'Exists'
       var buyer             = JSON.parse( req.body.user ).id
@@ -474,6 +475,7 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
       var name              = JSON.parse( req.body.user ).name
       var email             = JSON.parse( req.body.user ).email
       var user              = {}
+      var password          = ''
     }else{
       var id                = await func.checkUser(JSON.parse(req.body.buyer)[0], JSON.parse(req.body.buyer)[1])
       var account           = 'Created'
@@ -482,31 +484,40 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
       var name              = id[2].name
       var email             = id[2].email
       var user              = id[2]
+      var password          = id[3]
     }
     let post= {
-            'buyer':                buyer,
-            'address':              'Dummy Address',
-            'cart':                 req.body.cart,
-            'status':               'Ordered',
-            "updated_at":           time
-        }
-        let sql = `UPDATE orders SET ? WHERE orderId = '${req.body.orderId}'`
-        pool.query(sql, post, async(err, results) => {
-            try{
-                if(err){ throw err }
-                if(results){
-                  // await func.mailOrderToSeller(req.body.cart) 
-                  // await func.mailOrderToBuyer( name, email, id[3], req.body.cart )
-                  res.send({ 
-                      success:    true,
-                      account:    account,
-                      user:       user,
-                      message:    message
-                  })
+        'buyer':                buyer,
+        'address':              req.body.address,
+        'cart':                 req.body.cart,
+        'status':               'Ordered',
+        "updated_at":           time
+    }
+    let sql = `UPDATE orders SET ? WHERE orderId = '${req.body.orderId}'`
+    pool.query(sql, post, async(err, results) => {
+      try{
+          if(err){ throw err }
+          if(results){
+            if(!req.body.loggedIn){
+              jwt.sign({ user }, 'secretkey', (err, token)=>{
+                if(err) throw err;
+                if(token){
+                  user.token = token
+                  res.cookie('token', token)
                 }
-            }catch(e){ func.logError(e); res.status(500); return; }
-        })
-    }))
+              })
+            }
+            await func.mailOrder( req.body.loggedIn, name, email, password, req.body.cart )
+            res.send({ 
+                success:    true,
+                account:    account,
+                user:       user,
+                message:    message
+            })
+          }
+      }catch(e){ func.logError(e); res.status(500); return; }
+    })
+  }))
 // Payment Gateway
 
 export default router;

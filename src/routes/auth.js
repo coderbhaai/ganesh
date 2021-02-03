@@ -37,10 +37,11 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
                         role:                       req.body.role,
                     }
                     jwt.sign({ user }, 'secretkey', (err, token)=>{
+                        if(err) throw err;
                         if(token){
                             post.token  = token
                             bcrypt.genSalt(10, (err2, salt)=>{
-                                if(err) throw err;
+                                if(err2) throw err2;
                                 bcrypt.hash(req.body.password, salt, (err3, hash)=>{
                                     if(err3) throw err3;
                                     post.password = hash
@@ -143,7 +144,7 @@ router.post('/forgotPassword', asyncMiddleware( async(req, res, next) => {
                             const mailBody =`
                                 <h2><strong>Dear ${name}</strong></h2>
                                 <p>You requested for a password reset. Please click on the below link to reset the password.</p>
-                                <a href="http://localhost:3000/reset-password/${post.token}"><button>Reset Pasword</button></a>
+                                <a href="https://pujarambh.com/reset-password/${post.token}"><button>Reset Pasword</button></a>
             
                                 <p>Connect with us if you have not requested this.</p><br/>
                                 <p>Warm Regards</p>

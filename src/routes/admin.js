@@ -834,9 +834,16 @@ router.get('/fetchShop', asyncMiddleware( async(req, res) => {
     })
 }))
 
-
-
-
-
+router.get('/userOrders/:id', asyncMiddleware( async(req, res) => {
+    let sql =    `SELECT id, orderId, address, cart, invoice, status, remarks, updated_at FROM orders WHERE buyer = '${req.params.id}' ORDER BY id DESC;`
+    pool.query(sql, async(err, results) => {
+        try{    
+            if(err){ throw err }
+            if(results){
+                res.send({ data: results });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
 
 module.exports = router;

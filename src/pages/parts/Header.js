@@ -70,7 +70,7 @@ export class Header extends Component {
                                         <li className="nav-item dropdown">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.toSentenceCase(this.state.user.name)}</a>
                                             <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <a className="dropdown-item" href="/user-admin">Admin Panel</a>
+                                                <a className="dropdown-item" href="/user/admin">Admin Panel</a>
                                                 <a className="dropdown-item logout" onClick={this.logout}>Log Out</a>
                                             </div>
                                         </li>

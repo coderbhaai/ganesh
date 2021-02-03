@@ -4,20 +4,25 @@ export class AdminBar extends Component {
     constructor(props) {
         super(props)    
         this.state = {
-            active:        ''
+            active:         '',
+            role:           ''
         }
     }
 
     componentDidMount(){
         window.scrollTo(0, 0)
+        if(typeof(Storage) !== "undefined" && JSON.parse(localStorage.getItem('user'))){ 
+            this.setState({ role: JSON.parse(localStorage.getItem('user')).role || '' })
+        }
         this.setState({ active: window.location.pathname })
         if(window.location.pathname === '/admin/addBlog'){ this.setState({ active: '/admin/blogs' }) }
         if(window.location.pathname.split("/")[2] === 'updateBlog'){ this.setState({ active: '/admin/blogs' }) }
         if(window.location.pathname.split("/")[2] === 'editProduct'){ this.setState({ active: '/admin/adminProducts' }) }
+        if(window.location.pathname === '/user/admin'){ this.setState({ active: '/user/user-admin' }) }
     }
 
     render() {
-        const links=[
+        const adminLinks=[
             { url: "/admin/users", text: "Users" , active: '/admin/users' },
             { url: "/admin/basics", text: "Basics" , active: '/admin/basics' },
             { url: "/admin/meta", text: "Meta" , active: '/admin/meta' },
@@ -29,10 +34,17 @@ export class AdminBar extends Component {
             { url: "/admin/adminProducts", text: "Products", active: '/admin/adminProducts' },
             { url: "/admin/adminOrders", text: "Orders", active: '/admin/adminOrders' },
         ]
+        const userLinks=[
+            { url: "/user/user-admin", text: "My Orders" , active: '/user/user-admin' },
+        ]
         return (
             <div className="col-sm-2 AdminBar py-5">
                 <ul>
-                    {links.map((i, index)=>( <li key={index}><a href={i.url} className={this.state.active===i.active? "active" : null}>{i.text}</a></li> ))}
+                    {this.state.role=='Admin'?
+                        adminLinks.map((i, index)=>( <li key={index}><a href={i.url} className={this.state.active===i.active? "active" : null}>{i.text}</a></li> ))
+                    :
+                        userLinks.map((i, index)=>( <li key={index}><a href={i.url} className={this.state.active===i.active? "active" : null}>{i.text}</a></li> ))
+                    }
                 </ul>
             </div>
         )

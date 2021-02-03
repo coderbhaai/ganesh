@@ -62,9 +62,7 @@ export function sortArray(array, sortBy, type, direction){
     })
 }
 
-export function printError(mesg){
-    console.log('mesg', mesg)
-}
+export function printError(mesg){ console.log('mesg', mesg) }
 
 export const params = {
     slidesPerView: 2,

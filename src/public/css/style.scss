@@ -494,6 +494,7 @@ footer{
    margin-top: 2em;
    >button{
       height: 50px;
+      margin-right: 10px;
    }
    .kep-login-facebook.metro{
       padding: 7px 10px;
@@ -526,7 +527,7 @@ footer{
    display: none;
 }
 .auth{
-   background: url(/images/static/testis.jpg) no-repeat center;
+   background: url(/images/static/auth.jpg) no-repeat center;
    background-size: cover;
    img{
       max-width: 300px;
@@ -554,6 +555,16 @@ footer{
          width: 100%;
          background: $primary;
       }
+   }
+}
+.response{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
+   flex-direction: column;
+   img{
+      margin-bottom: 2em;
    }
 }
 @media (max-width:1400px) {
@@ -794,5 +805,12 @@ footer{
    }
    .header-social > div {
       min-width: 300px;
+   }
+   .gofb{
+      display: block;
+      text-align: center;
+      >button{
+         margin-bottom: 1em;
+      }
    }
 }

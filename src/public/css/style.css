@@ -1355,10 +1355,8 @@ input[readonly] {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap; }
-    .AdminBar ul li {
-      margin-right: 2em; }
-      .AdminBar ul li a {
-        padding: 0.5em 0; } }
+    .AdminBar ul li a {
+      padding: 0.5em; } }
 
 /* Semantic CSS */
 *,
@@ -2142,6 +2140,36 @@ form .rating {
 .cartSummary hr {
   margin-bottom: .5em; }
 
+.userOrders {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #e1672e;
+  margin-bottom: 2em; }
+  .userOrders .previewImg {
+    min-width: 80px;
+    margin-right: 1em; }
+  .userOrders .remarks {
+    margin-left: 1em;
+    width: 400px; }
+    .userOrders .remarks p {
+      text-align: center; }
+  .userOrders .prod {
+    display: flex;
+    align-items: center; }
+    .userOrders .prod a {
+      width: 100px; }
+
+.orderList {
+  width: 100%; }
+  .orderList > div {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px; }
+  .orderList > p {
+    color: #e1672e;
+    font-weight: 600; }
+
 @media (max-width: 767px) {
   .cartList {
     margin-bottom: 1em; }
@@ -2155,7 +2183,17 @@ form .rating {
   .cartLoop .previewImg {
     max-height: 120px; }
   .cart .remove {
-    max-width: 18px; } }
+    max-width: 18px; }
+  .userOrders {
+    display: block; }
+    .userOrders .prod p {
+      margin: 0; }
+    .userOrders .previewImg {
+      width: 60px; }
+    .userOrders .remarks {
+      width: unset; }
+  .orderList > div {
+    display: block; } }
 
 @font-face {
   font-family: 'XXII ARABIAN-ONENIGHTSTAND Bold';
@@ -2544,7 +2582,8 @@ footer .akk {
   justify-content: space-around;
   margin-top: 2em; }
   .gofb > button {
-    height: 50px; }
+    height: 50px;
+    margin-right: 10px; }
   .gofb .kep-login-facebook.metro {
     padding: 7px 10px;
     height: 50px;
@@ -2572,7 +2611,7 @@ footer .akk {
   display: none; }
 
 .auth {
-  background: url(/images/static/testis.jpg) no-repeat center;
+  background: url(/images/static/auth.jpg) no-repeat center;
   background-size: cover; }
   .auth img {
     max-width: 300px;
@@ -2594,6 +2633,15 @@ footer .akk {
     .auth .authBox .amitBtn {
       width: 100%;
       background: #e1672e; }
+
+.response {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column; }
+  .response img {
+    margin-bottom: 2em; }
 
 @media (max-width: 1400px) {
   .nav-link {
@@ -2735,4 +2783,9 @@ footer .akk {
   .blogList {
     padding: .5em; }
   .header-social > div {
-    min-width: 300px; } }
+    min-width: 300px; }
+  .gofb {
+    display: block;
+    text-align: center; }
+    .gofb > button {
+      margin-bottom: 1em; } }

@@ -38,6 +38,8 @@ class Auth extends Component {
                 window.location.href = '/'
             }
         }
+        console.log('window.location.pathname.split("/")[1]', window.location.pathname.split("/")[1])
+        if(window.location.pathname.split("/")[1] === 'reset-password'){ this.setState({ active: 'Reset Password' }) }
     }
 
     onChange = (e) => { this.setState({ [e.target.name]: e.target.value }) }
@@ -82,7 +84,7 @@ class Auth extends Component {
             .catch(err=>{ func.printError(err) })
     }
 
-    ResetPassword = e =>{
+    forgotPassword = e =>{
         e.preventDefault()
         const data={
             email:                      this.state.email
@@ -157,6 +159,27 @@ class Auth extends Component {
             .catch(err=>{ func.printError(err) })
     }
 
+    resetPassword=(e)=>{
+        e.preventDefault()
+        const data={
+            token:                      window.location.href.split("/").pop(),
+            email:                      this.state.email,
+            password:                   this.state.password,
+            confirm_password:           this.state.confirm_password
+        } 
+        console.log('data', data)              
+        axios.post('/auth/resetPassword', data)
+            .then(res=> {
+                if(res.data.success){
+                    localStorage.setItem('message', res.data.message)
+                    window.location.href = '/login'
+                }else{
+                    func.callSwal(res.data.message)
+                }
+            })
+            .catch(err=>{ func.printError(err) })
+    }
+
     render() {
         const regGoogle = (res) => { this.gofbRegisteration(res, 'Google'); }
         const loginGoogle = (res) => { this.gofbLogin(res, 'Google'); }
@@ -169,10 +192,10 @@ class Auth extends Component {
                 <section className="auth py-5">
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm-8">
-                                <img src="images/static/register.jpg" alt=""/>
+                            <div className="col-sm-7">
+                                {/* <img src="images/static/register.jpg" alt=""/> */}
                             </div>
-                            <div className="col-sm-4 authBox">
+                            <div className="col-sm-5 authBox">
                                 <h1 className="heading">{this.state.active}</h1>
                                 {/* <ul>
                                     <li onClick={()=>this.changeActive('Register')} className={this.state.active =='Register' ? 'active' : null}>Register</li>
@@ -181,7 +204,7 @@ class Auth extends Component {
                                 </ul> */}
                                 { this.state.active=='Register' ?
                                     <>
-                                    <p className="check">Already have an account? <span  onClick={()=>this.changeActive('Login')}>Sign In</span></p>
+                                        <p className="check">Already have an account? <span  onClick={()=>this.changeActive('Login')}>Sign In</span></p>
                                         <div className="gofb">
                                             <GoogleLogin clientId={this.state.clientId} buttonText="Register with Google" onSuccess={regGoogle} onFailure={regGoogle} ></GoogleLogin>
                                             <FacebookLogin textButton="Sign up with Facebook" appId="885798875528804" autoLoad={false} fields="name,email,picture" callback={regFB}/>
@@ -227,7 +250,7 @@ class Auth extends Component {
                                         </div>
                                     </>
                                 : this.state.active=='Forgot Password' ?
-                                    <form onSubmit={this.ResetPassword} className="mt-5">
+                                    <form onSubmit={this.forgotPassword} className="mt-5">
                                         <div className="row">
                                             <div className="col-sm-12">
                                                 <label>E-Mail Address</label>
@@ -235,6 +258,24 @@ class Auth extends Component {
                                             </div>
                                         </div>
                                         <div className="my-div"><button className="amitBtn" type="submit">Reset Password</button></div>
+                                    </form>
+                                : this.state.active=='Reset Password' ?
+                                    <form onSubmit={this.resetPassword} className="mt-5">
+                                        <div className="row">
+                                            <div className="col-sm-12">
+                                                <label>E-Mail Address</label>
+                                                <input id="emailRegister" type="email" className="form-control" name="email" required autoComplete="email" value={this.state.email} onChange={this.onChange} placeholder="Email Please"/>
+                                            </div>
+                                            <div className="col-sm-12">
+                                                <label>Password</label>
+                                                <input id="password" type="password" className="form-control" name="password" required autoComplete="new-password" value={this.state.password} onChange={this.onChange} placeholder="Password Please"/>
+                                            </div>
+                                            <div className="col-sm-12">
+                                                <label>Confirm Password</label>
+                                                <input id="password-confirm" type="password" className="form-control" name="confirm_password" required autoComplete="new-password" value={this.state.confirm_password} onChange={this.onChange} placeholder="Confirm Password"/>
+                                            </div>
+                                        </div>
+                                        <div className="my-div"><button type="submit" className="amitBtn">Reset Password</button></div>
                                     </form>
                                 : null}
                             </div>
