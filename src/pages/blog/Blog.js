@@ -33,15 +33,21 @@ export class Blog extends Component {
         return (
             <>
                 <Header/>
-                <div className="blogBanner">
-                    <img src="/images/static/banner.jpg"/>
-                    {this.state.title? <section dangerouslySetInnerHTML={{ __html: this.state.title }} /> :null }
-                </div>
-                <div className="container mt-5">
-                    <div className="row blogs">
-                        <BlogList blogs = {this.state.blogs}/>
-                    </div>
-                </div>
+                {this.state.blogs?
+                    <>
+                        {this.state.blogs.length ?
+                            <div className="blogBanner">
+                                <img src={"/images/blog/"+this.state.blogs[0].coverImg}/>
+                                {this.state.title? <section dangerouslySetInnerHTML={{ __html: this.state.title }} /> :null }
+                            </div>
+                        : null }
+                        <div className="container mt-5">
+                            <div className="row blogs">
+                                <BlogList blogs = {this.state.blogs}/>
+                            </div>
+                        </div>
+                    </>
+                :null }
                 <Footer/>
             </>
         )

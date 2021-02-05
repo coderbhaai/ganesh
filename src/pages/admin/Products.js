@@ -57,7 +57,7 @@ export class Products extends Component {
             return (
                 <tr key={index}>
                     <td>{index +1}</td>
-                    <td>{i.name}</td>
+                    <td><a href={"/product/"+i.url} target="_blank">{i.name}</a></td>
                     <td>{i.vendor}</td>
                     <td style={{textAlign:'center'}}><img src={"/images/product/" + JSON.parse(i.images)[0]} className="tableImg" style={{maxHeight:'80px', width: 'auto'}}/>{i.product}</td>
                     <td>{i.price}</td>

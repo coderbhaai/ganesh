@@ -91,24 +91,24 @@ export function productCatName(data) {
     });
 }
 
-export function productTagName(data) {
-    var list = []
-    return new Promise((resolve, reject) => {
-        if(data.length>0){
-            for(var i = 0; i < data.length; i++){
-                let sql = `SELECT name as text, id as value FROM basic Where type='Tag' AND id = '${data[i]}';`
-                pool.query(sql, async (err, results) => {
-                    try{ if(err) throw err;
-                        await list.push(results[0])
-                        if(i == list.length){ resolve(list) }
-                    }catch(e){ logError(e); return; }
-                });
-            }
-        }else{
-            resolve(list)
-        }
-    });
-}
+// export function productTagName(data) {
+//     var list = []
+//     return new Promise((resolve, reject) => {
+//         if(data.length>0){
+//             for(var i = 0; i < data.length; i++){
+//                 let sql = `SELECT name as text, id as value FROM basic Where type='Tag' AND id = '${data[i]}';`
+//                 pool.query(sql, async (err, results) => {
+//                     try{ if(err) throw err;
+//                         await list.push(results[0])
+//                         if(i == list.length){ resolve(list) }
+//                     }catch(e){ logError(e); return; }
+//                 });
+//             }
+//         }else{
+//             resolve(list)
+//         }
+//     });
+// }
 
 export function productIncName(data) {
     var list = []
@@ -225,14 +225,14 @@ export function addCatChecks(products){
     })
 }
 
-export function addTagChecks(products){
-    return new Promise((resolve, reject) => {
-        if(products){
-            for(var i = 0; i < products.length; i++){ products[i]["isChecked"] = false }
-            resolve(products)
-        }
-    })
-}
+// export function addTagChecks(products){
+//     return new Promise((resolve, reject) => {
+//         if(products){
+//             for(var i = 0; i < products.length; i++){ products[i]["isChecked"] = false }
+//             resolve(products)
+//         }
+//     })
+// }
 
 export function getCatFilterProducts(data){
     var list = []
@@ -301,38 +301,38 @@ export function similarCatProducts(array, id){
     });
 }
 
-export function similarTagProducts(array, id) {
-    return new Promise((resolve, reject) => {
-        var list = []
-        const idList = [id]
-        const lim = 3
-        if(array.length>0){
-            for(var i = 0; i < array.length || i<2; i++){
-                if( i === 2 || list.length === lim ){
-                    resolve(list)
-                }else{
-                    let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1' AND tags LIKE '%${array[i]}%';`
-                    pool.query(sql, async (err, results) => {
-                        try{ 
-                            if(err) throw err;
-                            for(var j = 0; j < results.length; j++){
-                                if(idList.indexOf(results[j].id) !== -1){
-                                } else{
-                                    await list.push(results[j])
-                                    await idList.push(results[j].id)
-                                }
-                                if( i === array.length || i === 2 || list.length === lim ){ 
-                                    resolve(list) }
-                            }
-                        }catch(e){ logError(e); return; }
-                    });
-                }
-            }
-        }else{
-            resolve(list)
-        }
-    });
-}
+// export function similarTagProducts(array, id) {
+//     return new Promise((resolve, reject) => {
+//         var list = []
+//         const idList = [id]
+//         const lim = 3
+//         if(array.length>0){
+//             for(var i = 0; i < array.length || i<2; i++){
+//                 if( i === 2 || list.length === lim ){
+//                     resolve(list)
+//                 }else{
+//                     let sql = `SELECT id, name, url, images, price, rating FROM products WHERE status = '1' AND tags LIKE '%${array[i]}%';`
+//                     pool.query(sql, async (err, results) => {
+//                         try{ 
+//                             if(err) throw err;
+//                             for(var j = 0; j < results.length; j++){
+//                                 if(idList.indexOf(results[j].id) !== -1){
+//                                 } else{
+//                                     await list.push(results[j])
+//                                     await idList.push(results[j].id)
+//                                 }
+//                                 if( i === array.length || i === 2 || list.length === lim ){ 
+//                                     resolve(list) }
+//                             }
+//                         }catch(e){ logError(e); return; }
+//                     });
+//                 }
+//             }
+//         }else{
+//             resolve(list)
+//         }
+//     });
+// }
 
 export function productReview(id) {
     return new Promise((resolve, reject) => {

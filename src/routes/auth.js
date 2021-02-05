@@ -18,11 +18,18 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
         res.send({ success: false, message: "Passwords Mismtach" })
     }else {
         let sql = `SELECT id FROM users WHERE email='${req.body.email}'`
-        pool.query(sql, (err, results) => {
+        pool.query(sql, async(err, results) => {
             try{
                 if(err){ throw err }
                 if(results[0]){
-                    res.send({ success: false, message: "Email already registered" }) 
+                    // res.send({ success: false, message: "Email already registered" }) 
+                    const login = await initiateLogin(req.body.email, req.body.password)
+                    if(login[0]){
+                        res.cookie('token', login[1].token)
+                        res.send({ success: true, user: login[1], message: login[2] }) 
+                    }else{
+                        res.send({ success: false, message: login[2] })
+                    }
                 } else{
                     let post= {
                         'name':                       req.body.name, 
@@ -86,35 +93,42 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
 }))
 
 router.post('/login', asyncMiddleware( async(req, res, next) => {
-    let sql = `SELECT id, name, email, role, password from users WHERE email = '${req.body.email}'`
-    pool.query(sql, async(err, results) => {
-        try{
-            if(err){ throw err }
-            if(results && results.length){
-                if(results[0]){
-                    bcrypt.compare(req.body.password, results[0].password)
-                    .then(isMatch=>{
-                        if(isMatch){
-                            const user={ id: results[0].id, name: results[0].name, email: results[0].email, role: results[0].role }
-                            jwt.sign({ user }, 'secretkey', (err, token)=>{
-                                if(err) throw err;
-                                user.token = token
-                                user.auth = true
-                                res.cookie('token', token)
-                                let sql2 = `UPDATE users SET token = '${token}', updated_at = '${time}' WHERE id = '${results[0].id}'`
-                                pool.query(sql2, (err2, results2) => {
-                                    try{
-                                        if(err2){ throw err2 }
-                                        if(results2){ res.send({ success: true, user, message: "Welcome to Pujarambh" }) }
-                                    }catch(e){ func.logError(e); res.status(500); return; }
-                                })
-                            })
-                        }else{ res.send({ success: false, message: "Password is Incorrect" }) }
-                    })
-                }
-            }else{ res.send({ success: false, message: "No Account by this name" }) }
-        }catch(e){ func.logError(e); res.status(500); return; }
-    })
+    const login = await initiateLogin(req.body.email, req.body.password)
+    if(login[0]){
+        res.cookie('token', login[1].token)
+        res.send({ success: true, user: login[1], message: login[2] }) 
+    }else{
+        res.send({ success: false, message: login[2] })
+    }
+    // let sql = `SELECT id, name, email, role, password from users WHERE email = '${req.body.email}'`
+    // pool.query(sql, async(err, results) => {
+    //     try{
+    //         if(err){ throw err }
+    //         if(results && results.length){
+    //             if(results[0]){
+    //                 bcrypt.compare(req.body.password, results[0].password)
+    //                 .then(isMatch=>{
+    //                     if(isMatch){
+    //                         const user={ id: results[0].id, name: results[0].name, email: results[0].email, role: results[0].role }
+    //                         jwt.sign({ user }, 'secretkey', (err, token)=>{
+    //                             if(err) throw err;
+    //                             user.token = token
+    //                             user.auth = true
+    //                             res.cookie('token', token)
+    //                             let sql2 = `UPDATE users SET token = '${token}', updated_at = '${time}' WHERE id = '${results[0].id}'`
+    //                             pool.query(sql2, (err2, results2) => {
+    //                                 try{
+    //                                     if(err2){ throw err2 }
+    //                                     if(results2){ res.send({ success: true, user, message: "Welcome to Pujarambh" }) }
+    //                                 }catch(e){ func.logError(e); res.status(500); return; }
+    //                             })
+    //                         })
+    //                     }else{ res.send({ success: false, message: "Password is Incorrect" }) }
+    //                 })
+    //             }
+    //         }else{ res.send({ success: false, message: "No Account by this name" }) }
+    //     }catch(e){ func.logError(e); res.status(500); return; }
+    // })
 }))
 
 router.post('/forgotPassword', asyncMiddleware( async(req, res, next) => {
@@ -241,11 +255,18 @@ router.post('/logOut', asyncMiddleware( async(req, res, next) => {
 
 router.post('/gofbRegister', asyncMiddleware( async(req, res, next) => {
     let sql = `SELECT id, provider FROM gofb WHERE email='${req.body.email}';`
-    pool.query(sql, (err, results) => {
+    pool.query(sql, async(err, results) => {
         try{
             if(err){ throw err }
             if(results[0]){
-                res.send({ success: false, message: "Account already registered through "+results[0].provider })
+                const login = await initiateGofbLogin(req.body.email, req.body.token)
+                if(login[0]){
+                    res.cookie('token', login[1].token)
+                    res.send({ success: true, user: login[1], message: login[2] }) 
+                }else{
+                    res.send({ success: false, message: login[2] })
+                }
+                // res.send({ success: false, message: "Account already registered through "+results[0].provider })
             } else{
                 let post= {
                     'name':                       req.body.name, 
@@ -310,35 +331,163 @@ router.post('/gofbRegister', asyncMiddleware( async(req, res, next) => {
 }))
 
 router.post('/gofbLogin', asyncMiddleware( async(req, res, next) => {
-    let sql = `SELECT id, name, email, role, gofbtoken, token, image from gofb WHERE email = '${req.body.email}'`
-    pool.query(sql, async(err, results) => {
-        try{
-            if(err){ throw err }
-            if(results && results.length){
-                if(results[0]){
-                    bcrypt.compare(req.body.token, results[0].gofbtoken)
-                    .then(isMatch=>{
-                        if(isMatch){
-                            const user={ id: results[0].id, name: results[0].name, email: results[0].email, role: results[0].role }
-                            jwt.sign({ user }, 'secretkey', (err, token)=>{
-                                if(err) throw err;
-                                user.token = token
-                                user.auth = true
-                                res.cookie('token', token)
-                                let sql2 = `UPDATE gofb SET token = '${token}', updated_at = '${time}' WHERE id = '${results[0].id}'`
-                                pool.query(sql2, (err2, results2) => {
-                                    try{
-                                        if(err2){ throw err2 }
-                                        if(results2){ res.send({ success: true, user, message: "Welcome to Pujarambh" }) }
-                                    }catch(e){ func.logError(e); res.status(500); return; }
-                                })
-                            })
-                        }else{ res.send({ success: false, message: "Login Failed" }) }
-                    })
-                }
-            }else{ res.send({ success: false, message: "No Account by this name" }) }
-        }catch(e){ func.logError(e); res.status(500); return; }
-    })
+    const login = await initiateGofbLogin(req.body.email, req.body.token)
+    if(login[0]){
+        res.cookie('token', login[1].token)
+        res.send({ success: true, user: login[1], message: login[2] }) 
+    }else{
+        res.send({ success: false, message: login[2] })
+    }
+    // let sql = `SELECT id, name, email, role, gofbtoken, token, image from gofb WHERE email = '${req.body.email}'`
+    // pool.query(sql, async(err, results) => {
+    //     try{
+    //         if(err){ throw err }
+    //         if(results && results.length){
+    //             if(results[0]){
+    //                 bcrypt.compare(req.body.token, results[0].gofbtoken)
+    //                 .then(isMatch=>{
+    //                     if(isMatch){
+    //                         const user={ id: results[0].id, name: results[0].name, email: results[0].email, role: results[0].role }
+    //                         jwt.sign({ user }, 'secretkey', (err, token)=>{
+    //                             if(err) throw err;
+    //                             user.token = token
+    //                             user.auth = true
+    //                             res.cookie('token', token)
+    //                             let sql2 = `UPDATE gofb SET token = '${token}', updated_at = '${time}' WHERE id = '${results[0].id}'`
+    //                             pool.query(sql2, (err2, results2) => {
+    //                                 try{
+    //                                     if(err2){ throw err2 }
+    //                                     if(results2){ res.send({ success: true, user, message: "Welcome to Pujarambh" }) }
+    //                                 }catch(e){ func.logError(e); res.status(500); return; }
+    //                             })
+    //                         })
+    //                     }else{ res.send({ success: false, message: "Login Failed" }) }
+    //                 })
+    //             }
+    //         }else{ res.send({ success: false, message: "No Account by this name" }) }
+    //     }catch(e){ func.logError(e); res.status(500); return; }
+    // })
 }))
+
+
+function initiateLogin(email, password){
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT id, name, email, role, password from users WHERE email = '${email}'`
+        pool.query(sql, async(err, results) => {
+            try{
+                if(err){ throw err }
+                if(results && results.length){
+                    if(results[0]){
+                        bcrypt.compare(password, results[0].password)
+                        .then(isMatch=>{
+                            if(isMatch){
+                                const user={ id: results[0].id, name: results[0].name, email: results[0].email, role: results[0].role }
+                                jwt.sign({ user }, 'secretkey', (err, token)=>{
+                                    if(err) throw err;
+                                    user.token = token
+                                    user.auth = true
+                                    // res.cookie('token', token)
+                                    let sql2 = `UPDATE users SET token = '${token}', updated_at = '${time}' WHERE id = '${results[0].id}'`
+                                    pool.query(sql2, (err2, results2) => {
+                                        try{
+                                            if(err2){ throw err2 }
+                                            if(results2){
+                                                resolve([true, user, "Welcome to Pujarambh"])
+                                                //  res.send({ success: true, user, message: "Welcome to Pujarambh" }) 
+                                            }
+                                        }catch(e){ func.logError(e); res.status(500); return; }
+                                    })
+                                })
+                            }else{ 
+                                resolve([false, {}, "Password is Incorrect"])
+                                // res.send({ success: false, message: "Password is Incorrect" }) 
+                            }
+                        })
+                    }
+                }else{ 
+                    resolve([false, {}, "No Account by this name"])
+                    // res.send({ success: false, message: "No Account by this name" }) 
+                }
+            }catch(e){ func.logError(e); res.status(500); return; }
+        })
+    });
+}
+
+function initiateGofbLogin(email, token){
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT id, name, email, role, gofbtoken, token, image from gofb WHERE email = '${email}'`
+        pool.query(sql, async(err, results) => {
+            try{
+                if(err){ throw err }
+                if(results && results.length){
+                    if(results[0]){
+                        bcrypt.compare(token, results[0].gofbtoken)
+                        .then(isMatch=>{
+                            if(isMatch){
+                                const user={ id: results[0].id, name: results[0].name, email: results[0].email, role: results[0].role }
+                                jwt.sign({ user }, 'secretkey', (err, token)=>{
+                                    if(err) throw err;
+                                    user.token = token
+                                    user.auth = true
+                                    let sql2 = `UPDATE gofb SET token = '${token}', updated_at = '${time}' WHERE id = '${results[0].id}'`
+                                    pool.query(sql2, (err2, results2) => {
+                                        try{
+                                            if(err2){ throw err2 }
+                                            if(results2){ 
+                                                resolve([true, user, "Welcome to Pujarambh"])
+                                            }
+                                        }catch(e){ func.logError(e); res.status(500); return; }
+                                    })
+                                })
+                            }else{ 
+                                resolve([false, {}, "Login Failed"])
+                            }
+                        })
+                    }
+                }else{ 
+                    resolve([false, {}, "No Account by this name"])
+                    // res.send({ success: false, message: "No Account by this name" }) 
+                }
+            }catch(e){ func.logError(e); res.status(500); return; }
+        })
+        // pool.query(sql, async(err, results) => {
+        //     try{
+        //         if(err){ throw err }
+        //         if(results && results.length){
+        //             if(results[0]){
+        //                 bcrypt.compare(password, results[0].password)
+        //                 .then(isMatch=>{
+        //                     if(isMatch){
+        //                         const user={ id: results[0].id, name: results[0].name, email: results[0].email, role: results[0].role }
+        //                         jwt.sign({ user }, 'secretkey', (err, token)=>{
+        //                             if(err) throw err;
+        //                             user.token = token
+        //                             user.auth = true
+        //                             // res.cookie('token', token)
+        //                             let sql2 = `UPDATE users SET token = '${token}', updated_at = '${time}' WHERE id = '${results[0].id}'`
+        //                             pool.query(sql2, (err2, results2) => {
+        //                                 try{
+        //                                     if(err2){ throw err2 }
+        //                                     if(results2){
+        //                                         resolve([true, user, "Welcome to Pujarambh"])
+        //                                         //  res.send({ success: true, user, message: "Welcome to Pujarambh" }) 
+        //                                     }
+        //                                 }catch(e){ func.logError(e); res.status(500); return; }
+        //                             })
+        //                         })
+        //                     }else{ 
+        //                         resolve([false, {}, "Password is Incorrect"])
+        //                         // res.send({ success: false, message: "Password is Incorrect" }) 
+        //                     }
+        //                 })
+        //             }
+        //         }else{ 
+        //             resolve([false, {}, "No Account by this name"])
+        //             // res.send({ success: false, message: "No Account by this name" }) 
+        //         }
+        //     }catch(e){ func.logError(e); res.status(500); return; }
+        // })
+    });
+}
 
 module.exports = router;

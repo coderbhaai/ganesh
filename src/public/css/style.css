@@ -358,6 +358,8 @@ form input {
   display: flex;
   overflow: hidden;
   justify-content: center; }
+  .button-wrap :hover {
+    cursor: pointer; }
 
 .button-default {
   color: white;
@@ -1917,6 +1919,13 @@ i.icon.delete:before {
 .imgZoom div {
   z-index: 1000; }
 
+.imgZoom .changeQty {
+  margin-top: 1em; }
+  .imgZoom .changeQty label {
+    text-align: center; }
+  .imgZoom .changeQty ul {
+    justify-content: center; }
+
 .changeQty label {
   text-align: left; }
 
@@ -2171,6 +2180,8 @@ form .rating {
     font-weight: 600; }
 
 @media (max-width: 767px) {
+  .inclusions ul li {
+    padding: 0; }
   .cartList {
     margin-bottom: 1em; }
   .cartLoop .changeQty ul li {
@@ -2642,6 +2653,10 @@ footer .akk {
   flex-direction: column; }
   .response img {
     margin-bottom: 2em; }
+
+.strike {
+  text-decoration: line-through;
+  margin-right: 1.5em; }
 
 @media (max-width: 1400px) {
   .nav-link {

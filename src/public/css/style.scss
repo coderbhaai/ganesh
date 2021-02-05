@@ -567,6 +567,10 @@ footer{
       margin-bottom: 2em;
    }
 }
+.strike{
+   text-decoration: line-through;
+   margin-right: 1.5em;
+}
 @media (max-width:1400px) {
    .nav-link {
       padding: 1.5rem 1rem;

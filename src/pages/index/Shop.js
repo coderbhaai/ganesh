@@ -3,19 +3,18 @@ import Header from '../parts/Header'
 import Footer from '../parts/Footer'
 import axios from 'axios'
 import StarRating from '../parts/StarRating'
+const func = require('../parts/functions')
 
 export class Shop extends Component {
     constructor(props) {
         super(props)
         this.state = {
             categories:                 [],
-            tags:                       [],
             filter:                     [],
             products:                   [],
             data:                       [],
             cart:                       [],
             catSelected:                [],
-            tagSelected:                [],
             minValue:                   0,
             maxValue:                   20000,
             step:                       50,
@@ -39,14 +38,7 @@ export class Shop extends Component {
         this.setState({firstValue: this.state.minValue, secondValue: this.state.maxValue})
         const url = window.location.href.split("/")
         if(url[3]=='shop'){ this.callApi()
-        }
-        // else if(url[3]=='category'){
-        //     this.fetchCategories(url[4], true)
-        // }else if(url[3]=='subcategory'){
-        //     this.fetchCatSubcat(url[4], true)
-        // }else if(url[3]=='product-tag'){
-        //     this.fetchTags(url[4], true)
-        // }        
+        }    
     }
 
     callApi = async () => {
@@ -57,7 +49,6 @@ export class Shop extends Component {
             categories:             body.categories,
             products:               body.products,
             data:                   body.products,
-            tags:                   body.tags,
             min:                    0,
             max:                    3000
         })
@@ -110,20 +101,6 @@ export class Shop extends Component {
         }
     }
 
-    filterTag = (tag, check) => { 
-        this.state.tags.forEach((o)=>{ if( o.id == parseInt( tag ) ){ o.isChecked = check } })
-        if(check){ 
-            this.setState({ tagSelected: [ ...this.state.tagSelected, parseInt( tag ) ] }
-            // ,()=>this.finalFilter()
-            )
-        }else{
-            this.state.tagSelected.map((x, index) => x == tag ? this.state.tagSelected.splice(index, 1) : null)
-            this.setState({ tagSelected: this.state.tagSelected }
-                // ,()=>this.finalFilter()
-                )
-        }
-    }
-
     handleChange(name, e){
         let value = e.target.value;
         if(name === "second"){
@@ -138,24 +115,6 @@ export class Shop extends Component {
         }
     }
 
-    // finalFilter = async ()=>{
-    //     var xx = []
-    //     this.state.data.map((i)=> { i.price>parseInt( this.state.firstValue ) && i.price<parseInt( this.state.secondValue ) ? xx.push(i) : null })
-    //     if(this.state.catSelected.length){
-    //         for (var i = xx.length - 1; i >= 0; --i) {
-    //             this.state.catSelected.map( j => JSON.parse( xx[i].category ).includes(j) ? null : xx.splice(i,1) )
-    //         }
-    //     }
-
-    //     if(this.state.tagSelected.length){
-    //         for (var i = xx.length - 1; i >= 0; --i) {
-    //             this.state.tagSelected.map( j => JSON.parse( xx[i].tags ).includes(j) ? null : xx.splice(i,1) )
-    //         }
-    //     }
-
-    //     this.setState({ products : xx })
-    // }
-
     render() {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
@@ -163,14 +122,13 @@ export class Shop extends Component {
         const renderItems =  this.state.products.filter((i)=>{ if(this.state.search == null) return i; else if(i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i } })
         .filter((i)=>{ if(i.price>parseInt( this.state.firstValue ) && i.price<parseInt( this.state.secondValue ) ) return i; })
         .filter((i)=>{ if(this.state.catSelected.length){ for (var j = this.state.catSelected.length - 1; j >= 0; --j) { if( JSON.parse( i.category ).includes(this.state.catSelected[j]) ) { return i } } } else { return i } })
-        .filter((i)=>{ if(this.state.tagSelected.length){ for (var j = this.state.tagSelected.length - 1; j >= 0; --j) { if( JSON.parse( i.tags ).includes(this.state.tagSelected[j]) ) { return i } } }else { return i } })
         .slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
             return (
                 <div className="col-sm-3 mb-3" key={index}>
                     <div style={{'overflow':'hidden'}}>
                         <div className="imgBox">
                             <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                            { this.state.cart.some(x => x[1] === i.id) ? 
+                            {/* { this.state.cart.some(x => x[1] === i.id) ? 
                                 <div className="cartBtnGroup flex-sb">
                                     <div className="plusMinus">
                                         <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
@@ -184,7 +142,7 @@ export class Shop extends Component {
                                         <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
                                     )})}
                                 </div>
-                            : null}
+                            : null} */}
                         </div>
                         {/* <p className="usage">Ideal for all Puja like</p> */}
                         <div className="productDetail">
@@ -230,18 +188,6 @@ export class Shop extends Component {
                                     <div className="filterCover" key={index}>
                                         <div className="onoffswitch">
                                             <input type="checkbox" name="category" className="onoffswitch-checkbox" id={i.id} onChange={(e)=>this.filterCategory(e.target.value, e.target.checked)} value={i.id} checked={i.isChecked}/>
-                                            <label className="onoffswitch-label" htmlFor={i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
-                                        </div>
-                                        <span style={{marginLeft:'10px'}}>{i.name}</span>
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="filter">
-                                <h3>Filter by <span>Tags</span></h3>
-                                {this.state.tags.map((i, index)=>(
-                                    <div className="filterCover" key={index}>
-                                        <div className="onoffswitch">
-                                            <input type="checkbox" name="tag" className="onoffswitch-checkbox" id={i.id} onChange={(e)=>this.filterTag(e.target.value , e.target.checked)} value={i.id} checked={i.isChecked}/>
                                             <label className="onoffswitch-label" htmlFor={i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
                                         </div>
                                         <span style={{marginLeft:'10px'}}>{i.name}</span>

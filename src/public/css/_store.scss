@@ -41,6 +41,15 @@
   div{
     z-index: 1000;
   }
+  .changeQty{
+    margin-top: 1em;
+    label{
+      text-align: center;
+    }
+    ul{
+      justify-content: center;
+    }
+  }
 }
 .changeQty{
   // display: flex;
@@ -364,6 +373,13 @@ form{
   }
 }
 @media (max-width:767px) {
+  .inclusions{
+    ul{
+        li{
+            padding: 0;
+        }
+    }
+}
   .cartList{
     margin-bottom: 1em;
   }

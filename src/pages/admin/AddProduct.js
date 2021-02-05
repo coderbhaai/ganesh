@@ -18,7 +18,7 @@ export class AddProduct extends Component {
             status:                 '',
             type:                   '',
             selectedCategory:       [],
-            selectedTag:            [],
+            // selectedTag:            [],
             inclusions:            [],
             exclusions:            [],
             recom:                  [],
@@ -26,7 +26,7 @@ export class AddProduct extends Component {
             shortDesc:              '',
             longDesc:               '',
             catOptions:             [],
-            tagOptions:             [],
+            // tagOptions:             [],
             vendorOptions:          [],
             incOptions:             [],
             productOptions:         [],
@@ -47,13 +47,13 @@ export class AddProduct extends Component {
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value })}
     imagesAdd = (e) =>{ this.setState({ images: e.target.files }) }
     categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
-    tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
+    // tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
     incSelected = (e, {value}) => { this.setState({ inclusions: value }) }
     excSelected = (e, {value}) => { this.setState({ exclusions: value }) }
     recomSelected = (e, {value}) => { this.setState({ recom: value }) }
     relatedSelected = (e, {value}) => { this.setState({ related: value }) }
     vendorSelected = (e, {value}) => { this.setState({ selectedVendor: value }) }
-    removeTag =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
+    // removeTag =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
     removeCategory =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
     componentDidMount(){
         this.callApi()
@@ -65,7 +65,7 @@ export class AddProduct extends Component {
         if (response.status !== 200) throw Error(body.message)
         this.setState({
             catOptions:               body.catOptions,
-            tagOptions:               body.tagOptions,
+            // tagOptions:               body.tagOptions,
             vendorOptions:            body.vendorOptions,
             productOptions:           body.productOptions,
         })
@@ -87,7 +87,6 @@ export class AddProduct extends Component {
             data.append('url', this.state.url.replace(/ /g,"-"))
             data.append('status', this.state.status)
             data.append('category', JSON.stringify(this.state.selectedCategory) )
-            data.append('tags', JSON.stringify(this.state.selectedTag) )
             data.append('inclusion', JSON.stringify(this.state.inclusions) )
             data.append('exclusion', JSON.stringify(this.state.exclusions) )
             data.append('recom', JSON.stringify(this.state.recom) )
@@ -183,29 +182,29 @@ export class AddProduct extends Component {
                                             config={ { allowedContent : true, extraAllowedContent: "span; *(*); div(col-sm-*, container-fluid, container, row)" } }
                                         />
                                     </div>
-                                    <div className="col-sm-6 compare label-down mt-5">
+                                    <div className="col-sm-12 compare label-down mt-5">
                                         <label>Categories</label>
                                         <Dropdown placeholder='Select category' multiple fluid search selection onChange={this.categorySelected} options={this.state.catOptions}/>
                                     </div>
-                                    <div className="col-sm-6 compare label-down mt-5">
+                                    {/* <div className="col-sm-6 compare label-down mt-5">
                                         <label>Add Tags</label>
                                         <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.tagSelected} options={this.state.tagOptions}/>
-                                    </div>
+                                    </div> */}
                                     <div className="col-sm-6 compare label-down my-5">
                                         <label>Puja Inclusion</label>
-                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.incSelected} options={this.state.incOptions}/>
+                                        <Dropdown placeholder='Select Puja Inclusion' fluid search multiple selection onChange={this.incSelected} options={this.state.incOptions}/>
                                     </div>
                                     <div className="col-sm-6 compare label-down my-5">
                                         <label>Puja Exclusion</label>
-                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.excSelected} options={this.state.incOptions}/>
+                                        <Dropdown placeholder='Select Puja Exclusion' fluid search multiple selection onChange={this.excSelected} options={this.state.incOptions}/>
                                     </div>
                                     <div className="col-sm-6 compare label-down mb-5">
                                         <label>Recommended Products</label>
-                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.recomSelected} options={this.state.productOptions}/>
+                                        <Dropdown placeholder='Select Recommended Products' fluid search multiple selection onChange={this.recomSelected} options={this.state.productOptions}/>
                                     </div>
                                     <div className="col-sm-6 compare label-down mb-5">
                                         <label>Related Products</label>
-                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.relatedSelected} options={this.state.productOptions}/>
+                                        <Dropdown placeholder='Select Related Products' fluid search multiple selection onChange={this.relatedSelected} options={this.state.productOptions}/>
                                     </div>
                                     <div className="my-div col-sm-12">
                                         <button className="amitBtn" type="submit">Submit</button>

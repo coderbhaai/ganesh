@@ -187,13 +187,11 @@ export class Basic extends Component {
                                     <select className="form-control" required name="type" onChange={this.onChange} value={this.state.type}>
                                         <option value=''>Select Type</option>
                                         <option value="Category">Product Category</option>
-                                        <option value="Tag">Product Tag</option>
                                         <option value="Vendor">Add Vendor</option>
                                         <option value="Puja">Puja Items</option>
                                     </select>
                                 </div>
                                 {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
-                                {this.state.type==='Tag'? <div className="col-sm-8"><label>Product Tag</label><input name="name" type="text" className="form-control" placeholder="Product Tag" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Puja'? 
                                 <>
@@ -228,7 +226,6 @@ export class Basic extends Component {
                                     </select>
                                 </div>
                                 {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
-                                {this.state.type==='Tag'? <div className="col-sm-8"><label>Product Tag</label><input name="name" type="text" className="form-control" placeholder="Product Tag" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Puja'? 
                                 <>

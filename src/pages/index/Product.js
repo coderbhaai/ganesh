@@ -309,7 +309,12 @@ export class Product extends Component {
                             <div className="col-sm-6">
                                 {this.state.product.rating? <StarRating rating={JSON.parse( this.state.product.rating)[0]}/> : null }
                                 <h1>{this.state.product.name}</h1>
-                                <p className="price"><span className="rs">&#8377; </span>{this.state.product.price} /-</p>
+                                <p>
+                                    <span className={this.state.product.sale ? "price strike" : "price"}>
+                                        <span className="rs">&#8377; </span>{this.state.product.price} /-
+                                    </span>
+                                    {this.state.product.sale ? <span className="price"><span className="rs">&#8377; </span>{this.state.product.sale} /-</span> : null }
+                                </p>
                                 <h2>Puja Description</h2>
                                 <section className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.product.shortDesc }} />
                                 {this.state.product.type==1 && this.state.cart.some(x => x[1] === this.state.product.id) ?
@@ -374,19 +379,23 @@ export class Product extends Component {
                         <div className="col-sm-3"></div>
                         <div className="col-sm-9">
                             <div className="row inclusions">
-                                <div className="col-sm-9">
-                                    <h2>{this.state.product.name} Includes</h2>
-                                    <div className="row">
-                                        <div className="col-sm-3"><ul>{this.state.incList.slice(0, count).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
-                                        <div className="col-sm-3"><ul>{this.state.incList.slice(count, count*2).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
-                                        <div className="col-sm-3"><ul>{this.state.incList.slice(count*2, count*3).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
-                                        <div className="col-sm-3"><ul>{this.state.incList.slice(count*3, this.state.incList.length).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                {this.state.incList.length>0 ?
+                                    <div className="col-sm-9">
+                                        <h2>{this.state.product.name} Includes</h2>
+                                        <div className="row">
+                                            <div className="col-sm-3"><ul>{this.state.incList.slice(0, count).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count, count*2).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count*2, count*3).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count*3, this.state.incList.length).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-sm-3">
-                                    <h2>Client needs to arrange</h2>
-                                    <ul>{this.state.excList.map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul>
-                                </div>
+                                : null}
+                                {this.state.excList.length>0 ?
+                                    <div className="col-sm-3">
+                                        <h2>Client needs to arrange</h2>
+                                        <ul>{this.state.excList.map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul>
+                                    </div>
+                                : null}
                             </div>
                         </div>
                     </div>

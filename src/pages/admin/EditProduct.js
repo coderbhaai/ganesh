@@ -19,7 +19,7 @@ export class EditProduct extends Component {
             url:                    '',
             status:                '',
             selectedCategory:       [],
-            selectedTag:            [],
+            // selectedTag:            [],
             inclusions:             [],
             exclusions:             [],
             recom:                  [],
@@ -27,7 +27,7 @@ export class EditProduct extends Component {
             shortDesc:              '',
             longDesc:               '',
             catOptions:             [],
-            tagOptions:             [],
+            // tagOptions:             [],
             vendorOptions:          [],
             incOptions:             [],
             productOptions:         [],
@@ -35,7 +35,7 @@ export class EditProduct extends Component {
             sale:                   '',
             oldImages:              [],
             oldCategory:            [],
-            oldTags:                [],
+            // oldTags:                [],
             oldInc:                 [],
             oldExc:                 [],
             oldRecom:               [],
@@ -57,18 +57,20 @@ export class EditProduct extends Component {
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value }) }
     imagesAdd = (e) =>{ this.setState({ images: e.target.files }) }
     categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
-    tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
+    // tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
     incSelected = (e, {value}) => { this.setState({ inclusions: value }) }
     excSelected = (e, {value}) => { this.setState({ exclusions: value }) }
     recomSelected = (e, {value}) => { this.setState({ recom: value }) }
     relatedSelected = (e, {value}) => { this.setState({ related: value }) }
     incSelected = (e, {value}) => { this.setState({ inclusions: value }) }
     vendorSelected = (e, {value}) => { this.setState({ selectedVendor: value }) }
-    removeTag =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
+    // removeTag =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
     removeCategory =(i, index)=>{ this.state.tags.splice(index, 1); this.setState({tags: this.state.tags}) }
     arrayCategoryRemove(index){ this.state.oldCategory.splice(index, 1); this.setState({oldCategory: this.state.oldCategory}) }
-    arrayTagRemove(index){ this.state.oldTags.splice(index, 1); this.setState({oldTags: this.state.oldTags}); }
+    // arrayTagRemove(index){ this.state.oldTags.splice(index, 1); this.setState({oldTags: this.state.oldTags}); }
     arrayIncRemove(index){ this.state.oldInc.splice(index, 1); this.setState({oldInc: this.state.oldInc}); }
+    arrayExcRemove(index){ this.state.oldExc.splice(index, 1); this.setState({oldExc: this.state.oldExc}); }
+    
     componentDidMount(){ 
         window.scrollTo(0, 0)
         const id = window.location.href.split("/").pop();
@@ -96,11 +98,11 @@ export class EditProduct extends Component {
                 longDesc:                       body.data.longDesc,
                 status:                         body.data.status,
                 catOptions:                     body.catOptions,
-                tagOptions:                     body.tagOptions,
+                // tagOptions:                     body.tagOptions,
                 vendorOptions:                  body.vendorOptions,
                 productOptions:                 body.productOptions,
                 oldCategory:                    body.catList,
-                oldTags:                        body.tagList,
+                // oldTags:                        body.tagList,
                 oldInc:                         body.incList,
                 oldExc:                         body.excList,
                 oldRecom:                       body.recomList,
@@ -124,7 +126,7 @@ export class EditProduct extends Component {
         }else{
             const data = new FormData()
             const aa = []; this.state.oldCategory.forEach(i => { aa.push(i.value) }); var finalCategory = Array.from(new Set( [...aa, ...this.state.selectedCategory]));
-            const bb = []; this.state.oldTags.forEach(i => { bb.push(i.value) }); var finalTag = Array.from(new Set( [...bb, ...this.state.selectedTag]));
+            // const bb = []; this.state.oldTags.forEach(i => { bb.push(i.value) }); var finalTag = Array.from(new Set( [...bb, ...this.state.selectedTag]));
             const cc = []; this.state.oldInc.forEach(i => { cc.push(i.value) }); var finalInc = Array.from(new Set( [...cc, ...this.state.inclusions]));
             const dd = []; this.state.oldExc.forEach(i => { dd.push(i.value) }); var finalExc = Array.from(new Set( [...dd, ...this.state.exclusions]));
             const ee = []; this.state.oldRecom.forEach(i => { ee.push(i.value) }); var finalRecom = Array.from(new Set( [...ee, ...this.state.recom]));
@@ -138,7 +140,7 @@ export class EditProduct extends Component {
             data.append('url', this.state.url.replace(/ /g,"-"))
             data.append('status', this.state.status)
             data.append('category', JSON.stringify(finalCategory) )
-            data.append('tags', JSON.stringify(finalTag) )
+            // data.append('tags', JSON.stringify(finalTag) )
             data.append('inclusion', JSON.stringify(finalInc) )
             data.append('exclusion', JSON.stringify(finalExc) )
             data.append('recom', JSON.stringify(finalRecom) )
@@ -239,7 +241,7 @@ export class EditProduct extends Component {
                                             onChange={this.onEditorChange2}
                                         />
                                     </div>
-                                    <div className="col-sm-6 compare label-down mt-5">
+                                    <div className="col-sm-12 compare label-down mt-5">
                                         <div className="update-treat">
                                             { this.state.oldCategory.length ? 
                                                 <>
@@ -250,7 +252,7 @@ export class EditProduct extends Component {
                                         <label>Categories</label>
                                         <Dropdown placeholder='Select category' multiple fluid search selection onChange={this.categorySelected} options={this.state.catOptions}/>
                                     </div>
-                                    <div className="col-sm-6 compare label-down mt-5">
+                                    {/* <div className="col-sm-6 compare label-down mt-5">
                                         <div className="update-treat">
                                             { this.state.oldTags.length ? 
                                                 <>
@@ -260,7 +262,7 @@ export class EditProduct extends Component {
                                         </div>
                                         <label>Add Tags</label>
                                         <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.tagSelected} options={this.state.tagOptions}/>
-                                    </div>
+                                    </div> */}
                                     <div className="col-sm-6 compare label-down my-5">
                                         <div className="update-treat">
                                             { this.state.oldInc.length ? 
@@ -270,7 +272,7 @@ export class EditProduct extends Component {
                                             : null}
                                         </div>
                                         <label>Puja Inclusion</label>
-                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.incSelected} options={this.state.incOptions}/>
+                                        <Dropdown placeholder='Select Puja Inclusion' fluid search multiple selection onChange={this.incSelected} options={this.state.incOptions}/>
                                     </div>
                                     <div className="col-sm-6 compare label-down my-5">
                                         <div className="update-treat">
@@ -281,7 +283,7 @@ export class EditProduct extends Component {
                                             : null}
                                         </div>
                                         <label>Puja Exclusion</label>
-                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.excSelected} options={this.state.incOptions}/>
+                                        <Dropdown placeholder='Select Puja Exclusion' fluid search multiple selection onChange={this.excSelected} options={this.state.incOptions}/>
                                     </div>
                                     <div className="col-sm-6 compare label-down my-5">
                                         <div className="update-treat">
@@ -292,7 +294,7 @@ export class EditProduct extends Component {
                                             : null}
                                         </div>
                                         <label>Recommended Products</label>
-                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.recomSelected} options={this.state.productOptions}/>
+                                        <Dropdown placeholder='Select Recommended Products' fluid search multiple selection onChange={this.recomSelected} options={this.state.productOptions}/>
                                     </div>
                                     <div className="col-sm-6 compare label-down my-5">
                                         <div className="update-treat">
@@ -303,7 +305,7 @@ export class EditProduct extends Component {
                                             : null}
                                         </div>
                                         <label>Related Products</label>
-                                        <Dropdown placeholder='Select Tags' fluid search multiple selection onChange={this.relatedSelected} options={this.state.productOptions}/>
+                                        <Dropdown placeholder='Select Related Products' fluid search multiple selection onChange={this.relatedSelected} options={this.state.productOptions}/>
                                     </div>
                                     <div className="my-div col-sm-12">
                                         <button className="amitBtn" type="submit">Submit</button>

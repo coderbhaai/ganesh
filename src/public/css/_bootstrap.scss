@@ -340,6 +340,9 @@ form{
   display: flex;
   overflow: hidden;
   justify-content: center;
+  :hover{
+    cursor: pointer;
+  }
 }
 .button-default {
   color: white;

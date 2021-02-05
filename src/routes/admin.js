@@ -9,8 +9,8 @@ const upload = require('express-fileupload')
 const fs = require('fs')
 router.use(upload())
 
-const storage = '/home/myuser/amit/public/images/'
-// const storage = './src/public/images/'
+// const storage = '/home/myuser/amit/public/images/'
+const storage = './src/public/images/'
 
 router.get('/AdminUsers', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql =   `SELECT name, email, role, created_at FROM users`
@@ -481,7 +481,6 @@ router.post('/updateBasic', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
 
 router.get('/addProductOptions', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql = `SELECT name as text, id as value FROM basic Where type='Category';
-                SELECT name as text, id as value FROM basic Where type='Tag';
                 SELECT name as text, id as value FROM basic Where type='Vendor';
                 SELECT name as text, id as value, tab1 FROM basic Where type='Puja';
                 SELECT name as text, id as value FROM products;`
@@ -491,10 +490,9 @@ router.get('/addProductOptions', [func.verifyToken, func.verifyAdmin], asyncMidd
             if(results){ 
                 res.send({ 
                     catOptions:             results[0],
-                    tagOptions:             results[1],
-                    vendorOptions:          results[2],
-                    incOptions:             results[3],
-                    productOptions:         results[4],
+                    vendorOptions:          results[1],
+                    incOptions:             results[2],
+                    productOptions:         results[3],
                 });
             }
         }catch(e){ func.logError(e); res.status(500); return; }
@@ -508,7 +506,6 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         'url':                  req.body.url,
         'status':               req.body.status,
         'category':             req.body.category,
-        'tags':                 req.body.tags,
         'inclusion':            req.body.inclusion,
         'exclusion':            req.body.exclusion,
         'recom':                req.body.recom,
@@ -578,11 +575,10 @@ router.post('/changeProductStatus', [func.verifyToken, func.verifyAdmin], asyncM
 }))
 
 router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.sale, a.status, a.inclusion, a.exclusion, a.recom, a.related, a.tagline, b.name as vendorName, b.tab1 as vendor 
+    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.shortDesc, a.longDesc, a.price, a.sale, a.status, a.inclusion, a.exclusion, a.recom, a.related, a.tagline, b.name as vendorName, b.tab1 as vendor 
                 FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.id = '${req.params.id}';
                 SELECT name as text, id as value FROM basic Where type='Category';
-                SELECT name as text, id as value FROM basic Where type='Tag';
                 SELECT name as text, id as value FROM basic Where type='Vendor';
                 SELECT name as text, id as value, tab1 FROM basic Where type='Puja';
                 SELECT name as text, id as value FROM products where id <> '${req.params.id}';`
@@ -591,7 +587,6 @@ router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMi
             if(err){ throw err }   
             if(results){ 
                 const catList = await func.productCatName(JSON.parse(results[0][0].category))
-                const tagList = await func.productTagName(JSON.parse(results[0][0].tags))
                 const incList = await func.productIncName(JSON.parse(results[0][0].inclusion))
                 const excList = await func.productExcName(JSON.parse(results[0][0].exclusion))
                 const recomList = await func.productRecomName(JSON.parse(results[0][0].recom))
@@ -599,12 +594,10 @@ router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMi
                 res.send({ 
                     data:               results[0][0],
                     catOptions:         results[1],
-                    tagOptions:         results[2],
                     vendorOptions:      results[3],
                     incOptions:         results[4],
                     productOptions:     results[5],
                     catList:            catList,
-                    tagList:            tagList,
                     incList:            incList,
                     excList:            excList,
                     recomList:          recomList,
@@ -622,7 +615,6 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
         'url':                  req.body.url,
         'status':               req.body.status,
         'category':             req.body.category,
-        'tags':                 req.body.tags,
         'inclusion':            req.body.inclusion,
         'exclusion':            req.body.exclusion,
         'recom':                req.body.recom,
@@ -701,7 +693,7 @@ router.post('/updateOrderStatus', [func.verifyToken, func.verifyAdmin], asyncMid
 }))
 
 router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
-    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.tags, a.shortDesc, a.longDesc, a.price, a.status, a.rating, a.inclusion, a.exclusion, a.recom, a.related, b.name as VendorName, b.tab1 as vendor
+    let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.shortDesc, a.longDesc, a.price, a.sale, a.status, a.rating, a.inclusion, a.exclusion, a.recom, a.related, b.name as VendorName, b.tab1 as vendor
                 FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.url = '${req.params.url}';`
     pool.query(sql, async(err, results) => {
@@ -709,7 +701,6 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
             if(err){ throw err }
             if(results){
                 const catProducts   = await func.similarCatProducts(JSON.parse(results[0].category), results[0].id )
-                const tagProducts   = await func.similarTagProducts(JSON.parse(results[0].tags, results[0].id ))
                 const incList       = await func.productIncName(JSON.parse(results[0].inclusion))
                 const excList       = await func.productExcName(JSON.parse(results[0].exclusion))
                 const recomList     = await func.productRecomName(JSON.parse(results[0].recom))
@@ -719,7 +710,6 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
                     product:            results[0],
                     incList:            incList,
                     catProducts:        catProducts,
-                    tagProducts:        tagProducts,
                     excList:            excList,
                     recomList:          recomList,
                     relatedList:        relatedList,
@@ -819,16 +809,14 @@ router.post('/updateReview', [func.verifyToken], asyncMiddleware( async(req, res
 
 router.get('/fetchShop', asyncMiddleware( async(req, res) => {
     let sql =   `SELECT id, type, name, tab1 FROM basic where type = 'Category';
-                SELECT id, type, name, tab1 FROM basic where type = 'Tag';
-                SELECT id, name, url, images, price, rating, category, tags FROM products WHERE status = '1';`
-    pool.query(sql, [1,2,3], async(err, results) => {
+                SELECT id, name, url, images, price, rating, category FROM products WHERE status = '1';`
+    pool.query(sql, [1,2], async(err, results) => {
         try{
             if(err){ throw err }    
             if(results){
                 const categories    = await func.addCatChecks(results[0])
-                const tags          = await func.addTagChecks(results[1])
-                const products      = results[2]
-                res.send({ categories, tags, products });
+                const products      = results[1]
+                res.send({ categories, products });
             }
         }catch(e){ func.logError(e); res.status(500); return; }
     })
