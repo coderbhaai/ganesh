@@ -9,8 +9,8 @@ const upload = require('express-fileupload')
 const fs = require('fs')
 router.use(upload())
 
-// const storage = '/home/myuser/amit/public/images/'
-const storage = './src/public/images/'
+const storage = '/home/myuser/amit/public/images/'
+// const storage = './src/public/images/'
 
 router.get('/AdminUsers', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql =   `SELECT name, email, role, created_at FROM users`
@@ -653,16 +653,12 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
 }))
 
 router.get('/getOrders', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql = `SELECT a.id, a.order_number, a.buyer, a.address, a.cart, a.invoice, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a
-    left join users as b on b.id = a.buyer `
+    let sql = `SELECT a.id, a.orderId, a.refId, a.buyer, a.address, a.cart, a.invoice, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a left join users as b on b.id = a.buyer `
     pool.query(sql, async(err, results) => {
-        try{    
-            if(results){ res.send({ orders: results }) }else if(err){ throw err }
-        }catch(e){
-            logError(e)
-            res.status(500);
-            return;
-        }
+        try{
+            if(err){ throw err }
+            if(results){ res.send({ orders: results }) }
+        }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -677,7 +673,7 @@ router.post('/updateOrderStatus', [func.verifyToken, func.verifyAdmin], asyncMid
         try{
             if(err){ throw err }
             if(results){
-                let sql2 = `SELECT a.id, a.order_number, a.buyer, a.address, a.cart, a.invoice, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a
+                let sql2 = `SELECT a.id, a.orderId, a.buyer, a.address, a.cart, a.invoice, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a
                         left join users as b on b.id = a.buyer WHERE a.id = '${req.body.id}'`
                 pool.query(sql2, (err2, results2) => {
                     try{

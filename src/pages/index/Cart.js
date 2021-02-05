@@ -152,7 +152,7 @@ export class Cart extends Component {
 
     getHash=()=>{
         var orderNote = JSON.stringify( [this.state.customerName, this.state.customerEmail, this.state.customerPhone ] )
-        var address = JSON.stringify( [this.state.country, this.state.state, this.state.city, this.state.address, this.state.pin] )
+        var address = JSON.stringify( [this.state.country, this.state.state, this.state.city, this.state.address, this.state.pin, this.state.customerPhone] )
         localStorage.setItem('buyer', orderNote)
         localStorage.setItem('address', address)
         const orderAmount = this.reduceCart()

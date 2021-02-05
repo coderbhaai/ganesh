@@ -78,15 +78,18 @@ class AdminOrders extends Component {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
-        const renderItems =  this.state.orders.filter((i)=>{ if(this.state.search == null) return i; else if(i.status.toLowerCase().includes(this.state.search.toLowerCase()) || JSON.parse(i.address)[0].toLowerCase().includes(this.state.search.toLowerCase()) || JSON.parse(i.cart)[3].toLowerCase().includes(this.state.search.toLowerCase())){ return i }}).slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
+        const renderItems =  this.state.orders.filter((i)=>{ if(this.state.search == null) return i; else if(i.status.toLowerCase().includes(this.state.search.toLowerCase()) || i.name.toLowerCase().includes(this.state.search.toLowerCase()) ){ return i }}).slice(indexOfFirstItem, indexOfLastItem).map(( i, index) => {
             return (
                 <tr key={index} className="cart">
                     <td>{index +1}</td>
-                    <td>{i.order_number}</td>
+                    <td>{i.orderId}</td>
+                    <td>{i.name}<br/>{i.email}<br/>{JSON.parse(i.address)[5]}</td>
                     <td>{JSON.parse(i.address)[0]}, {JSON.parse(i.address)[1]}, {JSON.parse(i.address)[2]}<br/> {JSON.parse(i.address)[3]}</td> 
-                    <td>{JSON.parse(i.address)[7]},  {JSON.parse(i.address)[6]} {JSON.parse(i.address)[5]} {JSON.parse(i.address)[4]} - {JSON.parse(i.address)[8]}</td>
-                    <td className="cartImg"><a href={"/product/"+JSON.parse(i.cart)[5]}><img src={"/images/product/"+JSON.parse(i.cart)[2]} className="previewImg"/>{JSON.parse(i.cart)[3]}</a></td>                          
-                    <td>{JSON.parse(i.cart)[0]}</td>                                        
+                    <td>
+                        {JSON.parse(i.cart).map((j,index2)=>(
+                            <p key={index2}><a target="_blank" href={"/product/"+j[5]}>{j[3]} X {j[0]} @{j[4]}</a></p>
+                        ))}
+                    </td>
                     <td>&#8377;{i.invoice}</td>
                     <td>{i.status}</td>                    
                     <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
@@ -126,8 +129,7 @@ class AdminOrders extends Component {
                                         <td>Order Number</td>
                                         <td>Buyer</td>
                                         <td>Address</td>
-                                        <td>SKU</td>
-                                        <td>Quantity</td>
+                                        <td>Cart</td>
                                         <td>Amount</td>
                                         <td>Status</td>
                                         <td>Date</td>
