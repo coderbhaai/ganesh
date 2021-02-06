@@ -761,6 +761,15 @@ footer{
    }
 }
 @media (max-width:640px) {
+   .links{
+      flex-direction: column;
+      li{
+         a{
+            padding: 0;
+         }
+      }
+
+   }
    .banner {
       .caption {
          h1{
@@ -781,6 +790,9 @@ footer{
             position: relative;
             padding: 0;
          }
+      }
+      .col-sm-6:first-child li{
+         padding: 5px 0;
       }
    }
    .heading {

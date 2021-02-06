@@ -421,3 +421,22 @@ form{
     }
   }
 }
+@media (max-width:600px) {
+  .reviewsDesc{
+    ul{
+      flex-direction: column;
+    }
+    .tab-pane {
+      padding: 1em .5em;
+    }
+  }
+  .doubtShield{
+    div:first-child{
+      flex-direction: column;
+      h3{
+        letter-spacing: 0;
+        font-size: 16px;
+      }
+    }
+  }
+}

@@ -2206,6 +2206,17 @@ form .rating {
   .orderList > div {
     display: block; } }
 
+@media (max-width: 600px) {
+  .reviewsDesc ul {
+    flex-direction: column; }
+  .reviewsDesc .tab-pane {
+    padding: 1em .5em; }
+  .doubtShield div:first-child {
+    flex-direction: column; }
+    .doubtShield div:first-child h3 {
+      letter-spacing: 0;
+      font-size: 16px; } }
+
 @font-face {
   font-family: 'XXII ARABIAN-ONENIGHTSTAND Bold';
   font-style: normal;
@@ -2774,6 +2785,10 @@ footer .akk {
       padding: 1rem 1rem; } }
 
 @media (max-width: 640px) {
+  .links {
+    flex-direction: column; }
+    .links li a {
+      padding: 0; }
   .banner .caption h1 {
     font-size: 12px; }
   .banner .caption p {
@@ -2784,6 +2799,8 @@ footer .akk {
   footer .akk .akkLink {
     position: relative;
     padding: 0; }
+  footer .col-sm-6:first-child li {
+    padding: 5px 0; }
   .heading {
     font-size: 1.5em; } }
 

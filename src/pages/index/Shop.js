@@ -55,7 +55,8 @@ export class Shop extends Component {
     }
 
     addToCart=(i)=>{
-        var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url, i.type ]
+        if(i.sale){ var price = i.sale }else { var price = i.price }
+        var item = [1, i.id, JSON.parse(i.images)[0], i.name, price, i.url, i.type ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
                 if( o[1] === parseInt(i.id) ){ 

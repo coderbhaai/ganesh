@@ -14,7 +14,7 @@ export class Header extends Component {
     componentDidMount(){
         if(typeof(Storage) !== "undefined" && localStorage.getItem('message') ){
             swal({ title: localStorage.getItem('message'),
-            // timer: 4000
+            timer: 4000
         })
             setTimeout(function() { localStorage.removeItem('message') }, 4000)
         }

@@ -446,7 +446,7 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
   });
 
   router.post('/payment-response', asyncMiddleware( async(req, res, next) => {
-    if(req.body.txStatus){
+    if(req.body.txStatus ==='SUCCESS'){
       const post ={
         orderId:              req.body.orderId,
         refId:                req.body.referenceId,
@@ -468,55 +468,68 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
   }))
 
   router.post('/placeOrder', asyncMiddleware( async(req, res) => {
-    if(req.body.loggedIn){
-      var account           = 'Exists'
-      var buyer             = JSON.parse( req.body.user ).id
-      var message           = "Order Placed Successfully"
-      var name              = JSON.parse( req.body.user ).name
-      var email             = JSON.parse( req.body.user ).email
-      var user              = {}
-      var password          = ''
-    }else{
-      var id                = await func.checkUser(JSON.parse(req.body.buyer)[0], JSON.parse(req.body.buyer)[1])
-      var account           = 'Created'
-      var buyer             = id[1]
-      var message           = id[4]
-      var name              = id[2].name
-      var email             = id[2].email
-      var user              = id[2]
-      var password          = id[3]
-    }
-    let post= {
-        'buyer':                buyer,
-        'address':              req.body.address,
-        'cart':                 req.body.cart,
-        'status':               'Ordered',
-        "updated_at":           time
-    }
-    let sql = `UPDATE orders SET ? WHERE orderId = '${req.body.orderId}'`
-    pool.query(sql, post, async(err, results) => {
-      try{
-          if(err){ throw err }
-          if(results){
-            if(!req.body.loggedIn){
-              jwt.sign({ user }, 'secretkey', (err, token)=>{
-                if(err) throw err;
-                if(token){
-                  user.token = token
-                  res.cookie('token', token)
-                }
+    let sql = `SELECT id FROM orders WHERE orderId = '${req.body.orderId}'`
+    pool.query(sql, async(err, results) => {
+        try{
+            if(err){ throw err }
+            if(results.length){
+              if(req.body.loggedIn){
+                var account           = 'Exists'
+                var buyer             = JSON.parse( req.body.user ).id
+                var message           = "Order Placed Successfully"
+                var name              = JSON.parse( req.body.user ).name
+                var email             = JSON.parse( req.body.user ).email
+                var user              = {}
+                var password          = ''
+              }else{
+                var id                = await func.checkUser(JSON.parse(req.body.buyer)[0], JSON.parse(req.body.buyer)[1])
+                var account           = 'Created'
+                var buyer             = id[1]
+                var message           = id[4]
+                var name              = id[2].name
+                var email             = id[2].email
+                var user              = id[2]
+                var password          = id[3]
+              }
+              let post= {
+                  'buyer':                buyer,
+                  'address':              req.body.address,
+                  'cart':                 req.body.cart,
+                  'status':               'Ordered',
+                  "updated_at":           time
+              }
+              let sql2 = `UPDATE orders SET ? WHERE orderId = '${req.body.orderId}'`
+              pool.query(sql2, post, async(err2, results2) => {
+                try{
+                    if(err2){ throw err2 }
+                    if(results2){
+                      if(!req.body.loggedIn){
+                        jwt.sign({ user }, 'secretkey', (err, token)=>{
+                          if(err) throw err;
+                          if(token){
+                            user.token = token
+                            res.cookie('token', token)
+                          }
+                        })
+                      }
+                      await func.mailOrder( req.body.loggedIn, name, email, password, req.body.cart )
+                      res.send({ 
+                          success:    true,
+                          account:    account,
+                          user:       user,
+                          message:    message
+                      })
+                    }
+                }catch(e){ func.logError(e); res.status(500); return; }
+              })
+            }else{
+              res.send({ 
+                success:    false,
+                message:    "Order Not complete"
               })
             }
-            await func.mailOrder( req.body.loggedIn, name, email, password, req.body.cart )
-            res.send({ 
-                success:    true,
-                account:    account,
-                user:       user,
-                message:    message
-            })
-          }
-      }catch(e){ func.logError(e); res.status(500); return; }
-    })
+        }catch(e){ func.logError(e); res.status(500); return; }
+      });
   }))
 // Payment Gateway
 

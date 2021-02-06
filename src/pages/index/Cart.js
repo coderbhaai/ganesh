@@ -13,24 +13,24 @@ export class Cart extends Component {
             cart:                   [],
             cost:                   0,
             coupon:                 '',
-            customerName:        '',
-            customerEmail:       '',
-            customerPhone:       '',
-            country:                '',
-            state:                  '',
-            city:                   '',
-            address:                '',
-            pin:                    '',
-            // customerName:            'Amit',
-            // customerEmail:          'amit.khare588@gmail.com',
-            // customerPhone:          '123456789',
-            // country:                'India',
-            // state:                  'Haryana',
-            // city:                   'Faridabad',
-            // address:                '1172',
-            // pin:                    '122002',
-            // returnUrl:              'http://localhost:3000/payment-response',
-            returnUrl:              'https://pujarambh.com/payment-response',
+            // customerName:        '',
+            // customerEmail:       '',
+            // customerPhone:       '',
+            // country:                '',
+            // state:                  '',
+            // city:                   '',
+            // address:                '',
+            // pin:                    '',
+            // returnUrl:              'https://pujarambh.com/payment-response',
+            customerName:           'Amit',
+            customerEmail:          'amit.khare588@gmail.com',
+            customerPhone:          '1234567890',
+            country:                'India',
+            state:                  'Haryana',
+            city:                   'Faridabad',
+            address:                '1172',
+            pin:                    '122002',
+            returnUrl:              'http://localhost:3000/payment-response',
             orderId:                '',
             orderAmount:            '',
             orderCurrency:          'INR',
@@ -71,8 +71,8 @@ export class Cart extends Component {
                 axios.post('/placeOrder', data)
                 .catch(err=>func.printError(err))
                 .then(res=>{
+                    localStorage.setItem('message', res.data.message)
                     if(res.data.success){
-                        localStorage.setItem('message', res.data.message)
                         localStorage.removeItem("buyer");
                         localStorage.removeItem("orderId");
                         localStorage.removeItem("cart");
@@ -81,6 +81,8 @@ export class Cart extends Component {
                             localStorage.setItem('user', JSON.stringify(res.data.user))
                         }
                         window.location.href = '/user/admin'
+                    }else{
+                        window.location.href = '/cart'
                     }
                 })
             }else{
@@ -161,6 +163,7 @@ export class Cart extends Component {
             orderAmount:            orderAmount
         })
         if(this.state.orderAmount && this.state.customerName && this.state.customerEmail && this.state.customerPhone.length>9){
+            this.setState({ allOK: true })
             const hashData={
                 appId:                  this.state.appId,
                 secretKey:              this.state.secretKey,

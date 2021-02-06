@@ -119,7 +119,8 @@ export class Product extends Component {
     }
 
     addToCart=(i)=>{
-        var item = [1, i.id, JSON.parse(i.images)[0], i.name, i.price, i.url, i.type ]
+        if(i.sale){ var price = i.sale }else { var price = i.price }
+        var item = [1, i.id, JSON.parse(i.images)[0], i.name, price, i.url, i.type ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
             this.state.cart.forEach((o)=>{
                 if( o[1] === parseInt(i.id) ){ 
@@ -274,7 +275,7 @@ export class Product extends Component {
                 { this.state.product ?
                     <div className="container singleProduct">
                         <div className="row mt-5 py-3 product">
-                            <div className="col-sm-3 imgZoom">
+                            <div className="col-sm-3 mb-5 imgZoom">
                                 { this.state.product.images && this.state.currentImg ?
                                     <>
                                         <div className="thumbnail web">
