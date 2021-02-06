@@ -805,7 +805,7 @@ router.post('/updateReview', [func.verifyToken], asyncMiddleware( async(req, res
 
 router.get('/fetchShop', asyncMiddleware( async(req, res) => {
     let sql =   `SELECT id, type, name, tab1 FROM basic where type = 'Category';
-                SELECT id, name, url, images, price, rating, category FROM products WHERE status = '1';`
+                SELECT id, name, url, images, price, sale, rating, category FROM products WHERE status = '1';`
     pool.query(sql, [1,2], async(err, results) => {
         try{
             if(err){ throw err }    

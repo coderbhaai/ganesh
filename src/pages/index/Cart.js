@@ -13,24 +13,24 @@ export class Cart extends Component {
             cart:                   [],
             cost:                   0,
             coupon:                 '',
-            // customerName:        '',
-            // customerEmail:       '',
-            // customerPhone:       '',
-            // country:                '',
-            // state:                  '',
-            // city:                   '',
-            // address:                '',
-            // pin:                    '',
-            // returnUrl:              'https://pujarambh.com/payment-response',
-            customerName:           'Amit',
-            customerEmail:          'amit.khare588@gmail.com',
-            customerPhone:          '1234567890',
-            country:                'India',
-            state:                  'Haryana',
-            city:                   'Faridabad',
-            address:                '1172',
-            pin:                    '122002',
-            returnUrl:              'http://localhost:3000/payment-response',
+            customerName:        '',
+            customerEmail:       '',
+            customerPhone:       '',
+            country:                '',
+            state:                  '',
+            city:                   '',
+            address:                '',
+            pin:                    '',
+            returnUrl:              'https://pujarambh.com/payment-response',
+            // customerName:           'Amit',
+            // customerEmail:          'amit.khare588@gmail.com',
+            // customerPhone:          '1234567890',
+            // country:                'India',
+            // state:                  'Haryana',
+            // city:                   'Faridabad',
+            // address:                '1172',
+            // pin:                    '122002',
+            // returnUrl:              'http://localhost:3000/payment-response',
             orderId:                '',
             orderAmount:            '',
             orderCurrency:          'INR',
@@ -44,7 +44,7 @@ export class Cart extends Component {
     
     componentDidMount(){
         window.scrollTo(0, 0)
-        const url = window.location.href.split("/").pop()
+        const url = window.location.href.split("/").pop()        
         if(typeof(Storage) !== "undefined"){ this.setState({ cart: JSON.parse(localStorage.getItem('cart')) || [] })}
         var loggedIn            =   false
         var user                =   ''

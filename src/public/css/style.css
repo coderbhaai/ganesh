@@ -2417,7 +2417,7 @@ footer .akk {
     width: fit-content;
     border-radius: 5px; }
   .product p {
-    font-size: 13px; }
+    font-size: 16px; }
   .product .usage {
     position: absolute;
     top: 20px;
@@ -2455,6 +2455,12 @@ footer .akk {
         display: block;
         padding: 10px 5px;
         color: #fff; }
+    .product .productDetail .rs {
+      font-size: 12px; }
+    .product .productDetail .price {
+      color: #e1672e; }
+    .product .productDetail .strike {
+      color: #000; }
 
 .testis {
   background: url(/images/static/testis.jpg) no-repeat center;

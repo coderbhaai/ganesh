@@ -260,7 +260,7 @@ footer{
       border-radius: 5px;
    }
    p{
-      font-size: 13px;
+      font-size: 16px;
    }
    .usage{
       position: absolute;
@@ -319,6 +319,15 @@ footer{
             padding: 10px 5px;
             color: #fff;
          }
+      }
+      .rs {
+         font-size: 12px;
+      }
+      .price{
+         color: $primary;
+      }
+      .strike{
+         color: #000;
       }
    }
 }

@@ -140,7 +140,13 @@ export class index extends Component {
                                                         {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                         <div className="productDetail">
                                                             <h3>{i.name}</h3>
-                                                            <p>Price: Rs {i.price}</p>
+                                                            {/* <p>Price: Rs {i.price}</p> */}
+                                                            <p>
+                                                                <span className={i.sale ? "price strike" : "price"}>
+                                                                    <span className="rs">&#8377; </span>{i.price} /-
+                                                                </span>
+                                                                {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale} /-</span> : null }
+                                                            </p>
                                                             <div className="button-wrap">
                                                                 <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
                                                                     <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
@@ -180,7 +186,13 @@ export class index extends Component {
                                                         {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                         <div className="productDetail">
                                                             <h3>{i.name}</h3>
-                                                            <p>Price: Rs {i.price}</p>
+                                                            {/* <p>Price: Rs {i.price}</p> */}
+                                                            <p>
+                                                                <span className={i.sale ? "price strike" : "price"}>
+                                                                    <span className="rs">&#8377; </span>{i.price} /-
+                                                                </span>
+                                                                {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale} /-</span> : null }
+                                                            </p>
                                                             <div className="button-wrap">
                                                                 <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
                                                                     <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
@@ -223,7 +235,13 @@ export class index extends Component {
                                                             {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                             <div className="productDetail">
                                                                 <h3>{i.name}</h3>
-                                                                <p>Price: Rs {i.price}</p>
+                                                                {/* <p>Price: Rs {i.price}</p> */}
+                                                                <p>
+                                                                    <span className={i.sale ? "price strike" : "price"}>
+                                                                        <span className="rs">&#8377; </span>{i.price} /-
+                                                                    </span>
+                                                                    {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale} /-</span> : null }
+                                                                </p>
                                                                 <div className="button-wrap">
                                                                     <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
                                                                         <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
@@ -263,7 +281,12 @@ export class index extends Component {
                                                             {i.tagline? <p className="usage">{i.tagline}</p> : null}
                                                             <div className="productDetail">
                                                                 <h3>{i.name}</h3>
-                                                                <p>Price: Rs {i.price}</p>
+                                                                <p>
+                                                                    <span className={i.sale ? "price strike" : "price"}>
+                                                                        <span className="rs">&#8377; </span>{i.price}
+                                                                    </span>
+                                                                    {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale}</span> : null }
+                                                                </p>
                                                                 <div className="button-wrap">
                                                                     <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
                                                                         <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
