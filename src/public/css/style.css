@@ -2079,6 +2079,10 @@ form .rating {
   border: 1px solid #eee; }
   .reviewsDesc .tab-pane .heading {
     margin: 5px 0; }
+  .reviewsDesc .tab-pane ul {
+    display: block; }
+    .reviewsDesc .tab-pane ul li {
+      text-align: left; }
 
 .reviewsDesc .cke_top {
   display: none; }

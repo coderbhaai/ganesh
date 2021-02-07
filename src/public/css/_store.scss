@@ -249,6 +249,12 @@ form{
         .heading{
             margin: 5px 0;
         }
+        ul{
+          display: block;
+          li{
+            text-align: left;
+          }
+        }
     }
     .cke_top {
       display: none;
