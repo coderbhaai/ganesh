@@ -22,6 +22,8 @@ export class Cart extends Component {
             // address:                '',
             // pin:                    '',
             // returnUrl:              'https://pujarambh.com/payment-response',
+            // appId:                  '51409786e7f06e6c43c7d7c3d90415',
+            // secretKey:              '414a13ae0b6afb753ca031a73e35129a6f35ea57',
             customerName:           'Amit',
             customerEmail:          'amit.khare588@gmail.com',
             customerPhone:          '1234567890',
@@ -36,9 +38,9 @@ export class Cart extends Component {
             orderCurrency:          'INR',
             orderNote:              "",
             rPay:                   "https://test.cashfree.com/billpay/checkout/post/submit",
-            appId:                  '51409786e7f06e6c43c7d7c3d90415',
-            secretKey:              '414a13ae0b6afb753ca031a73e35129a6f35ea57',
-            mode:                   'TEST'
+            appId:                  '96792f9956bbaeb0c1c7a1d3529769',
+            secretKey:              '784bdbd59295dcbb3ef2b4e8c353f225001eedc5',
+            mode:                   'PROD'
         }
     }
     
