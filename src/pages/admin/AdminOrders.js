@@ -75,7 +75,6 @@ class AdminOrders extends Component {
     }
 
     render() {
-        console.log('this.state.orders', this.state.orders)
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
         const indexOfFirstItem = indexOfLastItem - itemsPerPage
@@ -90,7 +89,8 @@ class AdminOrders extends Component {
                         {JSON.parse(i.cart).map((j,index2)=>(
                             <a key={index2} target="_blank" href={"/product/"+j[5]}>
                                 <p>{j[3]} X {j[0]} @{j[4]}</p>
-                                <p><strong> {j[7]? 'Date: '+moment(j[7]).format("DD MMMM YYYY") :null} <br/>{j[8]? 'Place: '+j[8] :null}</strong></p>
+                                {j[7] ? <p><strong> Date :</strong> {moment(j[7]).format("DD MMMM YYYY")}</p> :null}
+                                {j[8]? <p><strong> Place :</strong>{j[8]}</p> :null}
                             </a>
                         ))}
                     </td>
