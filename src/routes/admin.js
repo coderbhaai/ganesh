@@ -695,7 +695,7 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
     pool.query(sql, async(err, results) => {
         try{    
             if(err){ throw err }
-            if(results){
+            if(results.length){
                 const catProducts   = await func.similarCatProducts(JSON.parse(results[0].category), results[0].id )
                 const incList       = await func.productIncName(JSON.parse(results[0].inclusion))
                 const excList       = await func.productExcName(JSON.parse(results[0].exclusion))
@@ -711,6 +711,8 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
                     relatedList:        relatedList,
                     reviewList:         reviewList,
                 });
+            }else{
+                res.redirect('/shop');
             }
         }catch(e){ func.logError(e); res.status(500); return; }
     })

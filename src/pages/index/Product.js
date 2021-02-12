@@ -364,7 +364,13 @@ export class Product extends Component {
                                                             {i.rating? <StarRating rating={JSON.parse( i.rating)[0]}/> : null }
                                                         </div>
                                                         <p style={{fontWeight:'600'}}>{i.text}</p>
-                                                        <p className="price">&#8377;{i.price}</p>
+                                                        {/* <p className="price">&#8377;{i.price}</p> */}
+                                                        <p>
+                                                            <span className={i.sale ? "price strike" : "price"}>
+                                                                <span className="rs">&#8377; </span>{i.price} /-
+                                                            </span>
+                                                            {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale} /-</span> : null }
+                                                        </p>
                                                     </div>
                                                 </a>
                                             </div>

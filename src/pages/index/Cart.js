@@ -11,36 +11,25 @@ export class Cart extends Component {
             allOK:                  false,
             loading:                true,
             cart:                   [],
-            cost:                   0,
-            coupon:                 '',
-            // customerName:        '',
-            // customerEmail:       '',
-            // customerPhone:       '',
-            // country:                '',
-            // state:                  '',
-            // city:                   '',
-            // address:                '',
-            // pin:                    '',
-            // returnUrl:              'https://pujarambh.com/payment-response',
-            // appId:                  '51409786e7f06e6c43c7d7c3d90415',
-            // secretKey:              '414a13ae0b6afb753ca031a73e35129a6f35ea57',
-            customerName:           'Amit',
-            customerEmail:          'amit.khare588@gmail.com',
-            customerPhone:          '1234567890',
-            country:                'India',
-            state:                  'Haryana',
-            city:                   'Faridabad',
-            address:                '1172',
-            pin:                    '122002',
-            returnUrl:              'http://localhost:3000/payment-response',
+            customerName:           '',
+            customerEmail:          '',
+            customerPhone:          '',
+            country:                '',
+            state:                  '',
+            city:                   '',
+            address:                '',
+            pin:                    '',
             orderId:                '',
             orderAmount:            '',
             orderCurrency:          'INR',
             orderNote:              "",
-            rPay:                   "https://test.cashfree.com/billpay/checkout/post/submit",
+            returnUrl:              'https://pujarambh.com/payment-response',
+            rPay:                   "https://www.cashfree.com/checkout/post/submit",
             appId:                  '96792f9956bbaeb0c1c7a1d3529769',
             secretKey:              '784bdbd59295dcbb3ef2b4e8c353f225001eedc5',
-            mode:                   'PROD'
+            notifyUrl:              '',
+            signature:              '',
+            mode:                   'PROD',
         }
     }
     
@@ -95,7 +84,7 @@ export class Cart extends Component {
             var ord = JSON.stringify(Math.random()*1000);
             var i = ord.indexOf('.');
             const time = Date.now()
-            var ord = 'ORD-'+ time + ord.substr(0,i);
+            var ord = 'ORD'+ time + ord.substr(0,i);
             this.setState({ 
                 orderId:        ord, 
                 loading:        false
@@ -106,6 +95,14 @@ export class Cart extends Component {
 
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value },()=>this.getHash()) }
     reduceCart=()=>{ return this.state.cart.reduce( function(cnt, i){ return cnt + i[0]*i[4]; }, 0) }
+
+    changePhone=(e)=>{
+        if(e.target.value.toString().length>10){
+            func.callSwal('Only 10 digits allowed')
+        }else{
+            this.setState({ customerPhone: e.target.value})
+        }
+    }
 
     addToCart=(i)=>{
         if( this.state.cart.some( j => j[1] === parseInt(i[1]) )){
@@ -164,30 +161,26 @@ export class Cart extends Component {
             orderNote:              orderNote,
             orderAmount:            orderAmount
         })
-        if(this.state.orderAmount && this.state.customerName && this.state.customerEmail && this.state.customerPhone.length>9){
+        if(this.state.country && this.state.state && this.state.city && this.state.address && this.state.pin && this.state.customerPhone && this.state.customerName && this.state.customerEmail && this.state.customerPhone && this.state.orderAmount && this.state.customerName && this.state.customerEmail && this.state.customerPhone.length===10){
             this.setState({ allOK: true })
+        }
+        if(this.state.orderAmount && this.state.customerName && this.state.customerEmail && this.state.customerPhone.length==10){
             const hashData={
                 appId:                  this.state.appId,
                 secretKey:              this.state.secretKey,
                 orderId:                this.state.orderId,
-                orderAmount:            orderAmount,
                 orderCurrency:          this.state.orderCurrency,
+                orderAmount:            orderAmount,
                 orderNote:              orderNote,
                 customerName:           this.state.customerName,
                 customerEmail:          this.state.customerEmail,
                 customerPhone:          this.state.customerPhone,
                 returnUrl:              this.state.returnUrl,
-                notifyUrl:              '',
             }
             axios.post('/getHash', hashData)
             .catch(err=>func.printError(err))
             .then(res=>{
-                if(res.data.success){
-                    this.setState({ signature:  res.data.signature })
-                    if(this.state.country && this.state.state && this.state.city && this.state.address && this.state.pin ){
-                        this.setState({ allOK: true })
-                    }
-                }
+                if(res.data.success){ this.setState({ signature:  res.data.signature }) }
             })
         }
     }
@@ -199,6 +192,8 @@ export class Cart extends Component {
             ,()=>this.getHash()
         )
     }
+
+    notOk=()=>{ func.callSwal('Please fill all details to proceed') }
 
     render() {
         if(!this.state.loading){
@@ -213,7 +208,7 @@ export class Cart extends Component {
                                     <div className="col-sm-9 cartList">
                                         { this.state.cart.map((i, index)=>{ return (
                                             <div className="cartLoop" key={index}>
-                                                <a href={"/product/"+i[6]}><img src={"/images/product/"+i[2]} className="previewImg"/></a>
+                                                <a href={"/product/"+i[5]}><img src={"/images/product/"+i[2]} className="previewImg"/></a>
                                                 <div>
                                                     <div className="changeQty flex-sb">
                                                         <a href={"/product/"+i[6]}><p>{i[3]}</p></a>
@@ -284,10 +279,6 @@ export class Cart extends Component {
                                     <input type="hidden" name="orderNote" value={this.state.orderNote}/>
                                     <h2 className="heading">Your Details</h2>
                                     <div className="row shipping">
-                                        {/* <div className="col-sm-12">
-                                            <label>Message</label>
-                                            <textarea type="text" name="orderNote" required className="form-control" placeholder="Message" value={this.state.orderNote} onChange={this.onChange}></textarea>
-                                        </div> */}
                                         <div className="col-sm-5">
                                             <label>Name *</label>
                                             <input className="form-control" type="text" name="customerName" required placeholder="Name Please" value={this.state.customerName} onChange={this.onChange}/>
@@ -298,20 +289,13 @@ export class Cart extends Component {
                                         </div>
                                         <div className="col-sm-3 phone">
                                             <label>Phone *</label>
-                                            <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="customerPhone" required placeholder="Phone" value={this.state.customerPhone} onChange={this.onChange}/>
+                                            <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0" name="customerPhone" required placeholder="Phone" value={this.state.customerPhone} onChange={this.changePhone}/>
                                         </div>
                                         <input type="hidden" name="returnUrl" value={this.state.returnUrl}/>
-                                        <input type="hidden" name="notifyUrl" value={this.state.notifyUrl}/>
                                         <input type="hidden" name="signature" value={this.state.signature}/>
                                         <div className="col-sm-12 w-100 mt-5">
                                             <h3>Final Invoice : &#8377;{this.reduceCart()}</h3>
-                                                {/* <span>Cost <strong>&#8377;{this.reduceCart()}</strong> </span>
-                                                {this.state.paymentInProcess ?
-                                                    <div className="loading"><img src="/images/icons/loading.gif"/></div>
-                                                :
-                                                    
-                                                } */}
-                                                <div className="my-div"><button className="amitBtn" disabled={this.state.allOK? false : true} >Pay now</button></div>
+                                                <div className="my-div"><button className="amitBtn" disabled={this.state.allOK? false : true}>Pay now</button></div>
                                                 <p className="text-center">{ !this.state.allOK ? "Please provide all the details to proceed further" : "Please proceed to payment" }</p>
                                         </div>
                                     </div>

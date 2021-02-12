@@ -67,7 +67,7 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
                                                     </ul>
                                                     <p>We welcome you onboard.</p><br/>
                                                     <p>Warm Regards</p>
-                                                    <p>Team pujarambh Eagle</p>
+                                                    <p>Team pujarambh</p>
                                                     `
                                                 let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambh.com>', cc: "amit.khare588@gmail.com", subject: `${req.body.name} registered on website ✔ www.pujarambh.com`, html: mailBody }
                                                 transporter.sendMail( mailOptions, (error, info)=>{

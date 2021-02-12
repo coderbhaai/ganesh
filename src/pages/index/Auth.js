@@ -6,7 +6,6 @@ import axios from 'axios'
 import api from '../parts/api'
 const func = require('../parts/functions')
 import FacebookLogin from 'react-facebook-login';
-
 import GoogleLogin from 'react-google-login';
 
 class Auth extends Component {

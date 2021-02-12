@@ -70,6 +70,27 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
   })
 }))
 
+router.get('/product/:url', asyncMiddleware( async (req, res, next) => { 
+  const meta = await func.getMeta(req.url)
+  let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.shortDesc, a.longDesc, a.price, a.sale, a.status, a.rating, a.inclusion, a.exclusion, a.recom, a.related, b.name as VendorName, b.tab1 as vendor
+                FROM products as a
+                left join basic as b on b.id = a.vendor WHERE a.url = '${req.params.url}';`
+    pool.query(sql, async(err, results) => {
+        try{    
+            if(err){ throw err }
+            if(results.length){
+                const catProducts   = await func.similarCatProducts(JSON.parse(results[0].category), results[0].id )
+                const incList       = await func.productIncName(JSON.parse(results[0].inclusion))
+                const excList       = await func.productExcName(JSON.parse(results[0].exclusion))
+                const recomList     = await func.productRecomName(JSON.parse(results[0].recom))
+                const relatedList   = await func.productRelatedName(JSON.parse(results[0].related))
+                const reviewList    = await func.productReview(JSON.parse( results[0].id ))
+                res.status(200).render('pages/Product', { reactApp: renderToString(<Product product={results[0]} incList={incList} catProducts={catProducts} excList={excList} recomList={recomList} relatedList={relatedList} reviewList={reviewList} />), meta: meta })
+            }else{ res.redirect('/shop'); }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
 // // Auth Pages
   router.get('/sign-up', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: meta }) }))
   router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: [] }) }))
@@ -309,7 +330,7 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
           }
         });
     }
-
+    
     if(req.params.type == "search"  ){
       var sql = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE title LIKE '%${req.params.url}%' OR content LIKE '%${req.params.url}%' ORDER BY id DESC`;
       pool.query(sql, (err, results) => {
@@ -382,7 +403,6 @@ router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { c
 router.get('/shop', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
 router.get('/category/:cat', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
 router.get('/subcategory/:subcat', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
-router.get('/product/:url', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Product', { reactApp: renderToString(<Product/>), meta: meta }) }))
 router.get('/product-tag/:url', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
 router.get('/cart', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
 router.get('/payment-response', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
@@ -408,20 +428,16 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
           />)
           res.status(200).render('blog/Single', { reactApp: reactComp, meta: meta })
         }else{
-          res.redirect('/404');
+          res.redirect('/shop');
         }
     }catch(e){ func.logError(e, req.url); res.status(403); return; }
   });
 }))
 
 // Payment Gateway
-  const appId = '51409786e7f06e6c43c7d7c3d90415'
-  // const secretKeyData = '414a13ae0b6afb753ca031a73e35129a6f35ea57'
-  const mode = 'TEST'
-
   router.post('/getHash',function(req, res, next){
     var postData = {
-      "appId" : appId,
+      "appId" : req.body.appId,
       "orderId" : req.body.orderId,
       "orderAmount" : req.body.orderAmount,
       "orderCurrency" : req.body.orderCurrency,
@@ -430,7 +446,7 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
       "customerEmail" : req.body.customerEmail,
       "customerPhone" : req.body.customerPhone,
       "returnUrl" : req.body.returnUrl,
-      "notifyUrl" : req.body.notifyUrl
+      // "notifyUrl" : req.body.notifyUrl
     },
     secretKey = req.body.secretKey,
     sortedkeys = Object.keys(postData),
