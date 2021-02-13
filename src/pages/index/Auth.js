@@ -17,6 +17,8 @@ class Auth extends Component {
             role:                       'User',
             password:                   '',
             password_confirmation:      '',
+            provider:                   'Email',
+            image:                      '',
             // name:                       'Test',
             // email:                      'test@test.com',
             // role:                       'User',
@@ -49,7 +51,8 @@ class Auth extends Component {
             email:                      this.state.email,
             role:                       this.state.role,
             password:                   this.state.password,
-            password_confirmation:      this.state.password
+            provider:                   this.state.provider,
+            // password_confirmation:      this.state.password
             // password_confirmation:      this.state.password_confirmation
         }               
         axios.post(api.register, data)
@@ -106,7 +109,7 @@ class Auth extends Component {
             var data = {
                 name: res.profileObj.name,
                 email: res.profileObj.email,
-                token: res.googleId,
+                password: res.googleId,
                 image: res.profileObj.imageUrl,
                 provider: 'Google',
                 role: this.state.role
@@ -115,13 +118,13 @@ class Auth extends Component {
             var data = {
                 name: res.name,
                 email: res.email,
-                token: res.userID,
+                password: res.userID,
                 image: res.picture.data.url,
                 provider: 'FB',
                 role: this.state.role
             };
         }
-        axios.post(api.gofbRegister, data)
+        axios.post(api.register, data)
             .then( res=>{
                 if(res.data.success){
                     localStorage.setItem('user', JSON.stringify(res.data.user))
@@ -138,15 +141,15 @@ class Auth extends Component {
         if(type=='Google'){
             var data = {
                 email: res.profileObj.email,
-                token: res.googleId,
+                password: res.googleId,
             };
         }else if(type=='FB'){
             var data = {
                 email: res.email,
-                token: res.userID,
+                password: res.userID,
             };
         }
-        axios.post(api.gofbLogin, data)
+        axios.post(api.login, data)
             .then(res=> {
                 if(res.data.success){
                     localStorage.setItem('user', JSON.stringify(res.data.user))

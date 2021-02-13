@@ -119,6 +119,7 @@ export class Product extends Component {
     }
 
     addToCart=(i)=>{
+        console.log('i', i)
         if(i.sale){ var price = i.sale }else { var price = i.price }
         var item = [1, i.id, JSON.parse(i.images)[0], i.name, price, i.url, i.type ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){

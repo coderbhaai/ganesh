@@ -11,6 +11,8 @@ export class Cart extends Component {
             allOK:                  false,
             loading:                true,
             cart:                   [],
+            cartId:                 [],
+            pujaId:                 [],
             customerName:           '',
             customerEmail:          '',
             customerPhone:          '',
@@ -92,7 +94,6 @@ export class Cart extends Component {
             localStorage.setItem('orderId', ord)
         }
     }
-
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value },()=>this.getHash()) }
     reduceCart=()=>{ return this.state.cart.reduce( function(cnt, i){ return cnt + i[0]*i[4]; }, 0) }
 
@@ -100,7 +101,7 @@ export class Cart extends Component {
         if(e.target.value.toString().length>10){
             func.callSwal('Only 10 digits allowed')
         }else{
-            this.setState({ customerPhone: e.target.value})
+            this.setState({ customerPhone: e.target.value},()=>this.getHash())
         }
     }
 
@@ -161,7 +162,7 @@ export class Cart extends Component {
             orderNote:              orderNote,
             orderAmount:            orderAmount
         })
-        if(this.state.country && this.state.state && this.state.city && this.state.address && this.state.pin && this.state.customerPhone && this.state.customerName && this.state.customerEmail && this.state.customerPhone && this.state.orderAmount && this.state.customerName && this.state.customerEmail && this.state.customerPhone.length===10){
+        if(this.state.country && this.state.state && this.state.city && this.state.address && this.state.pin && this.state.customerPhone && this.state.customerName && this.state.customerEmail && this.state.customerPhone && this.state.orderAmount && this.state.customerName && this.state.customerEmail && this.state.customerPhone.length == 10){
             this.setState({ allOK: true })
         }
         if(this.state.orderAmount && this.state.customerName && this.state.customerEmail && this.state.customerPhone.length==10){
@@ -195,7 +196,22 @@ export class Cart extends Component {
 
     notOk=()=>{ func.callSwal('Please fill all details to proceed') }
 
+    cartDateChange=(i, e)=>{
+        this.state.cart.forEach((o)=>{
+            if( o[1] === parseInt(i[1]) ){ o[7] = e.target.value }
+        })
+        this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
+    }
+
+    cartPlaceChange=(i, e)=>{
+        this.state.cart.forEach((o)=>{
+            if( o[1] === parseInt(i[1]) ){ o[8] = e.target.value }
+        })
+        this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
+    }
+
     render() {
+        console.log('this.state.cart', this.state.cart)
         if(!this.state.loading){
             return (
                 <>
@@ -208,6 +224,7 @@ export class Cart extends Component {
                                     <div className="col-sm-9 cartList">
                                         { this.state.cart.map((i, index)=>{ return (
                                             <div className="cartLoop" key={index}>
+                                                {i.type}
                                                 <a href={"/product/"+i[5]}><img src={"/images/product/"+i[2]} className="previewImg"/></a>
                                                 <div>
                                                     <div className="changeQty flex-sb">
@@ -226,6 +243,23 @@ export class Cart extends Component {
                                                 </div>
                                             </div>
                                         )})}
+                                        { this.state.cart.filter(i=>i[6]==1).map((i, index)=>{ return (
+                                            <div key={index} className="row mb-3">
+                                                <div className="col-sm-12">
+                                                    <h3>Puja Details for {i[3]}</h3>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <label>Desire date * (Please book 48 Hours in Advance)</label>
+                                                    <input className="form-control" type="date" placeholder="Desire date of Puja" value={i[7] || '' } onChange={(e)=>this.cartDateChange(i, e)} name="date"/>
+                                                </div>
+                                                <div className="col-sm-6">
+                                                    <label>Place *</label>
+                                                    <input className="form-control" type="text" placeholder="Place of Puja" value={i[8] || ''} onChange={(e)=>this.cartPlaceChange(i, e)} name="place"/>
+                                                </div>
+                                            </div>
+                                        )})}
+
+
                                     </div>
                                     <div className="col-sm-3 cartSummary">
                                         <h3>YOUR CART</h3>

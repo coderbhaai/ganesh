@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Header from '../parts/Header'
 import Footer from '../parts/Footer'
 import Swiper from 'react-id-swiper'
+import ProductSwiper from '../parts/ProductSwiper'
+import ServiceSwiper from '../parts/ServiceSwiper'
 const func = require('../parts/functions')
 
 export class index extends Component {
@@ -10,6 +12,10 @@ export class index extends Component {
         this.state = {
             blogs:                  this.props.blogs,
             products:               this.props.products,
+            puja:                   [],
+            astro:                  [],
+            samagri:                [],
+            decor:                  [],
             cart:                   [],
             active:                 'Service'
         }
@@ -25,47 +31,30 @@ export class index extends Component {
         const response = await fetch( '/getHomeData' ); 
         const body = await response.json();
         if (response.status !== 200) throw Error(body.message);
+        var puja =[]; var astro =[]; var samagri =[]; var decor =[]; 
+        body.products.forEach(i => {
+            if(i.type==1){ puja.push(i)}
+            if(i.type==2){ astro.push(i)}
+            if(i.type==3){ samagri.push(i)}
+            if(i.type==4){ decor.push(i)}
+        });
         this.setState({
             blogs:                  body.blogs,
             products:               body.products,
+            puja:                   puja,
+            astro:                  astro,
+            samagri:                samagri,
+            decor:                  decor,
         })
     }
 
-    addToCart=(i)=>{
-        if(i.sale){ var price = i.sale }else { var price = i.price }
-        var item = [1, i.id, JSON.parse(i.images)[0], i.name, price, i.url, i.type ]
-        if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
-            this.state.cart.forEach((o)=>{
-                if( o[1] === parseInt(i.id) ){ 
-                    o[0]++
-                    func.callSwal(o[3]+" in cart increased to "+o[0])
-                }
-            })
-            this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
-        }else{
-            this.setState({ cart: [...this.state.cart, item] },()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
-            func.callSwal(i.name + " added to cart ")
-        }
-    }
-
-    removeFromCart=(i)=>{
-        if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
-            this.state.cart.forEach((o, index)=>{
-                if( o[1] === parseInt(i.id) ){
-                    if(o[0]>1){ 
-                        o[0]--
-                        func.callSwal(i.name + " in cart reduced to "+ o[0])
-                    }else{ 
-                        this.state.cart.splice(index, 1)
-                        func.callSwal(i.name + " removed from cart ")
-                    }
-                }
-            })
-        }
-        this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
-    }
-
     activeOffering=(value)=>{ this.setState({ active: value })}
+
+    callbackFunction = (childData) => {
+        if(childData){ 
+            if(typeof(Storage) !== "undefined"){ this.setState({ cart: JSON.parse(localStorage.getItem('cart')) || [] }) }
+        }
+    }
 
     render() {
         return (
@@ -77,7 +66,7 @@ export class index extends Component {
                     <div className="caption">
                         <h1>BOOK YOUR PANDIT ONLINE FOR</h1>
                         <p className="hindi">Ganesh Puja</p>
-                        <button className="amitBtn btn">Book Now</button>
+                        <a className="amitBtn btn" href="/product/ganesh-puja">Book Now</a>
                     </div>
                 </section>
                 <section className="text-heading">
@@ -112,196 +101,17 @@ export class index extends Component {
                     {this.state.products ?
                         <div className="container py-5">
                             <div className="row">
-                                    { this.state.active == 'Product' ?
-                                        <>
-                                        <div className="col-sm-12 mb-5">
-                                            <h4 className="hindi">Puja Samagri</h4>
-                                            <Swiper {...func.params}> 
-                                                {this.state.products.filter(i=>i.type == 3).map((i,index)=>(
-                                                    <div key={index}>
-                                                        <div className="imgBox">
-                                                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                            {/* { this.state.cart.some(x => x[1] === i.id) ? 
-                                                                <div className="cartBtnGroup flex-sb">
-                                                                    <div className="plusMinus">
-                                                                        <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
-                                                                        <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
-                                                                    </div>
-                                                                </div>
-                                                            : null }
-                                                            { this.state.cart.some(x => x[1] === i.id) ?
-                                                                <div className="itemAdded">
-                                                                    { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
-                                                                        <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
-                                                                    )})}
-                                                                </div>
-                                                            : null} */}
-                                                        </div>
-                                                        {i.tagline? <p className="usage">{i.tagline}</p> : null}
-                                                        <div className="productDetail">
-                                                            <h3>{i.name}</h3>
-                                                            {/* <p>Price: Rs {i.price}</p> */}
-                                                            <p>
-                                                                <span className={i.sale ? "price strike" : "price"}>
-                                                                    <span className="rs">&#8377; </span>{i.price} /-
-                                                                </span>
-                                                                {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale} /-</span> : null }
-                                                            </p>
-                                                            <div className="button-wrap">
-                                                                <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
-                                                                    <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
-                                                                </a>
-                                                                <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
-                                                                    <span className="button-slanted-content">Add To cart</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))} 
-                                            </Swiper>
-                                        </div>
-                                        <div className="col-sm-12">
-                                            <h4 className="hindi">Home Decor</h4>
-                                            <Swiper {...func.params}> 
-                                            {this.state.products.filter(i=>i.type == 4).map((i,index)=>( 
-                                                    <div key={index}>
-                                                        <div className="imgBox">
-                                                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                            {/* { this.state.cart.some(x => x[1] === i.id) ? 
-                                                                <div className="cartBtnGroup flex-sb">
-                                                                    <div className="plusMinus">
-                                                                        <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
-                                                                        <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
-                                                                    </div>
-                                                                </div>
-                                                            : null }
-                                                            { this.state.cart.some(x => x[1] === i.id) ?
-                                                                <div className="itemAdded">
-                                                                    { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
-                                                                        <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
-                                                                    )})}
-                                                                </div>
-                                                            : null} */}
-                                                        </div>
-                                                        {i.tagline? <p className="usage">{i.tagline}</p> : null}
-                                                        <div className="productDetail">
-                                                            <h3>{i.name}</h3>
-                                                            {/* <p>Price: Rs {i.price}</p> */}
-                                                            <p>
-                                                                <span className={i.sale ? "price strike" : "price"}>
-                                                                    <span className="rs">&#8377; </span>{i.price} /-
-                                                                </span>
-                                                                {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale} /-</span> : null }
-                                                            </p>
-                                                            <div className="button-wrap">
-                                                                <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
-                                                                    <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
-                                                                </a>
-                                                                <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
-                                                                    <span className="button-slanted-content">Add To cart</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))} 
-                                            </Swiper>
-                                        </div>
+                                { this.state.active == 'Service' ? 
+                                    <>
+                                        {this.state.puja.length? <ServiceSwiper parentCallback ={this.callbackFunction} data={this.state.puja} title="Organize Puja"/> : null}
+                                        {this.state.astro.length? <ServiceSwiper parentCallback ={this.callbackFunction} data={this.state.astro} title="Astro Consultation"/> : null}
+                                    </>                                    
+                                : this.state.active == 'Product' ?
+                                    <>
+                                        {this.state.samagri.length? <ProductSwiper parentCallback ={this.callbackFunction} data={this.state.samagri} title="Puja Samagri "/> : null}
+                                        {this.state.decor.length? <ProductSwiper parentCallback ={this.callbackFunction} data={this.state.decor} title="Home Decor"/> : null}
                                     </>
-                                    : this.state.active == 'Service' ? 
-                                        <>
-                                            <div className="col-sm-12 mb-5">
-                                                <h4 className="hindi">Organize Puja</h4>
-                                                <Swiper {...func.params}> 
-                                                    {this.state.products.filter(i=>i.type == 1).map((i,index)=>( 
-                                                        <div key={index}>
-                                                            <div className="imgBox">
-                                                                <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                                {/* { this.state.cart.some(x => x[1] === i.id) ? 
-                                                                    <div className="cartBtnGroup flex-sb">
-                                                                        <div className="plusMinus">
-                                                                            <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
-                                                                            <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
-                                                                        </div>
-                                                                    </div>
-                                                                : null }
-                                                                { this.state.cart.some(x => x[1] === i.id) ?
-                                                                    <div className="itemAdded">
-                                                                        { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
-                                                                            <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
-                                                                        )})}
-                                                                    </div>
-                                                                : null} */}
-                                                            </div>
-                                                            {i.tagline? <p className="usage">{i.tagline}</p> : null}
-                                                            <div className="productDetail">
-                                                                <h3>{i.name}</h3>
-                                                                {/* <p>Price: Rs {i.price}</p> */}
-                                                                <p>
-                                                                    <span className={i.sale ? "price strike" : "price"}>
-                                                                        <span className="rs">&#8377; </span>{i.price} /-
-                                                                    </span>
-                                                                    {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale} /-</span> : null }
-                                                                </p>
-                                                                <div className="button-wrap">
-                                                                    <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
-                                                                        <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
-                                                                    </a>
-                                                                    <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
-                                                                        <span className="button-slanted-content">Add To cart</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ))} 
-                                                </Swiper>
-                                            </div>
-                                            <div className="col-sm-12">
-                                                <h4 className="hindi">Astro Consultation</h4>
-                                                <Swiper {...func.params}> 
-                                                    {this.state.products.filter(i=>i.type == 2).map((i,index)=>( 
-                                                        <div key={index}>
-                                                            <div className="imgBox">
-                                                                <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
-                                                                {/* { this.state.cart.some(x => x[1] === i.id) ? 
-                                                                    <div className="cartBtnGroup flex-sb">
-                                                                        <div className="plusMinus">
-                                                                            <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
-                                                                            <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
-                                                                        </div>
-                                                                    </div>
-                                                                : null }
-                                                                { this.state.cart.some(x => x[1] === i.id) ?
-                                                                    <div className="itemAdded">
-                                                                        { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
-                                                                            <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
-                                                                        )})}
-                                                                    </div>
-                                                                : null} */}
-                                                            </div>
-                                                            {i.tagline? <p className="usage">{i.tagline}</p> : null}
-                                                            <div className="productDetail">
-                                                                <h3>{i.name}</h3>
-                                                                <p>
-                                                                    <span className={i.sale ? "price strike" : "price"}>
-                                                                        <span className="rs">&#8377; </span>{i.price}
-                                                                    </span>
-                                                                    {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale}</span> : null }
-                                                                </p>
-                                                                <div className="button-wrap">
-                                                                    <a href={"/product/"+i.url} className="button-default button-slanted button-slanted--left">
-                                                                        <span className="button-slanted-content" style={{color: "#000"}}>View Detail</span>
-                                                                    </a>
-                                                                    <div className="button-default button-slanted button-slanted--right" onClick={()=>this.addToCart(i)}>
-                                                                        <span className="button-slanted-content">Add To cart</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    ))} 
-                                                </Swiper>
-                                            </div>
-                                        </>
-                                    : null }
+                                : null }
                             </div>
                         </div>
                     : null}

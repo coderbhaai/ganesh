@@ -32,8 +32,7 @@ export function setMinNum(e){
 }
 
 export function sortArray(array, sortBy, type, direction){
-    return new Promise((resolve, reject) => {
-        
+    return new Promise((resolve, reject) => {        
         if(type == 'text'){
             if(direction == 'Up'){
                 array.sort(function(a, b) {
@@ -64,7 +63,34 @@ export function sortArray(array, sortBy, type, direction){
 
 export function printError(mesg){ console.log('mesg', mesg) }
 
+export function addToCart(i){
+    return new Promise((resolve, reject) => {
+        if(typeof(Storage) !== "undefined"){ var cart = JSON.parse(localStorage.getItem('cart')) || [] }
+        if(i.sale){ var price = i.sale }else { var price = i.price }
+        var item = [1, i.id, JSON.parse(i.images)[0], i.name, price, i.url, i.type ]
+        if( cart.some( j => j[1] === parseInt(i.id) )){
+            cart.forEach((o)=>{
+                if( o[1] === parseInt(i.id) ){ 
+                    o[0]++
+                    callSwal(o[3]+" in cart increased to "+o[0])
+                }
+            })
+            localStorage.setItem('cart', JSON.stringify(cart))
+        }else{
+            var cart = [...cart, item]
+            localStorage.setItem('cart', JSON.stringify(cart))
+            callSwal(i.name + " added to cart ")
+        }
+        resolve(true)
+        return;
+    })
+}
+
 export const params = {
+    observer: true,
+    observeParents: true,
+    watchSlidesVisibility: true,
+    watchSlidesProgress: true,
     slidesPerView: 2,
     spaceBetween: 10,
     loop: true,
