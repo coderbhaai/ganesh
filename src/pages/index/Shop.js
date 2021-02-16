@@ -23,6 +23,7 @@ export class Shop extends Component {
             currentPage:                1,
             itemsPerPage:               100,
             search:                     '',
+            showFilter:                 'web'
         }
     }
 
@@ -90,15 +91,10 @@ export class Shop extends Component {
     
     filterCategory = (cat, check) => { 
         this.state.categories.forEach((o)=>{ if( o.id == parseInt( cat ) ){ o.isChecked = check } })
-        if(check){ 
-            this.setState({ catSelected: [ ...this.state.catSelected, parseInt( cat ) ] }
-            // ,()=>this.finalFilter()
-            )
+        if(check){ this.setState({ catSelected: [ ...this.state.catSelected, parseInt( cat ) ] })
         }else{
             this.state.catSelected.map((x, index) => x == cat ? this.state.catSelected.splice(index, 1) : null)
-            this.setState({ catSelected: this.state.catSelected }
-                // ,()=>this.finalFilter()
-                )
+            this.setState({ catSelected: this.state.catSelected })
         }
     }
 
@@ -115,6 +111,9 @@ export class Shop extends Component {
             }
         }
     }
+
+    showFilter=()=>{ this.setState({ showFilter: 'mobile'}) }
+    hideFilter=()=>{ this.setState({ showFilter: 'web'}) }
 
     render() {
         const {currentPage, itemsPerPage } = this.state
@@ -180,26 +179,34 @@ export class Shop extends Component {
                 <div className="container my-5">
                     <h1 className="heading"><span>Shop to your </span> heart's content</h1>
                     <div className="row mt-5">
-                        <div className="col-sm-3 bg-white">
-                            <div className="filter">
-                                <h3>Filter by <span>Price</span></h3>
-                                <div className="range-slider">
-                                    <input type="range" value={this.state.firstValue} min={this.state.minValue} max={this.state.maxValue} step={this.state.step} onChange={this.handleChange.bind(this, "first")}/>
-                                    <input type="range" value={this.state.secondValue} min={this.state.minValue} max={this.state.maxValue} step={this.state.step} onChange={this.handleChange.bind(this, "second")}/>
-                                    <span>&#8377;{this.state.firstValue} - &#8377;{this.state.secondValue}</span>
-                                </div>
-                            </div>
-                            <div className="filter">
-                                <h3>Filter by <span>Categories</span></h3>
-                                {this.state.categories.map((i, index)=>(
-                                    <div className="filterCover" key={index}>
-                                        <div className="onoffswitch">
-                                            <input type="checkbox" name="category" className="onoffswitch-checkbox" id={i.id} onChange={(e)=>this.filterCategory(e.target.value, e.target.checked)} value={i.id} checked={i.isChecked}/>
-                                            <label className="onoffswitch-label" htmlFor={i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
-                                        </div>
-                                        <span style={{marginLeft:'10px'}}>{i.name}</span>
+                        <div className="col-sm-3 bg-white text-center">
+                            {this.state.showFilter=='web'?
+                                <button className="amitBtn mobile showFilter" onClick={this.showFilter}>Show Filters</button>
+                            : 
+                                <button className="amitBtn mobile showFilter" onClick={this.hideFilter}>Hide Filters</button>
+                            }
+
+                            <div className={this.state.showFilter}>
+                                <div className="filter">
+                                    <h3>Filter by <span>Price</span></h3>
+                                    <div className="range-slider">
+                                        <input type="range" value={this.state.firstValue} min={this.state.minValue} max={this.state.maxValue} step={this.state.step} onChange={this.handleChange.bind(this, "first")}/>
+                                        <input type="range" value={this.state.secondValue} min={this.state.minValue} max={this.state.maxValue} step={this.state.step} onChange={this.handleChange.bind(this, "second")}/>
+                                        <span>&#8377;{this.state.firstValue} - &#8377;{this.state.secondValue}</span>
                                     </div>
-                                ))}
+                                </div>
+                                <div className="filter">
+                                    <h3>Filter by <span>Categories</span></h3>
+                                    {this.state.categories.map((i, index)=>(
+                                        <div className="filterCover" key={index}>
+                                            <div className="onoffswitch">
+                                                <input type="checkbox" name="category" className="onoffswitch-checkbox" id={i.id} onChange={(e)=>this.filterCategory(e.target.value, e.target.checked)} value={i.id} checked={i.isChecked}/>
+                                                <label className="onoffswitch-label" htmlFor={i.id}><span className="onoffswitch-inner"></span><span className="onoffswitch-switch"></span></label>
+                                            </div>
+                                            <span style={{marginLeft:'10px'}}>{i.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                         <div className="col-sm-9">

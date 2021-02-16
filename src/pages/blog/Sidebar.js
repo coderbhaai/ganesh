@@ -12,7 +12,7 @@ class Sidebar extends Component {
         
     render() {
         return (
-            <div className="col-sm-3 mt-5 sidebar">
+            <div className="col-sm-3 sidebar">
                 <div className='search'>
                     <input className="form-control" type="text" placeholder="Search for" name="search" required value={this.state.search} onChange={this.onChange}/>
                     <div className="form-group text-center">

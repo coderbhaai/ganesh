@@ -58,11 +58,14 @@
         h3{
             margin: 1em 0;
         }
-        ul li a{
-            color: $text;
-            text-align: left;
-            display: block;
-            padding: 10px 0;
+        ul li{
+            margin-bottom: 0;
+            a{
+                color: $text;
+                text-align: left;
+                display: block;
+                padding: 5px 0 0;
+            }
         }
     }
 }

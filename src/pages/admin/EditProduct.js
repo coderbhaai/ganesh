@@ -70,6 +70,9 @@ export class EditProduct extends Component {
     // arrayTagRemove(index){ this.state.oldTags.splice(index, 1); this.setState({oldTags: this.state.oldTags}); }
     arrayIncRemove(index){ this.state.oldInc.splice(index, 1); this.setState({oldInc: this.state.oldInc}); }
     arrayExcRemove(index){ this.state.oldExc.splice(index, 1); this.setState({oldExc: this.state.oldExc}); }
+    arrayRelatedRemove(index){ this.state.oldRelated.splice(index, 1); this.setState({oldRelated: this.state.oldRelated}); }
+    arrayRecomRemove(index){ this.state.oldRecom.splice(index, 1); this.setState({oldRecom: this.state.oldRecom}); }
+    
     
     componentDidMount(){ 
         window.scrollTo(0, 0)

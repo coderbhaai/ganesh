@@ -435,7 +435,7 @@ form{
   font-size: 18px;
 }
 .mobile{
-  display: none;
+  display: none !important;
 }
 
 /* Price Slider */
@@ -584,10 +584,10 @@ input[type=range]::-ms-thumb {
 }
 @media (max-width:767px) {
   .web{
-    display: none;
+    display: none !important;
   }
   .mobile{
-    display: block;
+    display: block !important;
   }
 }
 @media (max-width:640px) {

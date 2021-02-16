@@ -10,10 +10,9 @@ export class ProductSwiper extends Component {
     sendDataToParent=()=>{ this.props.parentCallback (true); }
 
     render() {
-        console.log('this.props.data', this.props.data)
         return (
             <div className="col-sm-12 mb-5">
-                <h4 className="hindi">{this.props.title} ppp</h4>
+                <h4 className="hindi">{this.props.title}</h4>
                 <Swiper {...func.params}> 
                     {this.props.data.map((i,index)=>( 
                         <div key={index}>

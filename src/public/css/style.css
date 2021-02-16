@@ -449,7 +449,7 @@ form input {
   font-size: 18px; }
 
 .mobile {
-  display: none; }
+  display: none !important; }
 
 /* Price Slider */
 .range-slider {
@@ -591,9 +591,9 @@ input[type=range]::-ms-thumb {
 
 @media (max-width: 767px) {
   .web {
-    display: none; }
+    display: none !important; }
   .mobile {
-    display: block; } }
+    display: block !important; } }
 
 @media (max-width: 640px) {
   .navbar {
@@ -1860,11 +1860,13 @@ i.icon.delete:before {
 .sidebar .list h3 {
   margin: 1em 0; }
 
-.sidebar .list ul li a {
-  color: #282828;
-  text-align: left;
-  display: block;
-  padding: 10px 0; }
+.sidebar .list ul li {
+  margin-bottom: 0; }
+  .sidebar .list ul li a {
+    color: #282828;
+    text-align: left;
+    display: block;
+    padding: 5px 0 0; }
 
 .comments .forAdmin {
   text-align: right; }
@@ -2183,6 +2185,9 @@ form .rating {
     color: #e1672e;
     font-weight: 600; }
 
+.showFilter {
+  margin: 0 auto 2em; }
+
 @media (max-width: 767px) {
   .inclusions ul li {
     padding: 0; }
@@ -2423,14 +2428,13 @@ footer .akk {
   .product p {
     font-size: 16px; }
   .product .usage {
-    position: absolute;
-    top: 20px;
     background: #e1672e;
     width: 100%;
     color: #fff;
     padding: 5px 0;
     font-size: 13px;
-    text-align: center; }
+    text-align: center;
+    margin: 0; }
   .product .productDetail {
     padding: 10px 5px; }
     .product .productDetail h3 {
@@ -2784,7 +2788,8 @@ footer .akk {
       margin-bottom: 0; }
     .banner .caption .amitBtn {
       max-width: 150px;
-      margin: 2em 0; }
+      margin: 2em 0;
+      font-size: 18px; }
   .blogList {
     padding: 2em; }
     .blogList .blogData ul {

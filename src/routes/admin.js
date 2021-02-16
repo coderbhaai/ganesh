@@ -581,10 +581,10 @@ router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMi
                 SELECT name as text, id as value FROM basic Where type='Category';
                 SELECT name as text, id as value FROM basic Where type='Vendor';
                 SELECT name as text, id as value, tab1 FROM basic Where type='Puja';
-                SELECT name as text, id as value FROM products where id <> '${req.params.id}';`
-    pool.query(sql, [1,2,3,4,5,6], async(err, results) => {
+                SELECT name as text, id as value FROM products where id NOT IN (${req.params.id});`
+    pool.query(sql, [1,2,3,4,5], async(err, results) => {
         try{ 
-            if(err){ throw err }   
+            if(err){ throw err }
             if(results){ 
                 const catList = await func.productCatName(JSON.parse(results[0][0].category))
                 const incList = await func.productIncName(JSON.parse(results[0][0].inclusion))
@@ -594,9 +594,9 @@ router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMi
                 res.send({ 
                     data:               results[0][0],
                     catOptions:         results[1],
-                    vendorOptions:      results[3],
-                    incOptions:         results[4],
-                    productOptions:     results[5],
+                    vendorOptions:      results[2],
+                    incOptions:         results[3],
+                    productOptions:     results[4],
                     catList:            catList,
                     incList:            incList,
                     excList:            excList,

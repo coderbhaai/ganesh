@@ -10,11 +10,11 @@ export class ProductShare extends Component {
             <>
                 <div className="socialShare">
                     <FacebookShareButton url={shareUrl} quote={title} > <FacebookIcon size={32} round /> </FacebookShareButton>
-                    <FacebookMessengerShareButton url={shareUrl} appId="154761472308630"> <FacebookMessengerIcon size={32} round /></FacebookMessengerShareButton>
-                    <TwitterShareButton url={shareUrl} title={title}><TwitterIcon size={32} round /></TwitterShareButton>
-                    <TelegramShareButton url={shareUrl} title={title}><TelegramIcon size={32} round/></TelegramShareButton>
+                    {/* <FacebookMessengerShareButton url={shareUrl} appId="154761472308630"> <FacebookMessengerIcon size={32} round /></FacebookMessengerShareButton> */}
+                    {/* <TwitterShareButton url={shareUrl} title={title}><TwitterIcon size={32} round /></TwitterShareButton>
+                    <TelegramShareButton url={shareUrl} title={title}><TelegramIcon size={32} round/></TelegramShareButton> */}
                     <WhatsappShareButton url={shareUrl} title={title} separator=":: "><WhatsappIcon size={32} round /></WhatsappShareButton>
-                    <LinkedinShareButton url={shareUrl} ><LinkedinIcon size={32} round /></LinkedinShareButton>
+                    {/* <LinkedinShareButton url={shareUrl} ><LinkedinIcon size={32} round /></LinkedinShareButton> */}
                     {/* <RedditShareButton url={shareUrl} title={title} windowWidth={660} windowHeight={460}><RedditIcon size={32} round/></RedditShareButton>
                     <TumblrShareButton url={shareUrl} title={title}><TumblrIcon size={32} round /></TumblrShareButton>
                     <LivejournalShareButton url={shareUrl} title={title} description={shareUrl}><LivejournalIcon size={32} round /></LivejournalShareButton>

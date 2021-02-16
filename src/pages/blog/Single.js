@@ -54,7 +54,7 @@ export class Single extends Component {
                             <h1>{this.state.data.title}</h1>
                         </div>
                     </div>
-                    <div className="page container py-3">
+                    <div className="page container mt-5">
                         <div className="row">
                             <div className="col-sm-9">
                                 <section className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.data.content }} />

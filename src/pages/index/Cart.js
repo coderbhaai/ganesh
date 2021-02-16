@@ -211,7 +211,6 @@ export class Cart extends Component {
     }
 
     render() {
-        console.log('this.state.cart', this.state.cart)
         if(!this.state.loading){
             return (
                 <>

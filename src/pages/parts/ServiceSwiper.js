@@ -10,17 +10,16 @@ export class ServiceSwiper extends Component {
     sendDataToParent=()=>{ this.props.parentCallback (true); }
 
     render() {
-        console.log('this.props.data', this.props.data)
         return (
             <div className="col-sm-12 mb-5">
                 <h4 className="hindi">{this.props.title}</h4>
                 <Swiper {...func.params}> 
                     {this.props.data.map((i,index)=>( 
                         <div key={index}>
+                            <p className="usage">{i.tagline? i.tagline : "Order Now"}</p>
                             <div className="imgBox">
                                 <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
                             </div>
-                            {i.tagline? <p className="usage">{i.tagline}</p> : null}
                             <div className="productDetail">
                                 <h3>{i.name}</h3>
                                 {/* <p>Price: Rs {i.price}</p> */}

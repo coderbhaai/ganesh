@@ -119,7 +119,6 @@ export class Product extends Component {
     }
 
     addToCart=(i)=>{
-        console.log('i', i)
         if(i.sale){ var price = i.sale }else { var price = i.price }
         var item = [1, i.id, JSON.parse(i.images)[0], i.name, price, i.url, i.type ]
         if( this.state.cart.some( j => j[1] === parseInt(i.id) )){
@@ -294,16 +293,18 @@ export class Product extends Component {
                                                 height: 900
                                             }
                                         }} />
-                                        <div className="changeQty flex-sb">
-                                            <div>
-                                                <label>Quantity</label>
-                                                <ul>
-                                                    <li onClick={()=>this.removeFromCart(this.state.product)}>-</li>
-                                                    <li>{this.state.cart.filter(i=>i[1]==this.state.product.id).length ? this.state.cart.filter(i=>i[1]==this.state.product.id)[0][0] : 0 }</li>
-                                                    <li onClick={()=>this.addToCart(this.state.product)}>+</li>
-                                                </ul>
+                                        {this.state.product.type !==1 ?
+                                            <div className="changeQty flex-sb">
+                                                <div>
+                                                    <label>Quantity</label>
+                                                    <ul>
+                                                        <li onClick={()=>this.removeFromCart(this.state.product)}>-</li>
+                                                        <li>{this.state.cart.filter(i=>i[1]==this.state.product.id).length ? this.state.cart.filter(i=>i[1]==this.state.product.id)[0][0] : 0 }</li>
+                                                        <li onClick={()=>this.addToCart(this.state.product)}>+</li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
+                                        : null}
                                         <button className="amitBtn" onClick={()=>this.addToCart(this.state.product)}>Add To Cart</button>
                                     </>
                                 : null}
@@ -317,7 +318,7 @@ export class Product extends Component {
                                     </span>
                                     {this.state.product.sale ? <span className="price"><span className="rs">&#8377; </span>{this.state.product.sale} /-</span> : null }
                                 </p>
-                                <h2>Puja Description</h2>
+                                {/* <h2>Puja Description</h2> */}
                                 <section className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.product.shortDesc }} />
                                 {this.state.product.type==1 && this.state.cart.some(x => x[1] === this.state.product.id) ?
                                 <>

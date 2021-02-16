@@ -24,6 +24,7 @@ import ThankYou from "../pages/index/ThankYou"
 import FourOFour from "../pages/index/FourOFour"
 import PrivacyPolicy from "../pages/index/PrivacyPolicy"
 import Terms from "../pages/index/Terms"
+import About from "../pages/index/About"
 
 import Auth from "../pages/index/Auth"
 // import Register from "../pages/auth/Register"
@@ -369,6 +370,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
 //Blog Pages
 // // Regular Pages 
 router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
+router.get('/about-us', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/About', { reactApp: renderToString(<About/>), meta: meta }) }))
 // router.get('/clients', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/clients','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/Clients', { reactApp: renderToString( <Clients blogs={blogs}/> ), meta: meta}) }))
 // router.get('/contact', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/contact','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/Contact', { reactApp: renderToString( <Contact blogs={blogs}/> ), meta: meta}) }))
 router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
