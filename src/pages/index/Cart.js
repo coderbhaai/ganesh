@@ -3,6 +3,7 @@ import Header from '../parts/Header'
 import Footer from '../parts/Footer'
 import axios from 'axios'
 const func = require('../parts/functions')
+const secret = require('../parts/secret')
 
 export class Cart extends Component {
     constructor(props) {
@@ -25,13 +26,27 @@ export class Cart extends Component {
             orderAmount:            '',
             orderCurrency:          'INR',
             orderNote:              "",
-            returnUrl:              'https://pujarambh.com/payment-response',
-            rPay:                   "https://www.cashfree.com/checkout/post/submit",
-            appId:                  '96792f9956bbaeb0c1c7a1d3529769',
-            secretKey:              '784bdbd59295dcbb3ef2b4e8c353f225001eedc5',
+            returnUrl:              secret.returnUrl,
+            appId:                  secret.appId,
+            rPay:                   secret.rPay,
+            secretKey:              secret.secretKey,
+            // customerName:           'Amit',
+            // customerEmail:          'amit.khare588@gmail.com',
+            // customerPhone:          '8424003840',
+            // country:                'India',
+            // state:                  'Raj',
+            // city:                   'Sirohi',
+            // address:                '1172',
+            // pin:                    '122002',
             notifyUrl:              '',
             signature:              '',
             mode:                   'PROD',
+            finalAmount:            '',
+            discount:               '',
+            dis_type:               '',
+            productList:            [],
+            discountOffered:        '',
+            discountDetails:        ''
         }
     }
     
@@ -47,7 +62,8 @@ export class Cart extends Component {
                 var user            =   localStorage.getItem('user') || []
                 this.setState({
                     customerName:       JSON.parse(localStorage.getItem('user')).name,
-                    customerEmail:       JSON.parse(localStorage.getItem('user')).email,
+                    customerEmail:      JSON.parse(localStorage.getItem('user')).email,
+                    user :              JSON.parse(localStorage.getItem('user')) || []
                 })
             }
         }
@@ -59,7 +75,9 @@ export class Cart extends Component {
                     orderId :               localStorage.getItem('orderId') || '',
                     buyer:                  localStorage.getItem('buyer') || [],
                     cart:                   localStorage.getItem('cart') || [],
-                    address:                localStorage.getItem('address') || ''
+                    address:                localStorage.getItem('address') || '',
+                    discount:               localStorage.getItem('discount') || '',
+                    disAmount:              localStorage.getItem('disAmount') || ''
                 }
                 axios.post('/placeOrder', data)
                 .catch(err=>func.printError(err))
@@ -70,6 +88,8 @@ export class Cart extends Component {
                         localStorage.removeItem("orderId");
                         localStorage.removeItem("cart");
                         localStorage.removeItem("address");
+                        localStorage.removeItem("discount");
+                        localStorage.removeItem("disAmount");
                         if(!localStorage.getItem('user')){
                             localStorage.setItem('user', JSON.stringify(res.data.user))
                         }
@@ -90,12 +110,37 @@ export class Cart extends Component {
             this.setState({ 
                 orderId:        ord, 
                 loading:        false
-            })
+            },()=>this.reduceCart())
             localStorage.setItem('orderId', ord)
+            localStorage.removeItem("discount");
+            localStorage.removeItem("disAmount");
         }
     }
+
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value },()=>this.getHash()) }
-    reduceCart=()=>{ return this.state.cart.reduce( function(cnt, i){ return cnt + i[0]*i[4]; }, 0) }
+
+    reduceCart=()=>{
+        var cnt = 0;
+        var dis = 0;
+        this.state.cart.forEach(i => {
+            if(this.state.discount && this.state.productList.includes(i[1])){
+                if(this.state.dis_type==0){
+                    cnt = cnt + i[0]*i[4] - this.state.discount*i[0]; 
+                    dis +=  this.state.discount*i[0]
+                }else{
+                    cnt = cnt + (1-this.state.discount/100)*i[0]*i[4]; 
+                    dis += i[0]*i[4]*this.state.discount/100
+                }
+            }else{
+                cnt = cnt + i[0]*i[4]; 
+            }
+        });
+        this.setState({ 
+            finalAmount:            Math.round(cnt), 
+            discountOffered:        Math.round(dis)
+        },()=>this.getHash())   
+        localStorage.setItem('disAmount', Math.round(dis))
+    }
 
     changePhone=(e)=>{
         if(e.target.value.toString().length>10){
@@ -113,20 +158,18 @@ export class Cart extends Component {
                     func.callSwal(o[3]+" in cart increased to "+o[0])
                 }
             })
-            const orderAmount = this.reduceCart()
             this.setState({
                 cart:                   this.state.cart,
-                orderAmount:            orderAmount
             }
                 ,()=>{
                     localStorage.setItem('cart', JSON.stringify(this.state.cart)),
-                    this.getHash()
+                    this.reduceCart()
                 }
             )
         }
     }
 
-    removeFromCart=(i)=>{
+    reduceFromCart=(i)=>{
         if( this.state.cart.some( j => j[1] === parseInt(i[1]) )){
             this.state.cart.forEach((o, index)=>{
                 if( o[1] === parseInt(i[1]) ){
@@ -139,14 +182,12 @@ export class Cart extends Component {
                     }
                 }
             })
-            const orderAmount = this.reduceCart()
             this.setState({
                 cart:                   this.state.cart,
-                orderAmount:            orderAmount
             }
                 ,()=>{
                     localStorage.setItem('cart', JSON.stringify(this.state.cart)),
-                    this.getHash()
+                    this.reduceCart()
                 }
             )
         }
@@ -157,7 +198,8 @@ export class Cart extends Component {
         var address = JSON.stringify( [this.state.country, this.state.state, this.state.city, this.state.address, this.state.pin, this.state.customerPhone] )
         localStorage.setItem('buyer', orderNote)
         localStorage.setItem('address', address)
-        const orderAmount = this.reduceCart()
+        // const orderAmount = this.reduceCart()
+        const orderAmount = this.state.finalAmount
         this.setState({ 
             orderNote:              orderNote,
             orderAmount:            orderAmount
@@ -210,6 +252,39 @@ export class Cart extends Component {
         this.setState({cart: this.state.cart},()=>localStorage.setItem('cart', JSON.stringify(this.state.cart)))
     }
 
+    applyCoupon=()=>{
+        if(this.state.user){
+            const data ={
+                coupon:                 this.state.coupon.toUpperCase(),
+                userId:                 this.state.user.id,
+            }
+            axios.post('/admin/checkCoupon', data)
+            .catch(err=>func.printError(err))
+            .then(res=>{
+                if(res.data.success){
+                    this.setState({
+                        discountDetails: res.data.data,
+                        discount : res.data.data.discount,
+                        dis_type: res.data.data.dis_type,
+                        productList: JSON.parse( res.data.data.product ),
+                    },()=>this.reduceCart())
+                    localStorage.setItem('discount', JSON.stringify([res.data.data]))
+                }else{
+                    this.setState({
+                        discount : '',
+                        dis_type: '',
+                        productList: [],
+                    },()=>this.reduceCart())
+                    localStorage.removeItem("discount");
+                    localStorage.removeItem("disAmount");
+                }
+                func.callSwal(res.data.message)
+            })
+        }else{
+            func.callSwal('Please login to apply Coupon')
+        }
+    }
+
     render() {
         if(!this.state.loading){
             return (
@@ -232,7 +307,7 @@ export class Cart extends Component {
                                                         <div>
                                                             <label>Quantity</label>
                                                             <ul>
-                                                                <li onClick={()=>this.removeFromCart(i)}>-</li>
+                                                                <li onClick={()=>this.reduceFromCart(i)}>-</li>
                                                                 <li>{i[0]}</li>
                                                                 <li onClick={()=>this.addToCart(i)}>+</li>
                                                             </ul>
@@ -257,27 +332,40 @@ export class Cart extends Component {
                                                 </div>
                                             </div>
                                         )})}
-
-
                                     </div>
                                     <div className="col-sm-3 cartSummary">
                                         <h3>YOUR CART</h3>
-                                            <ul>
-                                                { this.state.cart.map((i, index)=>{ return (
-                                                    <li key={index}>
-                                                        <div>
-                                                            <p>{i[3]}</p>
-                                                            <p><span>{i[0]} Item</span></p>
-                                                        </div>
-                                                        <p>&#8377;{i[0]*i[4] ? i[0]*i[4] : 0 }</p>
-                                                    </li>
-                                                )})}
-                                            </ul>
+                                        <ul>
+                                            { this.state.cart.map((i, index)=>{ return (
+                                                <li key={index}>
+                                                    <div>
+                                                        <p>{i[3]}</p>
+                                                        <p><span>{i[0]} Item</span></p>
+                                                    </div>
+                                                    <p>&#8377;{i[0]*i[4] ? i[0]*i[4] : 0 }</p>
+                                                </li>
+                                            )})}
+                                        </ul>
                                         <hr/>
-                                        <div className="total">
+                                        {this.state.discountOffered>0 ?
+                                            <>
+                                                <div className="total">
+                                                    <h3>Discount</h3>
+                                                    <p>&#8377;{this.state.discountOffered}</p>
+                                                </div>
+                                                <hr/>
+                                            </>
+                                        : null }
+                                        <div className="total mb-5">
                                             <h3>Total</h3>
-                                            <p>&#8377;{this.reduceCart()}</p>
+                                            {/* <p>&#8377;{this.reduceCart()}</p> */}
+                                            <p>&#8377;{this.state.finalAmount}</p>
                                         </div>
+                                        <label>Apply Coupon *</label>
+                                        <input className="form-control" type="text" name="coupon" required placeholder="Apply Coupon" value={this.state.coupon} onChange={this.onChange}/>
+                                        <div className="my-div"><button className="amitBtn" disabled={this.state.coupon? false : true} onClick={this.applyCoupon}>Apply Coupon</button></div>
+
+
                                     </div>
                                 </div>
                                 <h2 className="heading">Shipping Address</h2>
@@ -327,7 +415,8 @@ export class Cart extends Component {
                                         <input type="hidden" name="returnUrl" value={this.state.returnUrl}/>
                                         <input type="hidden" name="signature" value={this.state.signature}/>
                                         <div className="col-sm-12 w-100 mt-5">
-                                            <h3>Final Invoice : &#8377;{this.reduceCart()}</h3>
+                                            {/* <h3>Final Invoice : &#8377;{this.reduceCart()}</h3> */}
+                                            <h3>Final Invoice : &#8377;{this.state.finalAmount}</h3>
                                                 <div className="my-div"><button className="amitBtn" disabled={this.state.allOK? false : true}>Pay now</button></div>
                                                 <p className="text-center">{ !this.state.allOK ? "Please provide all the details to proceed further" : "Please proceed to payment" }</p>
                                         </div>

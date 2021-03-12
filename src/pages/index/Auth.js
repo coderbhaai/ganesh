@@ -7,6 +7,7 @@ import api from '../parts/api'
 const func = require('../parts/functions')
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
+const secret = require('../parts/secret')
 
 class Auth extends Component {
     constructor(props) {
@@ -26,8 +27,9 @@ class Auth extends Component {
             // password_confirmation:      '123456789',
             auth:                       false,
             active:                     'Register',
-            clientId:                   '646152523176-i1660jbh9fk7cmb64jh5obhk1f7giimt.apps.googleusercontent.com',
-            clientSecret:               'ewg2pkrHQR7zTyYCydrCMWTy'
+            clientId:                   secret.clientId,
+            clientSecret:               secret.clientSecret,
+            appId:                      secret.fbAppId
         }
     }
 
@@ -207,7 +209,7 @@ class Auth extends Component {
                                         <p className="check">Already have an account? <span  onClick={()=>this.changeActive('Login')}>Sign In</span></p>
                                         <div className="gofb">
                                             <GoogleLogin clientId={this.state.clientId} buttonText="Register with Google" onSuccess={regGoogle} onFailure={regGoogle} ></GoogleLogin>
-                                            <FacebookLogin textButton="Sign up with Facebook" appId="885798875528804" autoLoad={false} fields="name,email,picture" callback={regFB}/>
+                                            <FacebookLogin textButton="Sign up with Facebook" appId={this.state.appId} autoLoad={false} fields="name,email,picture" callback={regFB}/>
                                         </div>
                                         <p className="text-center my-3">Or create with</p>
                                         <form onSubmit={this.Register}>
@@ -246,7 +248,7 @@ class Auth extends Component {
                                         <p onClick={()=>this.changeActive('Forgot Password')} className='text-center check'><span>Forgot Password</span></p>
                                         <div className="gofb">
                                             <GoogleLogin clientId={this.state.clientId} buttonText="Login with Google" onSuccess={loginGoogle} onFailure={loginGoogle} ></GoogleLogin>
-                                            <FacebookLogin appId="885798875528804" autoLoad={false} fields="name,email,picture" callback={loginFB}/>
+                                            <FacebookLogin appId={this.state.appId} autoLoad={false} fields="name,email,picture" callback={loginFB}/>
                                         </div>
                                     </>
                                 : this.state.active=='Forgot Password' ?

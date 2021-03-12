@@ -225,14 +225,38 @@ export function addCatChecks(products){
     })
 }
 
-// export function addTagChecks(products){
-//     return new Promise((resolve, reject) => {
-//         if(products){
-//             for(var i = 0; i < products.length; i++){ products[i]["isChecked"] = false }
-//             resolve(products)
-//         }
-//     })
-// }
+export function checkSingleCoupon(coupon, userId){
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT id FROM couponapllied WHERE couponCode='${coupon}' AND userId='${userId}';`
+        pool.query(sql, (err, rows) => {
+            try{
+                if(err){ throw err }
+                if(rows.length){ resolve(true) }else{ resolve(false) }
+            }catch(e){ logError(e); return; }
+        });
+    })
+}
+
+export function updateCouponApplied(userId, orderId, discount){
+    return new Promise((resolve, reject) => {
+        let post= {
+            "userId":                       userId,
+            "orderId":                      orderId,
+            "type":                         JSON.parse(discount)[0].type,
+            "couponId":                     JSON.parse(discount)[0].id,
+            "couponCode":                   JSON.parse(discount)[0].code,
+            "created_at":                   time,
+            "updated_at":                   time
+        }
+        let sql = 'INSERT INTO couponapllied SET ?'
+        pool.query(sql, post, (err, rows) => {
+            try{
+                if(err){ throw err }
+                if(rows.length){ resolve(true) }else{ resolve(false) }
+            }catch(e){ logError(e); return; }
+        });
+    })
+}
 
 export function getCatFilterProducts(data){
     var list = []
@@ -252,6 +276,18 @@ export function getCatFilterProducts(data){
         }else{
             resolve(list)
         }
+    });
+}
+
+export function getCoupon(id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT id, type, code, discount, dis_type, start, expiry, status, product, updated_at FROM coupon WHERE id='${id}'`
+      pool.query(sql, (err, rows) => {
+        try{
+            if(err){ throw err }
+            if(rows){ resolve(rows ) }
+        }catch(e){ logError(e); return; }
+      });
     });
 }
 

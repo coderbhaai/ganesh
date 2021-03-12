@@ -37,6 +37,7 @@ const config = [{
         AdminMeta: [path.resolve('src', 'components', 'admin', 'Meta.js')],
         AdminComments: [path.resolve('src', 'components', 'admin', 'AdminComments.js')],
         AdminBasics: [path.resolve('src', 'components', 'admin', 'Basic.js')],
+        AdminCoupon: [path.resolve('src', 'components', 'admin', 'AdminCoupon.js')],
 
         Products: [path.resolve('src', 'components', 'admin', 'Products.js')],
         AdminOrders: [path.resolve('src', 'components', 'admin', 'AdminOrders.js')],
@@ -124,6 +125,7 @@ const config = [{
         new HtmlWebpackPlugin({ chunks: ['AdminMeta'], filename: '../views/admin/Meta.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminComments'], filename: '../views/admin/AdminComments.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminBasics'], filename: '../views/admin/AdminBasics.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['AdminCoupon'], filename: '../views/admin/AdminCoupon.ejs', template: path.join('src', 'views', 'index.ejs') }),
 
         new HtmlWebpackPlugin({ chunks: ['Products'], filename: '../views/admin/Products.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminOrders'], filename: '../views/admin/AdminOrders.ejs', template: path.join('src', 'views', 'index.ejs') }),

@@ -94,7 +94,7 @@ class AdminOrders extends Component {
                             </a>
                         ))}
                     </td>
-                    <td>&#8377;{i.invoice}</td>
+                    <td>&#8377;{i.invoice}<br/>{i.discount? <>After Discount of &#8377;{i.discount}</> : null}</td>
                     <td>{i.status}</td>                    
                     <td>{moment(i.updated_at).format("DD MMMM  YYYY")}</td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editModalOn(i)}/></td>

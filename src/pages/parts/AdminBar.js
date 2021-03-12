@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+const func = require('./functions')
 
 export class AdminBar extends Component {
     constructor(props) {
@@ -22,28 +23,14 @@ export class AdminBar extends Component {
     }
 
     render() {
-        const adminLinks=[
-            { url: "/admin/users", text: "Users" , active: '/admin/users' },
-            { url: "/admin/basics", text: "Basics" , active: '/admin/basics' },
-            { url: "/admin/meta", text: "Meta" , active: '/admin/meta' },
-            { url: "/admin/blogs", text: "Blogs" , active: '/admin/blogs' },
-            { url: "/admin/blogmeta", text: "Blog Meta" , active: '/admin/blogmeta' },
-            { url: "/admin/comments", text: "Comments" , active: '/admin/comments' },
-            { url: "/admin/contacts", text: "Contact" , active: '/admin/contacts' },
-            { url: "/admin/addProduct", text: "Add Product", active: '/admin/addProduct' },
-            { url: "/admin/adminProducts", text: "Products", active: '/admin/adminProducts' },
-            { url: "/admin/adminOrders", text: "Orders", active: '/admin/adminOrders' },
-        ]
-        const userLinks=[
-            { url: "/user/user-admin", text: "My Orders" , active: '/user/user-admin' },
-        ]
+        
         return (
             <div className="col-sm-2 AdminBar py-5">
                 <ul>
                     {this.state.role=='Admin'?
-                        adminLinks.map((i, index)=>( <li key={index}><a href={i.url} className={this.state.active===i.active? "active" : null}>{i.text}</a></li> ))
+                        func.adminLinks.map((i, index)=>( <li key={index}><a href={i.url} className={this.state.active===i.active? "active" : null}>{i.text}</a></li> ))
                     :
-                        userLinks.map((i, index)=>( <li key={index}><a href={i.url} className={this.state.active===i.active? "active" : null}>{i.text}</a></li> ))
+                        func.userLinks.map((i, index)=>( <li key={index}><a href={i.url} className={this.state.active===i.active? "active" : null}>{i.text}</a></li> ))
                     }
                 </ul>
             </div>

@@ -17,6 +17,11 @@
 	src: local('../fonts/fontscorecomttwcenmt'), url('../fonts/fontscorecomttwcenmt.woff') format('woff'), url('../fonts/fontscorecomttwcenmt.ttf') format('truetype');
 }
 body, .form-control{
+   -webkit-user-select: none;
+   -webkit-touch-callout: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
    font-family: 'fontscorecomttwcenmt';
 }
 h1, h2, h3, h4, h5, h6{
@@ -310,9 +315,9 @@ footer{
             color: #fff;
          }
       }
-      .rs {
-         font-size: 12px;
-      }
+      // .rs {
+      //    font-size: 12px;
+      // }
       .price{
          color: $primary;
       }

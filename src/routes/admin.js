@@ -653,7 +653,7 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
 }))
 
 router.get('/getOrders', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql = `SELECT a.id, a.orderId, a.refId, a.buyer, a.address, a.cart, a.invoice, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a left join users as b on b.id = a.buyer `
+    let sql = `SELECT a.id, a.orderId, a.refId, a.buyer, a.address, a.cart, a.invoice, a.discount, a.status, a.remarks, a.created_at, a.updated_at, b.name, b.email FROM orders as a left join users as b on b.id = a.buyer `
     pool.query(sql, async(err, results) => {
         try{
             if(err){ throw err }
@@ -831,5 +831,119 @@ router.get('/userOrders/:id', asyncMiddleware( async(req, res) => {
         }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
+
+router.get('/adminCoupon', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let sql = `SELECT id, type, code, discount, dis_type, start, expiry, status, product, updated_at FROM coupon ORDER BY id DESC;
+                SELECT name as text, id as value FROM products Where status=1;`
+    pool.query(sql,[1,2], (err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){ res.send({ data: results[0], productOptions: results[1] }); }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.post('/productNames', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let sql = `SELECT name as text, id as value FROM products Where id IN (${JSON.parse(req.body.product)});`
+    pool.query(sql, (err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){ res.send({ success: true, data: results }); }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.post('/addCoupon', asyncMiddleware( async(req, res, next) => {
+    let post= {
+        "type":                       req.body.type,
+        "code":                       req.body.code,
+        "product":                    req.body.product,
+        "discount":                   req.body.discount,
+        "dis_type":                   req.body.dis_type,
+        "start":                      req.body.start,
+        "expiry":                     req.body.expiry,
+        "status":                     req.body.status,
+        "created_at":                 time,
+        "updated_at":                 time,
+    }
+    let sql = 'INSERT INTO coupon SET ?'
+    pool.query(sql, post, async(err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){
+                const data = await func.getCoupon(results.insertId)
+                res.send({ success: true, data: data[0], message: 'Coupon added successfuly' });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.post('/updateCoupon', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let post= {
+        "type":                       req.body.type,
+        "code":                       req.body.code,
+        "discount":                   req.body.discount,
+        "product":                    req.body.product,
+        "dis_type":                   req.body.dis_type,
+        "start":                      req.body.start,
+        "expiry":                     req.body.expiry,
+        "status":                     req.body.status,
+        "updated_at":                 time,
+    }
+    let sql = `UPDATE coupon SET ? WHERE id = ${req.body.id}`;
+    pool.query(sql, post, async(err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){
+                const data = await func.getCoupon(req.body.id)
+                res.send({ success: true, data: data[0], message: 'Coupon updated successfuly' });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.post('/changeCouponStatus', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    let post= {
+        'status':               req.body.status,
+        "updated_at":           time,
+    }
+    let sql = `UPDATE coupon SET ? WHERE id = '${req.body.id}'`
+    pool.query(sql, post, async(err, results) => {
+        try{
+            if(err){ throw err }
+            if(results){
+                const data = await func.getCoupon(req.body.id)
+                res.send({ success: true, data: data[0], message: 'Coupon updated successfuly' });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.post('/checkCoupon', asyncMiddleware( async(req, res) => {
+    const rightNow = new Date().toISOString().slice(0,10)
+    let sql = `SELECT id, type, code, discount, dis_type, product FROM coupon WHERE status=1 AND code='${req.body.coupon}' AND start <= '${rightNow}' AND expiry >= '${rightNow}'`
+    pool.query(sql, async(err, results) => {
+        try{
+            if(err){ throw err }
+            if(results && results[0]){
+                if(results[0].type=='Single'){
+                    const data = await func.checkSingleCoupon(req.body.coupon, req.body.userId)
+                    if(data){
+                        res.send({ success: false, message: 'Coupon already used in past' });
+                    }else{
+                        res.send({ success: true, data: results[0], message: 'Coupon applied successfuly' });
+                    }
+                }else{
+                    res.send({ success: true, data: results[0], message: 'Coupon applied successfuly' });
+                }
+            }else{
+                res.send({ success: false, message: 'Wrong coupon code' });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+
+
 
 module.exports = router;

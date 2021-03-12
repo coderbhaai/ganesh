@@ -48,6 +48,7 @@ import AdminOrders from "../pages/admin/AdminOrders"
 import Products from "../pages/admin/Products"
 import AddProduct from "../pages/admin/AddProduct"
 import EditProduct from "../pages/admin/EditProduct"
+import AdminCoupon from "../pages/admin/AdminCoupon"
 
 import UserAdmin from "../pages/user/UserAdmin"
 
@@ -393,6 +394,7 @@ router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { c
   router.get('/admin/adminProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/Products', { reactApp: renderToString(<Products/>), meta: [] }) }))
   router.get('/admin/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AddProduct', { reactApp: renderToString(<AddProduct/>), meta: [] }) }))
   router.get('/admin/editProduct/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/EditProduct', { reactApp: renderToString(<EditProduct/>), meta: [] }) }))
+  router.get('/admin/coupon', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminCoupon', { reactApp: renderToString(<AdminCoupon/>), meta: [] }) }))
   // // Admin Pages
   
   // User Pages
@@ -463,8 +465,8 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
       res.send({ success: true, signature: signature });
   });
 
-  router.post('/payment-response', asyncMiddleware( async(req, res, next) => {
-    if(req.body.txStatus ==='SUCCESS'){
+  router.post('/payment-response', asyncMiddleware( async(req, res, next) => { 
+    if(req.body.txStatus =='SUCCESS'){
       const post ={
         orderId:              req.body.orderId,
         refId:                req.body.referenceId,
@@ -514,6 +516,7 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
                   'address':              req.body.address,
                   'cart':                 req.body.cart,
                   'status':               'Ordered',
+                  'discount':             req.body.disAmount,
                   "updated_at":           time
               }
               let sql2 = `UPDATE orders SET ? WHERE orderId = '${req.body.orderId}'`
@@ -531,6 +534,9 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
                         })
                       }
                       await func.mailOrder( req.body.loggedIn, name, email, password, req.body.cart )
+                      if(req.body.discount){
+                        await func.updateCouponApplied( buyer, req.body.orderId, req.body.discount )
+                      }
                       res.send({ 
                           success:    true,
                           account:    account,

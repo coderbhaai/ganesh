@@ -123,3 +123,21 @@ export const testis = [
     {name: 'Dinesh Yalavarthy', image: '2.jpg', text: 'Amazing attention to detail and understanding of the requirements.. both you know of and don"t know of.Timely delivery of the samagri and unbelievable on the spot support for last minute needs.'},
     {name: 'Neetu Saluja', image: 'female.svg', text: 'Thanks Mr Jain! you are doing a great work. It was our pleasure to have been able to use the services. Very well organised, highly professional yet authentic, hassle free... it was a good experience. Much appreciated'},
 ]
+
+export const adminLinks=[
+    { url: "/admin/users", text: "Users" , active: '/admin/users' },
+    { url: "/admin/basics", text: "Basics" , active: '/admin/basics' },
+    { url: "/admin/meta", text: "Meta" , active: '/admin/meta' },
+    { url: "/admin/blogs", text: "Blogs" , active: '/admin/blogs' },
+    { url: "/admin/blogmeta", text: "Blog Meta" , active: '/admin/blogmeta' },
+    { url: "/admin/comments", text: "Comments" , active: '/admin/comments' },
+    { url: "/admin/contacts", text: "Contact" , active: '/admin/contacts' },
+    { url: "/admin/addProduct", text: "Add Product", active: '/admin/addProduct' },
+    { url: "/admin/adminProducts", text: "Products", active: '/admin/adminProducts' },
+    { url: "/admin/adminOrders", text: "Orders", active: '/admin/adminOrders' },
+    { url: "/admin/coupon", text: "Coupon", active: '/admin/coupon' },
+]
+
+export const userLinks=[
+    { url: "/user/user-admin", text: "My Orders" , active: '/user/user-admin' },
+]

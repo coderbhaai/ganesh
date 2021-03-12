@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import swal from 'sweetalert'
 import axios from 'axios'
-const func = require('../parts/functions')
+const func = require('./functions')
 
 export class Header extends Component {
     constructor(props) {
