@@ -25,6 +25,7 @@ import FourOFour from "../pages/index/FourOFour"
 import PrivacyPolicy from "../pages/index/PrivacyPolicy"
 import Terms from "../pages/index/Terms"
 import About from "../pages/index/About"
+import Astrology from "../pages/index/Astrology"
 
 import Auth from "../pages/index/Auth"
 // import Register from "../pages/auth/Register"
@@ -201,12 +202,53 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
             <li>Phone: ${req.body.phone}</li>
             <li>Message: ${req.body.message}</li>
           </ul>
-          <p>We will reach back to you on priority. If anything urgent, you can call me on +91-84240 03840 / +91-93548 11331</p><br/>
+          <p>We will reach back to you on priority.</p><br/>
           <p>Warm Regards</p>
-          <p>Amit Kumar Khare</p>
-          <a href="https://www.linkedin.com/in/amitkhare588/"><p>Connect on Linkedin</p></a>
+          <p>Team Pujarambh</p>
           `
-        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.amitkk.com", html: mailBody }
+        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
+        transporter.sendMail( mailOptions, (error, info)=>{
+          if(error){ func.printError(err) }
+          func.printError("Message sent: %s")
+        });
+        res.send({ success: true, message: "Mail Sent" }); 
+      }catch(e){ func.logError(e); res.status(403); return; }
+    })
+  })
+
+  router.post('/astroForm', (req, res, next) => {
+    let post= {
+        "name":             req.body.name,
+        "email":            req.body.email,
+        "phone":            req.body.phone,
+        "gender":           req.body.gender,
+        "dob":              req.body.dob,
+        "tob":              req.body.tob,
+        "place":            req.body.place,
+        "created_at":       time,
+        "updated_at":       time,
+    }
+    let sql = 'INSERT INTO astrology SET ?'
+    pool.query(sql, post, (err, results) => {
+      try{
+        if(err) throw err;
+        const mailBody =`
+          <h2><strong>Dear ${req.body.name}</strong></h2>
+          <p>Thanks for connecting with us.</p>
+          <p>The details provided by you are:</p>
+          <ul>
+            <li>Email: ${req.body.email}</li>
+            <li>Phone: ${req.body.phone}</li>
+            <li>Gender: ${req.body.gender}</li>
+            <li>Date of Birth: ${req.body.dob}</li>
+            <li>Time of Birth: ${req.body.tob}</li>
+            <li>Place of Birth: ${req.body.place}</li>
+          </ul>
+          <p>We will reach back to you on priority.</p><br/>
+          <p>Warm Regards</p>
+          <p>Team Pujarambh</p>
+          `
+        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
         transporter.sendMail( mailOptions, (error, info)=>{
           if(error){ func.printError(err) }
           func.printError("Message sent: %s")
@@ -372,8 +414,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
 // // Regular Pages 
 router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
 router.get('/about-us', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/About', { reactApp: renderToString(<About/>), meta: meta }) }))
-// router.get('/clients', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/clients','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/Clients', { reactApp: renderToString( <Clients blogs={blogs}/> ), meta: meta}) }))
-// router.get('/contact', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta('/contact','page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/Contact', { reactApp: renderToString( <Contact blogs={blogs}/> ), meta: meta}) }))
+router.get('/free-kundli', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Astrology', { reactApp: renderToString(<Astrology/>), meta: meta }) }))
 router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
 router.get('/privacy-policy', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/PrivacyPolicy', { reactApp: renderToString( <PrivacyPolicy/> ), meta: meta}) }))
 router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Terms', { reactApp: renderToString( <Terms/> ), meta: meta}) }))

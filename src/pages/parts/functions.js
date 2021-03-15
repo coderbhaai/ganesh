@@ -141,3 +141,19 @@ export const adminLinks=[
 export const userLinks=[
     { url: "/user/user-admin", text: "My Orders" , active: '/user/user-admin' },
 ]
+
+export const astrology=[
+    { image: "aries.png", name: "Aries", date: "Mar 21 - Apr 19"  },
+    { image: "taurus.png", name: "Taurus", date: "Apr 20 - May 20"  },
+    { image: "gemini.png", name: "Gemini", date: "May 21 - Jun 20"  },
+    { image: "cancer.png", name: "Cancer", date: "Jun 21 - Jul 22"  },
+    { image: "leo.png", name: "Leo", date: "Jul 23 - Aug 22"  },
+    { image: "virgo.png", name: "Virgo", date: "Aug 23 - Sep 22"  },
+    { image: "libra.png", name: "Libra", date: "Sep 23 - Oct 22"  },
+    { image: "scorpio.png", name: "Scorpio", date: "Oct 23 - Nov 21"  },
+    { image: "sagittarius.png", name: "Sagittarius", date: "Nov 22 - Dec 21"  },
+    { image: "capricorn.png", name: "Capricorn", date: "Dec 22 - Jan 19"  },
+    { image: "aquarius.png", name: "Aquarius", date: "Jan 20 - Feb 18"  },
+    { image: "pisces.png", name: "Pisces", date: "Feb 19 - Mar 20"  },
+]
+

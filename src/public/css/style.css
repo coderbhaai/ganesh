@@ -322,7 +322,7 @@ label {
   font-weight: 600;
   margin-bottom: 5px; }
 
-form input {
+form input, form select {
   margin-bottom: 1em; }
 
 @supports (position: -webkit-sticky) or (position: sticky) {
@@ -2682,6 +2682,51 @@ footer .akk {
 .strike {
   text-decoration: line-through;
   margin-right: 1.5em; }
+
+.zodiac .col-sm-4 > div {
+  position: relative;
+  float: left;
+  width: 100%;
+  margin-bottom: 60px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #eaeaea;
+  border-radius: 5px;
+  border-bottom: 5px solid #e5e5e5;
+  cursor: pointer;
+  color: #000;
+  transition: .5s all; }
+  .zodiac .col-sm-4 > div .zodiacImage {
+    margin: auto;
+    width: 75px;
+    height: 75px;
+    background-color: #fff;
+    border-radius: 153px;
+    box-shadow: 0 0 10px #84838380;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-top: -50px; }
+    .zodiac .col-sm-4 > div .zodiacImage img {
+      max-width: 60px; }
+  .zodiac .col-sm-4 > div h4 {
+    text-align: center;
+    line-height: 1em;
+    margin-top: 10px; }
+  .zodiac .col-sm-4 > div p {
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.5em; }
+  .zodiac .col-sm-4 > div:hover {
+    background-color: #ff8428;
+    transition: .5s;
+    border: 1px solid #ff8428;
+    border-bottom: 5px solid #e06203;
+    box-shadow: 0 0 10px #84838380; }
+    .zodiac .col-sm-4 > div:hover > .zodiacImage {
+      transition: .5s;
+      transform: rotate(360deg); }
 
 @media (max-width: 1400px) {
   .nav-link {

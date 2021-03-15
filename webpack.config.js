@@ -17,6 +17,7 @@ const config = [{
         PrivacyPolicy: [path.resolve('src', 'components', 'pages', 'PrivacyPolicy.js')],
         Terms: [path.resolve('src', 'components', 'pages', 'Terms.js')],
         About: [path.resolve('src', 'components', 'pages', 'About.js')],
+        Astrology: [path.resolve('src', 'components', 'pages', 'Astrology.js')],
 
         // Register: [path.resolve('src', 'components', 'auth', 'Register.js')],
         // Login: [path.resolve('src', 'components', 'auth', 'Login.js')],
@@ -107,6 +108,7 @@ const config = [{
         new HtmlWebpackPlugin({ chunks: ['PrivacyPolicy'], filename: '../views/pages/PrivacyPolicy.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['Terms'], filename: '../views/pages/Terms.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['About'], filename: '../views/pages/About.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['Astrology'], filename: '../views/pages/Astrology.ejs', template: path.join('src', 'views', 'index.ejs') }),
 
         // new HtmlWebpackPlugin({ chunks: ['Register'], filename: '../views/auth/Register.ejs', template: path.join('src', 'views', 'index.ejs') }),
         // new HtmlWebpackPlugin({ chunks: ['Login'], filename: '../views/auth/Login.ejs', template: path.join('src', 'views', 'index.ejs') }),

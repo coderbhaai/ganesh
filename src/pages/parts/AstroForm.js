@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import window from 'global'
-const func = require('../parts/functions')
+const func = require('./functions')
 
-export class Form extends Component {
+export class AstroForm extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            name:               '',               
-            email:              '',
-            phone:              '',
-            message:            '',
+            name:               "",
+            email:              "",
+            phone:              "",
+            gender:             "",
+            dob:                "",
+            tob:                "",
+            place:              "",
         }
     }
 
@@ -24,9 +27,12 @@ export class Form extends Component {
                 name:               this.state.name, 
                 email:              this.state.email,
                 phone:              this.state.phone,
-                message:            this.state.message,
+                gender:             this.state.gender,
+                dob:                this.state.dob,
+                tob:                this.state.tob,
+                place:              this.state.place,
             }               
-            axios.post('/contactForm', data)
+            axios.post('/astroForm', data)
             .then( res=> {
                 if(res.data.success){
                     localStorage.setItem('message', 'Form submitted succesfully')
@@ -46,12 +52,22 @@ export class Form extends Component {
                     <input className="form-control" type="email" name="email" required placeholder="Email Please *" value={this.state.email} onChange={this.onChange}/> 
                     <label>Mobile Number *</label>
                     <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0"  name="phone" required placeholder="Mobile Number Please *" value={this.state.phone} onChange={this.phoneValidate}/>
-                    <label>Message *</label>
-                    <textarea name="message" className="form-control" required placeholder="Please tell us a little about your requirement" value={this.state.message} onChange={this.onChange}></textarea>
-                    <div className="my-div"><button className="amitBtn">Submit</button></div>                    
+                    <label>Gender</label>
+                    <select className="form-control" name="gender" required value={this.state.gender} onChange={this.onChange}>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <label>Date of Birth *</label>
+                    <input className="form-control" type="date" name="dob" required placeholder="Date of Birth *" value={this.state.dob} onChange={this.onChange}/>
+                    <label>Time of Birth *</label>
+                    <input className="form-control" type="time" name="tob" required placeholder="Time of Birth *" value={this.state.tob} onChange={this.onChange}/>
+                    <label>Place of Birth *</label>
+                    <input className="form-control" type="text" name="place" required placeholder="Place of Birth*" value={this.state.place} onChange={this.onChange}/>
+                    <div className="my-div"><button className="amitBtn">Submit</button></div>
                 </form>
             </>
         )
     }
 }
-export default Form
+export default AstroForm

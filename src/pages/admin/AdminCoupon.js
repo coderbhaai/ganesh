@@ -277,6 +277,7 @@ export class AdminCoupon extends Component {
                                 </div>
                                 <div className="col-sm-12 compare label-down mb-5">
                                     <label>Products</label>
+                                    {/* <div className="my-div"><button onClick={this.addAllProducts} className="amitBtn">All Products</button></div> */}
                                     <Dropdown placeholder='Select products' fluid search multiple selection onChange={this.productSelected} options={this.state.productOptions}/>
                                 </div>
                             </div>
