@@ -1348,7 +1348,7 @@ input[readonly] {
   margin-left: auto; }
 
 /* Switch Button */
-@media (max-width: 1200px) {
+@media (max-width: 767px) {
   .AdminBar ul {
     display: flex;
     align-items: center;
@@ -2694,7 +2694,6 @@ footer .akk {
   background-color: #eaeaea;
   border-radius: 5px;
   border-bottom: 5px solid #e5e5e5;
-  cursor: pointer;
   color: #000;
   transition: .5s all; }
   .zodiac .col-sm-4 > div .zodiacImage {

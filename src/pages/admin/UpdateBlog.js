@@ -15,7 +15,7 @@ export class UpdateBlog extends Component {
             id:                         '',
             title:                      '',
             excerpt:                    '',
-            blogURL:                    '',
+            url:                    '',
             content:                    '',
             catOptions:                 [],
             tagOptions:                 [],
@@ -47,9 +47,9 @@ export class UpdateBlog extends Component {
             .then(res =>{
                 this.setState({ 
                     title:                          res.data.data.title,
-                    excerpt:                        res.data.excerpt,
+                    excerpt:                        res.data.data.excerpt,
                     content:                        res.data.data.content,
-                    blogURL:                        res.data.data.url,
+                    url:                            res.data.data.url,
                     oldCoverImg:                    res.data.data.coverImg,
                     category:                       res.data.catList,
                     tag:                            res.data.tagList,
@@ -84,7 +84,7 @@ export class UpdateBlog extends Component {
         data.append('file', this.state.blogImage)
         data.append('oldCoverImg', this.state.oldCoverImg)
         data.append('title', this.state.title)
-        data.append('url', this.state.blogURL.replace(/ /g,"-"))
+        data.append('url', this.state.url.replace(/ /g,"-"))
         data.append('excerpt', this.state.excerpt)
         data.append('content', this.state.content)
         data.append('category', JSON.stringify(finalCategory) )
@@ -127,7 +127,7 @@ export class UpdateBlog extends Component {
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Blog URL</label>
-                                        <input className="form-control" value={this.state.blogURL} readOnly/> 
+                                        <input className="form-control" name="url" required value={this.state.url} onChange={this.onChange}/> 
                                     </div>
                                     <div className="col-sm-4">
                                         <label>Featured Image (1800px X 750px)</label>
