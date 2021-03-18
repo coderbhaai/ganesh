@@ -27,6 +27,7 @@ export class Footer extends Component {
                                 <li><a href="https://www.linkedin.com/in/pujarambh-the-beginning-092877207/" target="_blank"><img src="/images/icons/linkedin-white.svg"/></a></li>
                                 <li><a href="https://twitter.com/pujarambh" target="_blank"><img src="/images/icons/twitter-white.svg"/></a></li>
                                 <li><a href="https://www.instagram.com/_pujarambh_/" target="_blank"><img src="/images/icons/instagram-white.svg"/></a></li>
+                                <li className="web"><a href="//api.whatsapp.com/send?phone=919870405987&amp;text= Hi, I got your number from Pujarambh Website."><img src="/images/icons/whatsapp-button.svg" alt="Connect with Pujarambh on Whats App"/></a></li>
                             </ul>
                             <div className="text-center"><a className="btn" data-toggle="modal" data-target="#callBack">Enter Your Query</a></div>
                         </div>

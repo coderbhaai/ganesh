@@ -36,29 +36,33 @@ export class Schema extends Component {
     _renderproductsList(){
         const siteName = "https://www.pujarambh.com/"
         var currentdate = new Date();
+        var newDate = new Date(currentdate.setMonth(currentdate.getMonth()+8));
         return  this.state.products.map((i, index)=>{ 
             return(
                 <div className="col-sm-12 " key={index}>
                     <p className="ml4">{"{"}</p>
                         <p className="ml5">"@context":"http://schema.org",</p>
                         <p className="ml5">"@type": "Product",</p>
-                        {i.rating?
+                        {i.rating && JSON.parse(i.rating)[0]>0?
                             <p className="ml5">"aggregateRating": {'{'} "@type": "AggregateRating", "ratingValue": "{JSON.parse(i.rating)[0]}", "reviewCount": "{JSON.parse(i.rating)[0]}" {'}'},</p>
-                        : null }
+                        : 
+                        <p className="ml5">"aggregateRating": {'{'} "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" {'}'},</p>
+                        }
                         <p className="ml5">"description": "<section className="ckeContent" dangerouslySetInnerHTML={{ __html: i.shortDesc }}/>",</p>
                         <p className="ml5">"name": "{i.name}",</p>
+                        <p className="ml5">"sku": "Pujarambh-{i.id}",</p>
+                        <p className="ml5">"brand": "Pujarambh",</p>
+                        <p className="ml5">"mpn": "{i.id}{Math.random().toString().substr(2, 6)}",</p>
                         <p className="ml5">"image": "{"https://www.pujarambh.com/images/product/"+JSON.parse(i.images)[0]}",</p>
-                        {i.sale?
-                            <>
-                                <p className="ml5">"offers": {'{'}</p>
-                                    <p className="ml6">"@type": "Offer",</p>
-                                    <p className="ml6">"availability": "https://schema.org/InStock",</p>
-                                    <p className="ml6">"price": "{i.sale}",</p>
-                                    <p className="ml6">"priceCurrency": "INR"</p>
-                                <p className="ml5">{'}'}</p>
-                            </>
-                        : null}
-                        {this.state.reviews.filter(j=>j.productId == i.id).length? <p className="ml5">"review":{"["}</p> : null}
+                        <p className="ml5">"offers": {'{'}</p>
+                            <p className="ml6">"@type": "Offer",</p>
+                            <p className="ml6">"availability": "https://schema.org/InStock",</p>
+                            <p className="ml6">"price": "{i.sale? i.sale : i.price-10}",</p>
+                            <p className="ml6">"priceCurrency": "INR",</p>
+                            <p className="ml5">"url": "https://www.pujarambh.com/product/{i.url}",</p>
+                            <p className="ml6">"priceValidUntil": "{moment(newDate).format("DD MMMM YYYY")}"</p>
+                        <p className="ml5">{'},'}</p>
+                        <p className="ml5">"review":{"["}</p>
                             {this.state.reviews.filter(j=>j.productId == i.id).map((j,index2)=>(
                                 <div key={index2}>
                                     <p className="ml6">{'{'}</p>
@@ -71,13 +75,31 @@ export class Schema extends Component {
                                             <p className="ml7">"@type": "Rating",</p>
                                             <p className="ml7">"bestRating": "5",</p>
                                             <p className="ml7">"ratingValue": "{j.rating}",</p>
-                                            <p className="ml7">"worstRating": "3"</p>
+                                            <p className="ml7">"worstRating": "0"</p>
                                         <p className="ml6">{'}'}</p>
-                                        { this.state.reviews.filter(j=>j.productId == i.id).length-1 == index2 ? <p className="ml6">{"}"}</p> :<p className="ml6">{"},"}</p> }
+                                    <p className="ml6">{"},"}</p>
                                 </div>
                             ))}
-                        {this.state.reviews.filter(j=>j.productId == i.id).length? <p className="ml5">{"]"}</p> : null}
-                    { this.state.products.length-1 == index ? <p className="ml4">{"}"}</p> :<p className="ml4">{"},"}</p> }
+                        {!this.state.reviews.filter(j=>j.productId == i.id).length?
+                            <div>
+                                <p className="ml6">{'{'}</p>
+                                    <p className="ml7">"@type": "Review",</p>
+                                    <p className="ml7">"author": "Amit Khare",</p>
+                                    <p className="ml7">"datePublished": "{moment(currentdate).format("DD MMMM  YYYY")}",</p>
+                                    <p className="ml7">"reviewBody": "The best product I had for my family.",</p>
+                                    <p className="ml7">"name": "Pujarambh Customer",</p>
+                                    <p className="ml7">"reviewRating": {'{'}</p>
+                                        <p className="ml7">"@type": "Rating",</p>
+                                        <p className="ml7">"bestRating": "5",</p>
+                                        <p className="ml7">"ratingValue": "5",</p>
+                                        <p className="ml7">"worstRating": "0"</p>
+                                    <p className="ml6">{'}'}</p>
+                                <p className="ml6">{"}"}</p>
+                            </div>
+                        : null}
+                        <p className="ml5">{"]"}</p>
+                        { <p className="ml4">{"},"}</p> }
+                        {/* { this.state.products.length-1 == index ? <p className="ml4">{"}"}</p> :<p className="ml4">{"},"}</p> } */}
                 </div>
             )
         })
@@ -146,7 +168,7 @@ export class Schema extends Component {
                             <p className="ml3">[</p>
                                     <p className="ml4">"https://www.facebook.com/Pujarambh",</p>
                                     <p className="ml4">"https://twitter.com/pujarambh",</p>
-                                    <p className="ml4">"https://www.linkedin.com/in/pujarambh-the-beginning-092877207/"</p>
+                                    <p className="ml4">"https://www.linkedin.com/in/pujarambh-the-beginning-092877207/",</p>
                                     <p className="ml4">"https://www.instagram.com/_pujarambh_/"</p>
                             <p className="ml3">],</p>
                             <p className="ml2">"priceRange" : "$5 - $3000",</p>

@@ -1,0 +1,1605 @@
+<script type="application/ld+json">
+
+{
+
+"@context": "http://www.schema.org",
+
+"@type": "LocalBusiness",
+
+"@id": "https://www.pujarambh.com/",
+
+"url": "https://www.pujarambh.com/",
+
+"name" : "Pujarambh",
+
+"description" : "We provide online Pandit ji along with complete solution for prayers and worship at affordable costs ",
+
+"logo": "https://www.pujarambh.com/images/logo.svg",
+
+"address":
+
+{
+
+"@type" : "PostalAddress",
+
+"addressCountry" : "IN",
+
+"addressLocality" : "Sanjay Gandhi Transport Nagar",
+
+"addressRegion" : "Delhi",
+
+"postalCode" : "110042",
+
+"streetAddress" : "CW-593, opposite Indian Oil Petrol Pump"
+
+},
+
+"telephone" : "+91-9870405987",
+
+"email": "connect@pujarambh.com",
+
+"image" : "https://www.pujarambh.com/images/logo.svg",
+
+"sameAs" :
+
+[
+
+"https://www.facebook.com/Pujarambh",
+
+"https://twitter.com/pujarambh",
+
+"https://www.linkedin.com/in/pujarambh-the-beginning-092877207/",
+
+"https://www.instagram.com/_pujarambh_/"
+
+],
+
+"priceRange" : "$5 - $3000",
+
+"@graph":
+
+[
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Vasant Panchami, also known as Basant Panchami in India is celebrated because the festival of deity Saraswati. Ma Saraswati Puja is done on the day of Vasant Panchami.
+
+No of Pandit(s) : 1  | Duration : 1 hrs | Puja Samagri Included in the package
+
+",
+
+"name": "Saraswati Puja",
+
+"sku": "Pujarambh-1",
+
+"brand": "Pujarambh",
+
+"mpn": "1562633",
+
+"image": "https://www.pujarambh.com/images/product/1612875312552-saraswati-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "2900",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/saraswati-puja",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Ganesh Puja is performed for Lord Ganapathi who removes all the obstacles and negative energies. This puja bestows one with victory, brings harmony in family and helps one succeed in life.
+
+No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
+
+",
+
+"name": "Ganesh Puja",
+
+"sku": "Pujarambh-2",
+
+"brand": "Pujarambh",
+
+"mpn": "2067767",
+
+"image": "https://www.pujarambh.com/images/product/1612877810189-ganesh-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "2900",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/ganesh-puja",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Bhoomi Puja is performed for Goddess Bhoomi and Vastu Purush, lord and deity of directions, five elements of nature to remove negative influences or Vastu Doshas of the place.
+
+No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
+",
+
+"name": "Bhoomi Pujan",
+
+"sku": "Pujarambh-3",
+
+"brand": "Pujarambh",
+
+"mpn": "3241670",
+
+"image": "https://www.pujarambh.com/images/product/1612878117511-bhoomi-poojan - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/bhoomi-pujan",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Bhakut Dosh Nivaran Puja",
+
+"sku": "Pujarambh-9",
+
+"brand": "Pujarambh",
+
+"mpn": "9357235",
+
+"image": "https://www.pujarambh.com/images/product/1613273174231-bhakut-dosh-navaran-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Bhakut-Dosh-Nivaran-Puja",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Budh Grah Shanti ",
+
+"sku": "Pujarambh-10",
+
+"brand": "Pujarambh",
+
+"mpn": "10304244",
+
+"image": "https://www.pujarambh.com/images/product/1613273257993-buddh-shanti-jaap - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Budh-Grah-Shanti",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Chandra Grah Shanti",
+
+"sku": "Pujarambh-11",
+
+"brand": "Pujarambh",
+
+"mpn": "11248343",
+
+"image": "https://www.pujarambh.com/images/product/1613273367028-chandra-shanti-jaap - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Chandra-Grah-Shanti",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Guru Grah Shanti",
+
+"sku": "Pujarambh-14",
+
+"brand": "Pujarambh",
+
+"mpn": "14386591",
+
+"image": "https://www.pujarambh.com/images/product/1613273724468-guru-shanti-jaap - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Guru-Grah-Shanti",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Karan Vedh Sanskaar Puja",
+
+"sku": "Pujarambh-17",
+
+"brand": "Pujarambh",
+
+"mpn": "17354154",
+
+"image": "https://www.pujarambh.com/images/product/1613274139125-karan-vedh-sanskar-pooja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Karan-Vedh-Sanskaar-Puja",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Ketu Grah Shanti",
+
+"sku": "Pujarambh-18",
+
+"brand": "Pujarambh",
+
+"mpn": "18195773",
+
+"image": "https://www.pujarambh.com/images/product/1613274216743-ketu-shanti-jaap - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Ketu-Grah-Shanti",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Kumbh Vivah Sanskaar Puja",
+
+"sku": "Pujarambh-19",
+
+"brand": "Pujarambh",
+
+"mpn": "19659191",
+
+"image": "https://www.pujarambh.com/images/product/1613274361003-kumbh-vivah - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Kumbh-Vivah-Sanskaar-Puja",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Mangal Grah Shanti",
+
+"sku": "Pujarambh-20",
+
+"brand": "Pujarambh",
+
+"mpn": "20427742",
+
+"image": "https://www.pujarambh.com/images/product/1613274458917-mangal-shanti-jaap - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Mangal-Grah-Shanti",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Manglik Dosh Nivaran Puja",
+
+"sku": "Pujarambh-21",
+
+"brand": "Pujarambh",
+
+"mpn": "21922052",
+
+"image": "https://www.pujarambh.com/images/product/1613274636864-manglik-dosh-nivaran-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Manglik-Dosh-Nivaran-Puja",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Mata Ka Jagran",
+
+"sku": "Pujarambh-22",
+
+"brand": "Pujarambh",
+
+"mpn": "22038787",
+
+"image": "https://www.pujarambh.com/images/product/1613274779150-mata-ka-jagran - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "20990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Mata-Ka-Jagran",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+When someone is shifting to a new office, pooja is performed to reduce the ill-effects and doshas by increasing the flow of positive vibes in the office. 
+
+No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
+",
+
+"name": "Office Opening Puja",
+
+"sku": "Pujarambh-25",
+
+"brand": "Pujarambh",
+
+"mpn": "25384561",
+
+"image": "https://www.pujarambh.com/images/product/1613276253958-new-office-shop - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "2900",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Office-Opening-Puja",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Rahu Grah Shanti",
+
+"sku": "Pujarambh-26",
+
+"brand": "Pujarambh",
+
+"mpn": "26198774",
+
+"image": "https://www.pujarambh.com/images/product/1613276449173-rahu-shanti-jaap - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/rahu-grah-shanti",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Astro Consultation over Phone",
+
+"sku": "Pujarambh-27",
+
+"brand": "Pujarambh",
+
+"mpn": "27811219",
+
+"image": "https://www.pujarambh.com/images/product/1613277961946-astro on call - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "450",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/astrology-consultation-over-phone",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Vastu Consultation over Phone",
+
+"sku": "Pujarambh-28",
+
+"brand": "Pujarambh",
+
+"mpn": "28483334",
+
+"image": "https://www.pujarambh.com/images/product/1613278749737-vastu on call - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "450",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/Vastu-Consultation-over-Phone",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Vastu Consultation at Location",
+
+"sku": "Pujarambh-29",
+
+"brand": "Pujarambh",
+
+"mpn": "29659025",
+
+"image": "https://www.pujarambh.com/images/product/1613279542784-vastu consultation - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/vastu-consultation-at-location",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Bodysoul Meditation Incense Sticks",
+
+"sku": "Pujarambh-30",
+
+"brand": "Pujarambh",
+
+"mpn": "30429108",
+
+"image": "https://www.pujarambh.com/images/product/1613281617834-Picture18 - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "130",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/bodysoul-meditation-incense-sticks",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Rudrabhishek saada paath",
+
+"sku": "Pujarambh-31",
+
+"brand": "Pujarambh",
+
+"mpn": "31690056",
+
+"image": "https://www.pujarambh.com/images/product/1615443011254-rudrabhishek - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "2090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/rudrabhishek-sada-paath",
+
+"priceValidUntil": "18 November 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "18 November 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "BlogPosting",
+
+"image": {"@type": "imageObject", "url": "https://www.pujarambh.com/images/blog/"},
+
+"url": "https://www.pujarambh.com/importance-of-kanak-dhara-stotra",
+
+"headline": "Importance of Kanak Dhara Stotra",
+
+"dateCreated": "06 February 2021",
+
+"datePublished": "06 February 2021",
+
+"datemodified": "06 February 2021",
+
+"inLanguage": "English",
+
+"isFamilyFriendly": "true",
+
+"copyrightYear": 2021,
+
+"copyrightHolder": "Pujarambh",
+
+"author": "Pujarambh",
+
+"mainEntityOfPage": "True",
+
+"creator": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/"},
+
+"publisher": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/", "logo": {"@type": "ImageObject", "url": "https://www.pujarambh.com/images/logo.png"}}
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "BlogPosting",
+
+"image": {"@type": "imageObject", "url": "https://www.pujarambh.com/images/blog/"},
+
+"url": "https://www.pujarambh.com/significance-of-bell-in-a-temple",
+
+"headline": "What is the significance of Bell in a Temple?",
+
+"dateCreated": "06 February 2021",
+
+"datePublished": "06 February 2021",
+
+"datemodified": "06 February 2021",
+
+"inLanguage": "English",
+
+"isFamilyFriendly": "true",
+
+"copyrightYear": 2021,
+
+"copyrightHolder": "Pujarambh",
+
+"author": "Pujarambh",
+
+"mainEntityOfPage": "True",
+
+"creator": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/"},
+
+"publisher": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/", "logo": {"@type": "ImageObject", "url": "https://www.pujarambh.com/images/logo.png"}}
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "BlogPosting",
+
+"image": {"@type": "imageObject", "url": "https://www.pujarambh.com/images/blog/"},
+
+"url": "https://www.pujarambh.com/the-story-behind-holika-dahan",
+
+"headline": "The story behind Holika Dahan – Holi Festival Special",
+
+"dateCreated": "17 March 2021",
+
+"datePublished": "17 March 2021",
+
+"datemodified": "17 March 2021",
+
+"inLanguage": "English",
+
+"isFamilyFriendly": "true",
+
+"copyrightYear": 2021,
+
+"copyrightHolder": "Pujarambh",
+
+"author": "Pujarambh",
+
+"mainEntityOfPage": "True",
+
+"creator": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/"},
+
+"publisher": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/", "logo": {"@type": "ImageObject", "url": "https://www.pujarambh.com/images/logo.png"}}
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "BlogPosting",
+
+"image": {"@type": "imageObject", "url": "https://www.pujarambh.com/images/blog/"},
+
+"url": "https://www.pujarambh.com/benefits-of-online-pandit-ji",
+
+"headline": "Benefits of online Pandit Ji",
+
+"dateCreated": "15 March 2021",
+
+"datePublished": "15 March 2021",
+
+"datemodified": "15 March 2021",
+
+"inLanguage": "English",
+
+"isFamilyFriendly": "true",
+
+"copyrightYear": 2021,
+
+"copyrightHolder": "Pujarambh",
+
+"author": "Pujarambh",
+
+"mainEntityOfPage": "True",
+
+"creator": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/"},
+
+"publisher": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/", "logo": {"@type": "ImageObject", "url": "https://www.pujarambh.com/images/logo.png"}}
+
+}
+
+]
+
+}
+
+</script>
