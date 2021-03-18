@@ -136,6 +136,7 @@ export const adminLinks=[
     { url: "/admin/adminProducts", text: "Products", active: '/admin/adminProducts' },
     { url: "/admin/adminOrders", text: "Orders", active: '/admin/adminOrders' },
     { url: "/admin/coupon", text: "Coupon", active: '/admin/coupon' },
+    { url: "/admin/refSchema", text: "Schema", active: '/admin/refSchema' },
 ]
 
 export const userLinks=[

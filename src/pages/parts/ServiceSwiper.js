@@ -16,7 +16,8 @@ export class ServiceSwiper extends Component {
                 <Swiper {...func.params}> 
                     {this.props.data.map((i,index)=>( 
                         <div key={index}>
-                            <p className="usage">{i.tagline? i.tagline : "Order Now"}</p>
+                            {/* <p className="usage">{i.tagline? i.tagline : "Order Now"}</p> */}
+                            <p className="usage">Order Now</p>
                             <div className="imgBox">
                                 <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
                             </div>

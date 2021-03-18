@@ -19,7 +19,8 @@ export class ProductSwiper extends Component {
                             <div className="imgBox">
                                 <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
                             </div>
-                            {i.tagline? <p className="usage">{i.tagline}</p> : null}
+                            {/* {i.tagline? <p className="usage">{i.tagline}</p> : null} */}
+                            <p className="usage">Order Now</p>
                             <div className="productDetail">
                                 <h3>{i.name}</h3>
                                 {/* <p>Price: Rs {i.price}</p> */}

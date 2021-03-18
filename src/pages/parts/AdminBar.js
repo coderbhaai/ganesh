@@ -16,6 +16,7 @@ export class AdminBar extends Component {
             this.setState({ role: JSON.parse(localStorage.getItem('user')).role || '' })
         }
         this.setState({ active: window.location.pathname })
+        if(window.location.pathname === '/admin'){ this.setState({ active: '/admin/users' }) }
         if(window.location.pathname === '/admin/addBlog'){ this.setState({ active: '/admin/blogs' }) }
         if(window.location.pathname.split("/")[2] === 'updateBlog'){ this.setState({ active: '/admin/blogs' }) }
         if(window.location.pathname.split("/")[2] === 'editProduct'){ this.setState({ active: '/admin/adminProducts' }) }

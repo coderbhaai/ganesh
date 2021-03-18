@@ -24,9 +24,9 @@ export class Footer extends Component {
                             <h3>Socialize with Social</h3>
                             <ul>
                                 <li><a href="https://www.facebook.com/Pujarambh" target="_blank"><img src="/images/icons/facebook-white.svg"/></a></li>
-                                <li><a href="#"><img src="/images/icons/linkedin-white.svg"/></a></li>
-                                <li><a href="#"><img src="/images/icons/twitter-white.svg"/></a></li>
-                                <li><a href="#"><img src="/images/icons/instagram-white.svg"/></a></li>
+                                <li><a href="https://www.linkedin.com/in/pujarambh-the-beginning-092877207/" target="_blank"><img src="/images/icons/linkedin-white.svg"/></a></li>
+                                <li><a href="https://twitter.com/pujarambh" target="_blank"><img src="/images/icons/twitter-white.svg"/></a></li>
+                                <li><a href="https://www.instagram.com/_pujarambh_/" target="_blank"><img src="/images/icons/instagram-white.svg"/></a></li>
                             </ul>
                             <div className="text-center"><a className="btn" data-toggle="modal" data-target="#callBack">Enter Your Query</a></div>
                         </div>
