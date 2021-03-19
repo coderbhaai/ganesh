@@ -625,6 +625,11 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
         'type':                 req.body.type,
         "updated_at":           time,
     }
+    if(req.body.sale){
+        post.sale = req.body.sale
+    }else{
+        post.sale = null
+    }
     if(req.body.sale >0 ){ post.sale = req.body.sale }
     if(req.body.tagline !== 'undefined'){ post.tagline = req.body.tagline }
     if(req.files){

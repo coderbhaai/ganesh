@@ -22,7 +22,6 @@ export class Schema extends Component {
     callApi = async () => {
         const response = await fetch('/admin/schemaData')
         const body = await response.json();
-        console.log(`body`, body)
         if (response.status !== 200) throw Error(body.message)
         this.setState({
             blogs:              body.blogs,

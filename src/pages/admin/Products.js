@@ -60,7 +60,10 @@ export class Products extends Component {
                     <td><a href={"/product/"+i.url} target="_blank">{i.name}</a></td>
                     <td>{i.vendor}</td>
                     <td style={{textAlign:'center'}}><img src={"/images/product/" + JSON.parse(i.images)[0]} className="tableImg" style={{maxHeight:'80px', width: 'auto'}}/>{i.product}</td>
-                    <td>{i.price}</td>
+                    <td>
+                        &#8377;{i.price} |&nbsp;
+                        {i.sale? <>&#8377; {i.sale}</> : ' -'}
+                    </td>
                     <td>{i.rating}</td>
                     <td>
                         <div className="onoffswitch">
@@ -105,7 +108,7 @@ export class Products extends Component {
                                         <td>Product</td>
                                         <td>Vendor</td>
                                         <td>Image</td>
-                                        <td>Price</td>
+                                        <td>Price | Sale Price</td>
                                         <td>Rating</td>
                                         <td>Display</td>
                                         <td>Date</td>
