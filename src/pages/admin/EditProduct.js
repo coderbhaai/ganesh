@@ -140,7 +140,7 @@ export class EditProduct extends Component {
             data.append('vendor', this.state.selectedVendor)
             data.append('name', this.state.name)
             data.append('type', this.state.type)
-            data.append('url', this.state.url.replace(/ /g,"-"))
+            data.append('url', this.state.url.replace(/ /g,"-").toLowerCase())
             data.append('status', this.state.status)
             data.append('category', JSON.stringify(finalCategory) )
             // data.append('tags', JSON.stringify(finalTag) )

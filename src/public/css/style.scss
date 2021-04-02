@@ -196,22 +196,31 @@ footer{
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      h1{
-         margin-bottom: 1em;
-      }
-      p{
+      // h1{
+      //    margin-bottom: 1em;
+      // }
+      p.hindi{
          color: #fff;
          background: $purple;
          text-align: center;
          padding: .5em;
-         font-size: 3em;
+         font-size: 2em;
+         width: fit-content;
          border-radius: 5px;
-         margin-bottom: 1em;
+         // margin-bottom: 1em;
          line-height: 1em;
       }
       .amitBtn {
          max-width: 150px;
-     }
+         margin: 5px 0;
+      }
+      p{
+         color: $action;
+         font-weight: 600;
+         font-size: 25px;
+         line-height: 1.5em;
+         margin: 10px 0 0;
+      }
    }
 }
 .text-heading{
@@ -644,6 +653,13 @@ footer{
          max-width: 98%;
       }
    }
+   .banner{
+      .caption{
+         p{
+            font-size: 20px;
+         }
+      }
+   }
 }
 @media (max-width:1080px) {
    .testis{
@@ -698,6 +714,9 @@ footer{
             font-size: 16px;
          }
          p {
+            font-size: 16px;
+         }
+         p.hindi{
             font-size: 1.5em;
          }
       }
@@ -782,7 +801,7 @@ footer{
 @media (max-width:767px) {
    .banner {
       .caption {
-         top: 5%;
+         top: 1%;
          left: 0;
          right: 0;
          text-align: center;
@@ -795,9 +814,12 @@ footer{
             background-color: transparent;
             margin-bottom: 0;
          }
+         p.hindi{
+            margin: 0 auto;
+         }
          .amitBtn{
             max-width: 150px;
-            margin: 2em 0;
+            margin: 1em 0 0;
             font-size: 18px;
          }
       }
@@ -825,7 +847,6 @@ footer{
             padding: 0;
          }
       }
-
    }
    .banner {
       .caption {
@@ -833,7 +854,14 @@ footer{
             font-size: 12px;
          }
          p {
-            font-size: 1.5em;
+            font-size: 14px;
+         }
+         p.hindi {
+            font-size: 1em;
+         }
+         .amitBtn {
+            margin: 5px 0 0;
+            font-size: 14px;
          }
       }
    }

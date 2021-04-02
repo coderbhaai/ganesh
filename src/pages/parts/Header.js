@@ -81,9 +81,10 @@ export class Header extends Component {
                         <div className="header-social">
                             <div>
                                 <a href="https://www.facebook.com/Pujarambh" target="_blank"><img src="/images/icons/facebook-white.svg"/></a>
-                                <a href=""><img src="/images/icons/linkedin-white.svg"/></a>
-                                <a href=""><img src="/images/icons/twitter-white.svg"/></a>
-                                <a href=""><img src="/images/icons/instagram-white.svg"/></a>
+                                <a href="https://www.linkedin.com/in/pujarambh-the-beginning-092877207/" target="_blank"><img src="/images/icons/linkedin-white.svg"/></a>
+                                <a href="https://twitter.com/pujarambh" target="_blank"><img src="/images/icons/twitter-white.svg"/></a>
+                                <a href="https://www.instagram.com/_pujarambh_/" target="_blank"><img src="/images/icons/instagram-white.svg"/></a>
+                                <a href="//api.whatsapp.com/send?phone=919870405987&amp;text= Hi, I got your number from Pujarambh Website." className="web"><img src="/images/icons/whatsapp-button.svg" alt="Connect with Pujarambh on Whats App"/></a>
                                 {!this.state.user.role? <span><a href="/sign-up">Login | Signup</a></span> : null}
                                 <a href="/cart" className="cartIcon"> <img src="/images/icons/cart-white.svg"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
                             </div>

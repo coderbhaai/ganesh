@@ -84,7 +84,7 @@ export class AddProduct extends Component {
             data.append('vendor', this.state.selectedVendor)
             data.append('name', this.state.name)
             data.append('type', this.state.type)
-            data.append('url', this.state.url.replace(/ /g,"-"))
+            data.append('url', this.state.url.replace(/ /g,"-").toLowerCase())
             data.append('status', this.state.status)
             data.append('category', JSON.stringify(this.state.selectedCategory) )
             data.append('inclusion', JSON.stringify(this.state.inclusions) )

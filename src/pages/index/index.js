@@ -67,6 +67,7 @@ export class index extends Component {
                         <h1>BOOK YOUR PANDIT JI ONLINE FOR</h1>
                         <p className="hindi">Rudrabhishek Puja</p>
                         <a className="amitBtn btn" href="/product/rudrabhishek-sada-paath">Book Now</a>
+                        <p>Holi Special Offer - Get flat 20% discount <br/> Use Coupon HOLI20</p>
                     </div>
                 </section>
                 <section className="text-heading">

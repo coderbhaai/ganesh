@@ -84,7 +84,7 @@ export class UpdateBlog extends Component {
         data.append('file', this.state.blogImage)
         data.append('oldCoverImg', this.state.oldCoverImg)
         data.append('title', this.state.title)
-        data.append('url', this.state.url.replace(/ /g,"-"))
+        data.append('url', this.state.url.replace(/ /g,"-").toLowerCase())
         data.append('excerpt', this.state.excerpt)
         data.append('content', this.state.content)
         data.append('category', JSON.stringify(finalCategory) )
