@@ -23,6 +23,10 @@ export class Meta extends Component {
             currentPage:           1,
             itemsPerPage:          100,
             loading:               true,
+            pendingBlog:           [],
+            pendingCat:            [],
+            pendingTag:            [],
+            pendingProduct:        [],
         }
     }
 
@@ -44,6 +48,10 @@ export class Meta extends Component {
         this.setState({
             metas:                  body.data,
             loading:                false,
+            pendingBlog:           body.pending[0],
+            pendingCat:            body.pending[1],
+            pendingTag:            body.pending[2],
+            pendingProduct:        body.pending[3],
         })
     }
 
@@ -72,7 +80,13 @@ export class Meta extends Component {
             .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){
-                    this.setState({ metas: [...this.state.metas, res.data.data ] })
+                    this.setState({ 
+                        metas: [...this.state.metas, res.data.data ],
+                        pendingBlog:           res.data.pending[0],
+                        pendingCat:            res.data.pending[1],
+                        pendingTag:            res.data.pending[2],
+                        pendingProduct:        res.data.pending[3],
+                    })
                 }
                 func.callSwal(res.data.message)
             })
@@ -103,7 +117,13 @@ export class Meta extends Component {
             .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){
-                    this.setState({ metas: this.state.metas.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ) })
+                    this.setState({ 
+                        metas: this.state.metas.map(x => x.id === parseInt(res.data.data.id) ? x= res.data.data :x ),
+                        pendingBlog:           res.data.pending[0],
+                        pendingCat:            res.data.pending[1],
+                        pendingTag:            res.data.pending[2],
+                        pendingProduct:        res.data.pending[3],
+                    })
                 }
                 func.callSwal(res.data.message)
             })
@@ -120,8 +140,8 @@ export class Meta extends Component {
                     <td>{index +1}</td>
                     <td>{i.url}</td>                                              
                     <td>
-                        Title: {i.title}<br/>
-                        Description: {i.description}<br/>
+                        <p className={i.title.length>60? 'redColor' : null}>Title ({i.title.length}) : {i.title}</p>
+                        <p className={i.description.length>160? 'redColor' : null}>Description ({i.description.length}) : {i.description}</p>
                         Keyword: {i.keyword}<br/>
                     </td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editModalOn(i)}/></td>
@@ -154,6 +174,17 @@ export class Meta extends Component {
                                     </div>
                                 </div>
                             </div>
+                            { this.state.pendingBlog.length || this.state.pendingCat.length || this.state.pendingTag.length || this.state.pendingProduct.length?
+                                <div className="pending">
+                                    <h3>Pending Meta</h3>
+                                    <ul>
+                                        {this.state.pendingBlog.map((i,index)=>( <li key={index} className="list">{i.url}</li> ))}
+                                        {this.state.pendingCat.map((i,index)=>( <li key={index} className="list">{i.url}</li> ))}
+                                        {this.state.pendingTag.map((i,index)=>( <li key={index} className="list">{i.url}</li> ))}
+                                        {this.state.pendingProduct.map((i,index)=>( <li key={index} className="list">{i.url}</li> ))}
+                                    </ul>
+                                </div>
+                            : null }
                             <table className="table table-hover table-responsive">
                                 <thead>
                                     <tr>

@@ -30,6 +30,21 @@ export function getMeta(url) {
     })
 }
 
+export function pendingMeta() {
+    return new Promise((resolve, reject) => {
+        let sql =   `SELECT CONCAT('/', a.url) as url from blogs as a left join metas as b on b.url = CONCAT('/', a.url) WHERE b.url IS NULL;
+        SELECT CONCAT('/category/', a.url) as url from blog_metas as a left join metas as b on b.url = CONCAT('/category/', a.url) WHERE b.url IS NULL AND a.type='category';
+        SELECT CONCAT('/tag/', a.url) as url from blog_metas as a left join metas as b on b.url = CONCAT('/tag/', a.url) WHERE b.url IS NULL AND a.type='tag';
+        SELECT CONCAT('/product/', a.url) as url from products as a left join metas as b on b.url = CONCAT('/product/', a.url) WHERE b.url IS NULL;`
+        pool.query(sql,[1,2,3,4], (err, rows) => {
+            try{
+                if(err) throw err;
+                if(rows){ resolve(rows) }
+            }catch(e){ logError(e); return; }
+        });
+    })
+}
+
 export function catName(data) {
     var list = []
     return new Promise((resolve, reject) => {

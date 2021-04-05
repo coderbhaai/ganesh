@@ -636,6 +636,23 @@ footer{
       }
    }
 }
+.pending{
+   ul{
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      li{
+         margin-right: 1em;
+         background: $action;
+         padding: 5px 10px;
+         border-radius: 5px;
+         color: #fff;
+      }
+   }
+}
+.redColor{
+   color: Red;
+}
 @media (max-width:1400px) {
    .nav-link {
       padding: 1.5rem 1rem;
@@ -810,7 +827,6 @@ footer{
          }
          p {
             text-align: center;
-            color: $purple;
             background-color: transparent;
             margin-bottom: 0;
          }

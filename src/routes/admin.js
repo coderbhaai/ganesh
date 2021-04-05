@@ -27,14 +27,13 @@ router.get('/AdminUsers', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
 
 router.get('/AdminMetas', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql = `SELECT id, title, url, description, keyword, updated_at FROM metas ORDER BY id DESC`
-    pool.query(sql, (err, results) => {
+    pool.query(sql, async(err, results) => {
         try{
-            if(results){ res.send({ data: results }); }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            if(err){ throw err }
+            if(results){ 
+                const pending = await func.pendingMeta()
+                res.send({ data: results, pending }); }
+        }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -50,25 +49,20 @@ router.post('/addMeta', [func.verifyToken, func.verifyAdmin], asyncMiddleware( a
     let sql = 'INSERT INTO metas SET ?'
     pool.query(sql, post, (err, results) => {
         try{
+            if(err){ throw err }
             if(results){
                 let sql = `SELECT id, title, url, description, keyword, updated_at FROM metas ORDER BY id DESC LIMIT 1`
-                pool.query(sql, (err2, results2) => {
+                pool.query(sql, async(err2, results2) => {
                     try{
+                        if(err2){ throw err2 }
                         if(results2){
-                            res.send({ success: true, data: results2[0], message: 'Meta added successfuly' });
-                        }else if(err2){ throw err2 }
-                    }catch(e){
-                      func.logError(e)
-                      res.status(500);
-                      return;
-                    }
+                            const pending = await func.pendingMeta()
+                            res.send({ success: true, data: results2[0], pending, message: 'Meta added successfuly' });
+                        }
+                    }catch(e){ func.logError(e); res.status(500); return; }
                 })
-            }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -83,25 +77,20 @@ router.post('/updateMeta', [func.verifyToken, func.verifyAdmin], asyncMiddleware
     let sql = `UPDATE metas SET ? WHERE id = ${req.body.id}`;
     pool.query(sql, post, (err, results) => {
         try{
+            if(err){ throw err }
             if(results){
                 let sql = `SELECT id, title, url, description, keyword, updated_at FROM metas WHERE id = ${req.body.id}`
-                pool.query(sql, (err2, results2) => {
+                pool.query(sql, async(err2, results2) => {
                     try{
+                        if(err2){ throw err2 }
                         if(results2){
-                            res.send({ success: true, data: results2[0], message: 'Meta updated successfuly' });
-                        }else if(err2){ throw err2 }
-                    }catch(e){
-                      func.logError(e)
-                      res.status(500);
-                      return;
-                    }
+                            const pending = await func.pendingMeta()
+                            res.send({ success: true, data: results2[0], pending, message: 'Meta updated successfuly' });
+                        }
+                    }catch(e){ func.logError(e); res.status(500); return; }
                 })
-            }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -625,7 +614,7 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
         'type':                 req.body.type,
         "updated_at":           time,
     }
-    if(req.body.sale){
+    if(req.body.sale!= 'null'){
         post.sale = req.body.sale
     }else{
         post.sale = null

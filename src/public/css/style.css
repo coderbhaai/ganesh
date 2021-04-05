@@ -2756,6 +2756,20 @@ footer .akk {
       transition: .5s;
       transform: rotate(360deg); }
 
+.pending ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; }
+  .pending ul li {
+    margin-right: 1em;
+    background: #c71f20;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff; }
+
+.redColor {
+  color: Red; }
+
 @media (max-width: 1400px) {
   .nav-link {
     padding: 1.5rem 1rem; } }
@@ -2860,7 +2874,6 @@ footer .akk {
       max-width: unset; }
     .banner .caption p {
       text-align: center;
-      color: #902487;
       background-color: transparent;
       margin-bottom: 0; }
     .banner .caption p.hindi {
