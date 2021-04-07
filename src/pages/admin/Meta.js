@@ -142,7 +142,7 @@ export class Meta extends Component {
                     <td>
                         <p className={i.title.length>60? 'redColor' : null}>Title ({i.title.length}) : {i.title}</p>
                         <p className={i.description.length>160? 'redColor' : null}>Description ({i.description.length}) : {i.description}</p>
-                        Keyword: {i.keyword}<br/>
+                        Keyword: {i.keyword}
                     </td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editModalOn(i)}/></td>
                 </tr>
