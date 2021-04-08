@@ -21,6 +21,8 @@ export class AddBlog extends Component {
             selectedTag:                [],
             blogImage:                  null,
             previewImg:                 null,
+            smallBlogImage:             null,
+            previewSmallImg:            null,
             category:                   [],
             tag:                        [],
         }
@@ -49,11 +51,13 @@ export class AddBlog extends Component {
     categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
     tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
     blogImage = (e) =>{ this.setState({ blogImage: e.target.files[0], previewImg: URL.createObjectURL(e.target.files[0]) })}
-    
+    smallBlogImage = (e) =>{ this.setState({ smallBlogImage: e.target.files[0], previewSmallImg: URL.createObjectURL(e.target.files[0]) }) }
+
     addBlogData= (e)=>{
         e.preventDefault()
         const data = new FormData()
         data.append('file', this.state.blogImage)
+        data.append('smallBlogImage', this.state.smallBlogImage)
         data.append('title', this.state.title)
         data.append('url', this.state.blogURL.replace(/ /g,"-").toLowerCase())
         data.append('excerpt', this.state.excerpt)
@@ -95,9 +99,14 @@ export class AddBlog extends Component {
                                         <label>Featured Image (1800px X 750px)</label>
                                         <input className="form-control" type="file" onChange={this.blogImage}/>
                                     </div>
-                                    <div className="col-sm-12 mb-3">
+                                    <div className="col-sm-8 mb-3">
                                         <label>Excerpt</label>
                                         <textarea className="form-control" name="excerpt" required value={this.state.excerpt} onChange={this.onChange}></textarea>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        {this.state.previewSmallImg? <img src={this.state.previewSmallImg } alt="" className="img-fluid tableImg"/> : null}
+                                        <label>Small Image</label>
+                                        <input className="form-control" type="file" onChange={this.smallBlogImage}/>
                                     </div>
                                     <div className="col-sm-12 mb-3">
                                         <label>Blog Content</label>

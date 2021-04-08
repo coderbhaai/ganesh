@@ -221,7 +221,7 @@ export function blogMetaData(id) {
 
 export function suggestBlogs() {
     return new Promise((resolve, reject) => {
-      let sql = `SELECT id, title as heading, url, excerpt, coverImg FROM blogs;`
+      let sql = `SELECT id, title as heading, url, excerpt, coverImg, smallImg FROM blogs;`
       pool.query(sql, (err, rows) => {
         try{
             if(err){ throw err }

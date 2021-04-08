@@ -152,6 +152,8 @@ $primary: #e1672e;
 }
 .preview, .tableImg{
     max-width: 120px;
+    display: inline-block;
+    margin-right: 5px;
 }
 input[readonly]{
     background-color:#e6e6e6;

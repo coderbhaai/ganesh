@@ -9,19 +9,16 @@ const upload = require('express-fileupload')
 const fs = require('fs')
 router.use(upload())
 
-const storage = '/home/myuser/amit/public/images/'
-// const storage = './src/public/images/'
+// const storage = '/home/myuser/amit/public/images/'
+const storage = './src/public/images/'
 
 router.get('/AdminUsers', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql =   `SELECT name, email, role, created_at FROM users`
     pool.query(sql, (err, results) => {
         try{
-            if(results){ res.send({ data: results }) }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }        
+            if(err){ throw err }
+            if(results){ res.send({ data: results }) }
+        }catch(e){ func.logError(e); res.status(403); return; }       
     })    
 }))
 
@@ -98,12 +95,9 @@ router.get('/adminBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddlewa
     let sql = `SELECT id, type, name, url FROM blog_metas ORDER BY id DESC`
     pool.query(sql, (err, results) => {
         try{
-            if(results){ res.send({ data: results }); }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            if(err){ throw err }
+            if(results){ res.send({ data: results }); }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -126,8 +120,8 @@ router.post('/addBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
     }    
     let sql = 'INSERT INTO blog_metas SET ?'
     pool.query(sql, post, (err, results) => {
-        try{ if(err) throw err;
-            if(err){ res.send({ success: false, message: err.sqlMessage }) }
+        try{ 
+            if(err) throw err;
             if(results){
                 let sql = `SELECT id, type, name, url, updated_at FROM blog_metas ORDER BY id DESC LIMIT 1`
                 pool.query(sql, (err, results2) => {
@@ -180,12 +174,9 @@ router.get('/adminBlogs', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
     let sql = `SELECT id, title, url, coverImg, updated_at FROM blogs ORDER BY id DESC`
     pool.query(sql, (err, results) => {
         try{
-            if(results){ res.send({ data: results }); }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            if(err){ throw err }
+            if(results){ res.send({ data: results }); }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -194,17 +185,14 @@ router.get('/blogMetaOptions', [func.verifyToken, func.verifyAdmin], asyncMiddle
                 SELECT name as text, id as value FROM blog_metas WHERE type = 'tag';`
     pool.query(sql, [1, 2], (err, results) => {
         try{
+            if(err){ throw err }
             if(results){
                 res.send({ 
                     catOptions:             results[0],
                     tagOptions:             results[1]
                 });
-            }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            }
+        }catch(e){ func.logError(e); res.status(403); return; }
     });
 }))
 
@@ -220,34 +208,42 @@ router.post('/addBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware( a
         "updated_at":           time,
     }
     if(req.files){
-        var file = req.files.file
-        var filename = file.name
-        post.coverImg = filename
-        file.mv(storage+'blog/'+filename, function(err){ if(err){ func.logError(err) } })
+        // var file = req.files.file
+        // var filename = file.name
+        // post.coverImg = filename
+        // file.mv(storage+'blog/'+filename, function(err){ if(err){ func.logError(err) } })
+        if(req.files.file){
+            var file = req.files.file
+            var filename = file.name
+            post.coverImg = filename
+            file.mv(storage+'blog/'+filename, function(err){ if(err){ throw err; } })
+        }
+        if(req.files.smallBlogImage){
+            var file2 = req.files.smallBlogImage
+            var filename2 = file2.name
+            post.smallImg = filename2
+            file2.mv(storage+'blog/'+filename2, function(err){ if(err){ throw err; } })
+        }
     }
     let sql = `INSERT INTO blogs SET ?`
     pool.query(sql, post, (err, results) => {
         try{
-            if(results){
-                res.send({ success: true, message: 'Blog added successfuly' });
-            }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            if(err){ throw err }
+            if(results){ res.send({ success: true, message: 'Blog added successfuly' }); }
+        }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
 
 router.get('/getBlog/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
-    let sql = `SELECT id, title, url, coverImg, excerpt, content, category, tag, updated_at FROM blogs WHERE id = '${req.params.id}'`
+    let sql = `SELECT id, title, url, coverImg, smallImg, excerpt, content, category, tag, updated_at FROM blogs WHERE id = '${req.params.id}'`
     pool.query(sql, async(err, results) => {
         try{
+            if(err){ throw err }
             if(results){ 
                 const catList = await func.catName(JSON.parse(results[0].category))
                 const tagList = await func.tagName(JSON.parse(results[0].tag))
                 res.send({ data: results[0], catList, tagList });
-            }else if(err){ throw err }
+            }
         }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
@@ -263,34 +259,32 @@ router.post('/updateBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         "updated_at":           time,
     }
     if(req.files){
-        var file = req.files.file
-        var filename = file.name
-        post.coverImg = filename
-        file.mv(storage+'blog/'+filename, function(err){ if(err){ func.logError(e) } })
-        if (fs.existsSync(storage+'blog/'+req.body.oldCoverImg)) { fs.unlinkSync(storage+'blog/'+req.body.oldCoverImg) }
+        // var file = req.files.file
+        // var filename = file.name
+        // post.coverImg = filename
+        // file.mv(storage+'blog/'+filename, function(err){ if(err){ func.logError(e) } })
+        // if (fs.existsSync(storage+'blog/'+req.body.oldCoverImg)) { fs.unlinkSync(storage+'blog/'+req.body.oldCoverImg) }
+        if(req.files.file){
+            var file = req.files.file
+            var filename = file.name
+            post.coverImg = filename
+            file.mv(storage+'blog/'+filename, function(err1){ if(err1){ throw err1; } })
+            if (fs.existsSync(storage+'blog/'+req.body.oldCoverImg)) { fs.unlinkSync('blog/'+req.body.oldCoverImg) }
+        }
+        if(req.files.smallBlogImage){
+            var file2 = req.files.smallBlogImage
+            var filename2 = file2.name
+            post.smallImg = filename2
+            file2.mv(storage+'blog/'+filename2, function(err){ if(err){ throw err; } })
+            if (fs.existsSync(storage+'blog/'+req.body.oldSmallBlogImage)) { fs.unlinkSync(storage+'blog/'+req.body.oldSmallBlogImage) }
+        }
     }
     let sql = `UPDATE blogs SET ? WHERE id = ${req.body.id}`;
     pool.query(sql, post, (err, results) => {
         try{
-            if(results){
-                let sql = `SELECT id, title, url, coverImg, category, tag, content, updated_at FROM blogs WHERE id = ${req.body.id}`
-                pool.query(sql, (err2, results2) => {
-                    try{
-                        if(results2){
-                            res.send({ success: true, data: results2[0], message: 'Blog updated successfuly' });
-                        }else if(err2){ throw err2 }
-                    }catch(e){
-                      func.logError(e)
-                      res.status(500);
-                      return;
-                    }
-                })
-            }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }        
+            if(err){ throw err }
+            if(results){ res.send({ success: true, message: 'Blog updated successfuly' }); }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -309,12 +303,9 @@ router.post('/addComment', asyncMiddleware( async(req, res, next) => {
     let sql = 'INSERT INTO comments SET ?'
     pool.query(sql, post, (err, results) => {
         try{
-            if(results){ res.send({ success: true, message: 'Comment submitted for approval' }); }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            if(err){ throw err }
+            if(results){ res.send({ success: true, message: 'Comment submitted for approval' }); }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -329,26 +320,18 @@ router.post('/updateComment', [func.verifyToken, func.verifyAdmin], asyncMiddlew
     let sql = `UPDATE comments SET ? WHERE id = ${req.body.id}`;
     pool.query(sql, post, (err, results) => {
         try{
+            if(err){ throw err }
             if(results){
                 let sql =   `SELECT a.id, a.blogId, a.c_order, a.commentId, a.user, a.email, a.comment, a.status, a.updated_at, b.url, b.title FROM comments as a
                     left join blogs as b on b.id = a.blogId WHERE a.id = ${req.body.id}`
                 pool.query(sql, (err2, results2) => {
                     try{
-                        if(results2){
-                            res.send({ success: true, data: results2[0], message: 'Comment updated successfuly' });
-                        }else if(err2){ throw err2 }
-                    }catch(e){
-                      func.logError(e)
-                      res.status(500);
-                      return;
-                    }
+                        if(err2){ throw err2 }
+                        if(results2){ res.send({ success: true, data: results2[0], message: 'Comment updated successfuly' }); }
+                    }catch(e){ func.logError(e); res.status(403); return; }
                 })
-            }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -357,12 +340,9 @@ router.get('/adminComments', [func.verifyToken, func.verifyAdmin], asyncMiddlewa
                 left join blogs as b on b.id = a.blogId  ORDER BY a.id DESC`
     pool.query(sql, (err, results) => {
         try{
-            if(results){ res.send({ data: results }); }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            if(err){ throw err }
+            if(results){ res.send({ data: results }); }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -370,12 +350,9 @@ router.get('/adminContacts', [func.verifyToken, func.verifyAdmin], asyncMiddlewa
     let sql = `SELECT name, email, phone, message, created_at FROM contact_forms ORDER BY id DESC`
     pool.query(sql, (err, results) => {
         try{
-            if(results){ res.send({ data: results }); }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            if(err){ throw err }
+            if(results){ res.send({ data: results }); }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -383,7 +360,8 @@ router.get('/adminBasic', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
     let sql = `SELECT id, type, name, tab1, tab2 FROM basic ORDER BY id DESC`
     pool.query(sql, (err, results) => {
         try{
-            if(results){ res.send({ data: results }); }else if(err){ throw err }
+            if(err){ throw err }
+            if(results){ res.send({ data: results }); }
         }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
@@ -409,6 +387,7 @@ router.post('/addBasic', asyncMiddleware( async(req, res, next) => {
     let sql = 'INSERT INTO basic SET ?'
     pool.query(sql, post, (err, results) => {
         try{
+            if(err){ throw err }
             if(results){
                 let sql = `SELECT id, type, name, tab1, tab2 FROM basic ORDER BY id DESC LIMIT 1`
                 pool.query(sql, (err2, results2) => {
@@ -416,12 +395,8 @@ router.post('/addBasic', asyncMiddleware( async(req, res, next) => {
                         res.send({ success: true, data: results2[0], message: 'Basic added successfuly' });
                     }catch(e){ func.logError(e); res.status(403); return; }
                 })
-            }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -446,25 +421,19 @@ router.post('/updateBasic', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
     let sql = `UPDATE basic SET ? WHERE id = ${req.body.id}`;
     pool.query(sql, post, (err, results) => {
         try{
+            if(err){ throw err }
             if(results){
                 let sql = `SELECT id, type, name, tab1, tab2 FROM basic WHERE id = ${req.body.id}`
                 pool.query(sql, (err2, results2) => {
                     try{
+                        if(err2){ throw err2 }
                         if(results2){
                             res.send({ success: true, data: results2[0], message: 'Basic updated successfuly' });
-                        }else if(err2){ throw err2 }
-                    }catch(e){
-                      func.logError(e)
-                      res.status(500);
-                      return;
-                    }
+                        }
+                    }catch(e){ func.logError(e); res.status(403); return; }
                 })
-            }else if(err){ throw err }
-        }catch(e){
-          func.logError(e)
-          res.status(500);
-          return;
-        }
+            }
+        }catch(e){ func.logError(e); res.status(403); return; }
     })
 }))
 
@@ -512,7 +481,8 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         var images = []
         for(var i = 0; i < req.files.images.length; i++){
             var file = req.files.images[i]
-            var filename = Date.now() + '-' + file.name;
+            // var filename = Date.now() + '-' + file.name;
+            var filename = file.name;
             images.push(filename)
             file.mv(storage+'product/'+filename, function(err){ if(err){ func.logError(err) } })
         }
@@ -521,7 +491,8 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
     let sql = `INSERT INTO products SET ?`
     pool.query(sql, post, (err, results) => {
         try{    
-            if(results){ res.send({ success: true, message: "Product added succesfully" }) }else if(err){ throw err }
+            if(err){ throw err }
+            if(results){ res.send({ success: true, message: "Product added succesfully" }) }
         }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
@@ -626,7 +597,8 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
             var images = []
             for(var i = 0; i < req.files.images.length; i++){
                 var file = req.files.images[i]
-                var filename = Date.now() + '-' + file.name;
+                // var filename = Date.now() + '-' + file.name;
+                var filename = file.name;
                 images.push(filename)
                 file.mv(storage+'product/'+filename, function(err){ if(err){ func.logError(err) } })
             }

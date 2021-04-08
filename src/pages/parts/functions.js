@@ -116,12 +116,12 @@ export const params2 = {
 }
 
 export const testis = [
-    {name: 'Amit Singhal', image: '1.jpg', text: 'I simply loved the service and products. Parents and Family is extremely impressed. They have never seen such a degree of professional in such ceremonies.'},
-    {name: 'Somil Agrawal', image: '3.jpg', text: 'Great service! Easy to connect and extremely knowledgeable team! Have had multiple pooja done at my home over the years but this one by far was the most detailed and innovative in terms of new methods of rituals!'},
-    {name: 'Parminder Bedi', image: 'female.svg', text: 'Marvelous site!!!!!!!!!!Especially for those who believe in ceremonies and all things formal.'},
-    {name: 'Shantanu Chauhan', image: '4.jpg', text: 'I needed a Pooja at my home on my sons 9th Birthday. I booked the same through Pujarambh. They sent a Pandit ji who was not only courteous but also well-educated and having deep knowledge of Sanskars.'},
-    {name: 'Dinesh Yalavarthy', image: '2.jpg', text: 'Amazing attention to detail and understanding of the requirements.. both you know of and don"t know of.Timely delivery of the samagri and unbelievable on the spot support for last minute needs.'},
-    {name: 'Neetu Saluja', image: 'female.svg', text: 'Thanks Mr Jain! you are doing a great work. It was our pleasure to have been able to use the services. Very well organised, highly professional yet authentic, hassle free... it was a good experience. Much appreciated'},
+    {name: 'Amit Singhal', image: '1.jpg', alt: 'online pandit ji booking', text: 'I simply loved the service and products. Parents and Family is extremely impressed. They have never seen such a degree of professional in such ceremonies.'},
+    {name: 'Somil Agrawal', image: '3.jpg', alt: 'pandit for puja near me', text: 'Great service! Easy to connect and extremely knowledgeable team! Have had multiple pooja done at my home over the years but this one by far was the most detailed and innovative in terms of new methods of rituals!'},
+    {name: 'Parminder Bedi', image: 'female.svg', alt: 'pooja samagri online', text: 'Marvelous site!!!!!!!!!!Especially for those who believe in ceremonies and all things formal.'},
+    {name: 'Shantanu Chauhan', image: '4.jpg', alt: 'online astrologer consultation', text: 'I needed a Pooja at my home on my sons 9th Birthday. I booked the same through Pujarambh. They sent a Pandit ji who was not only courteous but also well-educated and having deep knowledge of Sanskars.'},
+    {name: 'Dinesh Yalavarthy', image: '2.jpg', alt: 'vastu consultant online', text: 'Amazing attention to detail and understanding of the requirements.. both you know of and don"t know of.Timely delivery of the samagri and unbelievable on the spot support for last minute needs.'},
+    {name: 'Neetu Saluja', image: 'female.svg', alt: 'pandit ji for puja near me', text: 'Thanks Mr Jain! you are doing a great work. It was our pleasure to have been able to use the services. Very well organised, highly professional yet authentic, hassle free... it was a good experience. Much appreciated'},
 ]
 
 export const adminLinks=[

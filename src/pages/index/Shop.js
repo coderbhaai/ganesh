@@ -127,7 +127,7 @@ export class Shop extends Component {
                 <div className="col-sm-3 mb-3" key={index}>
                     <div style={{'overflow':'hidden'}}>
                         <div className="imgBox">
-                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
+                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></a>
                             {/* { this.state.cart.some(x => x[1] === i.id) ? 
                                 <div className="cartBtnGroup flex-sb">
                                     <div className="plusMinus">

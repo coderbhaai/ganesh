@@ -17,7 +17,7 @@ export class ProductSwiper extends Component {
                     {this.props.data.map((i,index)=>( 
                         <div key={index}>
                             <div className="imgBox">
-                                <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt=""/></a>
+                                <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></a>
                             </div>
                             {/* {i.tagline? <p className="usage">{i.tagline}</p> : null} */}
                             <p className="usage">Order Now</p>

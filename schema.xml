@@ -81,7 +81,7 @@ No of Pandit(s) : 1  | Duration : 1 hrs | Puja Samagri Included in the package
 
 "brand": "Pujarambh",
 
-"mpn": "1562633",
+"mpn": "1446866",
 
 "image": "https://www.pujarambh.com/images/product/1612875312552-saraswati-puja - Copy.jpg",
 
@@ -91,13 +91,13 @@ No of Pandit(s) : 1  | Duration : 1 hrs | Puja Samagri Included in the package
 
 "availability": "https://schema.org/InStock",
 
-"price": "2900",
+"price": "3090",
 
 "priceCurrency": "INR",
 
 "url": "https://www.pujarambh.com/product/saraswati-puja",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -109,7 +109,7 @@ No of Pandit(s) : 1  | Duration : 1 hrs | Puja Samagri Included in the package
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -154,7 +154,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "2067767",
+"mpn": "2793569",
 
 "image": "https://www.pujarambh.com/images/product/1612877810189-ganesh-puja - Copy.jpg",
 
@@ -164,13 +164,13 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "availability": "https://schema.org/InStock",
 
-"price": "2900",
+"price": "3090",
 
 "priceCurrency": "INR",
 
 "url": "https://www.pujarambh.com/product/ganesh-puja",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -182,7 +182,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -226,7 +226,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "3241670",
+"mpn": "3884744",
 
 "image": "https://www.pujarambh.com/images/product/1612878117511-bhoomi-poojan - Copy.jpg",
 
@@ -242,7 +242,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "url": "https://www.pujarambh.com/product/bhoomi-pujan",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -254,7 +254,352 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Aditya Hridya Stotra",
+
+"sku": "Pujarambh-4",
+
+"brand": "Pujarambh",
+
+"mpn": "4597625",
+
+"image": "https://www.pujarambh.com/images/product/1613272794378-aditya-hirdya-stotra - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/aditya-hridya-stotra",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Akshaya Tritiya Parshuram Puja",
+
+"sku": "Pujarambh-5",
+
+"brand": "Pujarambh",
+
+"mpn": "5762956",
+
+"image": "https://www.pujarambh.com/images/product/1613272866328-akshya-tritiya-parshuram-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/akshaya-tritiya-parshuram-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Annaprashan Sanskaar Puja",
+
+"sku": "Pujarambh-6",
+
+"brand": "Pujarambh",
+
+"mpn": "6914100",
+
+"image": "https://www.pujarambh.com/images/product/1613272930832-annaprashan-sanskar-pooja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/annaprashan-sanskaar-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Antim Sanskaar Shanti Paath",
+
+"sku": "Pujarambh-7",
+
+"brand": "Pujarambh",
+
+"mpn": "7049859",
+
+"image": "https://www.pujarambh.com/images/product/1613272998892-antyesgti-_antim-sanskar-_... - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/antim-sanskaar-shanti-paath",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Baglamukhi Jaap and Havan",
+
+"sku": "Pujarambh-8",
+
+"brand": "Pujarambh",
+
+"mpn": "8598875",
+
+"image": "https://www.pujarambh.com/images/product/1613273095667-baglamukhi - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "50990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/baglamukhi-jaap-and-havan",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -295,7 +640,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "9357235",
+"mpn": "9627533",
 
 "image": "https://www.pujarambh.com/images/product/1613273174231-bhakut-dosh-navaran-puja - Copy.jpg",
 
@@ -309,9 +654,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Bhakut-Dosh-Nivaran-Puja",
+"url": "https://www.pujarambh.com/product/bhakut-dosh-nivaran-puja",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -323,7 +668,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -364,7 +709,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "10304244",
+"mpn": "10677168",
 
 "image": "https://www.pujarambh.com/images/product/1613273257993-buddh-shanti-jaap - Copy.jpg",
 
@@ -378,9 +723,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Budh-Grah-Shanti",
+"url": "https://www.pujarambh.com/product/budh-grah-shanti",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -392,7 +737,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -433,7 +778,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "11248343",
+"mpn": "11848784",
 
 "image": "https://www.pujarambh.com/images/product/1613273367028-chandra-shanti-jaap - Copy.jpg",
 
@@ -447,9 +792,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Chandra-Grah-Shanti",
+"url": "https://www.pujarambh.com/product/chandra-grah-shanti",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -461,7 +806,145 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Dhanteras Puja",
+
+"sku": "Pujarambh-12",
+
+"brand": "Pujarambh",
+
+"mpn": "12155833",
+
+"image": "https://www.pujarambh.com/images/product/1613273469221-dhan-teras-pooja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/dhanteras-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Durga Puja and Paath",
+
+"sku": "Pujarambh-13",
+
+"brand": "Pujarambh",
+
+"mpn": "13200885",
+
+"image": "https://www.pujarambh.com/images/product/1613273579056-durga-puja-with-paath - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "50990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/durga-puja-and-paath",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -502,7 +985,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "14386591",
+"mpn": "14313738",
 
 "image": "https://www.pujarambh.com/images/product/1613273724468-guru-shanti-jaap - Copy.jpg",
 
@@ -516,9 +999,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Guru-Grah-Shanti",
+"url": "https://www.pujarambh.com/product/guru-grah-shanti",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -530,7 +1013,145 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Hanuman Chalisa Paath",
+
+"sku": "Pujarambh-15",
+
+"brand": "Pujarambh",
+
+"mpn": "15854088",
+
+"image": "https://www.pujarambh.com/images/product/1613273875557-hanuman-chalisa - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/hanuman-chalisa-paath",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Harivansh Puran Katha",
+
+"sku": "Pujarambh-16",
+
+"brand": "Pujarambh",
+
+"mpn": "16652064",
+
+"image": "https://www.pujarambh.com/images/product/1613274009571-harivansh-puran-katha - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/harivansh-puran-katha",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -571,7 +1192,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "17354154",
+"mpn": "17746609",
 
 "image": "https://www.pujarambh.com/images/product/1613274139125-karan-vedh-sanskar-pooja - Copy.jpg",
 
@@ -585,9 +1206,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Karan-Vedh-Sanskaar-Puja",
+"url": "https://www.pujarambh.com/product/karan-vedh-sanskaar-puja",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -599,7 +1220,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -640,7 +1261,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "18195773",
+"mpn": "18186307",
 
 "image": "https://www.pujarambh.com/images/product/1613274216743-ketu-shanti-jaap - Copy.jpg",
 
@@ -654,9 +1275,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Ketu-Grah-Shanti",
+"url": "https://www.pujarambh.com/product/ketu-grah-shanti",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -668,7 +1289,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -709,7 +1330,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "19659191",
+"mpn": "19821382",
 
 "image": "https://www.pujarambh.com/images/product/1613274361003-kumbh-vivah - Copy.jpg",
 
@@ -723,9 +1344,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Kumbh-Vivah-Sanskaar-Puja",
+"url": "https://www.pujarambh.com/product/kumbh-vivah-sanskaar-puja",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -737,7 +1358,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -778,7 +1399,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "20427742",
+"mpn": "20427727",
 
 "image": "https://www.pujarambh.com/images/product/1613274458917-mangal-shanti-jaap - Copy.jpg",
 
@@ -792,9 +1413,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Mangal-Grah-Shanti",
+"url": "https://www.pujarambh.com/product/mangal-grah-shanti",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -806,7 +1427,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -847,7 +1468,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "21922052",
+"mpn": "21921130",
 
 "image": "https://www.pujarambh.com/images/product/1613274636864-manglik-dosh-nivaran-puja - Copy.jpg",
 
@@ -861,9 +1482,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Manglik-Dosh-Nivaran-Puja",
+"url": "https://www.pujarambh.com/product/manglik-dosh-nivaran-puja",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -875,7 +1496,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -916,7 +1537,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "22038787",
+"mpn": "22312541",
 
 "image": "https://www.pujarambh.com/images/product/1613274779150-mata-ka-jagran - Copy.jpg",
 
@@ -930,9 +1551,9 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Mata-Ka-Jagran",
+"url": "https://www.pujarambh.com/product/mata-ka-jagran",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -944,7 +1565,145 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Mool Shanti Puja",
+
+"sku": "Pujarambh-23",
+
+"brand": "Pujarambh",
+
+"mpn": "23439464",
+
+"image": "https://www.pujarambh.com/images/product/1613274895507-mool-shanti-pooja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/mool-shanti-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+",
+
+"name": "Nari Dosh Nivaran Puja",
+
+"sku": "Pujarambh-24",
+
+"brand": "Pujarambh",
+
+"mpn": "24140135",
+
+"image": "https://www.pujarambh.com/images/product/1613275922866-nari-dosh-nivaran-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/nari-dosh-nivaran-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -980,6 +1739,7 @@ No of Panditji(s) : 1  | Duration : 1 hrs | Pujan Samagri Included
 When someone is shifting to a new office, pooja is performed to reduce the ill-effects and doshas by increasing the flow of positive vibes in the office. 
 
 No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
+
 ",
 
 "name": "Office Opening Puja",
@@ -988,7 +1748,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "25384561",
+"mpn": "25522744",
 
 "image": "https://www.pujarambh.com/images/product/1613276253958-new-office-shop - Copy.jpg",
 
@@ -998,13 +1758,13 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "availability": "https://schema.org/InStock",
 
-"price": "2900",
+"price": "3090",
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Office-Opening-Puja",
+"url": "https://www.pujarambh.com/product/office-opening-puja",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -1016,7 +1776,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -1057,7 +1817,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "26198774",
+"mpn": "26060215",
 
 "image": "https://www.pujarambh.com/images/product/1613276449173-rahu-shanti-jaap - Copy.jpg",
 
@@ -1073,7 +1833,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "url": "https://www.pujarambh.com/product/rahu-grah-shanti",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -1085,7 +1845,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -1126,7 +1886,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "27811219",
+"mpn": "27896014",
 
 "image": "https://www.pujarambh.com/images/product/1613277961946-astro on call - Copy.jpg",
 
@@ -1136,13 +1896,13 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "availability": "https://schema.org/InStock",
 
-"price": "450",
+"price": "490",
 
 "priceCurrency": "INR",
 
 "url": "https://www.pujarambh.com/product/astrology-consultation-over-phone",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -1154,7 +1914,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -1195,7 +1955,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "28483334",
+"mpn": "28357147",
 
 "image": "https://www.pujarambh.com/images/product/1613278749737-vastu on call - Copy.jpg",
 
@@ -1205,13 +1965,13 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "availability": "https://schema.org/InStock",
 
-"price": "450",
+"price": "490",
 
 "priceCurrency": "INR",
 
-"url": "https://www.pujarambh.com/product/Vastu-Consultation-over-Phone",
+"url": "https://www.pujarambh.com/product/vastu-consultation-over-phone",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -1223,7 +1983,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -1264,7 +2024,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "29659025",
+"mpn": "29542822",
 
 "image": "https://www.pujarambh.com/images/product/1613279542784-vastu consultation - Copy.jpg",
 
@@ -1280,7 +2040,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "url": "https://www.pujarambh.com/product/vastu-consultation-at-location",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -1292,7 +2052,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -1333,7 +2093,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "30429108",
+"mpn": "30368365",
 
 "image": "https://www.pujarambh.com/images/product/1613281617834-Picture18 - Copy.jpg",
 
@@ -1349,7 +2109,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "url": "https://www.pujarambh.com/product/bodysoul-meditation-incense-sticks",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -1361,7 +2121,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -1402,7 +2162,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "brand": "Pujarambh",
 
-"mpn": "31690056",
+"mpn": "31556082",
 
 "image": "https://www.pujarambh.com/images/product/1615443011254-rudrabhishek - Copy.jpg",
 
@@ -1418,7 +2178,7 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "url": "https://www.pujarambh.com/product/rudrabhishek-sada-paath",
 
-"priceValidUntil": "18 November 2021"
+"priceValidUntil": "08 December 2021"
 
 },
 
@@ -1430,7 +2190,1727 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "author": "Amit Khare",
 
-"datePublished": "18 November 2021",
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Sundarkand paath sangeetmaya
+
+",
+
+"name": "Sundarkand paath sangeetmaya",
+
+"sku": "Pujarambh-33",
+
+"brand": "Pujarambh",
+
+"mpn": "33497060",
+
+"image": "https://www.pujarambh.com/images/product/1617619523773-Sundarkand-paath-sangeetmaya - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/sundarkand-paath-sangeetmaya",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Tulsi vivaah
+
+",
+
+"name": "Tulsi vivaah",
+
+"sku": "Pujarambh-34",
+
+"brand": "Pujarambh",
+
+"mpn": "34633019",
+
+"image": "https://www.pujarambh.com/images/product/1617619873592-Tulsi-vivaah - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/tulsi-vivaah",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Deepawali Laxmi puja
+
+",
+
+"name": "Deepawali Laxmi puja",
+
+"sku": "Pujarambh-35",
+
+"brand": "Pujarambh",
+
+"mpn": "35023646",
+
+"image": "https://www.pujarambh.com/images/product/1617620801465-Deepawali-laxmi-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5490",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/deepawali-laxmi-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Mahamritunjay jaap
+
+",
+
+"name": "Mahamritunjay jaap",
+
+"sku": "Pujarambh-37",
+
+"brand": "Pujarambh",
+
+"mpn": "37605496",
+
+"image": "https://www.pujarambh.com/images/product/1617621099396-Mahamritunjay-jaap - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "30990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/mahamritunjay-jaap",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Mangala gauri puja
+
+",
+
+"name": "Mangala Gauri puja",
+
+"sku": "Pujarambh-38",
+
+"brand": "Pujarambh",
+
+"mpn": "38827422",
+
+"image": "https://www.pujarambh.com/images/product/1617710407169-Mangala-gauri-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/mangala-gauri-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Durga puja with paath
+
+",
+
+"name": "Durga puja with paath",
+
+"sku": "Pujarambh-39",
+
+"brand": "Pujarambh",
+
+"mpn": "39105307",
+
+"image": "https://www.pujarambh.com/images/product/1617621692036-Durga-puja-and-paath - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/durga-puja-with-paath",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Griha pravesh
+
+",
+
+"name": "Griha pravesh",
+
+"sku": "Pujarambh-40",
+
+"brand": "Pujarambh",
+
+"mpn": "40648410",
+
+"image": "https://www.pujarambh.com/images/product/1617621835491-Griha-pravesh - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/griha-pravesh",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Vivaah sanskar
+
+",
+
+"name": "Vivaah sanskar",
+
+"sku": "Pujarambh-41",
+
+"brand": "Pujarambh",
+
+"mpn": "41294300",
+
+"image": "https://www.pujarambh.com/images/product/1617621963447-Vivaah - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/vivaah-sanskar",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Kanak dhara stotra
+
+",
+
+"name": "Kanak dhara stotra",
+
+"sku": "Pujarambh-42",
+
+"brand": "Pujarambh",
+
+"mpn": "42379127",
+
+"image": "https://www.pujarambh.com/images/product/1617622114843-Kanak-dhara-stotra - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/kanak-dhara-stotra",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Shree suktam paath
+
+",
+
+"name": "Shree suktam paath",
+
+"sku": "Pujarambh-43",
+
+"brand": "Pujarambh",
+
+"mpn": "43223845",
+
+"image": "https://www.pujarambh.com/images/product/1617622281518-Shree-suktam-paath - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/shree-suktam-paath",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Vastu puja
+
+",
+
+"name": "Vastu puja",
+
+"sku": "Pujarambh-44",
+
+"brand": "Pujarambh",
+
+"mpn": "44521167",
+
+"image": "https://www.pujarambh.com/images/product/1617622379704-Vastu-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/vastu-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Pitra dosh puja
+
+",
+
+"name": "Pitra dosh puja",
+
+"sku": "Pujarambh-45",
+
+"brand": "Pujarambh",
+
+"mpn": "45345127",
+
+"image": "https://www.pujarambh.com/images/product/1617622483828-Pitra-dosh-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/pitra-dosh-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Akhand Ramayan paath
+
+",
+
+"name": "Akhand ramayan paath",
+
+"sku": "Pujarambh-46",
+
+"brand": "Pujarambh",
+
+"mpn": "46362684",
+
+"image": "https://www.pujarambh.com/images/product/1617622611763-Akhand-ramayan-paath - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/akhand-ramayan-paath",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Kaal sarp dosh nivaran puja
+
+",
+
+"name": "Kaal sarp dosh nivaran puja",
+
+"sku": "Pujarambh-47",
+
+"brand": "Pujarambh",
+
+"mpn": "47987394",
+
+"image": "https://www.pujarambh.com/images/product/1617622713548-Kaal-sarp-dosh-nivaran-puja - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/kaal-sarp-dosh-nivaran-puja",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Gajendra moksh paath
+
+",
+
+"name": "Gajendra moksh paath",
+
+"sku": "Pujarambh-48",
+
+"brand": "Pujarambh",
+
+"mpn": "48922055",
+
+"image": "https://www.pujarambh.com/images/product/1617622834228-Gajendra-moksh-paath - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/gajendra-moksh-paath",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Shiv Rudrabhishek vishesh
+
+",
+
+"name": "Shiv rudrabhishek vishesh",
+
+"sku": "Pujarambh-49",
+
+"brand": "Pujarambh",
+
+"mpn": "49060944",
+
+"image": "https://www.pujarambh.com/images/product/1617711269818-Shiv-rudrabhishek-vishesh - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "14990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/shiv-rudrabhishek-vishesh",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Namkaran sanskar
+
+",
+
+"name": "Namkaran sanskar",
+
+"sku": "Pujarambh-50",
+
+"brand": "Pujarambh",
+
+"mpn": "50659488",
+
+"image": "https://www.pujarambh.com/images/product/1617711361421-Namkaran-sanskar - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "2090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/namkaran-sanskar",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Mata ki chouki
+
+",
+
+"name": "Mata ki chouki",
+
+"sku": "Pujarambh-51",
+
+"brand": "Pujarambh",
+
+"mpn": "51501373",
+
+"image": "https://www.pujarambh.com/images/product/1617714284124-Mata-ki-chouki - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/mata-ki-chouki",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Whether is it buying a home, successfully finishing educational milestones, shopping for an automobile, beginning a brand new venture or going in for a medical procedure; Satyanarayan Puja helps maintain peace, harmony, prosperity and joy in our daily lives.
+
+No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
+ 
+
+",
+
+"name": "Satyanarayan Katha",
+
+"sku": "Pujarambh-53",
+
+"brand": "Pujarambh",
+
+"mpn": "53311091",
+
+"image": "https://www.pujarambh.com/images/product/1617715764737-Satyanarayan-katha - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/satyanarayan-katha",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Through the ceremony of Upanayanam, the boy is introduced to the concept of Brahman. The ceremony is generally noticed between the ages of seven and fourteen. The ceremony also suggests that the wearer of ‘Janeu’ will participate in the family rituals, from now onward.
+
+No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
+
+",
+
+"name": "Janeu Sanskar (Upanayan Sanskar)",
+
+"sku": "Pujarambh-54",
+
+"brand": "Pujarambh",
+
+"mpn": "54465500",
+
+"image": "https://www.pujarambh.com/images/product/1617715909880-Yagyopavitra-sanskar - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "3090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/upanayan-sanskar",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Hindu vedic marriage is most important ceremony in every individual’s life where and man and a woman take pledge for a lifetime of commitment and trust. On this special occasion, we thank the almighty and conduct vivah rituals to take blessings from the god and goddesses. 
+
+No of Panditji(s) : 2  | Duration : As per rituals | Pujan Samagri Included
+
+",
+
+"name": "Sampurna Vivah Karya",
+
+"sku": "Pujarambh-55",
+
+"brand": "Pujarambh",
+
+"mpn": "55529811",
+
+"image": "https://www.pujarambh.com/images/product/1617716200977-Sampudrya-vivah-karya - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "20990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/sampurna-vivah-karya",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Puja for the Rudra avatar of Lord Shiva with all proper rites and rituals is understood as Rudrabhishek Puja. It’s one of the foremost ancient practices followed by Hindus worldwide. This Puja is aimed to appease the Rudra form of Shiva thus as to attain inner peace and fulfillment.
+
+No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
+ 
+
+",
+
+"name": "Namak Chamak Rudrabhishek",
+
+"sku": "Pujarambh-56",
+
+"brand": "Pujarambh",
+
+"mpn": "56617575",
+
+"image": "https://www.pujarambh.com/images/product/1617716400836-Namak-chamak-rudrabhishek - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "14990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/namak-chamak-rudrabhishek",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+The Sun, Moon, Mars, Mercury, Jupiter, Venus, Saturn and the two shadow planets Rahu and Ketu represent the Navagraha.The nine “grahas” or planets in our horoscope command our fate, our desires and their outcomes. Grah Shanti Puja is performed for removing all the grah dosh of the person and family
+
+No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
+ 
+
+",
+
+"name": "Navgraha shanti puja with jaap",
+
+"sku": "Pujarambh-57",
+
+"brand": "Pujarambh",
+
+"mpn": "57484399",
+
+"image": "https://www.pujarambh.com/images/product/1617716614287-Navgraha-shanti-puja-with-jaap - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "5090",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/navgraha-shanti-puja-with-jaap",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
+
+"reviewBody": "The best product I had for my family.",
+
+"name": "Pujarambh Customer",
+
+"reviewRating": {
+
+"@type": "Rating",
+
+"bestRating": "5",
+
+"ratingValue": "5",
+
+"worstRating": "0"
+
+}
+
+}
+
+]
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "Product",
+
+"aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" },
+
+"description": "
+Whether is it buying a home, successfully finishing educational milestones, shopping for an automobile, beginning a brand new venture or going in for a medical procedure; Satyanarayan Puja helps maintain peace, harmony, prosperity and joy in our daily lives.
+
+No of Panditji(s) : 4  | Duration : 2-3 hrs | Pujan Samagri and Music Instrument Included
+ 
+
+",
+
+"name": "Satyanarayan katha sangeetmaya",
+
+"sku": "Pujarambh-58",
+
+"brand": "Pujarambh",
+
+"mpn": "58487202",
+
+"image": "https://www.pujarambh.com/images/product/1617717081740-Satyanarayan-katha-sangeetmaya - Copy.jpg",
+
+"offers": {
+
+"@type": "Offer",
+
+"availability": "https://schema.org/InStock",
+
+"price": "10990",
+
+"priceCurrency": "INR",
+
+"url": "https://www.pujarambh.com/product/satyanarayan-katha-sangeetmaya",
+
+"priceValidUntil": "08 December 2021"
+
+},
+
+"review":[
+
+{
+
+"@type": "Review",
+
+"author": "Amit Khare",
+
+"datePublished": "08 December 2021",
 
 "reviewBody": "The best product I had for my family.",
 
@@ -1466,11 +3946,11 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "headline": "Importance of Kanak Dhara Stotra",
 
-"dateCreated": "06 February 2021",
+"dateCreated": "19 March 2021",
 
-"datePublished": "06 February 2021",
+"datePublished": "19 March 2021",
 
-"datemodified": "06 February 2021",
+"datemodified": "19 March 2021",
 
 "inLanguage": "English",
 
@@ -1502,11 +3982,11 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "headline": "What is the significance of Bell in a Temple?",
 
-"dateCreated": "06 February 2021",
+"dateCreated": "19 March 2021",
 
-"datePublished": "06 February 2021",
+"datePublished": "19 March 2021",
 
-"datemodified": "06 February 2021",
+"datemodified": "19 March 2021",
 
 "inLanguage": "English",
 
@@ -1538,11 +4018,11 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "headline": "The story behind Holika Dahan – Holi Festival Special",
 
-"dateCreated": "17 March 2021",
+"dateCreated": "19 March 2021",
 
-"datePublished": "17 March 2021",
+"datePublished": "19 March 2021",
 
-"datemodified": "17 March 2021",
+"datemodified": "19 March 2021",
 
 "inLanguage": "English",
 
@@ -1574,11 +4054,83 @@ No of Panditji(s) : 1  | Duration : 1-2 hrs | Pujan Samagri Included
 
 "headline": "Benefits of online Pandit Ji",
 
-"dateCreated": "15 March 2021",
+"dateCreated": "19 March 2021",
 
-"datePublished": "15 March 2021",
+"datePublished": "19 March 2021",
 
-"datemodified": "15 March 2021",
+"datemodified": "19 March 2021",
+
+"inLanguage": "English",
+
+"isFamilyFriendly": "true",
+
+"copyrightYear": 2021,
+
+"copyrightHolder": "Pujarambh",
+
+"author": "Pujarambh",
+
+"mainEntityOfPage": "True",
+
+"creator": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/"},
+
+"publisher": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/", "logo": {"@type": "ImageObject", "url": "https://www.pujarambh.com/images/logo.png"}}
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "BlogPosting",
+
+"image": {"@type": "imageObject", "url": "https://www.pujarambh.com/images/blog/"},
+
+"url": "https://www.pujarambh.com/online-pooja-booking",
+
+"headline": "What is Puja and Why is it Important?",
+
+"dateCreated": "03 April 2021",
+
+"datePublished": "03 April 2021",
+
+"datemodified": "03 April 2021",
+
+"inLanguage": "English",
+
+"isFamilyFriendly": "true",
+
+"copyrightYear": 2021,
+
+"copyrightHolder": "Pujarambh",
+
+"author": "Pujarambh",
+
+"mainEntityOfPage": "True",
+
+"creator": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/"},
+
+"publisher": {"@type": "Organization", "name": "Pujarambh", "url": "https://www.pujarambh.com/", "logo": {"@type": "ImageObject", "url": "https://www.pujarambh.com/images/logo.png"}}
+
+},
+
+{
+
+"@context":"http://schema.org",
+
+"@type": "BlogPosting",
+
+"image": {"@type": "imageObject", "url": "https://www.pujarambh.com/images/blog/"},
+
+"url": "https://www.pujarambh.com/pandit-ji-for-puja-near-me",
+
+"headline": "Best Time To Perform Puja",
+
+"dateCreated": "03 April 2021",
+
+"datePublished": "03 April 2021",
+
+"datemodified": "03 April 2021",
 
 "inLanguage": "English",
 

@@ -1243,7 +1243,9 @@ button.swiper-pagination-bullet {
   min-height: 80px; }
 
 .preview, .tableImg {
-  max-width: 120px; }
+  max-width: 120px;
+  display: inline-block;
+  margin-right: 5px; }
 
 input[readonly] {
   background-color: #e6e6e6; }

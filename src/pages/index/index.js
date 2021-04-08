@@ -61,8 +61,8 @@ export class index extends Component {
             <>
                 <Header cart={this.state.cart.length}/>
                 <section className="banner">
-                    <img src="/images/static/banner.jpg" className="web"/>
-                    <img src="/images/static/banner-m.jpg" className="mobile"/>
+                    <img src="/images/static/banner.jpg" className="web" alt="book pandit online"/>
+                    <img src="/images/static/banner-m.jpg" className="mobile" alt="online pandit booking"/>
                     <div className="caption">
                         <h1>BOOK YOUR PANDIT JI ONLINE FOR</h1>
                         <p className="hindi">Office Opening Puja</p>
@@ -83,7 +83,7 @@ export class index extends Component {
                             <a className="amitBtn" href="/about-us">Read More</a>
                         </div>
                         <div className="col-sm-3">
-                            <img src="/images/static/puja.jpg" className="web"/>
+                            <img src="/images/static/puja.jpg" className="web" alt=""/>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@ export class index extends Component {
                                         <div key={index}>
                                             <ul>
                                                 <li className="client">
-                                                    <img src={"/images/static/"+i.image}/>
+                                                    <img src={"/images/static/"+i.image} alt={i.alt}/>
                                                     <h3>{i.name}</h3>
                                                     {/* <p>Web Developer</p> */}
                                                 </li>
@@ -161,9 +161,8 @@ export class index extends Component {
                                 <a href="/blog" className="amitBtn mb-5">Read More</a>
                             </div>
                             <div className="col-sm-3 side">
-                                {/* <img src="/images/static/side.png"/> */}
                             </div>
-                            <img src="/images/static/side.png" className="side"/>
+                            <img src="/images/static/side.png" className="side" alt="pandit ji in delhi ncr"/>
                         </div>
                     </div>
                 </section>

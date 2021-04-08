@@ -163,11 +163,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
       try{
         if(err) throw err;
         res.send({ blogList: results[0], cats: results[1], tags: results[2] })
-      }catch(e){
-        logError(e, req.url)
-        res.status(403);
-        return;
-      }
+      }catch(e){ func.logError(e); res.status(403); return; }
     })
   }))
 
@@ -299,7 +295,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
 
   router.get('/blog', asyncMiddleware( async(req, res, next) => {
     const meta = await func.getMeta(req.url)
-    let sql = `SELECT id, title, url, coverImg, updated_at FROM blogs ORDER BY id DESC`;
+    let sql = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs ORDER BY id DESC`;
     pool.query(sql, (err, rows) => {
       try{
         if(err) throw(err);
@@ -312,17 +308,13 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
 
   router.get('/blog/list/:type/:url', asyncMiddleware( async(req, res, next) => {
     if(req.params.type == "All"){ 
-      var sql = `SELECT id, title, url, coverImg, updated_at FROM blogs ORDER BY id DESC`;
+      var sql = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs ORDER BY id DESC`;
       var title = `<h1 class="heading"><span>Interesting Reads </span> For you</h1>`
       pool.query(sql, (err, results) => {
         try{
           if(err) throw err;
           res.send({ blogs: results, title: title });   
-        }catch(e){
-          logError(e, req.url)
-          res.status(403);
-          return;
-        }
+        }catch(e){ func.logError(e); res.status(403); return; }
       });
     }
 
@@ -331,23 +323,15 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
         pool.query(sql1, (err, results) => {
           try{
             if(err) throw err;
-            var sql2 = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE category LIKE '%${results[0].id}%' ORDER BY id DESC`;
-            pool.query(sql2, (err, results2) => {
+            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs  WHERE category LIKE '%${results[0].id}%' ORDER BY id DESC`;
+            pool.query(sql2, (err2, results2) => {
               try{
-                if(err) throw err;
+                if(err2) throw err2;
                 var title = `<h1 class="heading"><span>Blogs of category: </span> ${results[0].name}</h1>`
                 res.send({ blogs: results2, title: title });  
-              }catch(e){
-                logError(e, req.url)
-                res.status(403);
-                return;
-              } 
+              }catch(e){ func.logError(e); res.status(403); return; }
             });
-          }catch(e){
-            logError(e, req.url)
-            res.status(403);
-            return;
-          }
+          }catch(e){ func.logError(e); res.status(403); return; }
         });
     }
 
@@ -356,45 +340,33 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
         pool.query(sql1, (err, results) => {
           try{
             if(err) throw err;
-            var sql2 = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE tag LIKE '%${results[0].id}%' ORDER BY id DESC`;
-            pool.query(sql2, (err, results2) => {
+            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs  WHERE tag LIKE '%${results[0].id}%' ORDER BY id DESC`;
+            pool.query(sql2, (err2, results2) => {
               try{
-                if(err) throw err;
+                if(err2) throw err2;
                 var title = `<h1 class="heading"><span>Blogs of tag: </span> ${results[0].name}</h1>`
                 res.send({ blogs: results2, title: title });  
-              }catch(e){
-                logError(e, req.url)
-                res.status(403);
-                return;
-              } 
+              }catch(e){ func.logError(e); res.status(403); return; }
             });
-          }catch(e){
-            logError(e, req.url)
-            res.status(403);
-            return;
-          }
+          }catch(e){ func.logError(e); res.status(403); return; }
         });
     }
     
     if(req.params.type == "search"  ){
-      var sql = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE title LIKE '%${req.params.url}%' OR content LIKE '%${req.params.url}%' ORDER BY id DESC`;
+      var sql = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs  WHERE title LIKE '%${req.params.url}%' OR content LIKE '%${req.params.url}%' ORDER BY id DESC`;
       pool.query(sql, (err, results) => {
         try{
           if(err) throw err;
           var title = `<h1 class="heading"><span>You searched for blogs containing : </span>${req.params.url}</h1>`
           res.send({ blogs: results, title: title });
-        }catch(e){
-          logError(e, req.url)
-          res.status(403);
-          return;
-        }
+        }catch(e){ func.logError(e); res.status(403); return; }
       });
     }
   }))
 
   router.get('/blog/single/:url', asyncMiddleware( async(req, res, next) => {
     const blogs = await func.suggestBlogs()
-    let sql = `SELECT id, title, url, coverImg, content, category, tag FROM blogs WHERE url = '${req.params.url}'`;
+    let sql = `SELECT id, title, url, coverImg, smallImg, content, category, tag FROM blogs WHERE url = '${req.params.url}'`;
     pool.query(sql, async(err, results) => {
       try{
         if(err) throw err;

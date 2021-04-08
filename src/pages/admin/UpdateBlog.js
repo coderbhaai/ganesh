@@ -24,6 +24,9 @@ export class UpdateBlog extends Component {
             oldCoverImg:                '',
             blogImage:                  null,
             previewImg:                 null,
+            smallBlogImage:             null,
+            previewSmallImg:            null,
+            oldSmallBlogImage:          '',
             category:                   [],
             tag:                        [],
             loading:                    true
@@ -51,6 +54,7 @@ export class UpdateBlog extends Component {
                     content:                        res.data.data.content,
                     url:                            res.data.data.url,
                     oldCoverImg:                    res.data.data.coverImg,
+                    oldSmallBlogImage:              res.data.data.smallImg,
                     category:                       res.data.catList,
                     tag:                            res.data.tagList,
                 }) 
@@ -72,6 +76,7 @@ export class UpdateBlog extends Component {
     categorySelected = (e, {value}) => { this.setState({ selectedCategory: value }) }
     tagSelected = (e, {value}) => { this.setState({ selectedTag: value }) }
     blogImage = (e) =>{ this.setState({ blogImage: e.target.files[0], previewImg: URL.createObjectURL(e.target.files[0]) })}
+    smallBlogImage = (e) =>{ this.setState({ smallBlogImage: e.target.files[0], previewSmallImg: URL.createObjectURL(e.target.files[0]) }) }
     
     updateBlogData= (e)=>{
         e.preventDefault()
@@ -82,7 +87,9 @@ export class UpdateBlog extends Component {
         const data = new FormData()
         data.append('id', this.state.id)
         data.append('file', this.state.blogImage)
+        data.append('smallBlogImage', this.state.smallBlogImage)
         data.append('oldCoverImg', this.state.oldCoverImg)
+        data.append('oldSmallBlogImage', this.state.oldSmallBlogImage)
         data.append('title', this.state.title)
         data.append('url', this.state.url.replace(/ /g,"-").toLowerCase())
         data.append('excerpt', this.state.excerpt)
@@ -94,7 +101,7 @@ export class UpdateBlog extends Component {
             .then(res=>{
                 if(res.data.success){
                     localStorage.setItem('message', res.data.message)
-                    window.location.href = '/admin/blogs'
+                    // window.location.href = '/admin/blogs'
                 }
                 func.callSwal(res.data.message)
             })
@@ -132,12 +139,18 @@ export class UpdateBlog extends Component {
                                     <div className="col-sm-4">
                                         <label>Featured Image (1800px X 750px)</label>
                                         {this.state.previewImg? <img src={this.state.previewImg } alt="" className="img-fluid tableImg"/> : null}
-                                        <input className="form-control" type="file" onChange={this.blogImage}/>
                                         <img src={"/images/blog/"+this.state.oldCoverImg } alt="" className="img-fluid tableImg"/>
+                                        <input className="form-control" type="file" onChange={this.blogImage}/>
                                     </div>
-                                    <div className="col-sm-12 mb-3">
+                                    <div className="col-sm-8 mb-3">
                                         <label>Excerpt</label>
                                         <textarea className="form-control" name="excerpt" required value={this.state.excerpt} onChange={this.onChange}></textarea>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        {this.state.previewSmallImg? <img src={this.state.previewSmallImg } alt="" className="img-fluid tableImg"/> : null}
+                                        <img src={"/images/blog/"+this.state.oldSmallBlogImage } alt="" className="img-fluid tableImg"/>
+                                        <label>Small Image</label>
+                                        <input className="form-control" type="file" onChange={this.smallBlogImage}/>
                                     </div>
                                     <div className="col-sm-12 mb-3">
                                         <label>Blog Content</label>
