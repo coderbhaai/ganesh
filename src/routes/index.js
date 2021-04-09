@@ -113,7 +113,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
         if(err) throw err;
         if(results){
           if(results[0]){
-            var sql2 = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE category LIKE '%${results[0].id}%' ORDER BY id DESC`;
+            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs WHERE category LIKE '%${results[0].id}%' ORDER BY id DESC`;
             pool.query(sql2, (err2, results2) => {
                 if(err2) throw err2;
                 var title = `<h1 class="heading"><span>Blogs of Category:</span>${results[0].name}</h1>`
@@ -132,7 +132,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
       try{
         if(err) throw err;
         if(results[0]){
-          var sql2 = `SELECT id, title, url, coverImg, updated_at FROM blogs  WHERE tag LIKE '%${results[0].name}%' ORDER BY id DESC`;
+          var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs WHERE tag LIKE '%${results[0].name}%' ORDER BY id DESC`;
           pool.query(sql2, (err, results2) => {
             if(err) throw err;
             var title = `<h1 class="heading"><span>Blogs of Tag:</span>${results[0].name}</h1>`

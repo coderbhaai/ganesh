@@ -603,22 +603,21 @@ export function verifyUser(req,res,next){
 function sendMailOnError(e) {
     const mailBody =`
         <h2><strong>Hi</h2>
-        <p>There has been error in India Enigma. Please check if website is running or not.</p>
+        <p>There has been error in Pujarambh. Please check if website is running or not.</p>
         <p>Then check the log</p>
-        ${e}<br/>
-        // ${func}
+        ${e}
         <p>Warm Regards</p>
         <p>Team AmitKK</p>
     `
     let transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'amit@amitkk.com', pass: 'coderBhai@2203',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
-    let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', subject: "Error on ✔ www.indiaenigma.com", html: mailBody }
+    let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', subject: "Error on ✔ www.pujarambh.com", html: mailBody }
     transporter.sendMail( mailOptions, (error, info)=>{
         res.send({ success: true, message: "Please check your mail" })
     })
 }
   
 export function logError(e){
-    // sendMailOnError(e)
+    sendMailOnError(e)
     printError(e)
 }
 
