@@ -279,11 +279,11 @@ export class Product extends Component {
                                 { this.state.product.images && this.state.currentImg ?
                                     <>
                                         <div className="thumbnail web">
-                                            {JSON.parse(this.state.product.images).map((i, index)=>( <img key={index} src={"/images/product/"+i} onClick={()=>this.changeImg(i)}/>))}
+                                            {JSON.parse(this.state.product.images).map((i, index)=>( <img key={index} src={"/images/product/"+i} onClick={()=>this.changeImg(i)} alt={i.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>))}
                                         </div>
                                         <ReactImageMagnify {...{
                                             smallImage: {
-                                                alt: 'Wristwatch by Ted Baker London',
+                                                alt: this.state.currentImg.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' '),
                                                 isFluidWidth: true,
                                                 src: '/images/product/'+this.state.currentImg
                                             },
@@ -360,7 +360,7 @@ export class Product extends Component {
                                         {this.state.relatedList.map((i, index)=>(
                                             <div className="flex-sb mb-3" key={index}>
                                                 <a href={"/product/"+i.url}>
-                                                    <img key={index} src={"/images/product/"+JSON.parse(i.images)[0]}/>
+                                                    <img key={index} src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
                                                     <div className=" w-100" style={{paddingLeft:'5px'}}>
                                                         <div className="text-center">
                                                             {i.rating? <StarRating rating={JSON.parse( i.rating)[0]}/> : null }
@@ -416,12 +416,10 @@ export class Product extends Component {
                                         <ul className="nav nav-tabs flex-h">
                                             <li><a className="active" data-toggle="tab" href="#home">Description</a></li>
                                             {this.state.reviews.length? <li><a data-toggle="tab" href="#menu1">Reviews</a></li> : null}
-                                            { this.state.reviewSubmitted ?
-                                                <li><a data-toggle="tab" href="#menu2">Update your Review</a></li>
-                                            : this.state.allowReview ?
-                                                <li><a data-toggle="tab" href="#menu2">Submit a Review</a></li>
-                                            : 
-                                            null
+                                            { 
+                                                this.state.reviewSubmitted ? <li><a data-toggle="tab" href="#menu2">Update your Review</a></li>
+                                                : this.state.allowReview ? <li><a data-toggle="tab" href="#menu2">Submit a Review</a></li>
+                                                : null
                                             }
                                         </ul>
                                         <div className="tab-content">
@@ -525,7 +523,7 @@ export class Product extends Component {
                         <button className="amitBtn" onClick={this.addModalOn}>Post Your Question</button>
                     </div>
                     <div className="container">
-                        <img src="/images/icons/shield.svg"/>
+                        <img src="/images/icons/shield.svg" alt="Authentic puja products"/>
                         <p>Safe and secure payments. Easy returns. 100% authentic products.</p>
                     </div>
                 </section>
