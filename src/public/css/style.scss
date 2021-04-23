@@ -56,30 +56,6 @@ h1, h2, h3, h4, h5, h6{
    margin: 2em 0 1em 0;
    font-size: 2em;
 }
-// .auth{
-//    .row{
-//       align-items: center;
-//    }
-//    ul{
-//       display: flex;
-//       align-items: center;
-//       justify-content: space-evenly;
-//       margin-bottom: 2em;
-//       li{
-//          padding: 1em 2em;
-//          border: 2px solid $primary;
-//          background-color: transparent;
-//          border-radius: 5px;
-//          &:hover{
-//             cursor: pointer;
-//          }
-//       }
-//       li.active{
-//          background-color: $primary;
-//          color: #fff;
-//       }
-//    }
-// }
 .header-social{
    display: inline-flex;
    >div{
@@ -196,9 +172,6 @@ footer{
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      // h1{
-      //    margin-bottom: 1em;
-      // }
       p.hindi{
          color: #fff;
          background: $purple;
@@ -207,7 +180,6 @@ footer{
          font-size: 2em;
          width: fit-content;
          border-radius: 5px;
-         // margin-bottom: 1em;
          line-height: 1em;
       }
       .amitBtn {
@@ -818,10 +790,16 @@ footer{
 @media (max-width:767px) {
    .banner {
       .caption {
-         top: 1%;
+         // top: 1%;
+         // left: 0;
+         // right: 0;
+         // text-align: center;
+         bottom: 0%;
          left: 0;
          right: 0;
          text-align: center;
+         top: unset;
+         min-height: unset;
          h1{
             max-width: unset;
          }

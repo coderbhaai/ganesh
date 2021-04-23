@@ -269,7 +269,7 @@ router.post('/updateBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware
             var filename = file.name
             post.coverImg = filename
             file.mv(storage+'blog/'+filename, function(err1){ if(err1){ throw err1; } })
-            if (fs.existsSync(storage+'blog/'+req.body.oldCoverImg)) { fs.unlinkSync('blog/'+req.body.oldCoverImg) }
+            if (fs.existsSync(storage+'blog/'+req.body.oldCoverImg)) { fs.unlinkSync(storage+'blog/'+req.body.oldCoverImg) }
         }
         if(req.files.smallBlogImage){
             var file2 = req.files.smallBlogImage

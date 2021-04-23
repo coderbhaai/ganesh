@@ -101,7 +101,7 @@ export class UpdateBlog extends Component {
             .then(res=>{
                 if(res.data.success){
                     localStorage.setItem('message', res.data.message)
-                    // window.location.href = '/admin/blogs'
+                    window.location.href = '/admin/blogs'
                 }
                 func.callSwal(res.data.message)
             })

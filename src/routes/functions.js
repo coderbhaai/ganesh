@@ -471,46 +471,6 @@ export function latestOrderNumber(){
     })
 }
 
-// export function mailOrderToBuyer(loggedIn, name, email, password, cart){
-//     return new Promise((resolve, reject) => {
-//         if(password){
-//             var content = `<p>Your Account has also been created and the password is - <strong>${password}</strong>.</p><p>We are happy to serve you</p><br/>`
-//         }else{
-//             var content = `<p>We are happy to serve you</p><br/>`
-//         }
-//         const mailBody =`
-//             <h2><strong>Dear ${name}</strong></h2>
-//             <p>Your Order has been created and will be delivered soon.</p><br/>
-//             <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="http://localhost:3030/blog" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Your Order</a></button><br/>
-//             ${content}
-//             <p>Warm Regards</p>
-//             <p>Team Ecom</p>
-//             `
-//         let mailOptions = { to: email, from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Submitted ✔ www.pujarambh.com", html: mailBody }
-//         transporter.sendMail( mailOptions, (err, info)=>{ 
-//             if(err){ logError(err) }
-//             resolve( info )
-//         })
-//     })
-// }
-
-// export function mailOrderToSeller(){
-//     return new Promise((resolve, reject) => {
-//         const mailBody =`
-//             <h2><strong>Dear Team,</strong></h2>
-//             <p>Your have received an order on ECOM</p><br/>
-//             <button style="background:red;border: none;border-radius: 5px;display: block;"><a href="http://localhost:3030/blog" style="color: #fff;text-decoration: none;padding: 10px;display: block;">Check Order Received</a></button><br/>
-//             <p>Warm Regards</p>
-//             <p>Team Ecom</p>
-//             `
-//         let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Received ✔ www.pujarambh.com", html: mailBody }
-//         transporter.sendMail( mailOptions, (error, info)=>{ 
-//             if(error){ logError(error) }
-//             resolve( info )
-//         })
-//     })
-// }
-
 export function mailOrder(loggedIn, name, email, password, cart){
     return new Promise((resolve, reject) => {
         if(password){
@@ -554,7 +514,7 @@ export function verifyToken(req,res,next){
         if(typeof bearerHeader !== 'undefined'){
             req.token = bearerHeader
             const { exp }  = decode(bearerHeader)
-            if (Date.now() >= exp * 1000) { 
+            if (Date.now() >= exp * 1000) {
                 res.redirect('/sign-up?e=' + encodeURIComponent('LoggedOut'));
                 return;
             }

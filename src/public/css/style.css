@@ -1383,6 +1383,16 @@ input[readonly] {
 .ml8 {
   margin-left: 14em; }
 
+.swal-modal {
+  background-color: #e1672e; }
+  .swal-modal .swal-button {
+    background-color: #ffffff;
+    color: #e1672e;
+    transition: .5s all; }
+  .swal-modal .swal-button:not([disabled]):hover {
+    background-color: #c71f20;
+    color: #fff; }
+
 /* Semantic CSS */
 *,
 :after,
@@ -2868,10 +2878,12 @@ footer .akk {
 
 @media (max-width: 767px) {
   .banner .caption {
-    top: 1%;
+    bottom: 0%;
     left: 0;
     right: 0;
-    text-align: center; }
+    text-align: center;
+    top: unset;
+    min-height: unset; }
     .banner .caption h1 {
       max-width: unset; }
     .banner .caption p {
