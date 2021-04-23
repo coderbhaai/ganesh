@@ -42,9 +42,9 @@ export function getMeta(url, type) {
         try{ if(err) throw err;
             if(rows){
                 if(rows[2].length){ 
-                    if(type == 'page' || !type){ var coverImg = 'cover/'+rows[2][0].name }else
-                    if(type == 'blog'){ var coverImg = 'images/blog/'+rows[2][0].coverImg }else
-                    if(type == 'product'){ var coverImg = 'images/product/'+JSON.parse(rows[2][0].images)[0] }
+                    if(type == 'page' || !type){ var coverImg = '/images/cover/'+rows[2][0].name }else
+                    if(type == 'blog'){ var coverImg = '/images/blog/'+rows[2][0].coverImg }else
+                    if(type == 'product'){ var coverImg = '/images/product/'+JSON.parse(rows[2][0].images)[0] }
                 }
                 if(rows[0].length){ 
                     rows[0][0].url = url
