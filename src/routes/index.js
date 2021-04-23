@@ -58,7 +58,7 @@ const nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
 
 router.get('/', asyncMiddleware( async(req, res, next) => {
-  const meta = await func.getMeta(req.url)
+  const meta = await func.getMeta(req.url, 'page')
   const blogs     =   await func.suggestBlogs()
   const products  =   await func.suggestProducts()
   const reactComp = renderToString( <Index blog={blogs} products={products} meta={meta}/> )
@@ -75,7 +75,7 @@ router.get('/getHomeData', asyncMiddleware( async(req, res) => {
 }))
 
 router.get('/product/:url', asyncMiddleware( async (req, res, next) => { 
-  const meta = await func.getMeta(req.url)
+  const meta = await func.getMeta(req.url, 'product')
   let sql =    `SELECT a.id, a.vendor as vendorId, a.name, a.type, a.images, a.url, a.images, a.category, a.shortDesc, a.longDesc, a.price, a.sale, a.status, a.rating, a.inclusion, a.exclusion, a.recom, a.related, b.name as VendorName, b.tab1 as vendor
                 FROM products as a
                 left join basic as b on b.id = a.vendor WHERE a.url = '${req.params.url}';`
@@ -96,17 +96,13 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
 }))
 
 // // Auth Pages
-  router.get('/sign-up', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: meta }) }))
+  router.get('/sign-up', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: meta }) }))
   router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: [] }) }))
-  // router.get('/register', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Register', { reactApp: renderToString(<Register />), meta: meta }) }))
-  // router.get('/login', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/Login', { reactApp: renderToString(<Login />), meta: meta }) }))
-  // router.get('/forgot-password', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('auth/ForgotPassword', { reactApp: renderToString(<ForgotPassword />), meta: meta }) }))
-  // router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('auth/ResetPassword', { reactApp: renderToString(<ResetPassword/>), meta: [] }) }))
 // // Auth Pages
 
 //Blog Pages
   router.get('/category/:url', asyncMiddleware( async(req, res, next) => {
-    const meta = await func.getMeta(`/category/${req.params.url}`)
+    const meta = await func.getMeta(`/category/${req.params.url}`, 'page')
     var sql = `SELECT id FROM blog_metas WHERE url= '${req.params.url}' AND type='category'`;
     pool.query(sql, (err, results) => {
       try{
@@ -126,7 +122,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
   }))
 
   router.get('/tag/:url', asyncMiddleware( async(req, res, next) => {
-    const meta = await func.getMeta(`/tag/${req.params.url}`)
+    const meta = await func.getMeta(`/tag/${req.params.url}`, 'page')
     var sql1 = `SELECT name FROM blog_metas WHERE url= '${req.params.url}'`;
     pool.query(sql1, (err, results) => {
       try{
@@ -294,7 +290,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
   })
 
   router.get('/blog', asyncMiddleware( async(req, res, next) => {
-    const meta = await func.getMeta(req.url)
+    const meta = await func.getMeta(req.url, 'page')
     let sql = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs ORDER BY id DESC`;
     pool.query(sql, (err, rows) => {
       try{
@@ -385,12 +381,12 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
   }))
 //Blog Pages
 // // Regular Pages 
-router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
-router.get('/about-us', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/About', { reactApp: renderToString(<About/>), meta: meta }) }))
-router.get('/free-kundli', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Astrology', { reactApp: renderToString(<Astrology/>), meta: meta }) }))
-router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
-router.get('/privacy-policy', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/PrivacyPolicy', { reactApp: renderToString( <PrivacyPolicy/> ), meta: meta}) }))
-router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Terms', { reactApp: renderToString( <Terms/> ), meta: meta}) }))
+router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
+router.get('/about-us', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/About', { reactApp: renderToString(<About/>), meta: meta }) }))
+router.get('/free-kundli', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Astrology', { reactApp: renderToString(<Astrology/>), meta: meta }) }))
+router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
+router.get('/privacy-policy', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/PrivacyPolicy', { reactApp: renderToString( <PrivacyPolicy/> ), meta: meta}) }))
+router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Terms', { reactApp: renderToString( <Terms/> ), meta: meta}) }))
 // // Regular Pages 
 
 // // Admin Pages 
@@ -419,17 +415,17 @@ router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { c
 // User Pages
 
 // Shopping
-router.get('/shop', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
-router.get('/category/:cat', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
-router.get('/subcategory/:subcat', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
-router.get('/product-tag/:url', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
-router.get('/cart', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
-router.get('/payment-response', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
+router.get('/shop', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
+router.get('/category/:cat', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
+router.get('/subcategory/:subcat', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
+router.get('/product-tag/:url', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
+router.get('/cart', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
+router.get('/payment-response', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
 // Shopping
 
 router.get('/:url', asyncMiddleware( async(req, res, next) => {
   let sql = `SELECT * FROM blogs WHERE url = '${req.params.url}'`;
-  const meta = await func.getMeta(req.url)
+  const meta = await func.getMeta(req.url, 'blog')
   const blogs = await func.suggestBlogs()
   pool.query(sql, async(err, results) => {
     try{

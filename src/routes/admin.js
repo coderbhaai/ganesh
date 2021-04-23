@@ -111,7 +111,8 @@ router.post('/addBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
     if(req.body.type === 'page'){
         if(req.files.cover){
             var file = req.files.cover
-            var filename = file.name
+            // var filename = file.name
+            var filename = Date.now() + '-' + file.name;
             file.mv(storage+'cover/'+filename, function(err){ if(err){ func.printError(err) } })
             post.name = filename
         }
@@ -143,7 +144,8 @@ router.post('/updateBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddle
     if(req.body.type === 'page'){
         if(req.files.cover){
             var file = req.files.cover
-            var filename = file.name
+            // var filename = file.name
+            var filename = Date.now() + '-' + file.name;
             var oldCover = req.body.oldCover
             if(oldCover){
                 if (fs.existsSync(storage+'cover/'+oldCover)) { fs.unlinkSync(storage+'cover/'+oldCover) }

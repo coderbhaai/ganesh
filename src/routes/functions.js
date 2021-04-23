@@ -7,23 +7,55 @@ const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
 import bcrypt from 'bcryptjs';
 const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
 
-export function getMeta(url) {
+// export function getMeta(url) {
+//     return new Promise((resolve, reject) => {
+//         let sql =   `SELECT title, description, keyword FROM metas WHERE url='${url}';
+//                     SELECT title, description, keyword FROM metas WHERE url='default';
+//                     SELECT name FROM blog_metas WHERE type='page' AND url='${url}'`
+//         pool.query(sql, [1,2,3], (err, rows) => {
+//         try{ if(err) throw err;
+//             if(rows){ 
+//                 if(rows[0].length){ 
+//                     rows[0][0].url = url
+//                     if(rows[2].length){ rows[0][0].image = 'cover/'+rows[2][0].name }
+//                     resolve(rows[0]) 
+//                 }else if(rows[1].length){ 
+//                     rows[1][0].url = url
+//                     if(rows[2].length){ rows[1][0].image = 'cover/'+rows[2][0].name }
+//                     resolve(rows[1])
+//                 }
+//             }else if(err){ throw err }
+//         }catch(e){ logError(e); return; }
+//         });
+//     })
+// }
+
+export function getMeta(url, type) {
     return new Promise((resolve, reject) => {
+        if(type == 'page' || !type){ var cover = `SELECT name FROM blog_metas WHERE type='page' AND url='${url}'`; }else
+        if(type == 'blog'){ var cover = `SELECT coverImg FROM blogs WHERE url='${url.substring(1)}'`; }else
+        if(type == 'product'){ var cover = `SELECT images FROM products WHERE url='${url.substring('/product/'.length)}'`; }
         let sql =   `SELECT title, description, keyword FROM metas WHERE url='${url}';
                     SELECT title, description, keyword FROM metas WHERE url='default';
-                    SELECT name FROM blog_metas WHERE type='page' AND url='${url}'`
+                    ${cover}`
         pool.query(sql, [1,2,3], (err, rows) => {
         try{ if(err) throw err;
-            if(rows){ 
+            if(rows){
+                if(rows[2].length){ 
+                    if(type == 'page' || !type){ var coverImg = 'cover/'+rows[2][0].name }else
+                    if(type == 'blog'){ var coverImg = 'images/blog/'+rows[2][0].coverImg }else
+                    if(type == 'product'){ var coverImg = 'images/product/'+JSON.parse(rows[2][0].images)[0] }
+                }
                 if(rows[0].length){ 
                     rows[0][0].url = url
-                    if(rows[2].length){ rows[0][0].image = 'cover/'+rows[2][0].name }
+                    if(rows[2].length){ rows[0][0].image = coverImg}
                     resolve(rows[0]) 
                 }else if(rows[1].length){ 
                     rows[1][0].url = url
-                    if(rows[2].length){ rows[1][0].image = 'cover/'+rows[2][0].name }
+                    if(rows[2].length){ rows[1][0].image = coverImg }
                     resolve(rows[1])
                 }
+                
             }else if(err){ throw err }
         }catch(e){ logError(e); return; }
         });
