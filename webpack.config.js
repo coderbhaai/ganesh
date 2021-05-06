@@ -40,6 +40,7 @@ const config = [{
         AdminBasics: [path.resolve('src', 'components', 'admin', 'Basic.js')],
         AdminCoupon: [path.resolve('src', 'components', 'admin', 'AdminCoupon.js')],
         RefSchema: [path.resolve('src', 'components', 'admin', 'RefSchema.js')],
+        RefSitemap: [path.resolve('src', 'components', 'admin', 'RefSitemap.js')],
 
         Products: [path.resolve('src', 'components', 'admin', 'Products.js')],
         AdminOrders: [path.resolve('src', 'components', 'admin', 'AdminOrders.js')],
@@ -130,6 +131,7 @@ const config = [{
         new HtmlWebpackPlugin({ chunks: ['AdminBasics'], filename: '../views/admin/AdminBasics.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminCoupon'], filename: '../views/admin/AdminCoupon.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['RefSchema'], filename: '../views/admin/RefSchema.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['RefSitemap'], filename: '../views/admin/RefSitemap.ejs', template: path.join('src', 'views', 'index.ejs') }),
 
         new HtmlWebpackPlugin({ chunks: ['Products'], filename: '../views/admin/Products.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['AdminOrders'], filename: '../views/admin/AdminOrders.ejs', template: path.join('src', 'views', 'index.ejs') }),

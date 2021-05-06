@@ -51,6 +51,7 @@ import AddProduct from "../pages/admin/AddProduct"
 import EditProduct from "../pages/admin/EditProduct"
 import AdminCoupon from "../pages/admin/AdminCoupon"
 import RefSchema from "../pages/admin/RefSchema"
+import RefSitemap from "../pages/admin/RefSitemap"
 
 import UserAdmin from "../pages/user/UserAdmin"
 
@@ -406,6 +407,7 @@ router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { c
   router.get('/admin/editProduct/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/EditProduct', { reactApp: renderToString(<EditProduct/>), meta: [] }) }))
   router.get('/admin/coupon', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/AdminCoupon', { reactApp: renderToString(<AdminCoupon/>), meta: [] }) }))
   router.get('/admin/refSchema', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/RefSchema', { reactApp: renderToString(<RefSchema/>), meta: [] }) }))
+  router.get('/admin/refSitemap', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => { res.status(200).render('admin/RefSitemap', { reactApp: renderToString(<RefSitemap/>), meta: [] }) }))
   // // Admin Pages
   
   // User Pages

@@ -140,7 +140,7 @@ export class Schema extends Component {
                 <div className="container-fluid admin">
                     <div className="row admin">
                         <AdminBar/>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 schema">
                             <h1 className="heading">Schema </h1>
                             <p>{'<script type="application/ld+json">'}</p>
                             <p className="ml1">{"{"}</p>
