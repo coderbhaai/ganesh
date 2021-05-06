@@ -45,6 +45,8 @@ src/static/
 src/routes/mysqlConnector.js
 src/pages/parts/Secret.js
 data/
+sitemap.xml
+schema.xml
 .zip
 # TypeScript v1 declaration files
 typings/
