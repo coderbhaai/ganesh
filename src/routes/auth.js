@@ -19,7 +19,7 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
             if(results[0]){
                 const login = await initiateLogin(req.body.email, req.body.password)
                 if(login[0]){
-                    res.cookie('token', login[1].token)
+                    res.cookie('token', login[1].token, 2147483647)
                     res.send({ success: true, user: login[1], message: login[2] }) 
                 }else{
                     res.send({ success: false, message: login[2] })
@@ -73,7 +73,7 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
                                             user.token = token
                                             user.auth = true
                                             user.id = results2.insertId
-                                            res.cookie('token', token)
+                                            res.cookie('token', token, 2147483647)
                                             res.send({ success: true, user: user, message: 'Registration successful, Welcome!!!' })
                                         }
                                     }catch(e){ func.logError(e); res.status(500); return; }
@@ -90,7 +90,7 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
 router.post('/login', asyncMiddleware( async(req, res, next) => {
     const login = await initiateLogin(req.body.email, req.body.password)
     if(login[0]){
-        res.cookie('token', login[1].token)
+        res.cookie('token', login[1].token, 2147483647)
         res.send({ success: true, user: login[1], message: login[2] }) 
     }else{
         res.send({ success: false, message: login[2] })

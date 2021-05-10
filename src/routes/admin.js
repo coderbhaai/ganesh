@@ -914,8 +914,7 @@ router.post('/checkCoupon', asyncMiddleware( async(req, res) => {
 router.get('/schemaData', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql = `SELECT url, coverImg, title, updated_at FROM blogs;
                 SELECT id, name, url, images, price, sale, rating, tagline, shortDesc, updated_at FROM products Where status=1;
-                SELECT a.review, a.rating, a.productId, a.updated_at, b.name FROM rating as a left join users as b on b.id = a.userId;
-                `
+                SELECT a.review, a.rating, a.productId, a.updated_at, b.name FROM rating as a left join users as b on b.id = a.userId;`
     pool.query(sql,[1,2,3], (err, results) => {
         try{
             if(err){ throw err }
