@@ -3,7 +3,6 @@ import compression from "compression";
 import index from "./routes/index";
 import path from "path";
 
-
 // Server var
 const app = express();
 

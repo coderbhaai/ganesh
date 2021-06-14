@@ -59,7 +59,6 @@ export class UpdateBlog extends Component {
                     tag:                            res.data.tagList,
                 }) 
             })
-
             const response = await fetch( '/admin/blogMetaOptions' )
             const body = await response.json();
             if (response.status !== 200) throw Error(body.message)

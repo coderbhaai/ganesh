@@ -208,8 +208,8 @@ class Auth extends Component {
                                     <>
                                         <p className="check">Already have an account? <span  onClick={()=>this.changeActive('Login')}>Sign In</span></p>
                                         <div className="gofb">
-                                            <GoogleLogin clientId={this.state.clientId} buttonText="Register with Google" onSuccess={regGoogle} onFailure={regGoogle} ></GoogleLogin>
-                                            <FacebookLogin textButton="Sign up with Facebook" appId={this.state.appId} autoLoad={false} fields="name,email,picture" callback={regFB}/>
+                                            <GoogleLogin clientId={this.state.clientId} buttonText="Login" onSuccess={regGoogle} onFailure={regGoogle} render={renderProps => ( <div className="gofbBtn google" onClick={renderProps.onClick}><img src="/images/icons/google.svg"/><p>Google</p></div> )}></GoogleLogin>
+                                            <FacebookLogin appId={this.state.appId} fields="name,email,picture" callback={regFB} render={renderProps => ( <div className="gofbBtn facebook" onClick={renderProps.onClick}><img src="/images/icons/facebookIcon.svg"/><p>Facebook</p></div> )}/>
                                         </div>
                                         <p className="text-center my-3">Or create with</p>
                                         <form onSubmit={this.Register}>
