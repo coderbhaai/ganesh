@@ -37,9 +37,8 @@ export function updateBlogsOfMeta(type, id) {
       let sql =   `SELECT id, category, tag FROM blogs WHERE JSON_CONTAINS(${type}, '${id}') = 1;`
       pool.query(sql, async(err, rows) => {
         try{
-          if(err) throw err;
-          if(rows){
-            if(rows.length){
+            if(err) throw err;
+            if(rows){
               for (let i = 0; i < rows.length; i++) {
                 if(type=='category'){
                   var cat = JSON.parse(rows[i].category).filter(item => item !== id)
@@ -62,7 +61,6 @@ export function updateBlogsOfMeta(type, id) {
                 })
               }
             }
-          }
         }catch(e){ logError(e); return; }
       });
     })
@@ -76,20 +74,18 @@ export function updateProductsOfCat(id) {
             try{
                 if(err) throw err;
                 if(rows){
-                    if(rows.length){
-                        for (let i = 0; i < rows.length; i++) {
-                            var cat = JSON.parse(rows[i].category).filter(item => item !== id)
-                            var post={
-                                category :    JSON.stringify(cat)
-                            }           
-                            let sql2 = `UPDATE products SET ? WHERE id = ${rows[i].id} `;
-                            pool.query(sql2, post, (err2, results2) => {
-                                try{
-                                    if(err2){ throw err2; }
-                                    if(results2){ if(i == rows.length-1){ resolve(true) } }
-                                }catch(e){ logError(e); }
-                            })
-                        }
+                    for (let i = 0; i < rows.length; i++) {
+                        var cat = JSON.parse(rows[i].category).filter(item => item !== id)
+                        var post={
+                            category :    JSON.stringify(cat)
+                        }           
+                        let sql2 = `UPDATE products SET ? WHERE id = ${rows[i].id} `;
+                        pool.query(sql2, post, (err2, results2) => {
+                            try{
+                                if(err2){ throw err2; }
+                                if(results2){ if(i == rows.length-1){ resolve(true) } }
+                            }catch(e){ logError(e); }
+                        })
                     }
                 }
             }catch(e){ logError(e, 'updateBlogsOfMeta'); return; }

@@ -464,7 +464,6 @@ router.post('/deleteBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddle
     })
 }))
 
-
 router.get('/addProductOptions', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql = `SELECT name as text, id as value FROM basic Where type='Category';
                 SELECT name as text, id as value FROM basic Where type='Vendor';
