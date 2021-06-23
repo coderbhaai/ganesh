@@ -439,6 +439,32 @@ router.post('/updateBasic', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
     })
 }))
 
+router.post('/deleteProductCategory', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
+    await func.updateProductsOfCat(req.body.id)
+    let sql =   `DELETE FROM basic WHERE id='${req.body.id}';`
+    pool.query(sql, async(err, results) => {
+        try{
+            if(err){ res.send({ success: false, message: err.sqlMessage }) }
+            if(results){ res.send({ success: true, message: 'Product Category Deleted Successfuly' }); }
+        }catch(e){ func.logError(e, req.url); res.status(403); return; }
+    })
+}))
+
+router.post('/deleteBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res, next) => {
+    await func.updateBlogsOfMeta(req.body.type, req.body.id)
+    let sql =   `DELETE FROM blog_metas WHERE id='${req.body.id}';
+                DELETE FROM metas WHERE url='/${req.body.type}/${req.body.url}';`
+    pool.query(sql, [1,2], async(err, results) => {
+        try{
+            if(err){ res.send({ success: false, message: err.sqlMessage }) }
+            if(results){
+                res.send({ success: true, message: 'Blog Meta Deleted Successfuly' });
+            }
+        }catch(e){ func.logError(e, req.url); res.status(403); return; }
+    })
+}))
+
+
 router.get('/addProductOptions', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql = `SELECT name as text, id as value FROM basic Where type='Category';
                 SELECT name as text, id as value FROM basic Where type='Vendor';

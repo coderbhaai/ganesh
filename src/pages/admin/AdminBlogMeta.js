@@ -115,6 +115,25 @@ class AdminBlogMeta extends Component {
           })
     }
 
+    deleteMeta = () =>{
+        const id = this.state.selectedMeta
+        const data={
+            id:                 this.state.selectedMeta,
+            type:               this.state.type,
+            url:                this.state.url
+        }             
+        axios.post('/admin/deleteBlogMeta', data)
+        .catch(err=>console.log('err', err))
+            .then(res=>{
+                if(res.data.success){
+                    var metas = this.state.metas.filter(i=>i.id != id)
+                    this.setState({ metas: metas })
+                }
+                this.callSwal(res.data.message)
+            })
+        this.resetData()
+    }
+
     render() {
         const {currentPage, itemsPerPage } = this.state
         const indexOfLastItem = currentPage * itemsPerPage
@@ -239,6 +258,9 @@ class AdminBlogMeta extends Component {
                                 <button className="amitBtn" type="submit">Submit</button> 
                             </div>
                         </form>
+                        {this.state.type=='category' || this.state.type=='tag' ? 
+                            <button className="amitBtn" style={{float: 'right'}} onClick={this.deleteMeta}>Delete This</button> 
+                        : null }
                     </ModalBody>
                 </Modal>
                 <Footer/>

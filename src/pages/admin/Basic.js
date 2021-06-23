@@ -115,6 +115,23 @@ export class Basic extends Component {
             })
         this.resetData()
     }
+
+    deleteProductCategory = ()=>{
+        const id = this.state.selectedId
+        const data ={
+            id:         this.state.selectedId
+        }
+        axios.post('/admin/deleteProductCategory', data)
+            .catch(err=>{ func.printError(err) })
+            .then(res=>{
+                if(res.data.success){
+                    var check = this.state.data.filter(i=>i.id != id)
+                    this.setState({ data: check })
+                }
+                func.callSwal(res.data.message)
+            })
+        this.resetData()
+    }
     
     render() {
         const {currentPage, itemsPerPage } = this.state
@@ -228,22 +245,23 @@ export class Basic extends Component {
                                 {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Puja'? 
-                                <>
-                                    <div className="col-sm-4">
-                                        <label>Puja Items</label>
-                                        <input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <label>Quantity</label>
-                                        <input name="tab1" type="text" className="form-control" placeholder="Quantity" value={this.state.tab1} required onChange={this.onChange}/>
-                                    </div>
-                                </>
+                                    <>
+                                        <div className="col-sm-4">
+                                            <label>Puja Items</label>
+                                            <input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/>
+                                        </div>
+                                        <div className="col-sm-4">
+                                            <label>Quantity</label>
+                                            <input name="tab1" type="text" className="form-control" placeholder="Quantity" value={this.state.tab1} required onChange={this.onChange}/>
+                                        </div>
+                                    </>
                                 : null }
                             </div>
                             <div className="my-div">
                                 <button className="amitBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
+                        {this.state.type==='Category'? <button className="amitBtn" onClick={this.deleteProductCategory}>Delete this <span></span></button> : null }
                     </ModalBody>
                 </Modal>
             </>
