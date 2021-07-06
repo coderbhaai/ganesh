@@ -44,11 +44,11 @@ export class Header extends Component {
         return (
             <header className="sticky-top">
                 <nav className="navbar sticky-top container">
-                    <a className="navbar-brand" href="/"><img src="/images/logo.svg" className="logo" alt="Pujarambh Logo"/></a>
+                    <a className="navbar-brand" href="/"><img src="/images/logo.svg" className="logo" alt="Pujarambh Logo" width="100" height="57"/></a>
                     {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button> */}
                     <div className="cartToggle">
                         <div className="toggle-btn" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></div>
-                        <a href="/cart" className="cartIconMobile"> <img src="/images/icons/cart-orange.svg" alt="add to cart"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
+                        <a href="/cart" className="cartIconMobile"> <img src="/images/icons/cart-orange.svg" alt="add to cart" width="35" height="35"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
                     </div>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav ml-auto">
@@ -80,13 +80,13 @@ export class Header extends Component {
                         </ul>
                         <div className="header-social">
                             <div>
-                                <a href="https://www.facebook.com/Pujarambh" target="_blank"><img src="/images/icons/facebook-white.svg" alt="Connect with Pujarambh on Facebook"/></a>
-                                <a href="https://www.linkedin.com/in/pujarambh-the-beginning-092877207/" target="_blank"><img src="/images/icons/linkedin-white.svg" alt="Connect with Pujarambh on Linkedin"/></a>
-                                <a href="https://twitter.com/pujarambh" target="_blank"><img src="/images/icons/twitter-white.svg" alt="Connect with Pujarambh on Twitter"/></a>
-                                <a href="https://www.instagram.com/_pujarambh_/" target="_blank"><img src="/images/icons/instagram-white.svg" alt="Connect with Pujarambh on Instagram"/></a>
-                                <a href="//api.whatsapp.com/send?phone=919870405987&amp;text= Hi, I got your number from Pujarambh Website." className="web"><img src="/images/icons/whatsapp-button.svg" alt="Connect with Pujarambh on Whats App"/></a>
+                                <a href="https://www.facebook.com/Pujarambh" target="_blank"><img src="/images/icons/facebook-white.svg" alt="Connect with Pujarambh on Facebook" width="15" height="15"/></a>
+                                <a href="https://www.linkedin.com/in/pujarambh-the-beginning-092877207/" target="_blank"><img src="/images/icons/linkedin-white.svg" alt="Connect with Pujarambh on Linkedin" width="15" height="15"/></a>
+                                <a href="https://twitter.com/pujarambh" target="_blank"><img src="/images/icons/twitter-white.svg" alt="Connect with Pujarambh on Twitter" width="15" height="15"/></a>
+                                <a href="https://www.instagram.com/_pujarambh_/" target="_blank"><img src="/images/icons/instagram-white.svg" alt="Connect with Pujarambh on Instagram" width="15" height="15"/></a>
+                                <a href="//api.whatsapp.com/send?phone=919870405987&amp;text= Hi, I got your number from Pujarambh Website." className="web"><img src="/images/icons/whatsapp-button.svg" alt="Connect with Pujarambh on Whats App" width="15" height="15"/></a>
                                 {!this.state.user.role? <span><a href="/sign-up">Login | Signup</a></span> : null}
-                                <a href="/cart" className="cartIcon"> <img src="/images/icons/cart-white.svg" alt="add to cart"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
+                                <a href="/cart" className="cartIcon"> <img src="/images/icons/cart-white.svg" alt="add to cart" width="15" height="15"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
                             </div>
                         </div>
                     </div>

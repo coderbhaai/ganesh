@@ -30,7 +30,17 @@ const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net
 //     })
 // }
 
-
+export function getProductsOfCat(id) {
+    return new Promise((resolve, reject) => {
+      let sql =   `SELECT id, name, url, images, price, sale, rating, category FROM products WHERE JSON_CONTAINS(category, '${id}') = 1 AND status = '1';`
+      pool.query(sql, async(err, rows) => {
+        try{
+            if(err) throw err;
+            if(rows){ resolve(rows) }
+        }catch(e){ logError(e); return; }
+      });
+    })
+}
 
 export function updateBlogsOfMeta(type, id) {
     return new Promise((resolve, reject) => {

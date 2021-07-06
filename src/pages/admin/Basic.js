@@ -69,7 +69,11 @@ export class Basic extends Component {
         const data = new FormData()
         data.append('name', this.state.name)
         data.append('type', this.state.type)
-        data.append('tab1', this.state.tab1)
+        if(this.state.type=='Category'){
+            data.append('tab1', this.state.tab1.replace(/ /g,"-").toLowerCase())
+        }else{
+            data.append('tab1', this.state.tab1)
+        }
         data.append('tab2', this.state.tab2)
         data.append('image', this.state.image)
         axios.post('/admin/addBasic', data)
@@ -101,7 +105,11 @@ export class Basic extends Component {
         data.append('id', this.state.selectedId)
         data.append('name', this.state.name)
         data.append('type', this.state.type)
-        data.append('tab1', this.state.tab1)
+        if(this.state.type=='Category'){
+            data.append('tab1', this.state.tab1.replace(/ /g,"-").toLowerCase())
+        }else{
+            data.append('tab1', this.state.tab1)
+        }
         data.append('tab2', this.state.tab2)
         data.append('image', this.state.image)
         data.append('oldImage', this.state.oldImage)
@@ -208,7 +216,18 @@ export class Basic extends Component {
                                         <option value="Puja">Puja Items</option>
                                     </select>
                                 </div>
-                                {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
+                                {this.state.type==='Category'? 
+                                    <>
+                                        <div className="col-sm-4">
+                                            <label>Product Category</label>
+                                            <input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/>
+                                        </div> 
+                                        <div className="col-sm-4">
+                                            <label>URL</label>
+                                            <input name="tab1" type="text" className="form-control" placeholder="Quantity" value={this.state.tab1} required onChange={this.onChange}/>
+                                        </div>
+                                    </>
+                                : null }
                                 {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Puja'? 
                                 <>
@@ -242,7 +261,18 @@ export class Basic extends Component {
                                         <option>{this.state.type}</option>
                                     </select>
                                 </div>
-                                {this.state.type==='Category'? <div className="col-sm-8"><label>Product Category</label><input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/></div> : null }
+                                {this.state.type==='Category'?
+                                    <>
+                                        <div className="col-sm-8">
+                                            <label>Product Category</label>
+                                            <input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/>
+                                        </div> 
+                                        <div className="col-sm-4">
+                                            <label>URL</label>
+                                            <input name="tab1" type="text" className="form-control" placeholder="Quantity" value={this.state.tab1} required onChange={this.onChange}/>
+                                        </div>
+                                    </>
+                                : null }
                                 {this.state.type==='Vendor'? <div className="col-sm-8"><label>Vendor Name</label><input name="name" type="text" className="form-control" placeholder="Vendor Name" value={this.state.name} required onChange={this.onChange}/></div> : null }
                                 {this.state.type==='Puja'? 
                                     <>

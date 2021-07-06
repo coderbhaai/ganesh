@@ -26,6 +26,8 @@ import PrivacyPolicy from "../pages/index/PrivacyPolicy"
 import Terms from "../pages/index/Terms"
 import About from "../pages/index/About"
 import Astrology from "../pages/index/Astrology"
+import ProductCategory from "../pages/index/ProductCategory"
+import ProdCatItems from "../pages/index/ProdCatItems"
 
 import Auth from "../pages/index/Auth"
 // import Register from "../pages/auth/Register"
@@ -96,6 +98,55 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
     })
 }))
 
+router.get('/product-category', asyncMiddleware( async (req, res, next) => { 
+  const meta = await func.getMeta(req.url, 'page')
+  let sql =    `SELECT name, tab1 from basic where type = 'Category';`
+    pool.query(sql, async(err, results) => {
+        try{    
+            if(err){ throw err }
+            if(results.length){
+              res.status(200).render('pages/ProductCategory', { reactApp: renderToString(<ProductCategory category={results} />), meta: meta })
+            }else{ res.redirect('/shop'); }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.get('/fetchProductCategory', asyncMiddleware( async (req, res, next) => {
+  let sql =    `SELECT name, tab1 from basic where type = 'Category';`
+  pool.query(sql, (err, results) => {
+    try{
+      if(err){ throw err }
+      if(results){ res.send({ data: results }); }
+    }catch(e){ func.logError(e); res.status(500); return; }
+  })
+}))
+
+router.get('/product-category/:url', asyncMiddleware( async (req, res, next) => { 
+  const meta = await func.getMeta(req.url, 'page')
+  let sql =    ` SELECT id FROM basic WHERE tab1 = '${req.params.url}';`
+    pool.query(sql, async(err, results) => {
+        try{    
+            if(err){ throw err }
+            if(results.length){
+              const products = await func.getProductsOfCat(results[0].id)
+              res.status(200).render('pages/ProdCatItems', { reactApp: renderToString(<ProdCatItems products={products}/>), meta: meta })
+            }else{ res.redirect('/shop'); }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
+
+router.get('/fetchProdCatItems/:url', asyncMiddleware( async (req, res, next) => {
+  let sql =    ` SELECT id, name FROM basic WHERE tab1 = '${req.params.url}';`
+  pool.query(sql, async(err, results) => {
+    try{
+      if(err){ throw err }
+      if(results){ 
+        const data = await func.getProductsOfCat(results[0].id)
+        res.send({ data: data, name: results[0].name }); 
+      }
+    }catch(e){ func.logError(e); res.status(500); return; }
+  })
+}))
 // // Auth Pages
   router.get('/sign-up', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: meta }) }))
   router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: [] }) }))
@@ -104,13 +155,13 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
 //Blog Pages
   router.get('/category/:url', asyncMiddleware( async(req, res, next) => {
     const meta = await func.getMeta(`/category/${req.params.url}`, 'page')
-    var sql = `SELECT id FROM blog_metas WHERE url= '${req.params.url}' AND type='category'`;
+    var sql = `SELECT id, name FROM blog_metas WHERE url= '${req.params.url}' AND type='category'`;
     pool.query(sql, (err, results) => {
       try{
         if(err) throw err;
         if(results){
           if(results[0]){
-            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs WHERE category LIKE '%${results[0].id}%' ORDER BY id DESC`;
+            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs WHERE JSON_CONTAINS(category, '${results[0].id}') = 1 ORDER BY id DESC`;
             pool.query(sql2, (err2, results2) => {
                 if(err2) throw err2;
                 var title = `<h1 class="heading"><span>Blogs of Category:</span>${results[0].name}</h1>`
@@ -122,19 +173,19 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
     });
   }))
 
-  router.get('/tag/:url', asyncMiddleware( async(req, res, next) => {
+  router.get('/tag/:url', asyncMiddleware( async(req, res, next) => { 
     const meta = await func.getMeta(`/tag/${req.params.url}`, 'page')
-    var sql1 = `SELECT name FROM blog_metas WHERE url= '${req.params.url}'`;
+    var sql1 = `SELECT id, name FROM blog_metas WHERE url= '${req.params.url}'`;
     pool.query(sql1, (err, results) => {
       try{
         if(err) throw err;
         if(results[0]){
-          var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs WHERE tag LIKE '%${results[0].name}%' ORDER BY id DESC`;
+          var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs WHERE JSON_CONTAINS(tag, '${results[0].id}') = 1 ORDER BY id DESC`;
           pool.query(sql2, (err, results2) => {
             if(err) throw err;
             var title = `<h1 class="heading"><span>Blogs of Tag:</span>${results[0].name}</h1>`
             const reactComp = renderToString(  <Blog blogs={results2} title={title}/> )
-            res.status(200).render('blog/Blog', { reactApp: reactComp, meta: meta, blogs: results2 })
+            res.status(200).render('blog/Blog', { reactApp: reactComp, meta: meta })
           });
         }else{
           res.redirect('/404');
@@ -320,7 +371,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
         pool.query(sql1, (err, results) => {
           try{
             if(err) throw err;
-            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs  WHERE category LIKE '%${results[0].id}%' ORDER BY id DESC`;
+            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs WHERE JSON_CONTAINS(category, '${results[0].id}') = 1 ORDER BY id DESC`;
             pool.query(sql2, (err2, results2) => {
               try{
                 if(err2) throw err2;
@@ -337,7 +388,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
         pool.query(sql1, (err, results) => {
           try{
             if(err) throw err;
-            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs  WHERE tag LIKE '%${results[0].id}%' ORDER BY id DESC`;
+            var sql2 = `SELECT id, title, url, coverImg, smallImg, updated_at FROM blogs WHERE JSON_CONTAINS(tag, '${results[0].id}') = 1 ORDER BY id DESC`;
             pool.query(sql2, (err2, results2) => {
               try{
                 if(err2) throw err2;

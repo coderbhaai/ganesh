@@ -19,7 +19,7 @@ export class ServiceSwiper extends Component {
                             {/* <p className="usage">{i.tagline? i.tagline : "Order Now"}</p> */}
                             <p className="usage">Order Now</p>
                             <div className="imgBox">
-                                <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></a>
+                                <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')} width="350" height="400"/></a>
                             </div>
                             <div className="productDetail">
                                 <h3>{i.name}</h3>

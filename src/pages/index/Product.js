@@ -4,11 +4,11 @@ import Footer from '../parts/Footer'
 import ReactImageMagnify from 'react-image-magnify';
 import CKEditor from 'ckeditor4-react'
 import axios from 'axios'
-import swal from 'sweetalert'
+// import swal from 'sweetalert'
 import StarRating from '../parts/StarRating'
 import ProductShare from '../parts/ProductShare'
 import moment from "moment"
-import BlogCarousel from '../blog/BlogCarousel'
+// import BlogCarousel from '../blog/BlogCarousel'
 const func = require('../parts/functions')
 import {Modal, ModalHeader, ModalBody } from 'reactstrap'
 
@@ -17,17 +17,17 @@ export class Product extends Component {
         super(props)    
         this.state = {
             cart:                   [],
-            product:                {},
-            incList:                [],
-            excList:                [],
+            product:                this.props.product,
+            incList:                this.props.incList,
+            excList:                this.props.excList,
             catProducts:            [],
-            currentImg:             '',
+            currentImg:             this.props.currentImg,
             topProducts:            [],
             relatedProducts:        [],
             finalRating:            [],
             reviews:                [],
             recomList:              [],
-            relatedList:            [],
+            relatedList:            this.props.relatedList,
             rating:                 0,
             review:                 '',
             reviewId:               '',
@@ -35,7 +35,7 @@ export class Product extends Component {
             allowReview:            false,
             reviewSubmitted:        false,
             isSeller:               false,
-            blogs:                  this.props.blogs,
+            // blogs:                  this.props.blogs,
             addmodalIsOpen:         false,
             prodName:               '',
             prodUrl:                '',
@@ -44,6 +44,7 @@ export class Product extends Component {
             email:                  '',
             phone:                  '',
             question:               '',
+            images:                 [],
         }
         this.handleChange1 = this.handleChange1.bind( this )
 		this.onEditorChange1 = this.onEditorChange1.bind( this )
@@ -268,11 +269,15 @@ export class Product extends Component {
     }
 
     render() {
-        const count = Math.round( this.state.incList.length/3 )
+        if(this.state.incList){
+            var count = Math.round( this.state.incList.length/3 )
+        }else{
+            count = 4
+        }
         return (
             <> 
                 <Header cart={this.state.cart.length}/>
-                { this.state.product ?
+                { this.state.product ?<section>
                     <div className="container singleProduct">
                         <div className="row mt-5 py-3 product">
                             <div className="col-sm-3 mb-5 imgZoom">
@@ -314,12 +319,11 @@ export class Product extends Component {
                                 <h1>{this.state.product.name}</h1>
                                 <p>
                                     <span className={this.state.product.sale ? "price strike" : "price"}>
-                                        <span className="rs">&#8377; </span>{this.state.product.price} /-
+                                        <span className="rs">&#8377; </span>{this.state.product.price+' /-'}
                                     </span>
-                                    {this.state.product.sale ? <span className="price"><span className="rs">&#8377; </span>{this.state.product.sale} /-</span> : null }
+                                    {this.state.product.sale ? <span className="price"><span className="rs">&#8377; </span>{this.state.product.sale +' /-'}</span> : null }
                                 </p>
-                                {/* <h2>Puja Description</h2> */}
-                                <section className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.product.shortDesc }} />
+                                <div className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.product.shortDesc }}/>
                                 {this.state.product.type==1 && this.state.cart.some(x => x[1] === this.state.product.id) ?
                                 <>
                                     <label>Desire date * (Please book 48 Hours in Advance)</label>
@@ -329,23 +333,7 @@ export class Product extends Component {
                                 </>
                                 : null
                                 }
-                                {/* <h3 className="text-left mb-3">Add to cart</h3> */}
-                                {/* <div className="cartBtnGroup flex-sb">
-                                    <div className="plusMinus">
-                                        <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(this.state.product)} style={{marginRight: '10px'}}/>
-                                        { this.state.cart.some(x => x[1] === this.state.product.id) ? <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(this.state.product)}/> : null }
-                                    </div>
-                                </div> */}
-
                                 <div className="changeQty flex-sb mt-5">
-                                    {/* <div>
-                                        <label>Quantity</label>
-                                        <ul>
-                                            <li onClick={()=>this.removeFromCart(this.state.product)}>-</li>
-                                            <li>{this.state.cart.filter(i=>i[1]==this.state.product.id).length ? this.state.cart.filter(i=>i[1]==this.state.product.id)[0][0] : 0 }</li>
-                                            <li onClick={()=>this.addToCart(this.state.product)}>+</li>
-                                        </ul>
-                                    </div> */}
                                     <div>
                                         <label>Share With</label>
                                         <ProductShare title={this.state.product.name} url={"https://pujarambh.com/product/"+this.state.product.url} media={"https://pujarambh.com/images/product/"+this.state.currentImg}/>
@@ -353,7 +341,7 @@ export class Product extends Component {
                                 </div>
                             </div>
                             <div className="col-sm-3">
-                                {this.state.relatedList.length?
+                                {this.state.relatedList && this.state.relatedList.length?
                                     <div className="bg-white sideProducts" style={{padding:'10px'}}>
                                         <p className="text-center">Related Products</p>
                                         <hr style={{margin: '0 0 7px'}}/>
@@ -366,12 +354,11 @@ export class Product extends Component {
                                                             {i.rating? <StarRating rating={JSON.parse( i.rating)[0]}/> : null }
                                                         </div>
                                                         <p style={{fontWeight:'600'}}>{i.text}</p>
-                                                        {/* <p className="price">&#8377;{i.price}</p> */}
                                                         <p>
                                                             <span className={i.sale ? "price strike" : "price"}>
-                                                                <span className="rs">&#8377; </span>{i.price} /-
+                                                                <span className="rs">&#8377; </span>{i.price + ' /-'}
                                                             </span>
-                                                            {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale} /-</span> : null }
+                                                            {i.sale ? <span className="price"><span className="rs">&#8377; </span>{i.sale + ' /-'}</span> : null }
                                                         </p>
                                                     </div>
                                                 </a>
@@ -382,142 +369,118 @@ export class Product extends Component {
                             </div>
                         </div>
                     </div>
-                : null }
-                <div className="container extraProducts">
-                    <div className="row my-5">
-                        <div className="col-sm-3"></div>
-                        <div className="col-sm-9">
+                    <div className="container extraProducts">
+                        {this.state.incList || this.state.excList?
                             <div className="row inclusions">
-                                {this.state.incList.length>0 ?
+                                {this.state.incList && this.state.incList.length>0 ?
                                     <div className="col-sm-9">
-                                        <h2>{this.state.product.name} Includes</h2>
+                                        { this.state.product ? <h2>{this.state.product.name} Includes</h2> : null}
                                         <div className="row">
-                                            <div className="col-sm-3"><ul>{this.state.incList.slice(0, count).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
-                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count, count*2).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
-                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count*2, count*3).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
-                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count*3, this.state.incList.length).map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul></div>
+                                            <div className="col-sm-3"><ul>{this.state.incList.slice(0, count).map((i,index)=>( <li key={index}>{i.text +' - '+ i.tab1}</li>))}</ul></div>
+                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count, count*2).map((i,index)=>( <li key={index}>{i.text+' - '+ i.tab1}</li>))}</ul></div>
+                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count*2, count*3).map((i,index)=>( <li key={index}>{i.text+' - '+ i.tab1}</li>))}</ul></div>
+                                            <div className="col-sm-3"><ul>{this.state.incList.slice(count*3, this.state.incList.length).map((i,index)=>( <li key={index}>{i.text+' - '+ i.tab1}</li>))}</ul></div>
                                         </div>
                                     </div>
                                 : null}
-                                {this.state.excList.length>0 ?
+                                {this.state.excList && this.state.excList.length>0 ?
                                     <div className="col-sm-3">
                                         <h2>Client needs to arrange</h2>
-                                        <ul>{this.state.excList.map((i,index)=>( <li key={index}>{i.text} - {i.tab1}</li>))}</ul>
+                                        <ul>{this.state.excList.map((i,index)=>( <li key={index}>{i.text+' - '+ i.tab1}</li>))}</ul>
                                     </div>
                                 : null}
                             </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-sm-12 relatedProducts p-0">
-                            <section className="box">
-                                <div className="bg-white reviewsDesc row">
-                                    <div className="col-sm-12">
-                                        <ul className="nav nav-tabs flex-h">
-                                            <li><a className="active" data-toggle="tab" href="#home">Description</a></li>
-                                            {this.state.reviews.length? <li><a data-toggle="tab" href="#menu1">Reviews</a></li> : null}
-                                            { 
-                                                this.state.reviewSubmitted ? <li><a data-toggle="tab" href="#menu2">Update your Review</a></li>
-                                                : this.state.allowReview ? <li><a data-toggle="tab" href="#menu2">Submit a Review</a></li>
-                                                : null
-                                            }
-                                        </ul>
-                                        <div className="tab-content">
-                                            <div id="home" className="tab-pane fade in active show">
-                                                <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>{this.state.product.name}</span></h3>
-                                                <section className="not-found-controller" dangerouslySetInnerHTML={{ __html: this.state.product.longDesc }} />
-                                            </div>
-                                            <div id="menu1" className="tab-pane fade">
-                                                {this.state.reviews.map((i, index)=>(
-                                                    <div key={index} className="mb-3">
-                                                        <section className="not-found-controller" dangerouslySetInnerHTML={{ __html: i.review }} />
-                                                        <p style={{textAlign:'right'}}>-<strong>{i.name}</strong> on {moment(i.updated_at).format("DD MMMM  YYYY")}</p>
-                                                        {index!=this.state.reviews.length-1 ? <hr/> : null}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            <div id="menu2" className="tab-pane fade review">
-                                                { this.state.reviewSubmitted ?
-                                                    <form encType="multipart/form-data" onSubmit={this.updateReview}>
-                                                        <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>Want to update your review?</span></h3>
-                                                        <div className="row">
-                                                            <div className="col-sm-12">
-                                                                <label>Rating</label>
-                                                                <div className="star-rating m-0">
-                                                                    {/* <span className="rating">
-                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-1" name="rating" value="5" onChange={(e)=>this.onChange(e)} checked={this.state.rating>= 1 ? true : false}/><label htmlFor="rating-input-1-1" className="rating-star"></label></div>
-                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-2" name="rating" value="4" onChange={(e)=>this.onChange(e)} checked={this.state.rating>= 2 ? true : false}/><label htmlFor="rating-input-1-2" className="rating-star"></label></div>
-                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-3" name="rating" value="3" onChange={(e)=>this.onChange(e)} checked={this.state.rating>= 3 ? true : false}/><label htmlFor="rating-input-1-3" className="rating-star"></label></div>
-                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-4" name="rating" value="2" onChange={(e)=>this.onChange(e)} checked={this.state.rating>= 4 ? true : false}/><label htmlFor="rating-input-1-4" className="rating-star"></label></div>
-                                                                        <div><input type="radio" className="rating-input" id="rating-input-1-5" name="rating" value="1" onChange={(e)=>this.onChange(e)} checked={this.state.rating= 5 ? true : false}/><label htmlFor="rating-input-1-5" className="rating-star"></label></div>
-                                                                    </span> */}
-                                                                    <select className="form-control mb-3" name="rating" onChange={this.onChange} value={this.state.rating}>
-                                                                        <option value=''>Give rating</option>
-                                                                        <option value='1'>1 Star</option>
-                                                                        <option value='2'>2 Star</option>
-                                                                        <option value='3'>3 Star</option>
-                                                                        <option value='4'>4 Star</option>
-                                                                        <option value='5'>5 Star</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-sm-12">
-                                                                <label>Review</label>
-                                                                <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } data={this.state.review} review= {this.state.review} onChange={this.onEditorChange1}/>
-                                                            </div>
-                                                        </div>
-                                                        <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
-                                                    </form>
-                                                : this.state.allowReview && !this.state.isSeller ?
-                                                    <form encType="multipart/form-data" onSubmit={this.addReview}>
-                                                        <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>Submit a review</span></h3>
-                                                        <div className="row">
-                                                            <div className="col-sm-12">
-                                                                <label>Rating</label>
-                                                                <div className="star-rating m-0">
-                                                                    {/* <span className="rating">
-                                                                        <div onClick={()=>this.productRating(1)}><input type="radio" className="rating-input" id="rating-input-1-1" name="rating" onChange={this.onChange} checked={this.state.rating>= 1 ? true : false}/><label htmlFor="rating-input-1-1" className="rating-star"></label></div>
-                                                                        <div onClick={()=>this.productRating(2)}><input type="radio" className="rating-input" id="rating-input-1-2" name="rating" onChange={this.onChange} checked={this.state.rating>= 2 ? true : false}/><label htmlFor="rating-input-1-2" className="rating-star"></label></div>
-                                                                        <div onClick={()=>this.productRating(3)}><input type="radio" className="rating-input" id="rating-input-1-3" name="rating" onChange={this.onChange} checked={this.state.rating>= 3 ? true : false}/><label htmlFor="rating-input-1-3" className="rating-star"></label></div>
-                                                                        <div onClick={()=>this.productRating(4)}><input type="radio" className="rating-input" id="rating-input-1-4" name="rating" onChange={this.onChange} checked={this.state.rating>= 4 ? true : false}/><label htmlFor="rating-input-1-4" className="rating-star"></label></div>
-                                                                        <div onClick={()=>this.productRating(5)}><input type="radio" className="rating-input" id="rating-input-1-5" name="rating" onChange={this.onChange} checked={this.state.rating= 5 ? true : false}/><label htmlFor="rating-input-1-5" className="rating-star"></label></div>
-                                                                    </span> */}
-                                                                    {/* <span className="rating">
-                                                                        <div onClick={(e)=>this.productRating(1)}>{this.state.rating>=1 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
-                                                                        <div onClick={(e)=>this.productRating(2)}>{this.state.rating>=2 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
-                                                                        <div onClick={(e)=>this.productRating(3)}>{this.state.rating>=3 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
-                                                                        <div onClick={(e)=>this.productRating(4)}>{this.state.rating>=4 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
-                                                                        <div onClick={(e)=>this.productRating(5)}>{this.state.rating=5 ?<img src={"/images/icon/star.png"}/>: <img src={"/images/icon/yellow-star.png"}/>}</div>
-                                                                    </span> */}
-                                                                    <select className="form-control mb-3" name="rating" onChange={this.onChange}>
-                                                                        <option value=''>Give rating</option>
-                                                                        <option value='1'>1 Star</option>
-                                                                        <option value='2'>2 Star</option>
-                                                                        <option value='3'>3 Star</option>
-                                                                        <option value='4'>4 Star</option>
-                                                                        <option value='5'>5 Star</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-sm-12">
-                                                                <label>Review</label>
-                                                                <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } review= {this.state.review} onChange={this.onEditorChange1}/>
-                                                            </div>
-                                                        </div>
-                                                        <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
-                                                    </form>
-                                                :
-                                                    <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>Please login to submit a review</span></h3>
+                        : null}
+                        <div className="row">
+                            <div className="col-sm-12 relatedProducts p-0">
+                                <div className="box">
+                                    <div className="bg-white reviewsDesc row">
+                                        <div className="col-sm-12">
+                                            <ul className="nav nav-tabs flex-h">
+                                                <li><a className="active" data-toggle="tab" href="#home">Description</a></li>
+                                                {this.state.reviews.length? <li><a data-toggle="tab" href="#menu1">Reviews</a></li> : null}
+                                                { 
+                                                    this.state.reviewSubmitted ? <li><a data-toggle="tab" href="#menu2">Update your Review</a></li>
+                                                    : this.state.allowReview ? <li><a data-toggle="tab" href="#menu2">Submit a Review</a></li>
+                                                    : null
                                                 }
+                                            </ul>
+                                            <div className="tab-content">
+                                                <div id="home" className="tab-pane fade in active show">
+                                                    <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>{this.state.product.name}</span></h3>
+                                                    <div className="not-found-controller" dangerouslySetInnerHTML={{ __html: this.state.product.longDesc }} />
+                                                </div>
+                                                <div id="menu1" className="tab-pane fade">
+                                                    {this.state.reviews.map((i, index)=>(
+                                                        <div key={index} className="mb-3">
+                                                            <div className="not-found-controller" dangerouslySetInnerHTML={{ __html: i.review }}/>
+                                                            <p style={{textAlign:'right'}}>-<strong>{i.name}</strong> on {moment(i.updated_at).format("DD MMMM  YYYY")}</p>
+                                                            {index!=this.state.reviews.length-1 ? <hr/> : null}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                                <div id="menu2" className="tab-pane fade review">
+                                                    { this.state.reviewSubmitted ?
+                                                        <form encType="multipart/form-data" onSubmit={this.updateReview}>
+                                                            <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>Want to update your review?</span></h3>
+                                                            <div className="row">
+                                                                <div className="col-sm-12">
+                                                                    <label>Rating</label>
+                                                                    <div className="star-rating m-0">
+                                                                        <select className="form-control mb-3" name="rating" onChange={this.onChange} value={this.state.rating}>
+                                                                            <option value=''>Give rating</option>
+                                                                            <option value='1'>1 Star</option>
+                                                                            <option value='2'>2 Star</option>
+                                                                            <option value='3'>3 Star</option>
+                                                                            <option value='4'>4 Star</option>
+                                                                            <option value='5'>5 Star</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-sm-12">
+                                                                    <label>Review</label>
+                                                                    <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } data={this.state.review} review= {this.state.review} onChange={this.onEditorChange1}/>
+                                                                </div>
+                                                            </div>
+                                                            <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
+                                                        </form>
+                                                    : this.state.allowReview && !this.state.isSeller ?
+                                                        <form encType="multipart/form-data" onSubmit={this.addReview}>
+                                                            <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>Submit a review</span></h3>
+                                                            <div className="row">
+                                                                <div className="col-sm-12">
+                                                                    <label>Rating</label>
+                                                                    <div className="star-rating m-0">
+                                                                        <select className="form-control mb-3" name="rating" onChange={this.onChange}>
+                                                                            <option value=''>Give rating</option>
+                                                                            <option value='1'>1 Star</option>
+                                                                            <option value='2'>2 Star</option>
+                                                                            <option value='3'>3 Star</option>
+                                                                            <option value='4'>4 Star</option>
+                                                                            <option value='5'>5 Star</option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div className="col-sm-12">
+                                                                    <label>Review</label>
+                                                                    <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } review= {this.state.review} onChange={this.onEditorChange1}/>
+                                                                </div>
+                                                            </div>
+                                                            <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
+                                                        </form>
+                                                    :
+                                                        <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>Please login to submit a review</span></h3>
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <section className="mt-5 doubtShield">
+                </section>: null }
+                <div className="mt-5 doubtShield">
                     <div className="container">
                         <h3>Have Doubts regarding this product?</h3>
                         <button className="amitBtn" onClick={this.addModalOn}>Post Your Question</button>
@@ -526,8 +489,8 @@ export class Product extends Component {
                         <img src="/images/icons/shield.svg" alt="Authentic puja products"/>
                         <p>Safe and secure payments. Easy returns. 100% authentic products.</p>
                     </div>
-                </section>
-                <BlogCarousel blogs={this.state.blogs}/>
+                </div>
+                {/* <BlogCarousel blogs={this.state.blogs}/> */}
                 <Footer/>
                 <Modal isOpen={this.state.addmodalIsOpen} className="adminModal"> 
                     <ModalHeader> Ask Question </ModalHeader>
@@ -558,7 +521,7 @@ export class Product extends Component {
                         </form>
                     </ModalBody>
                 </Modal>
-            </> 
+            </>
         )
     }
 }

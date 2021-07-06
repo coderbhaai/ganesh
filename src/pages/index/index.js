@@ -61,8 +61,8 @@ export class index extends Component {
             <>
                 <Header cart={this.state.cart.length}/>
                 <section className="banner">
-                    <img src="/images/static/banner.jpg" className="web" alt="book pandit online"/>
-                    <img src="/images/static/banner-m.jpg" className="mobile" alt="online pandit booking"/>
+                    <img src="/images/static/banner.jpg" className="web" alt="book pandit online" width="407" height="408"/>
+                    <img src="/images/static/banner-m.jpg" className="mobile" alt="online pandit booking" width="1800" height="750"/>
                     <div className="caption">
                         <h1>BOOK YOUR PANDIT JI ONLINE FOR</h1>
                         <p className="hindi">Office Opening Puja</p>
@@ -83,7 +83,7 @@ export class index extends Component {
                             <a className="amitBtn" href="/about-us">Read More</a>
                         </div>
                         <div className="col-sm-3">
-                            <img src="/images/static/puja.jpg" className="web" alt=""/>
+                            <img src="/images/static/puja.jpg" className="web" alt="Book an online pandit" width="240" height="322"/>
                         </div>
                     </div>
                 </div>
@@ -127,7 +127,7 @@ export class index extends Component {
                                         <div key={index}>
                                             <ul>
                                                 <li className="client">
-                                                    <img src={"/images/static/"+i.image} alt={i.alt}/>
+                                                    <img src={"/images/static/"+i.image} alt={i.alt} width="180" height="103"/>
                                                     <h3>{i.name}</h3>
                                                     {/* <p>Web Developer</p> */}
                                                 </li>
@@ -162,7 +162,7 @@ export class index extends Component {
                             </div>
                             <div className="col-sm-3 side">
                             </div>
-                            <img src="/images/static/side.png" className="side" alt="pandit ji in delhi ncr"/>
+                            <img src="/images/static/side.png" className="side" alt="pandit ji in delhi ncr" width="292" height="512"/>
                         </div>
                     </div>
                 </section>

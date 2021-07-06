@@ -18,11 +18,8 @@ const config = [{
         Terms: [path.resolve('src', 'components', 'pages', 'Terms.js')],
         About: [path.resolve('src', 'components', 'pages', 'About.js')],
         Astrology: [path.resolve('src', 'components', 'pages', 'Astrology.js')],
-        
-        // Register: [path.resolve('src', 'components', 'auth', 'Register.js')],
-        // Login: [path.resolve('src', 'components', 'auth', 'Login.js')],
-        // ForgotPassword: [path.resolve('src', 'components', 'auth', 'ForgotPassword.js')],
-        // ResetPassword: [path.resolve('src', 'components', 'auth', 'ResetPassword.js')],
+        ProductCategory: [path.resolve('src', 'components', 'pages', 'ProductCategory.js')],
+        ProdCatItems: [path.resolve('src', 'components', 'pages', 'ProdCatItems.js')],
         
         Blog: [path.resolve('src', 'components', 'blog', 'Blog.js')],
         Category: [path.resolve('src', 'components', 'blog', 'Blog.js')],
@@ -111,11 +108,8 @@ const config = [{
         new HtmlWebpackPlugin({ chunks: ['Terms'], filename: '../views/pages/Terms.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['About'], filename: '../views/pages/About.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['Astrology'], filename: '../views/pages/Astrology.ejs', template: path.join('src', 'views', 'index.ejs') }),
-
-        // new HtmlWebpackPlugin({ chunks: ['Register'], filename: '../views/auth/Register.ejs', template: path.join('src', 'views', 'index.ejs') }),
-        // new HtmlWebpackPlugin({ chunks: ['Login'], filename: '../views/auth/Login.ejs', template: path.join('src', 'views', 'index.ejs') }),
-        // new HtmlWebpackPlugin({ chunks: ['ForgotPassword'], filename: '../views/auth/ForgotPassword.ejs', template: path.join('src', 'views', 'index.ejs') }),
-        // new HtmlWebpackPlugin({ chunks: ['ResetPassword'], filename: '../views/auth/ResetPassword.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['ProductCategory'], filename: '../views/pages/ProductCategory.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['ProdCatItems'], filename: '../views/pages/ProdCatItems.ejs', template: path.join('src', 'views', 'index.ejs') }),
 
         new HtmlWebpackPlugin({ chunks: ['Blog'], filename: '../views/blog/Blog.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['Single'], filename: '../views/blog/Single.ejs', template: path.join('src', 'views', 'index.ejs') }),

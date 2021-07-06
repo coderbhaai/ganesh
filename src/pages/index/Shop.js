@@ -128,26 +128,9 @@ export class Shop extends Component {
                     <div style={{'overflow':'hidden'}}>
                         <div className="imgBox">
                             <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></a>
-                            {/* { this.state.cart.some(x => x[1] === i.id) ? 
-                                <div className="cartBtnGroup flex-sb">
-                                    <div className="plusMinus">
-                                        <img src="/images/icons/plus.svg" alt="" onClick={()=>this.addToCart(i)} style={{marginRight: '10px'}}/>
-                                        <img src="/images/icons/minus.svg" alt="" onClick={()=>this.removeFromCart(i)}/>
-                                    </div>
-                                </div>
-                            : null }
-                            { this.state.cart.some(x => x[1] === i.id) ?
-                                <div className="itemAdded">
-                                    { this.state.cart.filter(o => o[1] === i.id).map(( o, index) => { return ( 
-                                        <p key={index}>{o[0]} X &#8377;{o[4]} = &#8377;{o[0]*o[4]}</p> 
-                                    )})}
-                                </div>
-                            : null} */}
                         </div>
-                        {/* <p className="usage">Ideal for all Puja like</p> */}
                         <div className="productDetail">
                             <h3>{i.name}</h3>
-                            {/* <p>Price: Rs {i.price}</p> */}
                             <p>
                                 <span className={i.sale ? "price strike" : "price"}>
                                     <span className="rs">&#8377; </span>{i.price}
@@ -162,10 +145,6 @@ export class Shop extends Component {
                                     <span className="button-slanted-content">Add To cart</span>
                                 </div>
                             </div>
-                            {/* <ul>
-                                <li><a href={"/product/"+i.url}>View Detail</a></li>
-                                <li onClick={()=>this.addToCart(i)}>Add To cart</li>
-                            </ul> */}
                         </div>
                     </div>
                 </div>

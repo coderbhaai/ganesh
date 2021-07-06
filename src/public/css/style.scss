@@ -4,17 +4,19 @@
 @import '_semantic';
 @import '_blog';
 @import '_store';
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Yusei+Magic&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Yusei+Magic&display=swap');
 @font-face {
    font-family: 'XXII ARABIAN-ONENIGHTSTAND Bold';
    font-style: normal;
    font-weight: normal;
    src: local('../fonts/XXII ARABIAN-ONENIGHTSTAND Bold'), url('../fonts/XXII ARABIAN-ONENIGHTSTAND.woff') format('woff');
+   display: swap;
 }
 @font-face {
 	font-family: 'fontscorecomttwcenmt';
 	src: url('../fonts/fontscorecomttwcenmt.eot');
 	src: local('../fonts/fontscorecomttwcenmt'), url('../fonts/fontscorecomttwcenmt.woff') format('woff'), url('../fonts/fontscorecomttwcenmt.ttf') format('truetype');
+   display: swap;
 }
 body, .form-control{
    -webkit-user-select: none;
@@ -624,6 +626,18 @@ footer{
 }
 .redColor{
    color: Red;
+}
+.productCategory{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   li{
+      a{
+         padding: 10px 1em;
+         color: $text;
+      }
+   }
 }
 @media (max-width:1400px) {
    .nav-link {
