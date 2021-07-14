@@ -27,6 +27,7 @@ export class Meta extends Component {
             pendingCat:            [],
             pendingTag:            [],
             pendingProduct:        [],
+            pendingProdCat:        []
         }
     }
 
@@ -52,6 +53,7 @@ export class Meta extends Component {
             pendingCat:            body.pending[1],
             pendingTag:            body.pending[2],
             pendingProduct:        body.pending[3],
+            pendingProdCat:        body.pending[4]
         })
     }
 
@@ -182,6 +184,7 @@ export class Meta extends Component {
                                         {this.state.pendingCat.map((i,index)=>( <li key={index} className="list">{i.url}</li> ))}
                                         {this.state.pendingTag.map((i,index)=>( <li key={index} className="list">{i.url}</li> ))}
                                         {this.state.pendingProduct.map((i,index)=>( <li key={index} className="list">{i.url}</li> ))}
+                                        {this.state.pendingProdCat.map((i,index)=>( <li key={index} className="list">{i.url}</li> ))}
                                     </ul>
                                 </div>
                             : null }

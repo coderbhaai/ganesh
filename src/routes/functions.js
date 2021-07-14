@@ -140,7 +140,8 @@ export function pendingMeta() {
         let sql =   `SELECT CONCAT('/', a.url) as url from blogs as a left join metas as b on b.url = CONCAT('/', a.url) WHERE b.url IS NULL;
         SELECT CONCAT('/category/', a.url) as url from blog_metas as a left join metas as b on b.url = CONCAT('/category/', a.url) WHERE b.url IS NULL AND a.type='category';
         SELECT CONCAT('/tag/', a.url) as url from blog_metas as a left join metas as b on b.url = CONCAT('/tag/', a.url) WHERE b.url IS NULL AND a.type='tag';
-        SELECT CONCAT('/product/', a.url) as url from products as a left join metas as b on b.url = CONCAT('/product/', a.url) WHERE b.url IS NULL;`
+        SELECT CONCAT('/product/', a.url) as url from products as a left join metas as b on b.url = CONCAT('/product/', a.url) WHERE b.url IS NULL;
+        SELECT CONCAT('/product-category/', a.tab1) as url from basic as a left join metas as b on b.url = CONCAT('/product-category/', a.tab1) WHERE b.url IS NULL AND a.type='Category';`
         pool.query(sql,[1,2,3,4], (err, rows) => {
             try{
                 if(err) throw err;
@@ -677,7 +678,7 @@ function sendMailOnError(e) {
     let transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'amit@amitkk.com', pass: 'coderBhai@2203',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
     let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', subject: "Error on ✔ www.pujarambh.com", html: mailBody }
     transporter.sendMail( mailOptions, (error, info)=>{
-        res.send({ success: true, message: "Please check your mail" })
+        // res.send({ success: true, message: "Please check your mail" })
     })
 }
   

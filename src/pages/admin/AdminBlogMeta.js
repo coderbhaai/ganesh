@@ -123,7 +123,7 @@ class AdminBlogMeta extends Component {
             url:                this.state.url
         }             
         axios.post('/admin/deleteBlogMeta', data)
-        .catch(err=>console.log('err', err))
+        .catch(err=>{ func.printError(err) })
             .then(res=>{
                 if(res.data.success){
                     var metas = this.state.metas.filter(i=>i.id != id)

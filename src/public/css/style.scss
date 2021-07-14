@@ -639,6 +639,40 @@ footer{
       }
    }
 }
+.swal-overlay{
+   background: transparent;
+   pointer-events: none;
+   .swal-modal{
+   position: absolute;
+   bottom: 10%;
+   right: 0;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin: 0;
+   width: fit-content;
+   background: $primary;
+   .swal-title{
+       margin: 0;
+       font-size: 16px;
+       font-weight: 400;
+       text-align: left;
+       padding: 0 2em 0 1em;
+       color: #fff;
+   }
+   .swal-footer{
+       margin: 0;
+       padding: 0;
+       .swal-button-container{
+       .swal-button{
+           background: $action;
+           color: #fff;
+           border: 1px solid #fff;
+       }
+       }
+   }
+   }
+}
 @media (max-width:1400px) {
    .nav-link {
       padding: 1.5rem 1rem;

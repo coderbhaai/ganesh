@@ -121,11 +121,11 @@ router.get('/fetchProductCategory', asyncMiddleware( async (req, res, next) => {
   })
 }))
 
-router.get('/product-category/:url', asyncMiddleware( async (req, res, next) => { 
+router.get('/product-category/:url', asyncMiddleware( async (req, res, next) => {
   const meta = await func.getMeta(req.url, 'page')
-  let sql =    ` SELECT id FROM basic WHERE tab1 = '${req.params.url}';`
+  let sql =    `SELECT id FROM basic WHERE tab1 = '${req.params.url}';`
     pool.query(sql, async(err, results) => {
-        try{    
+        try{
             if(err){ throw err }
             if(results.length){
               const products = await func.getProductsOfCat(results[0].id)
@@ -216,7 +216,7 @@ router.get('/fetchProdCatItems/:url', asyncMiddleware( async (req, res, next) =>
   }))
 
   router.get('/suggest', asyncMiddleware( async (req, res, next) => {
-    let sql = `SELECT title, url, coverImg, created_at FROM blogs ORDER BY id DESC LIMIT 6`
+    let sql = `SELECT title, url, smallImg, created_at FROM blogs ORDER BY id DESC LIMIT 6`
     pool.query(sql, (err, results) => {
       try{
         if(err) throw err;

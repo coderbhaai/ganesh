@@ -26,7 +26,7 @@ export class FourOFour extends Component {
         })
     }
 
-    render() {        
+    render() {
         return ( 
             <>
                 <Header/>

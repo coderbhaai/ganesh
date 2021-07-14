@@ -10,6 +10,7 @@ export class RefSitemap extends Component {
             blogs:                  [],
             products:               [],
             blogMeta:               [],
+            prodCat:                [],
             pages:                  [ 
                 "cart", "shop", "blog", "sign-up", "about-us", "privacy-policy", "terms-and-condition", "free-kundli", "thank-you", "404"
             ],
@@ -28,7 +29,8 @@ export class RefSitemap extends Component {
         this.setState({
             blogs:                  body.blogs,
             products:               body.products,
-            blogMeta:               body.blogMeta
+            blogMeta:               body.blogMeta,
+            prodCat:                body.prodCat,
         })
     }
     
@@ -88,6 +90,15 @@ export class RefSitemap extends Component {
                                         <p className="ml2">{`<loc>https://www.pujarambh.com/${i.type}/${i.url}</loc>`}</p>
                                         <p className="ml2">{`<lastmod>${time}+00:00</lastmod>`}</p>
                                         <p className="ml2">{`<priority>.70</priority>`}</p>
+                                    <p>{'</url>'}</p>
+                                </div>
+                            ))}
+                            {this.state.prodCat.map((i,index)=>(
+                                <div className="ml1" key={index}>
+                                    <p>{'<url>'}</p>
+                                        <p className="ml2">{`<loc>https://www.pujarambh.com/product-category/${i.tab1}</loc>`}</p>
+                                        <p className="ml2">{`<lastmod>${time}+00:00</lastmod>`}</p>
+                                        <p className="ml2">{`<priority>.60</priority>`}</p>
                                     <p>{'</url>'}</p>
                                 </div>
                             ))}

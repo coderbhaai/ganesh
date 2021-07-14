@@ -951,11 +951,12 @@ router.get('/schemaData', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
 router.get('/sitemapData', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let sql = `SELECT url  FROM blogs;
                 SELECT url FROM products;
-                SELECT type, name, url FROM blog_metas;`
-    pool.query(sql,[1,2,3], (err, results) => {
+                SELECT type, name, url FROM blog_metas WHERE type ='category' OR type = 'tag';
+                SELECT tab1 FROM basic WHERE type = 'Category';`
+    pool.query(sql,[1,2,3,4], (err, results) => {
         try{
             if(err){ throw err }
-            if(results){ res.send({ blogs: results[0], products: results[1], blogMeta: results[2] }); }
+            if(results){ res.send({ blogs: results[0], products: results[1], blogMeta: results[2], prodCat: results[3] }); }
         }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))

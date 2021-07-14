@@ -151,7 +151,11 @@ export class Basic extends Component {
                     <td>{index +1}</td>
                     <td>{i.type == 'CouponType' ? 'Coupon Type' : i.type}</td>
                     <td>{i.type=='Carousel' ? <img src={"/images/basic/"+i.name} className="preview"/> : i.name}</td>
-                    <td>{i.tab1}</td>
+                    <td>
+                        {i.type == 'Category'?
+                            <a href={"/product-category/"+i.tab1} target="_blank">{i.tab1}</a>
+                        : i.tab1}
+                    </td>
                     <td>{i.tab2}</td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editModalOn(i)}/></td>
                 </tr>
