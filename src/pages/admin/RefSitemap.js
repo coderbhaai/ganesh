@@ -12,7 +12,7 @@ export class RefSitemap extends Component {
             blogMeta:               [],
             prodCat:                [],
             pages:                  [ 
-                "cart", "shop", "blog", "sign-up", "about-us", "privacy-policy", "terms-and-condition", "free-kundli", "thank-you", "404"
+                "about-us", "free-kundli"
             ],
         }
     }
