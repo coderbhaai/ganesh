@@ -236,7 +236,7 @@ export class Basic extends Component {
                                             <input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/>
                                         </div> 
                                         <div className="col-sm-4">
-                                            <label>Category Image</label>
+                                            <label>Category Image (450px X 250px)</label>
                                             <input className="form-control" type="file" onChange={this.uploadImage}/>
                                         </div>
                                         <div className="col-sm-8">
@@ -286,7 +286,7 @@ export class Basic extends Component {
                                         </div> 
                                         <div className="col-sm-4">
                                             <img src={"/images/category/"+this.state.oldImage} className="previewImg"/>
-                                            <label>Category Image</label>
+                                            <label>Category Image (450px X 250px)</label>
                                             <input className="form-control" type="file" onChange={this.uploadImage}/>
                                         </div>
                                         <div className="col-sm-8">

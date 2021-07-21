@@ -148,7 +148,7 @@ export class UpdateBlog extends Component {
                                     <div className="col-sm-4">
                                         {this.state.previewSmallImg? <img src={this.state.previewSmallImg } alt="" className="img-fluid tableImg"/> : null}
                                         <img src={"/images/blog/"+this.state.oldSmallBlogImage } alt="" className="img-fluid tableImg"/>
-                                        <label>Small Image</label>
+                                        <label>Small Image (450px X 250px)</label>
                                         <input className="form-control" type="file" onChange={this.smallBlogImage}/>
                                     </div>
                                     <div className="col-sm-12 mb-3">
