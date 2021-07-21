@@ -16,6 +16,15 @@
     margin-bottom: 1.5em;
     &:hover {
         box-shadow: 0 14px 28px rgba(191,191,191,.25), 0 10px 10px rgba(132,132,132,.22);
+        a{
+            div{
+                overflow: hidden;
+                img{
+                    transform: scale(1.05);
+                    transition: transform 0.6s ease-out;
+                }
+            }
+        }
     }
 }
 .blogs{

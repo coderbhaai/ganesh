@@ -370,6 +370,7 @@ router.get('/adminBasic', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
 
 router.post('/addBasic', asyncMiddleware( async(req, res, next) => {
     let post= {
+        "name":                         req.body.name,
         "type":                         req.body.type,
         "tab1":                         req.body.tab1,
         "tab2":                         req.body.tab2,
@@ -380,23 +381,22 @@ router.post('/addBasic', asyncMiddleware( async(req, res, next) => {
         if(req.files.image){
             var file = req.files.image
             var imageName = file.name
-            post.name = imageName
-            file.mv(storage+'basic/'+imageName, function(err){ if(err){ func.logError(err) } })
+            if(req.body.type=='Category'){
+                file.mv(storage+'category/'+imageName, function(err){ if(err){ func.logError(err) } })
+                post.tab2 = imageName
+            }else{
+                file.mv(storage+'basic/'+imageName, function(err){ if(err){ func.logError(err) } })
+                post.name = imageName
+            }
         }
-    }else{
-        post.name = req.body.name
     }
     let sql = 'INSERT INTO basic SET ?'
-    pool.query(sql, post, (err, results) => {
+    pool.query(sql, post, async(err, results) => {
         try{
             if(err){ throw err }
             if(results){
-                let sql = `SELECT id, type, name, tab1, tab2 FROM basic ORDER BY id DESC LIMIT 1`
-                pool.query(sql, (err2, results2) => {
-                    try{ if(err2) throw err;
-                        res.send({ success: true, data: results2[0], message: 'Basic added successfuly' });
-                    }catch(e){ func.logError(e); res.status(403); return; }
-                })
+                const data = await func.getBasic(results.insertId)
+                res.send({ success: true, data: data, message: 'Basic added successfuly' });
             }
         }catch(e){ func.logError(e); res.status(403); return; }
     })
@@ -404,6 +404,7 @@ router.post('/addBasic', asyncMiddleware( async(req, res, next) => {
 
 router.post('/updateBasic', [func.verifyToken, func.verifyAdmin], asyncMiddleware( async(req, res) => {
     let post= {
+        "name":                         req.body.name,
         "type":                         req.body.type,
         "tab1":                         req.body.tab1,
         "tab2":                         req.body.tab2,
@@ -413,27 +414,24 @@ router.post('/updateBasic', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
         if(req.files.image){
             var file = req.files.image
             var imageName = file.name
-            post.name = imageName
-            file.mv(storage+'basic/'+imageName, function(err){ if(err){ func.logError(err) } })
-            if (fs.existsSync(storage+'basic/'+req.body.oldImage)) { fs.unlinkSync(storage+'basic/'+req.body.oldImage) }
+            if(req.body.type=='Category'){
+                file.mv(storage+'category/'+imageName, function(err){ if(err){ func.logError(err) } })
+                if (fs.existsSync(storage+'category/'+req.body.oldImage && req.body.oldImage)) { fs.unlinkSync(storage+'category/'+req.body.oldImage) }
+                post.tab2 = imageName
+            }else{
+                file.mv(storage+'basic/'+imageName, function(err){ if(err){ func.logError(err) } })
+                if (fs.existsSync(storage+'basic/'+req.body.oldImage)) { fs.unlinkSync(storage+'basic/'+req.body.oldImage) }
+                post.name = imageName
+            }
         }
-    }else{
-        post.name = req.body.name
     }
     let sql = `UPDATE basic SET ? WHERE id = ${req.body.id}`;
-    pool.query(sql, post, (err, results) => {
+    pool.query(sql, post, async(err, results) => {
         try{
             if(err){ throw err }
             if(results){
-                let sql = `SELECT id, type, name, tab1, tab2 FROM basic WHERE id = ${req.body.id}`
-                pool.query(sql, (err2, results2) => {
-                    try{
-                        if(err2){ throw err2 }
-                        if(results2){
-                            res.send({ success: true, data: results2[0], message: 'Basic updated successfuly' });
-                        }
-                    }catch(e){ func.logError(e); res.status(403); return; }
-                })
+                const data = await func.getBasic(req.body.id)
+                res.send({ success: true, data: data, message: 'Basic updated successfuly' });
             }
         }catch(e){ func.logError(e); res.status(403); return; }
     })

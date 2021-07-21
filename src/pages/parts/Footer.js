@@ -23,7 +23,7 @@ export class Footer extends Component {
                         <div className="col-sm-6">
                             <h3>Socialize with Social</h3>
                             <ul>
-                                <li><a href="https://www.facebook.com/Pujarambh" target="_blank"><img src="/images/icons/facebook-white.svg" alt="Connect with Pujarambh on Facebook" width="15" height="15"/></a></li>
+                                <li><a href="https://www.facebook.com/pujarambh1" target="_blank"><img src="/images/icons/facebook-white.svg" alt="Connect with Pujarambh on Facebook" width="15" height="15"/></a></li>
                                 <li><a href="https://www.linkedin.com/in/pujarambh-the-beginning-092877207/" target="_blank"><img src="/images/icons/linkedin-white.svg" alt="Connect with Pujarambh on Linkedin" width="15" height="15"/></a></li>
                                 <li><a href="https://twitter.com/pujarambh" target="_blank"><img src="/images/icons/twitter-white.svg" alt="Connect with Pujarambh on Twitter" width="15" height="15"/></a></li>
                                 <li><a href="https://www.instagram.com/_pujarambh_/" target="_blank"><img src="/images/icons/instagram-white.svg" alt="Connect with Pujarambh on Instagram" width="15" height="15"/></a></li>

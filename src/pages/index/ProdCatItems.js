@@ -54,8 +54,16 @@ export class ProdCatItems extends Component {
                     <div className="container page py-5">
                         {this.state.name ? 
                             <>
-                                <h1 className="heading my-3"> Products of {this.state.name} category</h1> 
-                                <p className="text-center">Below are some fo the product categories you might like to check.</p>
+                                <h1 className="heading my-3"> Products of {this.state.name} category</h1>
+                                {this.state.products.length?
+                                    <p className="text-center">Below are some fo the product categories you might like to check.</p>
+                                    :
+                                    <>
+                                        <p className="text-center">We are yet to add products for this category. Do check out our shop directly</p>
+                                        <div className="my-div"><a class="amitBtn" href="/shop">Shop</a></div>
+                                    </>
+
+                                }
                             </>
                         : null }
                         <div className="row my-5">

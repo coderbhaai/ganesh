@@ -54,6 +54,7 @@ export class Header extends Component {
                         <ul className="navbar-nav ml-auto">
                             <li className="nav-item"><a className="nav-link active" href="/">Home</a></li>
                             <li className="nav-item"><a className="nav-link" href="/shop">Shop</a></li>
+                            <li className="nav-item"><a className="nav-link" href="/product-category">Categories</a></li>
                             <li className="nav-item"><a className="nav-link" href="/blog">Blog</a></li>
                             {this.state.user.role?
                                 <>
@@ -80,7 +81,7 @@ export class Header extends Component {
                         </ul>
                         <div className="header-social">
                             <div>
-                                <a href="https://www.facebook.com/Pujarambh" target="_blank"><img src="/images/icons/facebook-white.svg" alt="Connect with Pujarambh on Facebook" width="15" height="15"/></a>
+                                <a href="https://www.facebook.com/pujarambh1" target="_blank"><img src="/images/icons/facebook-white.svg" alt="Connect with Pujarambh on Facebook" width="15" height="15"/></a>
                                 <a href="https://www.linkedin.com/in/pujarambh-the-beginning-092877207/" target="_blank"><img src="/images/icons/linkedin-white.svg" alt="Connect with Pujarambh on Linkedin" width="15" height="15"/></a>
                                 <a href="https://twitter.com/pujarambh" target="_blank"><img src="/images/icons/twitter-white.svg" alt="Connect with Pujarambh on Twitter" width="15" height="15"/></a>
                                 <a href="https://www.instagram.com/_pujarambh_/" target="_blank"><img src="/images/icons/instagram-white.svg" alt="Connect with Pujarambh on Instagram" width="15" height="15"/></a>

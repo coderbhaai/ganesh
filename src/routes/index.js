@@ -112,7 +112,7 @@ router.get('/product-category', asyncMiddleware( async (req, res, next) => {
 }))
 
 router.get('/fetchProductCategory', asyncMiddleware( async (req, res, next) => {
-  let sql =    `SELECT name, tab1 from basic where type = 'Category';`
+  let sql =    `SELECT name, tab1, tab2 from basic where type = 'Category';`
   pool.query(sql, (err, results) => {
     try{
       if(err){ throw err }

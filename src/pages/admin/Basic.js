@@ -69,12 +69,12 @@ export class Basic extends Component {
         const data = new FormData()
         data.append('name', this.state.name)
         data.append('type', this.state.type)
+        data.append('tab2', this.state.tab2)
         if(this.state.type=='Category'){
             data.append('tab1', this.state.tab1.replace(/ /g,"-").toLowerCase())
         }else{
             data.append('tab1', this.state.tab1)
         }
-        data.append('tab2', this.state.tab2)
         data.append('image', this.state.image)
         axios.post('/admin/addBasic', data)
             .catch(err=>{ func.printError(err) })
@@ -96,7 +96,12 @@ export class Basic extends Component {
             tab2:                       i.tab2,
             oldImage:                   i.name,
             selectedId:                 i.id  
-        })        
+        })
+        if(i.type=='Category'){
+            this.setState({
+                oldImage:                   i.tab2
+            })
+        }
     }
 
     updateBasic = (e) => {
@@ -105,12 +110,12 @@ export class Basic extends Component {
         data.append('id', this.state.selectedId)
         data.append('name', this.state.name)
         data.append('type', this.state.type)
+        data.append('tab2', this.state.tab2)
         if(this.state.type=='Category'){
             data.append('tab1', this.state.tab1.replace(/ /g,"-").toLowerCase())
         }else{
             data.append('tab1', this.state.tab1)
         }
-        data.append('tab2', this.state.tab2)
         data.append('image', this.state.image)
         data.append('oldImage', this.state.oldImage)
         axios.post('/admin/updateBasic', data)
@@ -156,7 +161,11 @@ export class Basic extends Component {
                             <a href={"/product-category/"+i.tab1} target="_blank">{i.tab1}</a>
                         : i.tab1}
                     </td>
-                    <td>{i.tab2}</td>
+                    <td>
+                        {i.type == 'Category'?
+                            <img src={"/images/category/"+i.tab2} className="previewImg"/>
+                        : i.tab2}
+                    </td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editModalOn(i)}/></td>
                 </tr>
         )})
@@ -222,13 +231,17 @@ export class Basic extends Component {
                                 </div>
                                 {this.state.type==='Category'? 
                                     <>
-                                        <div className="col-sm-4">
+                                        <div className="col-sm-8">
                                             <label>Product Category</label>
                                             <input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/>
                                         </div> 
                                         <div className="col-sm-4">
+                                            <label>Category Image</label>
+                                            <input className="form-control" type="file" onChange={this.uploadImage}/>
+                                        </div>
+                                        <div className="col-sm-8">
                                             <label>URL</label>
-                                            <input name="tab1" type="text" className="form-control" placeholder="Quantity" value={this.state.tab1} required onChange={this.onChange}/>
+                                            <input name="tab1" type="text" className="form-control" placeholder="URL" value={this.state.tab1} required onChange={this.onChange}/>
                                         </div>
                                     </>
                                 : null }
@@ -272,8 +285,13 @@ export class Basic extends Component {
                                             <input name="name" type="text" className="form-control" placeholder="Product Category" value={this.state.name} required onChange={this.onChange}/>
                                         </div> 
                                         <div className="col-sm-4">
+                                            <img src={"/images/category/"+this.state.oldImage} className="previewImg"/>
+                                            <label>Category Image</label>
+                                            <input className="form-control" type="file" onChange={this.uploadImage}/>
+                                        </div>
+                                        <div className="col-sm-8">
                                             <label>URL</label>
-                                            <input name="tab1" type="text" className="form-control" placeholder="Quantity" value={this.state.tab1} required onChange={this.onChange}/>
+                                            <input name="tab1" type="text" className="form-control" placeholder="URL" value={this.state.tab1} required onChange={this.onChange}/>
                                         </div>
                                     </>
                                 : null }

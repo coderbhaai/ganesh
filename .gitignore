@@ -1,3 +1,8 @@
+/src/public/images/blog/
+/src/public/images/category/
+/src/public/images/cover/
+/src/public/images/product/
+
 # Logs
 logs
 *.log

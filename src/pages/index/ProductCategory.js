@@ -31,11 +31,25 @@ export class ProductCategory extends Component {
                     <div className="container page py-5">
                         <h1 className="heading my-3"> Product Categories</h1>
                         <p className="text-center">Below are some fo the product categories you might like to check.</p>
-                        <ul className="productCategory my-5">
+                        <div className="row productCategory my-5">
                             {this.state.category.map((i,index)=>(
-                                <li key={index}><a href={"/product-category/"+i.tab1}>{i.name}</a></li>
+                                <div className="col-sm-4" key={index}>
+                                    <div className="card">
+                                        <a href={"/product-category/"+i.tab1}>
+                                            <div>
+                                                {i.tab2?
+                                                    <img src={"/images/category/"+ i.tab2 } alt={i.tab2.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
+                                                :   <img src="/images/logo.svg" className="logo" alt="Pujarambh Logo" width="100" height="57"/>
+                                                }
+                                            </div>
+                                            <div className="name">
+                                                <h2>{i.name}</h2>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             ))}
-                        </ul>
+                        </div> 
                     </div>
                 : null}
                 <Footer/>

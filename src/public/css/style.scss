@@ -628,14 +628,23 @@ footer{
    color: Red;
 }
 .productCategory{
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-wrap: wrap;
-   li{
+   .col-sm-4{
       a{
-         padding: 10px 1em;
-         color: $text;
+         img.logo{
+            margin: 0 auto;
+         }
+         .name h2{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            margin: 10px 0 5px;
+            text-align: center;
+            font-size: 1em;
+            font-weight: 600;
+            color: #282828;
+        }
       }
    }
 }

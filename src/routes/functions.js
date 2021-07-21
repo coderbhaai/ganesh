@@ -400,6 +400,18 @@ export function getCatFilterProducts(data){
     });
 }
 
+export function getBasic(id) {
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT id, type, name, tab1, tab2 FROM basic WHERE id='${id}'`
+      pool.query(sql, (err, rows) => {
+        try{
+            if(err){ throw err }
+            if(rows){ resolve(rows[0] ) }
+        }catch(e){ logError(e); return; }
+      });
+    });
+}
+
 export function getCoupon(id) {
     return new Promise((resolve, reject) => {
         let sql = `SELECT id, type, code, discount, dis_type, start, expiry, status, product, updated_at FROM coupon WHERE id='${id}'`
