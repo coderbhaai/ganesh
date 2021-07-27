@@ -66,12 +66,17 @@ export class ProdCatItems extends Component {
                                 }
                             </>
                         : null }
+                        <ul className="breadcrumb">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/shop">Shop</a></li>
+                            <li className="active">{this.state.name}</li>
+                        </ul>
                         <div className="row my-5">
                             {this.state.products.map((i,index)=>(
                                 <div className="col-sm-3 mb-3" key={index}>
                                     <div style={{'overflow':'hidden'}}>
                                         <div className="imgBox">
-                                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></a>
+                                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></a>
                                         </div>
                                         <div className="productDetail">
                                             <h3>{i.name}</h3>

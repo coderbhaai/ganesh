@@ -37,7 +37,7 @@ export class Blog extends Component {
                     <>
                         {this.state.blogs.length ?
                             <div className="blogBanner">
-                                <img src={"/images/blog/"+this.state.blogs[0].coverImg} alt={this.state.blogs[0].coverImg.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
+                                <img src={"/images/blog/"+this.state.blogs[0].coverImg} alt={this.state.blogs[0].coverImg.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
                                 {this.state.title? <section dangerouslySetInnerHTML={{ __html: this.state.title }} /> :null }
                             </div>
                         : null }

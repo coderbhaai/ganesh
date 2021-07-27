@@ -127,7 +127,12 @@ export class Shop extends Component {
                 <div className="col-sm-3 mb-3" key={index}>
                     <div style={{'overflow':'hidden'}}>
                         <div className="imgBox">
-                            <a href={"/product/"+i.url}><img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></a>
+                            <a href={"/product/"+i.url}>
+                                {JSON.parse(i.images)[0] ?
+                                    <img src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
+                                :   <img src="/images/logo.svg" class="logo" alt="Pujarambh Logo" width="100" height="57"></img>
+                                }
+                            </a>
                         </div>
                         <div className="productDetail">
                             <h3>{i.name}</h3>

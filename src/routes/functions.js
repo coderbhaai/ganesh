@@ -327,7 +327,7 @@ export function blogMetaData(id) {
 
 export function suggestBlogs() {
     return new Promise((resolve, reject) => {
-      let sql = `SELECT id, title as heading, url, excerpt, coverImg, smallImg FROM blogs;`
+      let sql = `SELECT id, title as heading, url, excerpt, coverImg, smallImg FROM blogs ORDER BY id DESC LIMIT 6;`
       pool.query(sql, (err, rows) => {
         try{
             if(err){ throw err }
@@ -469,6 +469,22 @@ export function similarCatProducts(array, id){
         }
     });
 }
+
+
+export function firstCatName(id){
+    return new Promise((resolve, reject) => {
+        let sql = `SELECT id, name, tab1 as url FROM basic WHERE id = ${id} AND type='Category';`
+        pool.query(sql, async (err, results) => {
+            try{ 
+                if(err) throw err;
+                resolve(results[0])
+            }catch(e){ logError(e); return; }
+        });
+        
+    });
+}
+
+
 
 // export function similarTagProducts(array, id) {
 //     return new Promise((resolve, reject) => {

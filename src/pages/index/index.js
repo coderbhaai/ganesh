@@ -6,7 +6,7 @@ import ProductSwiper from '../parts/ProductSwiper'
 import ServiceSwiper from '../parts/ServiceSwiper'
 const func = require('../parts/functions')
 
-export class index extends Component {
+export class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -65,8 +65,8 @@ export class index extends Component {
                     <img src="/images/static/banner-m.jpg" className="mobile" alt="online pandit booking" width="1800" height="750"/>
                     <div className="caption">
                         <h1>BOOK YOUR PANDIT JI ONLINE FOR</h1>
-                        <p className="hindi">Office Opening Puja</p>
-                        <a className="amitBtn btn" href="/product/office-opening-puja">Book Now</a>
+                        <p className="hindi">Shiv Rudrabhishek Vishesh</p>
+                        <a className="amitBtn btn" href="/product/shiv-rudrabhishek-vishesh">Book Now</a>
                         <p>Get flat 20% discount <br/> Use Coupon WELCOME20</p>
                     </div>
                 </section>
@@ -141,58 +141,36 @@ export class index extends Component {
                     </div>
                 </section>
                 {this.state.blogs?
-                <section className="blogList">
-                    <div className="container-fluid">
-                        <h2 className="hindi">Latest Blogs</h2>
-                        <div className="row">
-                            <div className="col-sm-1 blank"></div>
-                            <div className="col-sm-7 blogData">
-                                <h3 className="hindi">Blog Posts</h3>
-                                <ul>
-                                    {this.state.blogs.slice(0,3).map((i,index)=>(
-                                        <li className="mb-5" key={index}>
-                                            <a href={"/"+i.url}>
-                                                <h4>{i.heading}</h4>
-                                                <p className="singleLine">{i.excerpt}</p>
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <a href="/blog" className="amitBtn mb-5">Read More</a>
+                    <section className="blogList">
+                        <div className="container-fluid">
+                            <h2 className="hindi">Latest Blogs</h2>
+                            <div className="row">
+                                <div className="col-sm-1 blank"></div>
+                                <div className="col-sm-7 blogData">
+                                    <h3 className="hindi">Blog Posts</h3>
+                                    <ul>
+                                        {this.state.blogs.slice(0,3).map((i,index)=>(
+                                            <li className="mb-5" key={index}>
+                                                <a href={"/"+i.url}>
+                                                    <h4>{i.heading}</h4>
+                                                    <p className="singleLine">{i.excerpt}</p>
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <a href="/blog" className="amitBtn mb-5">Read More</a>
+                                </div>
+                                <div className="col-sm-3 side">
+                                </div>
+                                <img src="/images/static/side.png" className="side" alt="pandit ji in delhi ncr" width="292" height="512"/>
                             </div>
-                            <div className="col-sm-3 side">
-                            </div>
-                            <img src="/images/static/side.png" className="side" alt="pandit ji in delhi ncr" width="292" height="512"/>
                         </div>
-                    </div>
-                </section>
+                    </section>
                 : null}
-                {/* <section className="articles text-heading">
-                    <ul>
-                        <li>Articles</li>
-                        <li>Blogs</li>
-                    </ul>
-                </section>
-                {this.state.blogs?
-                    <div className="container articleList" >
-                        {this.state.blogs.slice(0,2).map((i,index)=>(
-                            <div className="row mb-5" key={index}>
-                                <div className={index%2 == 0 ? 'col-sm-4 order-1': 'col-sm-4 order-2'}>
-                                    <img src={"/images/blog/"+i.coverImg}/>
-                                </div>
-                                <div className={index%2 == 0 ? 'col-sm-8 blogData order-2': 'col-sm-8 blogData order-1'}>
-                                    <h2>{i.heading}</h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
-                                    <a href={"/"+i.url} className="amitBtn">Read More</a>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                : null} */}
                 <Footer/>
             </>
         )
     }
 }
 
-export default index
+export default Index

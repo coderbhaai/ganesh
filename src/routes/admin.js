@@ -688,6 +688,7 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
             if(err){ throw err }
             if(results.length){
                 const catProducts   = await func.similarCatProducts(JSON.parse(results[0].category), results[0].id )
+                const catName      = await func.firstCatName(JSON.parse(results[0].category)[0] )
                 const incList       = await func.productIncName(JSON.parse(results[0].inclusion))
                 const excList       = await func.productExcName(JSON.parse(results[0].exclusion))
                 const recomList     = await func.productRecomName(JSON.parse(results[0].recom))
@@ -701,6 +702,7 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
                     recomList:          recomList,
                     relatedList:        relatedList,
                     reviewList:         reviewList,
+                    catName:            catName
                 });
             }else{
                 res.redirect('/shop');

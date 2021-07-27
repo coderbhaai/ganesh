@@ -20,6 +20,7 @@ export class Product extends Component {
             product:                this.props.product,
             incList:                this.props.incList,
             excList:                this.props.excList,
+            catName:                this.props.catName,
             catProducts:            [],
             currentImg:             this.props.currentImg,
             topProducts:            [],
@@ -95,6 +96,7 @@ export class Product extends Component {
             reviews:                body.reviewList,
             recomList:              body.recomList,
             relatedList:            body.relatedList,
+            catName:                body.catName
         },()=> this.checkForReview( body.product.id ))
     }
 
@@ -276,19 +278,28 @@ export class Product extends Component {
         }
         return (
             <> 
-                <Header cart={this.state.cart.length}/>
+                <Header cart={this.state.cart.length}/>                
                 { this.state.product ?<section>
                     <div className="container singleProduct">
-                        <div className="row mt-5 py-3 product">
+                        <h1 className="heading my-3">{this.state.product.name}</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/shop">Shop</a></li>
+                            {this.state.catName.name?
+                                <li><a href={"/product-category/"+this.state.catName.url}>{this.state.catName.name}</a></li>
+                            : null}
+                        <li className="active">{this.state.product.name}</li>
+                        </ul>
+                        <div className="row py-3 product">
                             <div className="col-sm-3 mb-5 imgZoom">
                                 { this.state.product.images && this.state.currentImg ?
                                     <>
                                         <div className="thumbnail web">
-                                            {JSON.parse(this.state.product.images).map((i, index)=>( <img key={index} src={"/images/product/"+i} onClick={()=>this.changeImg(i)} alt={i.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>))}
+                                            {JSON.parse(this.state.product.images).map((i, index)=>( <img key={index} src={"/images/product/"+i} onClick={()=>this.changeImg(i)} alt={i.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>))}
                                         </div>
                                         <ReactImageMagnify {...{
                                             smallImage: {
-                                                alt: this.state.currentImg.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' '),
+                                                alt: this.state.currentImg.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' '),
                                                 isFluidWidth: true,
                                                 src: '/images/product/'+this.state.currentImg
                                             },
@@ -316,7 +327,7 @@ export class Product extends Component {
                             </div>
                             <div className="col-sm-6">
                                 {this.state.product.rating? <StarRating rating={JSON.parse( this.state.product.rating)[0]}/> : null }
-                                <h1>{this.state.product.name}</h1>
+                                <h2>{this.state.product.name}</h2>
                                 <p>
                                     <span className={this.state.product.sale ? "price strike" : "price"}>
                                         <span className="rs">&#8377; </span>{this.state.product.price+' /-'}
@@ -348,7 +359,7 @@ export class Product extends Component {
                                         {this.state.relatedList.map((i, index)=>(
                                             <div className="flex-sb mb-3" key={index}>
                                                 <a href={"/product/"+i.url}>
-                                                    <img key={index} src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
+                                                    <img key={index} src={"/images/product/"+JSON.parse(i.images)[0]} alt={JSON.parse(i.images)[0].replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
                                                     <div className=" w-100" style={{paddingLeft:'5px'}}>
                                                         <div className="text-center">
                                                             {i.rating? <StarRating rating={JSON.parse( i.rating)[0]}/> : null }

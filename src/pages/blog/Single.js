@@ -49,7 +49,7 @@ export class Single extends Component {
                 { this.state.data ? 
                     <>
                     <div className="single">
-                        <img src={"/images/blog/"+this.state.data.coverImg} alt={this.state.data.coverImg.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
+                        <img src={"/images/blog/"+this.state.data.coverImg} alt={this.state.data.coverImg.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')}/>
                         <div className="single-caption">
                             <h1>{this.state.data.title}</h1>
                         </div>

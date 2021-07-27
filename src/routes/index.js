@@ -86,19 +86,20 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
         try{    
             if(err){ throw err }
             if(results.length){
+                const catName      = await func.firstCatName(JSON.parse(results[0].category)[0] )
                 const catProducts   = await func.similarCatProducts(JSON.parse(results[0].category), results[0].id )
                 const incList       = await func.productIncName(JSON.parse(results[0].inclusion))
                 const excList       = await func.productExcName(JSON.parse(results[0].exclusion))
                 const recomList     = await func.productRecomName(JSON.parse(results[0].recom))
                 const relatedList   = await func.productRelatedName(JSON.parse(results[0].related))
                 const reviewList    = await func.productReview(JSON.parse( results[0].id ))
-                res.status(200).render('pages/Product', { reactApp: renderToString(<Product product={results[0]} incList={incList} catProducts={catProducts} excList={excList} recomList={recomList} relatedList={relatedList} reviewList={reviewList} />), meta: meta })
+                res.status(200).render('pages/Product', { reactApp: renderToString(<Product product={results[0]} incList={incList} catProducts={catProducts} excList={excList} recomList={recomList} relatedList={relatedList} reviewList={reviewList} catName={catName}/>), meta: meta })
             }else{ res.redirect('/shop'); }
         }catch(e){ func.logError(e); res.status(500); return; }
     })
 }))
 
-router.get('/product-category', asyncMiddleware( async (req, res, next) => { 
+router.get('/shop', asyncMiddleware( async (req, res, next) => {
   const meta = await func.getMeta(req.url, 'page')
   let sql =    `SELECT name, tab1 from basic where type = 'Category';`
     pool.query(sql, async(err, results) => {
@@ -468,7 +469,7 @@ router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { c
 // User Pages
 
 // Shopping
-router.get('/shop', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
+// router.get('/shop', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
 router.get('/category/:cat', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
 router.get('/subcategory/:subcat', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))
 router.get('/product-tag/:url', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Shop', { reactApp: renderToString(<Shop/>), meta: meta }) }))

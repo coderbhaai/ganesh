@@ -8,7 +8,7 @@ function BlogCarousel(props) {
                     {props.blogs.length ? <h2 className="heading">Interesting Reads</h2> : null}
                     <div className="row">
                     { props.blogs.sort(() => 0.5 - Math.random()).slice(0,3).map((i, index)=>{
-                        let alt = i.smallImg.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')
+                        let alt = i.smallImg.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')
                         return(
                             <div className="col-sm-4 " key={index}>
                                 <div className="card">

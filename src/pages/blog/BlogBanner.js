@@ -7,7 +7,7 @@ export class BlogBanner extends Component {
                 {this.props.blogs ?
                     <>
                         {this.props.blogs.slice(0, 1).map((i)=>{ 
-                            let alt = i.cover_img.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')
+                            let alt = i.cover_img.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')
                             return(
                                 <div className="carousel-item active" key={i.id}>
                                     <img src={"/images/blog/"+ i.cover_img} alt={alt} className="web"/>
@@ -19,7 +19,7 @@ export class BlogBanner extends Component {
                                 </div>
                             )})}
                         {this.props.blogs.slice(1, 3).map((i)=>{
-                            let alt = i.cover_img.replace('.jpg', '').replace(/_/g, ' ').replace(/-/g, ' ')
+                            let alt = i.cover_img.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')
                             return(
                                 <div className="carousel-item" key={i.id}>
                                     <img src={"/images/blog/"+ i.cover_img} alt={alt} className="web"/>
