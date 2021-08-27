@@ -276,3 +276,11 @@ input[readonly]{
         line-height: 1.2em;
     }
 }
+.schema{
+    .ckeContent{
+        display: inline;
+        >*{
+            display: inline;
+        }
+    }
+}

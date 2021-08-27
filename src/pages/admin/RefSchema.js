@@ -47,7 +47,11 @@ export class Schema extends Component {
                         : 
                         <p className="ml5">"aggregateRating": {'{'} "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" {'}'},</p>
                         }
-                        <p className="ml5">"description": "<section className="ckeContent" dangerouslySetInnerHTML={{ __html: i.shortDesc }}/>",</p>
+                        <p className="ml5">"description": "
+                        {i.shortDesc? 
+                        <section className="ckeContent" dangerouslySetInnerHTML={{ __html: i.shortDesc }}/>
+                        : i.name}
+                        ",</p>
                         <p className="ml5">"name": "{i.name}",</p>
                         <p className="ml5">"sku": "Pujarambh-{i.id}",</p>
                         <p className="ml5">"brand": "Pujarambh",</p>
@@ -62,7 +66,9 @@ export class Schema extends Component {
                             <p className="ml6">"priceValidUntil": "{moment(newDate).format("DD MMMM YYYY")}"</p>
                         <p className="ml5">{'},'}</p>
                         <p className="ml5">"review":{"["}</p>
-                            {this.state.reviews.filter(j=>j.productId == i.id).map((j,index2)=>(
+                            {}
+                        {this.state.reviews.filter(j=>j.productId == i.id).length?
+                            this.state.reviews.filter(j=>j.productId == i.id).map((j,index2)=>(
                                 <div key={index2}>
                                     <p className="ml6">{'{'}</p>
                                         <p className="ml7">"@type": "Review",</p>
@@ -71,15 +77,15 @@ export class Schema extends Component {
                                         <p className="ml7">"reviewBody": "<section className="ckeContent" dangerouslySetInnerHTML={{ __html: j.review }}/>",</p>
                                         <p className="ml7">"name": "Pujarambh Customer",</p>
                                         <p className="ml7">"reviewRating": {'{'}</p>
-                                            <p className="ml7">"@type": "Rating",</p>
-                                            <p className="ml7">"bestRating": "5",</p>
-                                            <p className="ml7">"ratingValue": "{j.rating}",</p>
-                                            <p className="ml7">"worstRating": "0"</p>
-                                        <p className="ml6">{'}'}</p>
-                                    <p className="ml6">{"},"}</p>
+                                            <p className="ml8">"@type": "Rating",</p>
+                                            <p className="ml8">"bestRating": "5",</p>
+                                            <p className="ml9">"ratingValue": "{j.rating}",</p>
+                                            <p className="ml8">"worstRating": "0"</p>
+                                        <p className="ml7">{'}'}</p>
+                                    { this.state.reviews.filter(j=>j.productId == i.id).length-1 == index2 ? <p className="ml6">{"}"}</p> :<p className="ml6">{"},"}</p> }
                                 </div>
-                            ))}
-                        {!this.state.reviews.filter(j=>j.productId == i.id).length?
+                            ))
+                        :
                             <div>
                                 <p className="ml6">{'{'}</p>
                                     <p className="ml7">"@type": "Review",</p>
@@ -88,17 +94,16 @@ export class Schema extends Component {
                                     <p className="ml7">"reviewBody": "The best product I had for my family.",</p>
                                     <p className="ml7">"name": "Pujarambh Customer",</p>
                                     <p className="ml7">"reviewRating": {'{'}</p>
-                                        <p className="ml7">"@type": "Rating",</p>
-                                        <p className="ml7">"bestRating": "5",</p>
-                                        <p className="ml7">"ratingValue": "5",</p>
-                                        <p className="ml7">"worstRating": "0"</p>
-                                    <p className="ml6">{'}'}</p>
+                                        <p className="ml8">"@type": "Rating",</p>
+                                        <p className="ml8">"bestRating": "5",</p>
+                                        <p className="ml8">"ratingValue": "5",</p>
+                                        <p className="ml8">"worstRating": "0"</p>
+                                    <p className="ml7">{'}'}</p>
                                 <p className="ml6">{"}"}</p>
                             </div>
-                        : null}
+                        }
                         <p className="ml5">{"]"}</p>
                         { <p className="ml4">{"},"}</p> }
-                        {/* { this.state.products.length-1 == index ? <p className="ml4">{"}"}</p> :<p className="ml4">{"},"}</p> } */}
                 </div>
             )
         })
