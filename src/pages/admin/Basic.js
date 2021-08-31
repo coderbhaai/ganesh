@@ -154,7 +154,7 @@ export class Basic extends Component {
             return (
                 <tr key={index}>
                     <td>{index +1}</td>
-                    <td>{i.type == 'CouponType' ? 'Coupon Type' : i.type}</td>
+                    <td>{i.type == 'CouponType' ? 'Coupon Type' : i.type == 'Mov' ? 'Minimum Order Value' : i.type}</td>
                     <td>{i.type=='Carousel' ? <img src={"/images/basic/"+i.name} className="preview"/> : i.name}</td>
                     <td>
                         {i.type == 'Category'?
@@ -227,6 +227,7 @@ export class Basic extends Component {
                                         <option value="Category">Product Category</option>
                                         <option value="Vendor">Add Vendor</option>
                                         <option value="Puja">Puja Items</option>
+                                        <option value="Mov">Minimum Order Value</option>
                                     </select>
                                 </div>
                                 {this.state.type==='Category'? 
@@ -258,6 +259,7 @@ export class Basic extends Component {
                                     </div>
                                 </>
                                 : null }
+                                {this.state.type==='Mov'? <div className="col-sm-8"><label>Minimum Order Value</label><input name="name" type="number" className="form-control" placeholder="Minimum Order Value" value={this.state.name} required onChange={this.onChange}/></div> : null }
                             </div>
                             <div className="my-div">
                                 <button className="amitBtn" type="submit">Submit<span></span></button> 
@@ -308,6 +310,7 @@ export class Basic extends Component {
                                         </div>
                                     </>
                                 : null }
+                                {this.state.type==='Mov'? <div className="col-sm-8"><label>Minimum Order Value</label><input name="name" type="number" className="form-control" placeholder="Minimum Order Value" value={this.state.name} required onChange={this.onChange}/></div> : null }
                             </div>
                             <div className="my-div">
                                 <button className="amitBtn" type="submit">Submit<span></span></button> 

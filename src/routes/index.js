@@ -148,6 +148,20 @@ router.get('/fetchProdCatItems/:url', asyncMiddleware( async (req, res, next) =>
     }catch(e){ func.logError(e); res.status(500); return; }
   })
 }))
+
+router.get('/movValue', asyncMiddleware( async (req, res, next) => {
+  let sql =    `SELECT name from basic where type = 'Mov';`
+    pool.query(sql, async(err, results) => {
+        try{
+            if(err){ throw err }
+            if(results[0]){
+              res.send({ mov: results[0].name });
+            }else{
+              res.send({ mov: 0 });
+            }
+        }catch(e){ func.logError(e); res.status(500); return; }
+    })
+}))
 // // Auth Pages
   router.get('/sign-up', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: meta }) }))
   router.get('/reset-password/:token', asyncMiddleware( async(req, res, next) => { res.status(200).render('pages/Auth', { reactApp: renderToString(<Auth/>), meta: [] }) }))

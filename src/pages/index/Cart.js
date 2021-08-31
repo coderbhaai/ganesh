@@ -11,6 +11,7 @@ export class Cart extends Component {
         this.state = {
             allOK:                  false,
             loading:                true,
+            mov:                    0,
             cart:                   [],
             cartId:                 [],
             pujaId:                 [],
@@ -50,7 +51,7 @@ export class Cart extends Component {
         }
     }
     
-    componentDidMount(){
+    componentDidMount=async()=>{
         window.scrollTo(0, 0)
         const url = window.location.href.split("/").pop()        
         if(typeof(Storage) !== "undefined"){ this.setState({ cart: JSON.parse(localStorage.getItem('cart')) || [] })}
@@ -115,6 +116,13 @@ export class Cart extends Component {
             localStorage.removeItem("discount");
             localStorage.removeItem("disAmount");
         }
+
+        const response = await fetch( '/movValue' ); 
+        const body = await response.json();
+        if (response.status !== 200) throw Error(body.message);
+        this.setState({
+            mov:          body.mov
+        })
     }
 
     onChange= (e) => { this.setState({ [e.target.name]: e.target.value },()=>this.getHash()) }
@@ -286,6 +294,7 @@ export class Cart extends Component {
     }
 
     render() {
+        console.log(`this.state.mov`, this.state.mov)
         if(!this.state.loading){
             return (
                 <>
@@ -361,11 +370,13 @@ export class Cart extends Component {
                                             {/* <p>&#8377;{this.reduceCart()}</p> */}
                                             <p>&#8377;{this.state.finalAmount}</p>
                                         </div>
-                                        <label>Apply Coupon *</label>
-                                        <input className="form-control" type="text" name="coupon" required placeholder="Apply Coupon" value={this.state.coupon} onChange={this.onChange}/>
-                                        <div className="my-div"><button className="amitBtn" disabled={this.state.coupon? false : true} onClick={this.applyCoupon}>Apply Coupon</button></div>
-
-
+                                        {this.state.finalAmount > this.state.mov?
+                                            <>
+                                                <label>Apply Coupon *</label>
+                                                <input className="form-control" type="text" name="coupon" required placeholder="Apply Coupon" value={this.state.coupon} onChange={this.onChange}/>
+                                                <div className="my-div"><button className="amitBtn" disabled={this.state.coupon? false : true} onClick={this.applyCoupon}>Apply Coupon</button></div>
+                                            </>
+                                        : null }
                                     </div>
                                 </div>
                                 <h2 className="heading">Shipping Address</h2>
