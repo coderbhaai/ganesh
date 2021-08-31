@@ -1,4 +1,4 @@
-// import swal from 'sweetalert'
+import swal from 'sweetalert'
 
 export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
 
