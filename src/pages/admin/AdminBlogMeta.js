@@ -129,7 +129,7 @@ class AdminBlogMeta extends Component {
                     var metas = this.state.metas.filter(i=>i.id != id)
                     this.setState({ metas: metas })
                 }
-                this.callSwal(res.data.message)
+                func.callSwal(res.data.message)
             })
         this.resetData()
     }

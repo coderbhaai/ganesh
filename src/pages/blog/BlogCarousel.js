@@ -15,7 +15,7 @@ function BlogCarousel(props) {
                                     <a href={"/" + i.url}>
                                         <div><img src={"/images/blog/"+ i.smallImg } alt={alt}/></div>
                                         <div className="name">
-                                            <h2>{i.heading}</h2>
+                                            <h2>{i.title}</h2>
                                         </div>
                                     </a>
                                 </div>

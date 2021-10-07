@@ -28,6 +28,7 @@ import About from "../pages/index/About"
 import Astrology from "../pages/index/Astrology"
 import ProductCategory from "../pages/index/ProductCategory"
 import ProdCatItems from "../pages/index/ProdCatItems"
+import TncNavratri from "../pages/index/TncNavratri"
 
 import Auth from "../pages/index/Auth"
 // import Register from "../pages/auth/Register"
@@ -266,7 +267,7 @@ router.get('/movValue', asyncMiddleware( async (req, res, next) => {
           <p>Warm Regards</p>
           <p>Team Pujarambh</p>
           `
-        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
+        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com, sales@techsmartdevotions.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
         transporter.sendMail( mailOptions, (error, info)=>{
           if(error){ func.printError(err) }
           func.printError("Message sent: %s")
@@ -446,6 +447,20 @@ router.get('/movValue', asyncMiddleware( async (req, res, next) => {
       }catch(e){ func.logError(e, req.url); res.status(403); return; }
     });
   }))
+
+  router.get('/search', asyncMiddleware( async(req, res) => {
+    let sql =   `SELECT name as label, tab1 as value from basic where type = 'Category' AND name LIKE '%${req.query.text}%';
+                SELECT name as label, url as value FROM products where status = 1 AND name LIKE '%${req.query.text}%';`
+      pool.query(sql, [1,2], (err, rows) => {
+        if(err){ throw err }
+        res.send({ 
+          cats:                 rows[0],
+          products:             rows[1]
+        })
+      });
+  }))
+
+
 //Blog Pages
 // // Regular Pages 
 router.get('/404', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/FourOFour', { reactApp: renderToString(<FourOFour blogs={blogs} />), meta: meta }) }))
@@ -454,6 +469,7 @@ router.get('/free-kundli', asyncMiddleware( async (req, res, next) => { const me
 router.get('/thank-you', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); const blogs = await func.suggestBlogs(); res.status(200).render('pages/ThankYou', { reactApp: renderToString( <ThankYou blogs={blogs}/> ), meta: meta}) }))
 router.get('/privacy-policy', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/PrivacyPolicy', { reactApp: renderToString( <PrivacyPolicy/> ), meta: meta}) }))
 router.get('/terms-and-condition', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Terms', { reactApp: renderToString( <Terms/> ), meta: meta}) }))
+router.get('/tnc-navratri', asyncMiddleware( async(req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/TncNavratri', { reactApp: renderToString( <TncNavratri/> ), meta: meta}) }))
 // // Regular Pages 
 
 // // Admin Pages 

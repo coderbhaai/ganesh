@@ -62,16 +62,7 @@ export class RefSitemap extends Component {
                                     <p>{'<url>'}</p>
                                         <p className="ml2">{`<loc>https://www.pujarambh.com/${i}</loc>`}</p>
                                         <p className="ml2">{`<lastmod>${time}+00:00</lastmod>`}</p>
-                                        <p className="ml2">{`<priority>1.00</priority>`}</p>
-                                    <p>{'</url>'}</p>
-                                </div>
-                            ))}
-                            {this.state.blogs.map((i,index)=>(
-                                <div className="ml1" key={index}>
-                                    <p>{'<url>'}</p>
-                                        <p className="ml2">{`<loc>https://www.pujarambh.com/${i.url}</loc>`}</p>
-                                        <p className="ml2">{`<lastmod>${time}+00:00</lastmod>`}</p>
-                                        <p className="ml2">{`<priority>.80</priority>`}</p>
+                                        <p className="ml2">{`<priority>.90</priority>`}</p>
                                     <p>{'</url>'}</p>
                                 </div>
                             ))}
@@ -79,6 +70,15 @@ export class RefSitemap extends Component {
                                 <div className="ml1" key={index}>
                                     <p>{'<url>'}</p>
                                         <p className="ml2">{`<loc>https://www.pujarambh.com/product/${i.url}</loc>`}</p>
+                                        <p className="ml2">{`<lastmod>${time}+00:00</lastmod>`}</p>
+                                        <p className="ml2">{`<priority>.80</priority>`}</p>
+                                    <p>{'</url>'}</p>
+                                </div>
+                            ))}
+                            {this.state.blogs.map((i,index)=>(
+                                <div className="ml1" key={index}>
+                                    <p>{'<url>'}</p>
+                                        <p className="ml2">{`<loc>https://www.pujarambh.com/${i.url}</loc>`}</p>
                                         <p className="ml2">{`<lastmod>${time}+00:00</lastmod>`}</p>
                                         <p className="ml2">{`<priority>.70</priority>`}</p>
                                     <p>{'</url>'}</p>
@@ -89,7 +89,7 @@ export class RefSitemap extends Component {
                                     <p>{'<url>'}</p>
                                         <p className="ml2">{`<loc>https://www.pujarambh.com/${i.type}/${i.url}</loc>`}</p>
                                         <p className="ml2">{`<lastmod>${time}+00:00</lastmod>`}</p>
-                                        <p className="ml2">{`<priority>.70</priority>`}</p>
+                                        <p className="ml2">{`<priority>.60</priority>`}</p>
                                     <p>{'</url>'}</p>
                                 </div>
                             ))}
@@ -98,7 +98,7 @@ export class RefSitemap extends Component {
                                     <p>{'<url>'}</p>
                                         <p className="ml2">{`<loc>https://www.pujarambh.com/product-category/${i.tab1}</loc>`}</p>
                                         <p className="ml2">{`<lastmod>${time}+00:00</lastmod>`}</p>
-                                        <p className="ml2">{`<priority>.60</priority>`}</p>
+                                        <p className="ml2">{`<priority>.50</priority>`}</p>
                                     <p>{'</url>'}</p>
                                 </div>
                             ))}

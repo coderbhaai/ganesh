@@ -20,6 +20,7 @@ const config = [{
         Astrology: [path.resolve('src', 'components', 'pages', 'Astrology.js')],
         ProductCategory: [path.resolve('src', 'components', 'pages', 'ProductCategory.js')],
         ProdCatItems: [path.resolve('src', 'components', 'pages', 'ProdCatItems.js')],
+        TncNavratri: [path.resolve('src', 'components', 'pages', 'TncNavratri.js')],
         
         Blog: [path.resolve('src', 'components', 'blog', 'Blog.js')],
         Category: [path.resolve('src', 'components', 'blog', 'Blog.js')],
@@ -110,6 +111,7 @@ const config = [{
         new HtmlWebpackPlugin({ chunks: ['Astrology'], filename: '../views/pages/Astrology.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['ProductCategory'], filename: '../views/pages/ProductCategory.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['ProdCatItems'], filename: '../views/pages/ProdCatItems.ejs', template: path.join('src', 'views', 'index.ejs') }),
+        new HtmlWebpackPlugin({ chunks: ['TncNavratri'], filename: '../views/pages/TncNavratri.ejs', template: path.join('src', 'views', 'index.ejs') }),
 
         new HtmlWebpackPlugin({ chunks: ['Blog'], filename: '../views/blog/Blog.ejs', template: path.join('src', 'views', 'index.ejs') }),
         new HtmlWebpackPlugin({ chunks: ['Single'], filename: '../views/blog/Single.ejs', template: path.join('src', 'views', 'index.ejs') }),

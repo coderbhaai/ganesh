@@ -711,7 +711,7 @@ function sendMailOnError(e) {
 }
   
 export function logError(e){
-    sendMailOnError(e)
+    // sendMailOnError(e)
     printError(e)
 }
 

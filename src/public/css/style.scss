@@ -60,20 +60,41 @@ h1, h2, h3, h4, h5, h6{
 }
 .header-social{
    display: inline-flex;
-   >div{
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      min-width: 450px;
-      background: $primary;
-      padding: 1em 0;
-   }
+   // >div{
+   //    display: flex;
+   //    align-items: center;
+   //    justify-content: space-evenly;
+   //    min-width: 450px;
+   //    background: $primary;
+   //    padding: 1em 0;
+   // }
    img{
       max-width: 25px;
       padding-right: 10px;
    }
    a{
       color: #fff;
+   }
+}
+.search-container{
+   >div{
+      min-width: 300px;
+   }
+   // display: flex;
+   input{
+      padding: 5px;
+      height: 30px;
+      border: 2px solid $primary;
+      border-radius: 3px 0 0 3px;
+      font-size: 14px;
+      width: 100%;
+   }
+   svg{
+      display: none;
+      // background: $primary;
+      // padding: 5px 8px;
+      // height: 30px;
+      // border-radius: 0 3px 3px 0;
    }
 }
 .cartIcon{

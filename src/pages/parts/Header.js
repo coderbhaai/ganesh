@@ -2,12 +2,20 @@ import React, { Component } from 'react'
 import swal from 'sweetalert'
 import axios from 'axios'
 const func = require('./functions')
+import Select from 'react-select';
+import AsyncSelect from 'react-select/async';
+import _ from "lodash";
+// import 'react-select/dist/css/react-select.css';
+
+
 
 export class Header extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user:              []
+            user:               [],
+            selectedOption:     '',
+            inputValue:         '' ,
         }
     }
 
@@ -19,9 +27,11 @@ export class Header extends Component {
             setTimeout(function() { localStorage.removeItem('message') }, 4000)
         }
         if(typeof(Storage) !== "undefined"){ this.setState({ user: JSON.parse(localStorage.getItem('user')) || [] }) }
+        
     }
 
     toSentenceCase=(str)=>{ return str.replace( /\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() } ) }
+    onChange= (e) => { this.setState({ [e.target.name]: e.target.value }) }
 
     logout = (e) =>{
         e.preventDefault()
@@ -40,6 +50,27 @@ export class Header extends Component {
             })
             .catch(err=>{ func.printError(err) })
     }
+
+    fetchData = async (inputValue, callback) => {
+        if(inputValue.length>2){
+            const response = await fetch( '/search?text='+ inputValue); 
+            const body = await response.json();
+            if (response.status !== 200) throw Error(body.message);
+            var tempArray = [];
+            body.cats.forEach( i => {
+                i['value'] = '/product-category/'+i.value
+                tempArray.push (i)
+            });
+            body.products.forEach( i => {
+                i['value'] = '/product/'+i.value
+                tempArray.push (i)
+            });
+            callback(tempArray);
+        }
+    };
+
+    onSearchChange = (selectedOption) => { window.location.href = selectedOption.value };
+
     render() {
         return (
             <header className="sticky-top">
@@ -77,9 +108,15 @@ export class Header extends Component {
                                         </li>
                                     : null }
                                 </>
-                            : null }
+                            : 
+                                <li className="nav-item"><a className="nav-link" href="/sign-up">Login | Signup</a></li> 
+                            }
                         </ul>
                         <div className="header-social">
+                            <div className="search-container">
+                                <AsyncSelect value={this.state.selectedOption} loadOptions={this.fetchData} placeholder="Search here" onChange={(e) => { this.onSearchChange(e); }} defaultOptions={true}/>
+                            </div>
+                            {/* 
                             <div>
                                 <a href="https://www.facebook.com/pujarambh1" target="_blank"><img src="/images/icons/facebook-white.svg" alt="Connect with Pujarambh on Facebook" width="15" height="15"/></a>
                                 <a href="https://www.linkedin.com/in/pujarambh-the-beginning-092877207/" target="_blank"><img src="/images/icons/linkedin-white.svg" alt="Connect with Pujarambh on Linkedin" width="15" height="15"/></a>
@@ -89,6 +126,7 @@ export class Header extends Component {
                                 {!this.state.user.role? <span><a href="/sign-up">Login | Signup</a></span> : null}
                                 <a href="/cart" className="cartIcon"> <img src="/images/icons/cart-white.svg" alt="add to cart" width="15" height="15"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
                             </div>
+                            */}
                         </div>
                     </div>
                 </nav>

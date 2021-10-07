@@ -142,9 +142,8 @@ export class Meta extends Component {
                     <td>{index +1}</td>
                     <td>{i.url}</td>                                              
                     <td>
-                        <p className={i.title.length>60? 'redColor' : null}>Title ({i.title.length}) : {i.title}</p>
-                        <p className={i.description.length>160? 'redColor' : null}>Description ({i.description.length}) : {i.description}</p>
-                        Keyword: {i.keyword}
+                        <p className={i.title.length>60? 'redColor' : null}>Title : {i.title}</p>
+                        <p className={i.description.length>160? 'redColor' : null}>Description : {i.description}</p>
                     </td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editModalOn(i)}/></td>
                 </tr>
@@ -171,6 +170,8 @@ export class Meta extends Component {
                                             <option value="25">25</option> 
                                             <option value="50">50</option> 
                                             <option value="100">100</option> 
+                                            <option value="1000">1000</option> 
+                                            <option value="500">5000</option> 
                                         </select>
                                         <div><ul className="page-numbers">{renderPagination}</ul></div>
                                     </div>

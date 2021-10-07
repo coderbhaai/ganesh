@@ -12,7 +12,7 @@ export class BlogList extends Component {
                             <div className="col-sm-4 " key={index}>
                                 <div className="card">
                                     <a href={"/" + i.url}>
-                                        <div><img src={"/images/blog/"+ i.smallImg } alt={i.smallImg.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></div>
+                                        {/* <div><img src={"/images/blog/"+ i.smallImg } alt={i.smallImg.replace('.jpg', '').replace('.png', '').replace(/_/g, ' ').replace(/-/g, ' ')}/></div> */}
                                         <div className="name">
                                             <h2>{i.title}</h2>
                                         </div>
