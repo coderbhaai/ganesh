@@ -79,7 +79,7 @@ export class Header extends Component {
                     {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button> */}
                     <div className="cartToggle">
                         <div className="toggle-btn" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></div>
-                        <a href="/cart" className="cartIconMobilex cartIcon mobile"> <img src="/images/icons/cart-orange.svg" alt="add to cart" width="35" height="35"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
+                        <a href="/cart" className="cartIcon mobile"> <img src="/images/icons/cart-orange.svg" alt="add to cart" width="35" height="35"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
                     </div>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav ml-auto">
