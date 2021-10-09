@@ -79,7 +79,7 @@ export class Header extends Component {
                     {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button> */}
                     <div className="cartToggle">
                         <div className="toggle-btn" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"><span></span><span></span><span></span></div>
-                        <a href="/cart" className="cartIconMobile"> <img src="/images/icons/cart-orange.svg" alt="add to cart" width="35" height="35"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
+                        <a href="/cart" className="cartIconMobilex cartIcon mobile"> <img src="/images/icons/cart-orange.svg" alt="add to cart" width="35" height="35"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a>
                     </div>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul className="navbar-nav ml-auto">
@@ -111,11 +111,22 @@ export class Header extends Component {
                             : 
                                 <li className="nav-item"><a className="nav-link" href="/sign-up">Login | Signup</a></li> 
                             }
+                            {/* <li className="nav-item">
+                                <a href="/cart" className="cartIcon">
+                                    <img src="/images/icons/cart-orange.svg" alt="add to cart" width="15" height="15"/>
+                                    <span className='value'>{this.props.cart ? this.props.cart : 0 }</span>
+                                </a>
+                            </li> */}
                         </ul>
                         <div className="header-social">
                             <div className="search-container">
                                 <AsyncSelect value={this.state.selectedOption} loadOptions={this.fetchData} placeholder="Search here" onChange={(e) => { this.onSearchChange(e); }} defaultOptions={true}/>
+                                <a href="/cart" className="cartIcon web">
+                                    <img src="/images/icons/cart-orange.svg" alt="add to cart" width="15" height="15"/>
+                                    <span className='value'>{this.props.cart ? this.props.cart : 0 }</span>
+                                </a>
                             </div>
+                            {/* <a href="/cart" className="cartIcon"> <img src="/images/icons/cart-white.svg" alt="add to cart" width="15" height="15"/><span className='value'>{this.props.cart ? this.props.cart : 0 }</span></a> */}
                             {/* 
                             <div>
                                 <a href="https://www.facebook.com/pujarambh1" target="_blank"><img src="/images/icons/facebook-white.svg" alt="Connect with Pujarambh on Facebook" width="15" height="15"/></a>

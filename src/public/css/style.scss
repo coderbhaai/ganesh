@@ -60,14 +60,6 @@ h1, h2, h3, h4, h5, h6{
 }
 .header-social{
    display: inline-flex;
-   // >div{
-   //    display: flex;
-   //    align-items: center;
-   //    justify-content: space-evenly;
-   //    min-width: 450px;
-   //    background: $primary;
-   //    padding: 1em 0;
-   // }
    img{
       max-width: 25px;
       padding-right: 10px;
@@ -77,8 +69,10 @@ h1, h2, h3, h4, h5, h6{
    }
 }
 .search-container{
+   display: flex;
    >div{
       min-width: 300px;
+      margin-right: 1em;
    }
    // display: flex;
    input{
@@ -91,17 +85,22 @@ h1, h2, h3, h4, h5, h6{
    }
    svg{
       display: none;
-      // background: $primary;
-      // padding: 5px 8px;
-      // height: 30px;
-      // border-radius: 0 3px 3px 0;
    }
 }
 .cartIcon{
    display: flex;
-   align-items: center;
+   height: 100%;
+   position: relative;
+   padding-right: 5px;
    img{
       max-width: 45px;
+   }
+   >span{
+      position: absolute;
+    top: 5px;
+    right: 0;
+    color: #e16830;
+    font-weight: 600;
    }
 }
 footer{
@@ -772,14 +771,20 @@ footer{
       min-width: 300px;
    }
 }
-@media (max-width:991px) {   
+@media (max-width:991px) {
+   .search-container{
+      display: unset;
+   } 
    .cartIconMobile{
       display: block;
       max-width: 30px;
       display: flex;
       align-items: center;
+   }
+   .cartIcon{
       img{
-         padding-right: 10px;
+         max-width: 35px;
+         margin-right: 5px;
       }
    }
    .cartToggle{
