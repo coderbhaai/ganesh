@@ -6,7 +6,8 @@ export class ProductCategory extends Component {
     constructor(props) {
         super(props)    
         this.state = {
-            category:              this.props.category
+            category:              this.props.category,
+            cart:                       [],
         }
     }
 
@@ -16,6 +17,7 @@ export class ProductCategory extends Component {
     }
 
     callApi = async () => {
+        if(typeof(Storage) !== "undefined"){ this.setState({ cart: JSON.parse(localStorage.getItem('cart')) || [] }) }
         const response = await fetch( '/fetchProductCategory' ); 
         const body = await response.json()
         this.setState({
@@ -26,7 +28,7 @@ export class ProductCategory extends Component {
     render() {
         return (
             <>
-                <Header/>
+               <Header cart={this.state.cart.length}/>
                 {this.state.category?           
                     <div className="container page py-5">
                         <h1 className="heading my-3"> Product Categories</h1>
