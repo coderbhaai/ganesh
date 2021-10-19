@@ -65,7 +65,7 @@ export class Index extends Component {
                     <img src="/images/static/banner-m.jpg" className="mobile" alt="online pandit booking" width="1800" height="750"/>
                     <div className="caption">
                         <h1>BOOK YOUR PANDIT JI ONLINE FOR</h1>
-                        <p className="hindi">Navratri Puja</p>
+                        <p className="hindi">Diwali</p>
                         <a className="amitBtn btn" href="/product/navratri-sthapna-puja">Book Now</a>
                         <p>Get flat 20% discount <br/> Use Coupon WELCOME20</p>
                     </div>
