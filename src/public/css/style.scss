@@ -214,6 +214,9 @@ footer{
          line-height: 1.5em;
          margin: 10px 0 0;
       }
+      h1{
+         color: #fff;
+      }
    }
 }
 .text-heading{
@@ -896,7 +899,8 @@ footer{
       .caption {
          top: 5%;
          bottom: unset;
-         // bottom: 0%;
+         // top: unset;
+         // bottom: 1em;
          left: 0;
          right: 0;
          text-align: center;

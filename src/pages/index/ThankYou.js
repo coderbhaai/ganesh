@@ -30,8 +30,8 @@ export class ThankYou extends Component {
         return (
             <>
                 <Header/>
-                <div className="container page py-5">
-                    <h1 className="heading my-3">Thank You for connecting with us</h1>
+                <div className="container page">
+                    <h1 className="heading">Thank You for connecting with us</h1>
                     <p className="text-center">We will reach back to you in a while.</p>
                 </div>
                 <BlogCarousel blogs={this.state.blogs}/>
