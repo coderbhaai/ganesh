@@ -31,7 +31,7 @@ export class Schema extends Component {
 
     }
     toSentenceCase=(str)=>{ return str.replace( /\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase() } ) }
-
+    // "reviewCount": "{JSON.parse(i.rating)[0]}"
     _renderproductsList(){
         const siteName = "https://www.pujarambh.com/"
         var currentdate = new Date();
@@ -43,7 +43,7 @@ export class Schema extends Component {
                         <p className="ml5">"@context":"http://schema.org",</p>
                         <p className="ml5">"@type": "Product",</p>
                         {i.rating && JSON.parse(i.rating)[0]>0?
-                            <p className="ml5">"aggregateRating": {'{'} "@type": "AggregateRating", "ratingValue": "{JSON.parse(i.rating)[0]}", "reviewCount": "{JSON.parse(i.rating)[0]}" {'}'},</p>
+                            <p className="ml5">"aggregateRating": {'{'} "@type": "AggregateRating", "ratingValue": "{JSON.parse(i.rating)[0]}", "reviewCount": "1" {'}'},</p>
                         : 
                         <p className="ml5">"aggregateRating": {'{'} "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" {'}'},</p>
                         }
@@ -54,7 +54,7 @@ export class Schema extends Component {
                         ",</p>
                         <p className="ml5">"name": "{i.name}",</p>
                         <p className="ml5">"sku": "Pujarambh-{i.id}",</p>
-                        <p className="ml5">"brand": "Pujarambh",</p>
+                        <p className="ml5">"brand": {'{'}"@type": "Brand", "name": "Pujarmabh"{'}'},</p>
                         <p className="ml5">"mpn": "{i.id}{Math.random().toString().substr(2, 6)}",</p>
                         <p className="ml5">"image": "{"https://www.pujarambh.com/images/product/"+JSON.parse(i.images)[0]}",</p>
                         <p className="ml5">"offers": {'{'}</p>
@@ -72,7 +72,7 @@ export class Schema extends Component {
                                 <div key={index2}>
                                     <p className="ml6">{'{'}</p>
                                         <p className="ml7">"@type": "Review",</p>
-                                        <p className="ml7">"author": "{j.name}",</p>
+                                        <p className="ml7">"author":{'{'}"name": "{j.name}", "@type": "Person" {"},"}</p>
                                         <p className="ml7">"datePublished": "{moment(j.updated_at).format("DD MMMM  YYYY")}",</p>
                                         <p className="ml7">"reviewBody": "<section className="ckeContent" dangerouslySetInnerHTML={{ __html: j.review }}/>",</p>
                                         <p className="ml7">"name": "Pujarambh Customer",</p>
@@ -89,7 +89,7 @@ export class Schema extends Component {
                             <div>
                                 <p className="ml6">{'{'}</p>
                                     <p className="ml7">"@type": "Review",</p>
-                                    <p className="ml7">"author": "Amit Khare",</p>
+                                    <p className="ml5">"author":{'{'}"name": "Amit Khare", "@type": "Person" {"},"}</p>
                                     <p className="ml7">"datePublished": "{moment(currentdate).format("DD MMMM  YYYY")}",</p>
                                     <p className="ml7">"reviewBody": "The best product I had for my family.",</p>
                                     <p className="ml7">"name": "Pujarambh Customer",</p>
@@ -128,7 +128,7 @@ export class Schema extends Component {
                     <p className="ml5">"isFamilyFriendly": "true",</p>
                     <p className="ml5">"copyrightYear": {currentdate.getFullYear()},</p>
                     <p className="ml5">"copyrightHolder": "Pujarambh",</p>
-                    <p className="ml5">"author": "Pujarambh",</p>
+                    <p className="ml5">"author":{'{'}"name": "Pujarambh", "url": "{siteName}" {"},"}</p>
                     <p className="ml5">"mainEntityOfPage": "True",</p>
                     <p className="ml5">"creator": {'{'}"@type": "Organization", "name": "Pujarambh", "url": "{siteName}"{"},"}</p>
                     <p className="ml5">"publisher": {'{'}"@type": "Organization", "name": "Pujarambh", "url": "{siteName}", "logo": {'{'}"@type": "ImageObject", "url": "{siteName}images/logo.png"{'}}'}</p>
