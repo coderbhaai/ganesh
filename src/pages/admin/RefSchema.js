@@ -47,10 +47,7 @@ export class Schema extends Component {
                         : 
                         <p className="ml5">"aggregateRating": {'{'} "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "1" {'}'},</p>
                         }
-                        <p className="ml5">"description": "
-                        {i.shortDesc? 
-                        <section className="ckeContent" dangerouslySetInnerHTML={{ __html: i.shortDesc }}/>
-                        : i.name}
+                        <p className="ml5">"description": " {i.name}
                         ",</p>
                         <p className="ml5">"name": "{i.name}",</p>
                         <p className="ml5">"sku": "Pujarambh-{i.id}",</p>
@@ -66,7 +63,6 @@ export class Schema extends Component {
                             <p className="ml6">"priceValidUntil": "{moment(newDate).format("DD MMMM YYYY")}"</p>
                         <p className="ml5">{'},'}</p>
                         <p className="ml5">"review":{"["}</p>
-                            {}
                         {this.state.reviews.filter(j=>j.productId == i.id).length?
                             this.state.reviews.filter(j=>j.productId == i.id).map((j,index2)=>(
                                 <div key={index2}>
@@ -74,7 +70,7 @@ export class Schema extends Component {
                                         <p className="ml7">"@type": "Review",</p>
                                         <p className="ml7">"author":{'{'}"name": "{j.name}", "@type": "Person" {"},"}</p>
                                         <p className="ml7">"datePublished": "{moment(j.updated_at).format("DD MMMM  YYYY")}",</p>
-                                        <p className="ml7">"reviewBody": "<section className="ckeContent" dangerouslySetInnerHTML={{ __html: j.review }}/>",</p>
+                                        <p className="ml7">"reviewBody": "<section className="ckeContent" dangerouslySetInnerHTML={{ __html: j.review.substring(0, 150) }}/>",</p>
                                         <p className="ml7">"name": "Pujarambh Customer",</p>
                                         <p className="ml7">"reviewRating": {'{'}</p>
                                             <p className="ml8">"@type": "Rating",</p>
@@ -178,8 +174,8 @@ export class Schema extends Component {
                             <p className="ml2">"priceRange" : "$5 - $3000",</p>
                             <p className="ml2">"@graph":</p>
                             <p className="ml3">[</p>
-                                {this._renderproductsList()}
-                                {this._renderBlogList()} 
+                                {/* {this._renderproductsList()} */}
+                                {this._renderBlogList()}
                             <p className="ml3">]</p>
                             <p className="ml1">{'}'}</p>
                             <p className="ml">{'</script>'}</p>

@@ -6,7 +6,6 @@ var pool = require('./mysqlConnector')
 const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
 import bcrypt from 'bcryptjs';
 const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
-
 // export function getMeta(url) {
 //     return new Promise((resolve, reject) => {
 //         let sql =   `SELECT title, description, keyword FROM metas WHERE url='${url}';
@@ -711,7 +710,8 @@ function sendMailOnError(e) {
 }
   
 export function logError(e){
-    sendMailOnError(e)
+    console.log(`e`, e)
+    // sendMailOnError(e)
     printError(e)
 }
 
