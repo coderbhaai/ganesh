@@ -188,15 +188,15 @@ footer{
    position: relative;
    .caption{
       position: absolute;
-      top: 40%;
+      bottom: 0;
       left: 3em;
-      min-height: 200px;
+      // min-height: 200px;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
       p.hindi{
          color: #fff;
-         background: $purple;
+         // background: $purple;
          text-align: center;
          padding: .5em;
          font-size: 2em;
@@ -212,7 +212,8 @@ footer{
          color: #fff;
          font-size: 25px;
          line-height: 1.5em;
-         margin: 10px 0 0;
+         // margin: 10px 0 0;
+         margin: 0;
       }
       h1{
          color: #fff;
@@ -726,6 +727,11 @@ footer{
       line-height: unset;
    }
 }
+.btns{
+   display: flex;
+   align-items: center;
+   justify-content: start;
+}
 @media (max-width:1400px) {
    .nav-link {
       padding: 1.5rem 1rem;
@@ -775,6 +781,9 @@ footer{
    }
 }
 @media (max-width:991px) {
+   .btns {
+      justify-content: center;
+  }
    .search-container{
       display: unset;
    } 
@@ -804,8 +813,11 @@ footer{
    }
    .banner {
       .caption {
-         top: 20%;
+         bottom: 0;
          display: block;
+         p{
+            font-size: 18px;
+         }
          h1{
             font-size: 16px;
          }
@@ -897,10 +909,10 @@ footer{
 @media (max-width:767px) {
    .banner {
       .caption {
-         top: 5%;
-         bottom: unset;
-         // top: unset;
-         // bottom: 1em;
+         // top: 5%;
+         // bottom: unset;
+         top: unset;
+         bottom: 0;
          left: 0;
          right: 0;
          text-align: center;
@@ -915,9 +927,9 @@ footer{
             margin-bottom: 0;
             color: #fff;
          }
-         p.hindi{
-            margin: 0 auto;
-         }
+         // p.hindi{
+         //    margin: 0 auto;
+         // }
          .amitBtn{
             max-width: 150px;
             margin: 1em 0 0;
@@ -996,9 +1008,9 @@ footer{
             font-size: 12px;
             margin-bottom: 0;
          }
-         p{
-            line-height: 1em;
-         }
+         // p{
+         //    line-height: 1em;
+         // }
       }
    }
    .text-heading {
