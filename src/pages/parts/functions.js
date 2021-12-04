@@ -1,6 +1,8 @@
 import swal from 'sweetalert'
 
-export function callSwal(mesg){ swal({ title: mesg, timer: 4000 }) }
+export function callSwal(mesg){ swal({ title: mesg }) }
+
+// timer: 4000
 
 export function checkDuplicate(array){
     return new Promise((resolve, reject) => {

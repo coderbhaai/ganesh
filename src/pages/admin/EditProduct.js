@@ -160,6 +160,8 @@ export class EditProduct extends Component {
                     if(res.data.success){
                         localStorage.setItem( 'message', res.data.message )
                         window.location.href = '/admin/adminProducts'
+                    }else{
+                        func.callSwal(res.data.message)
                     }
                 })
         }

@@ -11,8 +11,8 @@ class AdminBlogMeta extends Component {
         super(props)    
         this.state = {
             metas:                      [],
-            addMetaModalIsOpen:         false,  
-            editMetaModalIsOpen:        false,  
+            addMetaModalIsOpen:         false,
+            editMetaModalIsOpen:        false,
             name:                       '',
             url:                        '',
             type:                       '',
@@ -235,7 +235,7 @@ class AdminBlogMeta extends Component {
                             <div className="row">
                                 <div className="col-sm-6">
                                     <label>Type</label>
-                                    <input className="form-control" type="text" value={this.state.type} readOnly/>
+                                    <input className="form-control" type="text" value={this.state.type} readOnly required/>
                                 </div>
                                 {this.state.type=='page'?
                                     <div className="col-sm-6">

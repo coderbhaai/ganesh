@@ -316,7 +316,7 @@ export class Basic extends Component {
                                 <button className="amitBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
-                        {this.state.type==='Category'? <button className="amitBtn" onClick={this.deleteProductCategory}>Delete this <span></span></button> : null }
+                        {/* {this.state.type==='Category'? <button className="amitBtn" onClick={this.deleteProductCategory}>Delete this <span></span></button> : null } */}
                     </ModalBody>
                 </Modal>
             </>

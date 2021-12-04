@@ -96,7 +96,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
                 const reviewList    = await func.productReview(JSON.parse( results[0].id ))
                 res.status(200).render('pages/Product', { reactApp: renderToString(<Product product={results[0]} incList={incList} catProducts={catProducts} excList={excList} recomList={recomList} relatedList={relatedList} reviewList={reviewList} catName={catName}/>), meta: meta })
             }else{ res.redirect('/shop'); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -109,7 +109,7 @@ router.get('/shop', asyncMiddleware( async (req, res, next) => {
             if(results.length){
               res.status(200).render('pages/ProductCategory', { reactApp: renderToString(<ProductCategory category={results} />), meta: meta })
             }else{ res.redirect('/shop'); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -119,7 +119,7 @@ router.get('/fetchProductCategory', asyncMiddleware( async (req, res, next) => {
     try{
       if(err){ throw err }
       if(results){ res.send({ data: results }); }
-    }catch(e){ func.logError(e); res.status(500); return; }
+    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
   })
 }))
 
@@ -133,7 +133,7 @@ router.get('/product-category/:url', asyncMiddleware( async (req, res, next) => 
               const products = await func.getProductsOfCat(results[0].id)
               res.status(200).render('pages/ProdCatItems', { reactApp: renderToString(<ProdCatItems products={products}/>), meta: meta })
             }else{ res.redirect('/shop'); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -146,7 +146,7 @@ router.get('/fetchProdCatItems/:url', asyncMiddleware( async (req, res, next) =>
         const data = await func.getProductsOfCat(results[0].id)
         res.send({ data: data, name: results[0].name }); 
       }
-    }catch(e){ func.logError(e); res.status(500); return; }
+    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
   })
 }))
 
@@ -160,7 +160,7 @@ router.get('/movValue', asyncMiddleware( async (req, res, next) => {
             }else{
               res.send({ mov: 0 });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 // // Auth Pages
@@ -575,7 +575,7 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
           try{
               if(err){ throw err }
               if(results){ res.redirect('/payment-response'); }
-          }catch(e){ func.logError(e); res.status(500); return; }
+          }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
       })
     }else{
       res.redirect('/cart');
@@ -639,7 +639,7 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
                           message:    message
                       })
                     }
-                }catch(e){ func.logError(e); res.status(500); return; }
+                }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
               })
             }else{
               res.send({ 
@@ -647,9 +647,10 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
                 message:    "Order Not complete"
               })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
       });
   }))
 // Payment Gateway
 
-export default router;
+// export default router;
+module.exports = router ;

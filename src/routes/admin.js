@@ -30,7 +30,7 @@ router.get('/AdminMetas', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
             if(results){ 
                 const pending = await func.pendingMeta()
                 res.send({ data: results, pending }); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -56,10 +56,10 @@ router.post('/addMeta', [func.verifyToken, func.verifyAdmin], asyncMiddleware( a
                             const pending = await func.pendingMeta()
                             res.send({ success: true, data: results2[0], pending, message: 'Meta added successfuly' });
                         }
-                    }catch(e){ func.logError(e); res.status(500); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -84,10 +84,10 @@ router.post('/updateMeta', [func.verifyToken, func.verifyAdmin], asyncMiddleware
                             const pending = await func.pendingMeta()
                             res.send({ success: true, data: results2[0], pending, message: 'Meta updated successfuly' });
                         }
-                    }catch(e){ func.logError(e); res.status(500); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -232,7 +232,7 @@ router.post('/addBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware( a
         try{
             if(err){ throw err }
             if(results){ res.send({ success: true, message: 'Blog added successfuly' }); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -246,7 +246,7 @@ router.get('/getBlog/:id', [func.verifyToken, func.verifyAdmin], asyncMiddleware
                 const tagList = await func.tagName(JSON.parse(results[0].tag))
                 res.send({ data: results[0], catList, tagList });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -364,7 +364,7 @@ router.get('/adminBasic', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
         try{
             if(err){ throw err }
             if(results){ res.send({ data: results }); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -478,7 +478,7 @@ router.get('/addProductOptions', [func.verifyToken, func.verifyAdmin], asyncMidd
                     productOptions:         results[3],
                 });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -518,7 +518,7 @@ router.post('/addProduct', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         try{    
             if(err){ throw err }
             if(results){ res.send({ success: true, message: "Product added succesfully" }) }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -529,7 +529,7 @@ router.get('/getProducts', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         try{    
             if(err){ throw err }
             if(results){ res.send({ data: results }) }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -552,10 +552,10 @@ router.post('/changeProductStatus', [func.verifyToken, func.verifyAdmin], asyncM
                         if(results2){
                             res.send({ success: true, data: results2[0], message: 'Product updated successfuly' });
                         }
-                    }catch(e){ func.logError(e); res.status(500); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -589,7 +589,7 @@ router.get('/editProductData/:id', [func.verifyToken, func.verifyAdmin], asyncMi
                     relatedList:        relatedList
                 });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -639,7 +639,9 @@ router.post('/updateProduct', [func.verifyToken, func.verifyAdmin], asyncMiddlew
         try{
             if(err){ throw err }
             if(results){ res.send({ success: true, message: "Product updated succesfully" }) }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){
+            res.send({ success: false, message: e.sqlMessage });
+            func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -649,7 +651,7 @@ router.get('/getOrders', [func.verifyToken, func.verifyAdmin], asyncMiddleware( 
         try{
             if(err){ throw err }
             if(results){ res.send({ orders: results }) }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -672,10 +674,10 @@ router.post('/updateOrderStatus', [func.verifyToken, func.verifyAdmin], asyncMid
                         if(results2){
                             res.send({ success: true, data: results2[0], message: 'Order updated successfuly' });
                         }
-                    }catch(e){ func.logError(e); res.status(500); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -707,7 +709,7 @@ router.get('/fetchproduct/:url', asyncMiddleware( async(req, res) => {
             }else{
                 res.redirect('/shop');
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -723,7 +725,7 @@ router.get('/fetchReview/:product/:user', asyncMiddleware( async(req, res) => {
                     data:           reviewList
                 }) 
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -754,13 +756,13 @@ router.post('/addReview', [func.verifyToken], asyncMiddleware( async(req, res) =
                                 try{
                                     if(err3){ throw err3 }
                                     if(results3){ res.send({ success: true, data: results3[0], message: 'Review submitted successfuly' }) }
-                                }catch(e){ func.logError(e); res.status(500); return; }
+                                }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                             })
                         }
-                    }catch(e){ func.logError(e); res.status(500); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -788,13 +790,13 @@ router.post('/updateReview', [func.verifyToken], asyncMiddleware( async(req, res
                                 try{  
                                     if(err3){ throw err3 }  
                                     if(results3){ res.send({ success: true, data:results3[0], message: 'Review updated successfuly' }) }
-                                }catch(e){ func.logError(e); res.status(500); return; }
+                                }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                             })
                         }
-                    }catch(e){ func.logError(e); res.status(500); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -809,7 +811,7 @@ router.get('/fetchShop', asyncMiddleware( async(req, res) => {
                 const products      = results[1]
                 res.send({ categories, products });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -821,7 +823,7 @@ router.get('/userOrders/:id', asyncMiddleware( async(req, res) => {
             if(results){
                 res.send({ data: results });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -832,7 +834,7 @@ router.get('/adminCoupon', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         try{
             if(err){ throw err }
             if(results){ res.send({ data: results[0], productOptions: results[1] }); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -842,7 +844,7 @@ router.post('/productNames', [func.verifyToken, func.verifyAdmin], asyncMiddlewa
         try{
             if(err){ throw err }
             if(results){ res.send({ success: true, data: results }); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -867,7 +869,7 @@ router.post('/addCoupon', asyncMiddleware( async(req, res, next) => {
                 const data = await func.getCoupon(results.insertId)
                 res.send({ success: true, data: data[0], message: 'Coupon added successfuly' });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -891,7 +893,7 @@ router.post('/updateCoupon', [func.verifyToken, func.verifyAdmin], asyncMiddlewa
                 const data = await func.getCoupon(req.body.id)
                 res.send({ success: true, data: data[0], message: 'Coupon updated successfuly' });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -908,7 +910,7 @@ router.post('/changeCouponStatus', [func.verifyToken, func.verifyAdmin], asyncMi
                 const data = await func.getCoupon(req.body.id)
                 res.send({ success: true, data: data[0], message: 'Coupon updated successfuly' });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -932,7 +934,7 @@ router.post('/checkCoupon', asyncMiddleware( async(req, res) => {
             }else{
                 res.send({ success: false, message: 'Wrong coupon code' });
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -944,7 +946,7 @@ router.get('/schemaData', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
         try{
             if(err){ throw err }
             if(results){ res.send({ blogs: results[0], products: results[1], reviews: results[2] }); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -957,7 +959,7 @@ router.get('/sitemapData', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         try{
             if(err){ throw err }
             if(results){ res.send({ blogs: results[0], products: results[1], blogMeta: results[2], prodCat: results[3] }); }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 

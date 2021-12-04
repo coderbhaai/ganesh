@@ -188,19 +188,25 @@ footer{
    position: relative;
    .caption{
       position: absolute;
+      top: 0;
       bottom: 0;
       left: 3em;
       // min-height: 200px;
       display: flex;
       flex-direction: column;
-      justify-content: space-around;
+      justify-content: center;
+      // .btns{
+      //    display: flex;
+      //    align-items: center;
+      //    justify-content: start;
+      // }
       p.hindi{
          color: #fff;
          // background: $purple;
-         text-align: center;
-         padding: .5em;
+         // text-align: center;
+         padding: .5em 0;
          font-size: 2em;
-         width: fit-content;
+         // width: fit-content;
          border-radius: 5px;
          line-height: 1em;
       }
@@ -727,11 +733,6 @@ footer{
       line-height: unset;
    }
 }
-.btns{
-   display: flex;
-   align-items: center;
-   justify-content: start;
-}
 @media (max-width:1400px) {
    .nav-link {
       padding: 1.5rem 1rem;
@@ -813,13 +814,26 @@ footer{
    }
    .banner {
       .caption {
+         top: unset;
          bottom: 0;
          display: block;
+         left: 0;
+         right: 0;
+         .btns{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            >p{
+               padding: 0.5em;
+            }
+         }
          p{
             font-size: 18px;
+            text-align: center;
          }
          h1{
             font-size: 16px;
+            text-align: center;
          }
          // p {
          //    font-size: 16px;
@@ -917,6 +931,7 @@ footer{
          right: 0;
          text-align: center;
          min-height: unset;
+         
          h1{
             max-width: unset;
             color: #fff;
@@ -971,6 +986,7 @@ footer{
          // }
          p.hindi {
             font-size: 1em;
+            text-align: center;
          }
          .amitBtn {
             margin: 5px 0 0;

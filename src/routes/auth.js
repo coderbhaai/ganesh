@@ -76,14 +76,14 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
                                             res.cookie('token', token, 2147483647)
                                             res.send({ success: true, user: user, message: 'Registration successful, Welcome!!!' })
                                         }
-                                    }catch(e){ func.logError(e); res.status(500); return; }
+                                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                                 })
                             })
                         })
                     }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -135,10 +135,10 @@ router.post('/forgotPassword', asyncMiddleware( async(req, res, next) => {
                                 res.send({ success: true, message: "Please check your mail" })
                             })
                         }
-                    }catch(e){ func.logError(e); res.status(500); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -182,10 +182,10 @@ router.post('/resetPassword', asyncMiddleware( async(req, res, next) => {
                                                     try{
                                                         if(err3){ throw err3 }
                                                         if(results3){ res.send({ success: true, message: 'Password reset, Please login!!!' }) }
-                                                    }catch(e){ func.logError(e); res.status(500); return; }
+                                                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                                                 })
                                             }
-                                        }catch(e){ func.logError(e); res.status(500); return; }
+                                        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                                     })
                                 })
                             })
@@ -193,7 +193,7 @@ router.post('/resetPassword', asyncMiddleware( async(req, res, next) => {
                     })
                 }
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -209,10 +209,10 @@ router.post('/logOut', asyncMiddleware( async(req, res, next) => {
                     try{
                         if(err2){ throw err2 }
                         if(results2){ res.send({ success: true, message: "You are logged Out" }) }
-                    }catch(e){ func.logError(e); res.status(500); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(500); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -237,14 +237,14 @@ function initiateLogin(email, password){
                                         try{
                                             if(err2){ throw err2 }
                                             if(results2){ resolve([true, user, "Welcome to Pujarambh"]) }
-                                        }catch(e){ func.logError(e); res.status(500); return; }
+                                        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                                     })
                                 })
                             }else{ resolve([false, {}, "Password is Incorrect"]) }
                         })
                     }
                 }else{ resolve([false, {}, "No Account by this name"]) }
-            }catch(e){ func.logError(e); res.status(500); return; }
+            }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
         })
     });
 }

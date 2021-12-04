@@ -1,7 +1,13 @@
-import express from "express";
-import compression from "compression";
-import index from "./routes/index";
-import path from "path";
+// import express from "express";
+// import compression from "compression";
+// import index from "./routes/index";
+// import path from "path";
+
+
+const express = require('express');
+const compression = require('compression');
+const index = require('./routes/index');
+const path = require('path');
 
 // Server var
 const app = express();

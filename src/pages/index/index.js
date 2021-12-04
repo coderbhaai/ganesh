@@ -66,8 +66,8 @@ export class Index extends Component {
                     <div className="caption">
                         <h1>BOOK YOUR PANDIT JI ONLINE FOR</h1>
                         <div className="btns">
-                            <p className="hindi">Diwali</p>
-                            <a className="amitBtn btn" href="/product/deepawali-laxmi-puja">Book Now</a>
+                            <p className="hindi">Wedding Events</p>
+                            <a className="amitBtn btn" href="/product/vivaah-sanskar">Book Now</a>
                         </div>
                         <p>Get flat 20% discount. Use Coupon WELCOME20</p>
                     </div>
