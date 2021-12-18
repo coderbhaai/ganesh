@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from '../parts/Header'
 import Footer from '../parts/Footer'
+const func = require('../parts/functions')
 
 export class ProdCatItems extends Component {
     constructor(props) {
@@ -49,7 +50,7 @@ export class ProdCatItems extends Component {
     render() {
         return (
             <>
-                <Header/>
+                <Header cart={this.state.cart.length}/>
                 {this.state.products?           
                     <div className="container page py-5">
                         {this.state.name ? 

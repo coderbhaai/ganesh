@@ -18,7 +18,7 @@ router.get('/AdminUsers', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
         try{
             if(err){ throw err }
             if(results){ res.send({ data: results }) }
-        }catch(e){ func.logError(e); res.status(403); return; }       
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }       
     })    
 }))
 
@@ -97,7 +97,7 @@ router.get('/adminBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddlewa
         try{
             if(err){ throw err }
             if(results){ res.send({ data: results }); }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -128,10 +128,10 @@ router.post('/addBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
                 pool.query(sql, (err, results2) => {
                     try{ if(err) throw err;
                         res.send({ success: true, data: results2[0], message: 'Blog meta added successfuly' });
-                    }catch(e){ func.logError(e); res.status(403); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -165,10 +165,10 @@ router.post('/updateBlogMeta', [func.verifyToken, func.verifyAdmin], asyncMiddle
                 pool.query(sql, (err, results2) => {
                     try{ if(err) throw err;
                         res.send({ success: true, data: results2[0], message: 'Blog meta updated successfuly' })
-                    }catch(e){ func.logError(e); res.status(403); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -178,7 +178,7 @@ router.get('/adminBlogs', [func.verifyToken, func.verifyAdmin], asyncMiddleware(
         try{
             if(err){ throw err }
             if(results){ res.send({ data: results }); }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -194,7 +194,7 @@ router.get('/blogMetaOptions', [func.verifyToken, func.verifyAdmin], asyncMiddle
                     tagOptions:             results[1]
                 });
             }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     });
 }))
 
@@ -286,7 +286,7 @@ router.post('/updateBlog', [func.verifyToken, func.verifyAdmin], asyncMiddleware
         try{
             if(err){ throw err }
             if(results){ res.send({ success: true, message: 'Blog updated successfuly' }); }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -307,7 +307,7 @@ router.post('/addComment', asyncMiddleware( async(req, res, next) => {
         try{
             if(err){ throw err }
             if(results){ res.send({ success: true, message: 'Comment submitted for approval' }); }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -330,10 +330,10 @@ router.post('/updateComment', [func.verifyToken, func.verifyAdmin], asyncMiddlew
                     try{
                         if(err2){ throw err2 }
                         if(results2){ res.send({ success: true, data: results2[0], message: 'Comment updated successfuly' }); }
-                    }catch(e){ func.logError(e); res.status(403); return; }
+                    }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
                 })
             }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -344,7 +344,7 @@ router.get('/adminComments', [func.verifyToken, func.verifyAdmin], asyncMiddlewa
         try{
             if(err){ throw err }
             if(results){ res.send({ data: results }); }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -354,7 +354,7 @@ router.get('/adminContacts', [func.verifyToken, func.verifyAdmin], asyncMiddlewa
         try{
             if(err){ throw err }
             if(results){ res.send({ data: results }); }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -398,7 +398,7 @@ router.post('/addBasic', asyncMiddleware( async(req, res, next) => {
                 const data = await func.getBasic(results.insertId)
                 res.send({ success: true, data: data, message: 'Basic added successfuly' });
             }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -433,7 +433,7 @@ router.post('/updateBasic', [func.verifyToken, func.verifyAdmin], asyncMiddlewar
                 const data = await func.getBasic(req.body.id)
                 res.send({ success: true, data: data, message: 'Basic updated successfuly' });
             }
-        }catch(e){ func.logError(e); res.status(403); return; }
+        }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
 
@@ -923,6 +923,7 @@ router.post('/checkCoupon', asyncMiddleware( async(req, res) => {
             if(results && results[0]){
                 if(results[0].type=='Single'){
                     const data = await func.checkSingleCoupon(req.body.coupon, req.body.userId)
+                    console.log('data :>> ', data);
                     if(data){
                         res.send({ success: false, message: 'Coupon already used in past' });
                     }else{

@@ -1,6 +1,6 @@
 import swal from 'sweetalert'
 
-export function callSwal(mesg){ swal({ title: mesg }) }
+export function callSwal(mesg){ swal({ title: mesg, timer: 3000 }) }
 
 // timer: 4000
 

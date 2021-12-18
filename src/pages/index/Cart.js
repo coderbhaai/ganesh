@@ -131,7 +131,8 @@ export class Cart extends Component {
         var cnt = 0;
         var dis = 0;
         this.state.cart.forEach(i => {
-            if(this.state.discount && this.state.productList.includes(i[1])){
+            // if(this.state.discount && this.state.productList.includes(i[1])){
+            if(this.state.discount){
                 if(this.state.dis_type==0){
                     cnt = cnt + i[0]*i[4] - this.state.discount*i[0]; 
                     dis +=  this.state.discount*i[0]
@@ -269,6 +270,7 @@ export class Cart extends Component {
             axios.post('/admin/checkCoupon', data)
             .catch(err=>func.printError(err))
             .then(res=>{
+                console.log(res)
                 if(res.data.success){
                     this.setState({
                         discountDetails: res.data.data,
