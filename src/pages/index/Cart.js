@@ -31,14 +31,6 @@ export class Cart extends Component {
             appId:                  secret.appId,
             rPay:                   secret.rPay,
             secretKey:              secret.secretKey,
-            // customerName:           'Amit',
-            // customerEmail:          'amit.khare588@gmail.com',
-            // customerPhone:          '8424003840',
-            // country:                'India',
-            // state:                  'Raj',
-            // city:                   'Sirohi',
-            // address:                '1172',
-            // pin:                    '122002',
             notifyUrl:              '',
             signature:              '',
             mode:                   'PROD',
@@ -375,7 +367,7 @@ export class Cart extends Component {
                                             <>
                                                 <label>Apply Coupon *</label>
                                                 <input className="form-control" type="text" name="coupon" required placeholder="Apply Coupon" value={this.state.coupon} onChange={this.onChange}/>
-                                                <div className="my-div"><button className="amitBtn" disabled={this.state.coupon? false : true} onClick={this.applyCoupon}>Apply Coupon</button></div>
+                                                <div className="my-div"><button className="clientBtn" disabled={this.state.coupon? false : true} onClick={this.applyCoupon}>Apply Coupon</button></div>
                                             </>
                                         : null }
                                     </div>
@@ -429,7 +421,7 @@ export class Cart extends Component {
                                         <div className="col-sm-12 w-100 mt-5">
                                             {/* <h3>Final Invoice : &#8377;{this.reduceCart()}</h3> */}
                                             <h3>Final Invoice : &#8377;{this.state.finalAmount}</h3>
-                                                <div className="my-div"><button className="amitBtn" disabled={this.state.allOK? false : true}>Pay now</button></div>
+                                                <div className="my-div"><button className="clientBtn" disabled={this.state.allOK? false : true}>Pay now</button></div>
                                                 <p className="text-center">{ !this.state.allOK ? "Please provide all the details to proceed further" : "Please proceed to payment" }</p>
                                         </div>
                                     </div>
@@ -438,7 +430,7 @@ export class Cart extends Component {
                             :
                             <div className="row my-5">
                                 <div className="col-sm-12">
-                                    <p className='text-center'>You are travelling with an empty cart my friend. Go back to the <a href="/shop" className="amitBtn">shop page</a> and buy something for your happy life</p>
+                                    <p className='text-center'>You are travelling with an empty cart my friend. Go back to the <a href="/shop" className="clientBtn">shop page</a> and buy something for your happy life</p>
                                 </div>
                             </div>
                         }

@@ -67,7 +67,7 @@ export class Index extends Component {
                         <h1>BOOK YOUR PANDIT JI ONLINE FOR</h1>
                         <div className="btns">
                             <p className="hindi">Wedding Events</p>
-                            <a className="amitBtn btn" href="/product/vivaah-sanskar">Book Now</a>
+                            <a className="clientBtn btn" href="/product/vivaah-sanskar">Book Now</a>
                         </div>
                         <p>Get flat 20% discount. Use Coupon WELCOME20</p>
                     </div>
@@ -82,7 +82,7 @@ export class Index extends Component {
                         <div className="col-sm-9">
                             <p>Pujarambh is end to your search for qualified pandit/purohits for any puja or hawan and authentic puja samagri for all rituals along with consultation from pandits for shubh muhurat and vastu.</p>
                             <p>We have a large network of pandits which we connects with customers to organize puja or consultations and by utilizing the individual expertise of pandits we are able to provide a better experience for customers participating in the ceremonies.</p>
-                            <a className="amitBtn" href="/about-us">Read More</a>
+                            <a className="clientBtn" href="/about-us">Read More</a>
                         </div>
                         <div className="col-sm-3">
                             <img src="/images/static/puja.jpg" className="web" alt="Book an online pandit" width="240" height="322"/>
@@ -160,7 +160,7 @@ export class Index extends Component {
                                             </li>
                                         ))}
                                     </ul>
-                                    <a href="/blog" className="amitBtn mb-5">Read More</a>
+                                    <a href="/blog" className="clientBtn mb-5">Read More</a>
                                 </div>
                                 <div className="col-sm-3 side">
                                 </div>

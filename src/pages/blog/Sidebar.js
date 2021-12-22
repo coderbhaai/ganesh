@@ -16,7 +16,7 @@ class Sidebar extends Component {
                 <div className='search'>
                     <input className="form-control" type="text" placeholder="Search for" name="search" required value={this.state.search} onChange={this.onChange}/>
                     <div className="form-group text-center">
-                        <a href={"/search/" + this.state.search} type="Submit" className="amitBtn" style={{padding:'5px 1em'}}>Search</a>
+                        <a href={"/search/" + this.state.search} type="Submit" className="clientBtn" style={{padding:'5px 1em'}}>Search</a>
                     </div>
                 </div>
                 {this.props.blogList?
@@ -43,7 +43,7 @@ class Sidebar extends Component {
             //         <h3>Search for Blogs here</h3>
             //         <input className="form-control" type="text" placeholder="Search for" name="search" required value={this.state.search} onChange={this.onChange}/>
             //         <div className="form-group text-center">
-            //             <a href={"/search/" + this.state.search} type="Submit" className="amitBtn" style={{padding:'5px 1em'}}>Search</a>
+            //             <a href={"/search/" + this.state.search} type="Submit" className="clientBtn" style={{padding:'5px 1em'}}>Search</a>
             //         </div>
             //     </div>
             //     {this.props.blogList?

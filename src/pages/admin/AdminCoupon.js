@@ -196,7 +196,7 @@ export class AdminCoupon extends Component {
                             <h2 className="heading">Admin ( Coupon )</h2>
                             <div className="btn-pag">
                                 <div className="btn-pag">
-                                    <button className="amitBtn" onClick={this.addModalOn}>Add Coupon</button>
+                                    <button className="clientBtn" onClick={this.addModalOn}>Add Coupon</button>
                                     <div>
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
@@ -277,12 +277,12 @@ export class AdminCoupon extends Component {
                                 </div>
                                 <div className="col-sm-12 compare label-down mb-5">
                                     <label>Products</label>
-                                    {/* <div className="my-div"><button onClick={this.addAllProducts} className="amitBtn">All Products</button></div> */}
+                                    {/* <div className="my-div"><button onClick={this.addAllProducts} className="clientBtn">All Products</button></div> */}
                                     <Dropdown placeholder='Select products' fluid search multiple selection onChange={this.productSelected} options={this.state.productOptions}/>
                                 </div>
                             </div>
                             <div className="my-div">
-                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                                <button className="clientBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>
@@ -347,7 +347,7 @@ export class AdminCoupon extends Component {
                                 </div>
                             </div>
                             <div className="my-div">
-                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                                <button className="clientBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>

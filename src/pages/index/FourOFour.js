@@ -32,7 +32,7 @@ export class FourOFour extends Component {
                 <Header/>
                 <div className="container page py-5">
                     <h1 className="heading my-3"> 404 Error | This page does not exist</h1>
-                    <p className="text-center">You seem to be lost my friend. Check our blogs while you are here or you can go back to the <a href="/" className="amitBtn">HOME PAGE</a></p>
+                    <p className="text-center">You seem to be lost my friend. Check our blogs while you are here or you can go back to the <a href="/" className="clientBtn">HOME PAGE</a></p>
                 </div>
                 <BlogCarousel blogs={this.state.blogs}/>
                 <Footer/>

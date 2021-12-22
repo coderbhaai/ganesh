@@ -64,7 +64,7 @@ export class AstroForm extends Component {
                     <input className="form-control" type="time" name="tob" required placeholder="Time of Birth *" value={this.state.tob} onChange={this.onChange}/>
                     <label>Place of Birth *</label>
                     <input className="form-control" type="text" name="place" required placeholder="Place of Birth*" value={this.state.place} onChange={this.onChange}/>
-                    <div className="my-div"><button className="amitBtn">Submit</button></div>
+                    <div className="my-div"><button className="clientBtn">Submit</button></div>
                 </form>
             </>
         )

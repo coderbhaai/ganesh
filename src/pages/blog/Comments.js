@@ -51,8 +51,8 @@ export class Comments extends Component {
         if(typeof(Storage) !== "undefined" && JSON.parse(localStorage.getItem('user'))){ 
             if(JSON.parse(localStorage.getItem('user')).role == 'Admin'){
                 this.setState({ 
-                    name:                   'AmitKK',
-                    email:                  'contact@amitkk.com',
+                    name:                   'Pujarmabh',
+                    email:                  'contact@pujarmabh.com',
                 })
             }else{
                 this.setState({ 
@@ -145,9 +145,9 @@ export class Comments extends Component {
                                         <>
                                             <p>{this.state.error}</p>
                                             <p>Do not include - {this.state.errorReason}</p>
-                                            <button className="amitBtn" onClick={this.resetData} style={{margin: 'auto'}}>Try Again<span></span></button> 
+                                            <button className="clientBtn" onClick={this.resetData} style={{margin: 'auto'}}>Try Again<span></span></button> 
                                         </>
-                                    :   <button className="amitBtn" style={{margin: '1em auto'}}>Submit<span></span></button> 
+                                    :   <button className="clientBtn" style={{margin: '1em auto'}}>Submit<span></span></button> 
                                     }
                                     { this.state.message ?  <p>{this.state.message}</p> : null }
                                 </div>
@@ -197,11 +197,11 @@ export class Comments extends Component {
                                                                 </div>
                                                             </div>
                                                             <div className="my-btn my-3 flex-he">
-                                                                <button className="amitBtn" type="submit" style={{maxWidth: '300px'}}>Submit</button>
+                                                                <button className="clientBtn" type="submit" style={{maxWidth: '300px'}}>Submit</button>
                                                                 <button className="btn btn-danger" onClick={this.resetData}>Cancel</button>
                                                             </div>
                                                         </form>
-                                                    : <div className="forAdmin"><button className="amitBtn" onClick={()=>this.addUserModalOn(i)} style={{margin: 'auto'}}>Reply<span></span></button></div>
+                                                    : <div className="forAdmin"><button className="clientBtn" onClick={()=>this.addUserModalOn(i)} style={{margin: 'auto'}}>Reply<span></span></button></div>
                                                     }
                                                 </div>
                                             </div>

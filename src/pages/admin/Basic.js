@@ -182,7 +182,7 @@ export class Basic extends Component {
                             <h2 className="heading">Admin ( Basic )</h2>
                             <div className="btn-pag">
                                 <div className="btn-pag">
-                                    <button className="amitBtn" onClick={this.addModalOn}>Add Basic</button>
+                                    <button className="clientBtn" onClick={this.addModalOn}>Add Basic</button>
                                     <div>
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
@@ -262,7 +262,7 @@ export class Basic extends Component {
                                 {this.state.type==='Mov'? <div className="col-sm-8"><label>Minimum Order Value</label><input name="name" type="number" className="form-control" placeholder="Minimum Order Value" value={this.state.name} required onChange={this.onChange}/></div> : null }
                             </div>
                             <div className="my-div">
-                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                                <button className="clientBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>
@@ -313,10 +313,10 @@ export class Basic extends Component {
                                 {this.state.type==='Mov'? <div className="col-sm-8"><label>Minimum Order Value</label><input name="name" type="number" className="form-control" placeholder="Minimum Order Value" value={this.state.name} required onChange={this.onChange}/></div> : null }
                             </div>
                             <div className="my-div">
-                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                                <button className="clientBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
-                        {/* {this.state.type==='Category'? <button className="amitBtn" onClick={this.deleteProductCategory}>Delete this <span></span></button> : null } */}
+                        {/* {this.state.type==='Category'? <button className="clientBtn" onClick={this.deleteProductCategory}>Delete this <span></span></button> : null } */}
                     </ModalBody>
                 </Modal>
             </>

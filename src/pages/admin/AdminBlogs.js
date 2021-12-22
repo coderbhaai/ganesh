@@ -94,7 +94,7 @@ class AdminBlogs extends Component{
                             <h1 className="heading"><span>Admin Panel</span>(Blogs)</h1>
                             <div className="btn-pag">
                                 <div className="btn-pag">
-                                    <a href="/admin/addBlog" className="amitBtn">Add Blogs</a>
+                                    <a href="/admin/addBlog" className="clientBtn">Add Blogs</a>
                                     <div>
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>

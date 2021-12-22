@@ -59,7 +59,7 @@ import RefSitemap from "../pages/admin/RefSitemap"
 import UserAdmin from "../pages/user/UserAdmin"
 
 const nodemailer = require("nodemailer");
-const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
+const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'care@pujarambh.com', pass: 'Ganpati987',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
 
 router.get('/', asyncMiddleware( async(req, res, next) => {
   const meta = await func.getMeta(req.url, 'page')
@@ -267,7 +267,7 @@ router.get('/movValue', asyncMiddleware( async (req, res, next) => {
           <p>Warm Regards</p>
           <p>Team Pujarambh</p>
           `
-        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com, sales@techsmartdevotions.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
+        let mailOptions = { to: req.body.email, from: '"Care"<care@pujarambh.com>', cc: "care@pujarambh.com, sales@techsmartdevotions.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
         transporter.sendMail( mailOptions, (error, info)=>{
           if(error){ func.printError(err) }
           func.printError("Message sent: %s")
@@ -309,7 +309,7 @@ router.get('/movValue', asyncMiddleware( async (req, res, next) => {
           <p>Warm Regards</p>
           <p>Team Pujarambh</p>
           `
-        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
+        let mailOptions = { to: req.body.email, from: '"Care"<care@pujarambh.com>', cc: "care@pujarambh.com, sales@techsmartdevotions.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
         transporter.sendMail( mailOptions, (error, info)=>{
           if(error){ func.printError(err) }
           func.printError("Message sent: %s")
@@ -344,10 +344,9 @@ router.get('/movValue', asyncMiddleware( async (req, res, next) => {
           </ul>
           <p>We will reach back to you on priority. If anything urgent, you can call me on +91-84240 03840 / +91-93548 11331</p><br/>
           <p>Warm Regards</p>
-          <p>Amit Kumar Khare</p>
-          <a href="https://www.linkedin.com/in/amitkhare588/"><p>Connect on Linkedin</p></a>
+          <p>Team Pujarmabh</p>
           `
-        let mailOptions = { to: req.body.email, from: '"AmitKK"<amit@amitkk.com>', cc: "amit.khare588@gmail.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
+        let mailOptions = { to: req.body.email, from: '"Care"<care@pujarambh.com>', cc: "care@pujarambh.com, sales@techsmartdevotions.com", subject: "Form filled on website ✔ www.pujarambh.com", html: mailBody }
         transporter.sendMail( mailOptions, (error, info)=>{
           if(error){ func.printError(err) }
           func.printError("Message sent: %s")

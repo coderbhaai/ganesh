@@ -9,7 +9,7 @@ const nodemailer = require("nodemailer");
 
 const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
 
-const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
+const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'care@pujarambh.com', pass: 'Ganpati987',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
 
 router.post('/register', asyncMiddleware( async(req, res, next) => {
     let sql = `SELECT id FROM users WHERE email='${req.body.email}'`
@@ -65,7 +65,7 @@ router.post('/register', asyncMiddleware( async(req, res, next) => {
                                                 <p>Warm Regards</p>
                                                 <p>Team pujarambh</p>
                                                 `
-                                            let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambh.com>', cc: "amit.khare588@gmail.com", subject: `${req.body.name} registered on website ✔ www.pujarambh.com`, html: mailBody }
+                                            let mailOptions = { to: req.body.email, from: '"Care"<care@pujarambh.com>', cc: "care@pujarambh.com, sales@techsmartdevotions.com", subject: `${req.body.name} registered on website ✔ www.pujarambh.com`, html: mailBody }
                                             transporter.sendMail( mailOptions, (error, info)=>{
                                                 if(error){ func.printError(err) }
                                                 func.printError("Message sent: %s")
@@ -130,7 +130,7 @@ router.post('/forgotPassword', asyncMiddleware( async(req, res, next) => {
                                 <p>Warm Regards</p>
                                 <p>Team Pujarambh</p>
                             `
-                            let mailOptions = { to: req.body.email, from: '"ContactUs"<contactus@pujarambheagle.com>', cc: `amit.khare588@gmail.com`, subject: "Password reset request ✔ www.pujarambheagle.com", html: mailBody }
+                            let mailOptions = { to: req.body.email, from: '"Care"<care@pujarambh.com>', cc: "care@pujarambh.com, sales@techsmartdevotions.com", subject: "Password reset request ✔ www.pujarambheagle.com", html: mailBody }
                             transporter.sendMail( mailOptions, (error, info)=>{
                                 res.send({ success: true, message: "Please check your mail" })
                             })

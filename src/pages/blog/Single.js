@@ -58,8 +58,6 @@ export class Single extends Component {
                         <div className="row">
                             <div className="col-sm-9">
                                 <section className="not-found-controller mb-5" dangerouslySetInnerHTML={{ __html: this.state.data.content }} />
-                                {/* <blockquote>Feel free to use images in our website by simply providing a source link to the page they are taken from. </blockquote> */}
-                                {/* <SocialShare title={this.state.data.title} url={"http://www.amitkk.com/blog/"+this.state.data.url} media={"http://www.amitkk.com/amit/storage/app/public/blog/"+ this.state.data.coverImg}/> */}
                                 <Comments comments={this.state.comments} response={this.state.response} blogId={this.state.data.id}/>
                             </div>
                             <Sidebar blogList={this.state.blogList} cats={this.state.cats} tags={this.state.tags}/>

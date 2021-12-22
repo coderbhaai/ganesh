@@ -161,7 +161,7 @@ export class Meta extends Component {
                             <h2 className="heading">Admin ( Metas )</h2>
                             <div className="btn-pag">
                                 <div className="btn-pag">
-                                    <button className="amitBtn" onClick={this.addModalOn}>Add Meta</button>
+                                    <button className="clientBtn" onClick={this.addModalOn}>Add Meta</button>
                                     <div>
                                         <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                         <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
@@ -229,7 +229,7 @@ export class Meta extends Component {
                                 </div>
                             </div>
                             <div className="my-div">
-                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                                <button className="clientBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>
@@ -259,7 +259,7 @@ export class Meta extends Component {
                                 </div>
                             </div>
                             <div className="my-div">
-                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                                <button className="clientBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>

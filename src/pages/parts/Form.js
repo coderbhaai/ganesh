@@ -48,7 +48,7 @@ export class Form extends Component {
                     <input className="form-control" type="number" onKeyDown={ (e) => e.key === 'e' && e.preventDefault() } min="0"  name="phone" required placeholder="Mobile Number Please *" value={this.state.phone} onChange={this.phoneValidate}/>
                     <label>Message *</label>
                     <textarea name="message" className="form-control" required placeholder="Please tell us a little about your requirement" value={this.state.message} onChange={this.onChange}></textarea>
-                    <div className="my-div"><button className="amitBtn">Submit</button></div>                    
+                    <div className="my-div"><button className="clientBtn">Submit</button></div>                    
                 </form>
             </>
         )

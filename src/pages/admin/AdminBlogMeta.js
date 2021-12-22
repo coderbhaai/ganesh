@@ -160,7 +160,7 @@ class AdminBlogMeta extends Component {
                         <div className="col-sm-10">
                             <h1 className="heading"><span>Admin Panel</span>(Blog Meta)</h1>
                             <div className="btn-pag">
-                                <button className="amitBtn" onClick={this.addMetaModalOn}>Add Blog Meta</button>
+                                <button className="clientBtn" onClick={this.addMetaModalOn}>Add Blog Meta</button>
                                 <div>
                                     <input type="text" placeholder="Search here" className="form-control" onChange={(e)=>this.searchSpace(e)}/>
                                     <select className="form-control" required value={itemsPerPage} onChange={(e)=>this.changeitemsPerPage(e)}>
@@ -222,7 +222,7 @@ class AdminBlogMeta extends Component {
                                 </div>
                             </div>
                             <div className="my-btn">
-                                <button className="amitBtn" type="submit">Submit</button> 
+                                <button className="clientBtn" type="submit">Submit</button> 
                             </div>
                         </form>
                     </ModalBody>
@@ -255,11 +255,11 @@ class AdminBlogMeta extends Component {
                                 </div>
                             </div>
                             <div className="my-btn">
-                                <button className="amitBtn" type="submit">Submit</button> 
+                                <button className="clientBtn" type="submit">Submit</button> 
                             </div>
                         </form>
                         {this.state.type=='category' || this.state.type=='tag' ? 
-                            <button className="amitBtn" style={{float: 'right'}} onClick={this.deleteMeta}>Delete This</button> 
+                            <button className="clientBtn" style={{float: 'right'}} onClick={this.deleteMeta}>Delete This</button> 
                         : null }
                     </ModalBody>
                 </Modal>

@@ -313,7 +313,7 @@ export class EditProduct extends Component {
                                         <Dropdown placeholder='Select Related Products' fluid search multiple selection onChange={this.relatedSelected} options={this.state.productOptions}/>
                                     </div>
                                     <div className="my-div col-sm-12">
-                                        <button className="amitBtn" type="submit">Submit</button>
+                                        <button className="clientBtn" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </form>

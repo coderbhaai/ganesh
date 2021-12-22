@@ -85,7 +85,7 @@ export class Schema extends Component {
                             <div>
                                 <p className="ml6">{'{'}</p>
                                     <p className="ml7">"@type": "Review",</p>
-                                    <p className="ml5">"author":{'{'}"name": "Amit Khare", "@type": "Person" {"},"}</p>
+                                    <p className="ml5">"author":{'{'}"name": "Pujaramabh", "@type": "Person" {"},"}</p>
                                     <p className="ml7">"datePublished": "{moment(currentdate).format("DD MMMM  YYYY")}",</p>
                                     <p className="ml7">"reviewBody": "The best product I had for my family.",</p>
                                     <p className="ml7">"name": "Pujarambh Customer",</p>

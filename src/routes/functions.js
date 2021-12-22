@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 var pool = require('./mysqlConnector')
 const time = new Date().toISOString().slice(0, 19).replace('T', ' ')
 import bcrypt from 'bcryptjs';
-const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'contactus@thetrueloans.com', pass: 'contactus@123',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
+const transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'care@pujarambh.com', pass: 'Ganpati987',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
 // export function getMeta(url) {
 //     return new Promise((resolve, reject) => {
 //         let sql =   `SELECT title, description, keyword FROM metas WHERE url='${url}';
@@ -619,7 +619,7 @@ export function mailOrder(loggedIn, name, email, password, cart){
             <p>Warm Regards</p>
             <p>Team Ecom</p>
             `
-        let mailOptions1 = { to: email, from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Submitted ✔ www.pujarambh.com", html: mailBody1 }
+        let mailOptions1 = { to: email, from: '"Care"<care@pujarambh.com>', cc: "care@pujarambh.com, sales@techsmartdevotions.com", subject: "Order Submitted ✔ www.pujarambh.com", html: mailBody1 }
         transporter.sendMail( mailOptions1, (err, info)=>{ 
             if(err){ logError(err) }
             resolve( info )
@@ -633,7 +633,7 @@ export function mailOrder(loggedIn, name, email, password, cart){
         <p>Team Ecom</p>
         `
 
-        let mailOptions2 = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', cc: `amit@amitkk.com`, subject: "Order Received ✔ www.pujarambh.com", html: mailBody2 }
+        let mailOptions2 = { to: 'care@pujarambh.com', from: '"Care"<care@pujarambh.com>', cc: "sales@techsmartdevotions.com", subject: "Order Received ✔ www.pujarambh.com", html: mailBody2 }
         transporter.sendMail( mailOptions2, (err, info)=>{ 
             if(err){ logError(err) }
             resolve( info )
@@ -700,10 +700,10 @@ function sendMailOnError(e) {
         <p>Then check the log</p>
         ${e}
         <p>Warm Regards</p>
-        <p>Team AmitKK</p>
+        <p>Team Pujarmabh</p>
     `
-    let transporter = nodemailer.createTransport({ host: "smtpout.secureserver.net", port: 465, secure: true, auth: { user: 'amit@amitkk.com', pass: 'coderBhai@2203',  debug: true }, tls:{ rejectUnauthorized: false, secureProtocol: "TLSv1_method" } });
-    let mailOptions = { to: 'amit.khare588@gmail.com', from: 'amit@amitkk.com', subject: "Error on ✔ www.pujarambh.com", html: mailBody }
+    
+    let mailOptions = { to: '', from: '"Care"<care@pujarambh.com>',  subject: "Error on ✔ www.pujarambh.com", html: mailBody }
     transporter.sendMail( mailOptions, (error, info)=>{
         // res.send({ success: true, message: "Please check your mail" })
     })

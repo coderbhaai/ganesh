@@ -176,7 +176,7 @@ export class AdminComments extends Component {
                             </div>
                         </div>
                         <div className="my-div">
-                            <button className="amitBtn" type="submit">Submit</button> 
+                            <button className="clientBtn" type="submit">Submit</button> 
                         </div>
                     </form>
                 </Modal>

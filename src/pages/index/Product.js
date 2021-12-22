@@ -321,7 +321,7 @@ export class Product extends Component {
                                                 </div>
                                             </div>
                                         : null}
-                                        <button className="amitBtn" onClick={()=>this.addToCart(this.state.product)}>Add To Cart</button>
+                                        <button className="clientBtn" onClick={()=>this.addToCart(this.state.product)}>Add To Cart</button>
                                     </>
                                 : null}
                             </div>
@@ -453,7 +453,7 @@ export class Product extends Component {
                                                                     <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } data={this.state.review} review= {this.state.review} onChange={this.onEditorChange1}/>
                                                                 </div>
                                                             </div>
-                                                            <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
+                                                            <div className="my-div"><button className="clientBtn" type="submit">Submit</button></div>
                                                         </form>
                                                     : this.state.allowReview && !this.state.isSeller ?
                                                         <form encType="multipart/form-data" onSubmit={this.addReview}>
@@ -477,7 +477,7 @@ export class Product extends Component {
                                                                     <CKEditor onBeforeLoad={ ( CKEDITOR ) => ( CKEDITOR.disableAutoInline = true ) } review= {this.state.review} onChange={this.onEditorChange1}/>
                                                                 </div>
                                                             </div>
-                                                            <div className="my-div"><button className="amitBtn" type="submit">Submit</button></div>
+                                                            <div className="my-div"><button className="clientBtn" type="submit">Submit</button></div>
                                                         </form>
                                                     :
                                                         <h3 className="heading" style={{textAlign:'left', marginBottom:'0'}}><span>Please login to submit a review</span></h3>
@@ -494,7 +494,7 @@ export class Product extends Component {
                 <div className="mt-5 doubtShield">
                     <div className="container">
                         <h3>Have Doubts regarding this product?</h3>
-                        <button className="amitBtn" onClick={this.addModalOn}>Post Your Question</button>
+                        <button className="clientBtn" onClick={this.addModalOn}>Post Your Question</button>
                     </div>
                     <div className="container">
                         <img src="/images/icons/shield.svg" alt="Authentic puja products"/>
@@ -527,7 +527,7 @@ export class Product extends Component {
                                 </div>
                             </div>
                             <div className="my-div">
-                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                                <button className="clientBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>

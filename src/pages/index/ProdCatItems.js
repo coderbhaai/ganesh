@@ -61,7 +61,7 @@ export class ProdCatItems extends Component {
                                     :
                                     <>
                                         <p className="text-center">We are yet to add products for this category. Do check out our shop directly</p>
-                                        <div className="my-div"><a class="amitBtn" href="/shop">Shop</a></div>
+                                        <div className="my-div"><a class="clientBtn" href="/shop">Shop</a></div>
                                     </>
 
                                 }

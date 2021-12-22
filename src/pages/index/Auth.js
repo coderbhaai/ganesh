@@ -232,7 +232,7 @@ class Auth extends Component {
                                                     <input type="password" className="form-control" name="password_confirmation" value={this.state.password_confirmation} required placeholder="Confirm Password" onChange={this.onChange}/>
                                                 </div> */}
                                             </div>
-                                            <div className="my-div"><button className="amitBtn" type="submit">Register</button></div>
+                                            <div className="my-div"><button className="clientBtn" type="submit">Register</button></div>
                                         </form>
                                     </>
                                 : this.state.active=='Login' ?
@@ -243,7 +243,7 @@ class Auth extends Component {
                                             <label>Password</label>
                                             <input type="password" className="form-control" name="password" required placeholder="Password Please" onChange={this.onChange} value={this.state.password}/>
                                             <div className="my-div">
-                                                <button className="amitBtn mr-5" type="submit">Login</button>
+                                                <button className="clientBtn mr-5" type="submit">Login</button>
                                             </div>
                                         </form>
                                         <p onClick={()=>this.changeActive('Forgot Password')} className='text-center check'><span>Forgot Password</span></p>
@@ -260,7 +260,7 @@ class Auth extends Component {
                                                 <input id="emailRegister" type="email" className="form-control" name="email" required placeholder="Email Please" onChange={this.onChange}/>
                                             </div>
                                         </div>
-                                        <div className="my-div"><button className="amitBtn" type="submit">Reset Password</button></div>
+                                        <div className="my-div"><button className="clientBtn" type="submit">Reset Password</button></div>
                                     </form>
                                 : this.state.active=='Reset Password' ?
                                     <form onSubmit={this.resetPassword} className="mt-5">
@@ -278,7 +278,7 @@ class Auth extends Component {
                                                 <input id="password-confirm" type="password" className="form-control" name="confirm_password" required autoComplete="new-password" value={this.state.confirm_password} onChange={this.onChange} placeholder="Confirm Password"/>
                                             </div>
                                         </div>
-                                        <div className="my-div"><button type="submit" className="amitBtn">Reset Password</button></div>
+                                        <div className="my-div"><button type="submit" className="clientBtn">Reset Password</button></div>
                                     </form>
                                 : null}
                             </div>

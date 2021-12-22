@@ -165,9 +165,9 @@ export class Shop extends Component {
                     <div className="row mt-5">
                         <div className="col-sm-3 bg-white text-center">
                             {this.state.showFilter=='web'?
-                                <button className="amitBtn mobile showFilter" onClick={this.showFilter}>Show Filters</button>
+                                <button className="clientBtn mobile showFilter" onClick={this.showFilter}>Show Filters</button>
                             : 
-                                <button className="amitBtn mobile showFilter" onClick={this.hideFilter}>Hide Filters</button>
+                                <button className="clientBtn mobile showFilter" onClick={this.hideFilter}>Hide Filters</button>
                             }
 
                             <div className={this.state.showFilter}>

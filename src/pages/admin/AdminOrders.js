@@ -170,7 +170,7 @@ class AdminOrders extends Component {
                                 </div>
                             </div>
                             <div className="my-div">
-                                <button className="amitBtn" type="submit">Submit<span></span></button> 
+                                <button className="clientBtn" type="submit">Submit<span></span></button> 
                             </div>
                         </form>
                     </ModalBody>
