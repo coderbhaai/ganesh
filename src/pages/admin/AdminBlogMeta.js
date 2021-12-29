@@ -143,8 +143,8 @@ class AdminBlogMeta extends Component {
                 <tr key={index}>
                     <td>{index+1}</td>
                     <td>{i.type}</td>
-                    <td>{i.name}</td>                                              
-                    <td>{i.url}</td>
+                    <td><a href={"/"+i.type+"/"+i.url} target="_blank">{i.name}</a></td>
+                    <td><a href={"/"+i.type+"/"+i.url} target="_blank">{i.url}</a></td>
                     <td className="editIcon text-center"><img src="/images/icons/edit.svg" alt="Edit Icon" onClick={()=>this.editMetaModalOn(i)}/></td>
                 </tr>
         )})

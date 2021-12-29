@@ -222,7 +222,7 @@ form{
     }
 }
 .reviewsDesc{
-    ul{
+    .nav{
         display: flex;
         li{
             display: inline-block;
@@ -233,9 +233,6 @@ form{
                 color: #fff;
                 display: block;
                 padding: 10px;
-            }
-            .active{
-              background: $primary;  
             }
         }
         li:not(:last-child){

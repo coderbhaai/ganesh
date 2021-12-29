@@ -140,7 +140,7 @@ export class Meta extends Component {
             return (
                 <tr key={index}>
                     <td>{index +1}</td>
-                    <td>{i.url}</td>                                              
+                    <td><a href={i.url} target="_blank">{i.url}</a></td>                                              
                     <td>
                         <p className={i.title.length>60? 'redColor' : null}>Title : {i.title}</p>
                         <p className={i.description.length>160? 'redColor' : null}>Description : {i.description}</p>

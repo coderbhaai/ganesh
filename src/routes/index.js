@@ -526,7 +526,7 @@ router.get('/:url', asyncMiddleware( async(req, res, next) => {
           />)
           res.status(200).render('blog/Single', { reactApp: reactComp, meta: meta })
         }else{
-          res.redirect('/shop');
+          res.redirect('/404');
         }
     }catch(e){ func.logError(e, req.url); res.status(403); return; }
   });
