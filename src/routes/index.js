@@ -95,7 +95,7 @@ router.get('/product/:url', asyncMiddleware( async (req, res, next) => {
                 const relatedList   = await func.productRelatedName(JSON.parse(results[0].related))
                 const reviewList    = await func.productReview(JSON.parse( results[0].id ))
                 res.status(200).render('pages/Product', { reactApp: renderToString(<Product product={results[0]} incList={incList} catProducts={catProducts} excList={excList} recomList={recomList} relatedList={relatedList} reviewList={reviewList} catName={catName}/>), meta: meta })
-            }else{ res.redirect('/shop'); }
+            }else{ res.redirect('/404'); }
         }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
@@ -108,7 +108,7 @@ router.get('/shop', asyncMiddleware( async (req, res, next) => {
             if(err){ throw err }
             if(results.length){
               res.status(200).render('pages/ProductCategory', { reactApp: renderToString(<ProductCategory category={results} />), meta: meta })
-            }else{ res.redirect('/shop'); }
+            }else{ res.redirect('/404'); }
         }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
@@ -132,7 +132,7 @@ router.get('/product-category/:url', asyncMiddleware( async (req, res, next) => 
             if(results.length){
               const products = await func.getProductsOfCat(results[0].id)
               res.status(200).render('pages/ProdCatItems', { reactApp: renderToString(<ProdCatItems products={products}/>), meta: meta })
-            }else{ res.redirect('/shop'); }
+            }else{ res.redirect('/404'); }
         }catch(e){ res.send({ success: false, message: e.sqlMessage }); func.logError(e); res.status(500); return; }
     })
 }))
@@ -184,7 +184,7 @@ router.get('/movValue', asyncMiddleware( async (req, res, next) => {
                 const reactComp = renderToString(  <Blog blogs={results2} title={title}/>  )
                 res.status(200).render('blog/Blog', { reactApp: reactComp, meta: meta, blogs: results2 })
             });        
-          }else{ res.redirect('/blog'); } }
+          }else{ res.redirect('/404'); } }
       }catch(e){ func.logError(e); res.status(403); return; }
     });
   }))
@@ -505,6 +505,11 @@ router.get('/product-tag/:url', asyncMiddleware( async (req, res, next) => { con
 router.get('/cart', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
 router.get('/payment-response', asyncMiddleware( async (req, res, next) => { const meta = await func.getMeta(req.url, 'page'); res.status(200).render('pages/Cart', { reactApp: renderToString(<Cart/>), meta: meta }) }))
 // Shopping
+
+// redirect
+router.get('/puja-muhurat-in-2021', asyncMiddleware( async(req, res, next) => { res.redirect('/puja-muhurat-in-2022') }));
+router.get('/shardiya-navratri-2021', asyncMiddleware( async(req, res, next) => { res.redirect('/shardiya-navratri-2022') }));
+// redirect
 
 router.get('/:url', asyncMiddleware( async(req, res, next) => {
   let sql = `SELECT * FROM blogs WHERE url = '${req.params.url}'`;
