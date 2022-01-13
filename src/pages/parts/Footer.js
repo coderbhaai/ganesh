@@ -34,7 +34,7 @@ export class Footer extends Component {
                     </div>
                 </div>
                 <div className="akk">
-                    <p>© 2021 Pujarambh - All Rights Reserved</p>
+                    <p>© 2022 Pujarambh - All Rights Reserved</p>
                 </div>
             </footer>
             <div className="callBack">
