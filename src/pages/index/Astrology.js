@@ -21,7 +21,7 @@ export class Astrology extends Component {
                                 {func.astrology.map((i,index)=>(
                                     <div className="col-sm-4" key={index}>
                                         <div>
-                                            <div className="zodiacImage"><img src={"/images/icons/"+i.image}/></div>
+                                            <div className="zodiacImage"><img src={"/images/icons/"+i.image} alt={i.name}/></div>
                                             <h4>{i.name}</h4>
                                             <p>{i.date}</p>
                                         </div>
